@@ -74,7 +74,7 @@ export default function RootLayout({
       className={`${baskerville.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-dvh font-sans antialiased">
+      <body className="min-h-dvh font-sans antialiased" suppressHydrationWarning>
         {children}
         <Toaster />
       </body>

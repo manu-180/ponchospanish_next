@@ -25,7 +25,7 @@ export function ReviewsSection() {
             Word of mouth
           </p>
           <h2 className="font-serif text-display-md text-balance">
-            What our lovely families say
+            What families value most
           </h2>
         </div>
 

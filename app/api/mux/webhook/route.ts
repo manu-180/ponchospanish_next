@@ -16,6 +16,7 @@ import { getSupabaseAdminClient } from "@/lib/supabase/server";
 import { verifyMuxSignature } from "@/lib/mux/webhook";
 import { muxThumbnailUrl, muxStaticMp4Url } from "@/lib/mux/client";
 import { generateSubtitlesForLesson } from "@/lib/transcription/whisper";
+import type { Json } from "@/types/database";
 
 export const dynamic = "force-dynamic";
 
@@ -65,7 +66,7 @@ export async function POST(req: Request) {
     provider: "mux",
     event_id: event.id,
     event_type: event.type,
-    payload: event as unknown as Record<string, unknown>,
+    payload: event as unknown as Json,
   });
   if (dupErr) {
     // 23505 = unique_violation → already processed, return 200

@@ -5,7 +5,7 @@ import { ArrowRight, PlayCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-const headline = ["We help", "curious minds", "learn", "Spanish"];
+const headline = ["Helping", "curious minds", "learn", "Spanish"];
 
 export function HeroSection() {
   return (
@@ -56,9 +56,7 @@ export function HeroSection() {
             transition={{ duration: 0.7, delay: 0.55 }}
             className="text-lg leading-relaxed text-charcoal-500/85 max-w-xl"
           >
-            Online classes for kids &amp; teens (and the occasional curious
-            grown-up) who want to speak <strong>Spanish</strong> without the
-            panic or the perfectionism.
+            Without the panic or the perfectionism.
           </motion.p>
 
           <motion.div
@@ -68,7 +66,7 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row gap-3 sm:items-center"
           >
             <Button asChild size="pill-lg">
-              <Link href="/contact">
+              <Link href="/#contact">
                 Book a free trial
                 <ArrowRight className="h-4 w-4" />
               </Link>

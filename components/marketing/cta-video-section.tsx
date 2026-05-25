@@ -5,9 +5,11 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const CALENDLY_URL = "https://calendly.com/ponchospanish/30min";
+
 export function CtaVideoSection() {
   return (
-    <section className="relative overflow-hidden h-[520px] md:h-[560px]">
+    <section className="relative overflow-hidden h-[560px] md:h-[600px]">
       <video
         src="/videos/video2.mp4"
         autoPlay
@@ -38,29 +40,28 @@ export function CtaVideoSection() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-mustard-200">
             Let&rsquo;s begin
           </p>
-          <h2 className="font-serif text-display-xl text-white text-balance">
-            Ready to start
-            <br />
-            <span className="italic text-mustard-200">your journey?</span>
+          <h2 className="font-serif text-display-xl text-white text-balance uppercase">
+            Ready to start?
           </h2>
-          <p className="text-lg text-cream/85 max-w-xl mx-auto">
-            Book a free trial lesson — or jump straight into our online Academy
-            and start at your own pace, today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+          <div className="space-y-3 max-w-2xl mx-auto">
+            <p className="text-lg text-cream/90">
+              Book a free trial lesson now and see how supportive learning can
+              make a real difference.
+            </p>
+            <p className="text-sm text-cream/75 italic">
+              Spaces are limited, so early booking is recommended.
+            </p>
+          </div>
+          <div className="flex justify-center pt-2">
             <Button asChild size="pill-lg">
-              <Link href="/contact">
-                Get in touch
+              <Link
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book your free trial lesson now
                 <ArrowRight className="h-4 w-4" />
               </Link>
-            </Button>
-            <Button
-              asChild
-              size="pill-lg"
-              variant="soft"
-              className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-md"
-            >
-              <Link href="/ondemand">Browse the Academy</Link>
             </Button>
           </div>
         </motion.div>

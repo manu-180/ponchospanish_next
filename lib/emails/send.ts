@@ -14,6 +14,7 @@
 import { Resend } from "resend";
 import { env, features } from "@/lib/env";
 import { getSupabaseAdminClient } from "@/lib/supabase/server";
+import type { Json } from "@/types/database";
 
 let _resend: Resend | null = null;
 
@@ -136,7 +137,7 @@ async function logEmail(args: LogEmailArgs): Promise<void> {
       subject: args.subject,
       status: args.status,
       provider_message_id: args.providerMessageId ?? null,
-      payload: args.meta ?? null,
+      payload: (args.meta ?? null) as Json | null,
       error: args.error ?? null,
     });
   } catch (err) {

@@ -28,7 +28,10 @@ export function AccountForm({
       const supabase = getSupabaseBrowserClient();
       const { error } = await supabase
         .from("profiles")
-        .upsert({ id: userId, email, full_name: fullName }, { onConflict: "id" });
+        .upsert(
+          { id: userId, email, full_name: fullName } as never,
+          { onConflict: "id" },
+        );
       if (error) {
         toast.error(error.message);
         return;

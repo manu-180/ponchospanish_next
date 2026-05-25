@@ -1,8 +1,10 @@
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 import { env } from "@/lib/env";
-import type { Database } from "@/types/database";
+import type { Database, Profile } from "@/types/database";
+
+type CookieToSet = { name: string; value: string; options?: CookieOptions };
 
 /** Server Component / Route Handler / Server Action — respects user session via cookies. */
 export async function getSupabaseServerClient() {
@@ -16,7 +18,7 @@ export async function getSupabaseServerClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: CookieToSet[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
@@ -51,24 +53,36 @@ export async function getCurrentUser() {
   return data.user ?? null;
 }
 
-export async function getCurrentProfile() {
+export async function getCurrentProfile(): Promise<Profile | null> {
+  // 1. Validate the session using cookies (impossible to forge — the cookie
+  //    is signed by Supabase).
   const supabase = await getSupabaseServerClient();
   const { data: userData } = await supabase.auth.getUser();
   if (!userData.user) return null;
 
-  const { data: profile } = await supabase
+  // 2. Read the profile via the admin client (service role) to bypass RLS.
+  //    This is safe because:
+  //      a) The user.id came from a verified session.
+  //      b) We only read the row matching that exact user.id.
+  //    Doing it this way avoids the "infinite recursion in policy" trap
+  //    where RLS on `profiles` depends on `profiles` itself.
+  const admin = getSupabaseAdminClient();
+  const { data: profile } = await admin
     .from("profiles")
     .select("*")
     .eq("id", userData.user.id)
     .maybeSingle();
 
-  return profile;
+  return (profile as Profile | null) ?? null;
 }
 
-export async function requireAdmin() {
+export async function requireAdmin(): Promise<
+  | { ok: true; profile: Profile }
+  | { ok: false; reason: "forbidden" }
+> {
   const profile = await getCurrentProfile();
   if (!profile || profile.role !== "admin") {
-    return { ok: false as const, reason: "forbidden" as const };
+    return { ok: false, reason: "forbidden" };
   }
-  return { ok: true as const, profile };
+  return { ok: true, profile };
 }

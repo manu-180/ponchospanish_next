@@ -46,7 +46,7 @@ export function MarkCompleteButton({
       const { error } = await supabase
         .from("lesson_progress")
         .upsert(
-          { user_id: userId, lesson_id: lessonId },
+          { user_id: userId, lesson_id: lessonId } as never,
           { onConflict: "user_id,lesson_id" },
         );
       if (error) {

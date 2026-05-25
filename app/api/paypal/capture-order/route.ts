@@ -5,6 +5,7 @@ import {
   getSupabaseAdminClient,
 } from "@/lib/supabase/server";
 import { paypalFetch } from "@/lib/paypal/client";
+import type { Json } from "@/types/database";
 
 const Schema = z.object({
   orderId: z.string().min(3),
@@ -87,7 +88,7 @@ export async function POST(request: Request) {
     .update({
       status: capture.status === "COMPLETED" ? "captured" : "approved",
       provider_capture_id: captureRecord?.id ?? null,
-      raw_payload: capture as unknown as object,
+      raw_payload: capture as unknown as Json,
     })
     .eq("id", payment.id);
 

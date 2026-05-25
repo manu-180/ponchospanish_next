@@ -3,7 +3,7 @@ import {
   getCurrentUser,
   getCurrentProfile,
 } from "@/lib/supabase/server";
-import { AppHeader } from "@/components/learn/app-header";
+import { AdminSidebar } from "@/components/admin/admin-sidebar";
 
 export const metadata = {
   title: "Admin — Poncho",
@@ -23,14 +23,11 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-cream-50">
-      <AppHeader
-        email={profile.email}
-        name={profile.full_name}
-        isAdmin
-        variant="admin"
-      />
-      <main>{children}</main>
+    <div className="min-h-screen bg-cream">
+      <div className="flex">
+        <AdminSidebar email={profile.email} name={profile.full_name} />
+        <main className="flex-1 min-w-0">{children}</main>
+      </div>
     </div>
   );
 }

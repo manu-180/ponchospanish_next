@@ -115,7 +115,7 @@ export default async function CourseDetailPage({ params }: PageProps) {
               <Badge variant="terracotta">{course.level}</Badge>
               {course.price_gbp === 0 && <Badge variant="free">Free</Badge>}
               {course.money_back_enabled && (
-                <Badge variant="secondary">
+                <Badge variant="muted">
                   <ShieldCheck className="h-3 w-3 mr-1" />
                   {course.money_back_days}-day money-back
                 </Badge>

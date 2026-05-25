@@ -22,13 +22,16 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { RedeemCodeCard } from "@/components/learn/redeem-code-card";
+import { AdminBanner } from "@/components/admin/admin-banner";
 
 export const metadata = { title: "My Academy" };
+export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/auth/login");
   const profile = await getCurrentProfile();
+  const isAdmin = profile?.role === "admin";
 
   const supabase = await getSupabaseServerClient();
   let enrollments: Awaited<ReturnType<typeof listUserEnrollments>> = [];
@@ -47,6 +50,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="container-wide py-10 md:py-14 space-y-12">
+      {isAdmin && <AdminBanner />}
       <section className="grid gap-6 md:grid-cols-[1.4fr_1fr] items-stretch">
         <div className="rounded-3xl bg-gradient-to-br from-mustard via-mustard-400 to-terracotta p-8 md:p-10 text-white shadow-soft-lg relative overflow-hidden">
           <div

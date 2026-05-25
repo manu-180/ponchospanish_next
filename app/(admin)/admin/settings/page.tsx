@@ -71,7 +71,7 @@ export default function AdminSettingsPage() {
               {i.done ? (
                 <Badge variant="success">Connected</Badge>
               ) : (
-                <Badge variant="destructive">Not configured</Badge>
+                <Badge variant="terracotta">Not configured</Badge>
               )}
             </div>
           ))}

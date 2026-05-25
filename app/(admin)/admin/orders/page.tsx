@@ -62,7 +62,7 @@ export default async function AdminOrdersPage() {
                       <Badge
                         variant={
                           p.status === "captured" ? "success" :
-                          p.status === "failed" ? "destructive" :
+                          p.status === "failed" ? "terracotta" :
                           p.status === "refunded" ? "muted" : "outline"
                         }
                       >

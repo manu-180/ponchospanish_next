@@ -106,7 +106,7 @@ export default async function OnDemandPage() {
                   moment they&rsquo;re live.
                 </p>
                 <Button asChild className="mt-6">
-                  <Link href="/contact">Notify me</Link>
+                  <Link href="/#contact">Notify me</Link>
                 </Button>
               </CardContent>
             </Card>

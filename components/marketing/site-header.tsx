@@ -16,7 +16,7 @@ interface SiteHeaderProps {
 const links = [
   { href: "/", label: "Home", icon: null },
   { href: "/ondemand", label: "Academy", icon: GraduationCap },
-  { href: "/contact", label: "Try a lesson", icon: Mail },
+  { href: "/#contact", label: "Try a lesson", icon: Mail },
 ];
 
 export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
@@ -97,7 +97,7 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
             </Button>
           )}
           <Button asChild size="pill">
-            <Link href="/contact">Book a trial</Link>
+            <Link href="/#contact">Book a trial</Link>
           </Button>
         </div>
 
@@ -160,7 +160,7 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
                   </Button>
                 )}
                 <Button asChild size="lg">
-                  <Link href="/contact">Book a trial</Link>
+                  <Link href="/#contact">Book a trial</Link>
                 </Button>
               </div>
             </nav>

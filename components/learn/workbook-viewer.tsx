@@ -70,7 +70,7 @@ export function WorkbookViewer({
         workbook_id: workbook.id,
         content: note,
         updated_at: new Date().toISOString(),
-      },
+      } as never,
       { onConflict: "user_id,workbook_id" },
     );
     setSaving(false);

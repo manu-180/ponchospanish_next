@@ -29,7 +29,7 @@ export default function TermsPage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-6 border-b border-charcoal-100/40">
             <div>
               <p className="font-semibold">terms_and_conditions.pdf</p>
-              <p className="text-xs text-charcoal-400">Updated 2025</p>
+              <p className="text-xs text-charcoal-400">Updated 2026 – 2027</p>
             </div>
             <div className="flex gap-2">
               <Button asChild variant="soft">
@@ -60,7 +60,7 @@ export default function TermsPage() {
         <p className="mt-8 text-sm text-charcoal-400 text-center">
           Have a question? Just{" "}
           <Link
-            href="/contact"
+            href="/#contact"
             className="underline-offset-4 underline hover:text-mustard-600"
           >
             send us a message

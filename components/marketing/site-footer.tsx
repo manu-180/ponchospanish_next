@@ -35,7 +35,7 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-mustard-200 transition-colors">
+              <Link href="/#contact" className="hover:text-mustard-200 transition-colors">
                 Book a trial
               </Link>
             </li>
