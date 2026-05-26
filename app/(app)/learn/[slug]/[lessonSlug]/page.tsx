@@ -12,11 +12,12 @@ import {
   userHasAccessToCourse,
 } from "@/lib/supabase/queries";
 import { resolveStorageUrl, STORAGE_BUCKETS } from "@/lib/supabase/storage";
+import { signMuxPlaybackToken } from "@/lib/mux/signing";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CourseOutline } from "@/components/learn/course-outline";
-import { VideoPlayer } from "@/components/learn/video-player";
+import { MuxLessonPlayer } from "@/components/learn/mux-lesson-player";
 import { WorkbookViewer } from "@/components/learn/workbook-viewer";
 import { MarkCompleteButton } from "@/components/learn/mark-complete-button";
 
@@ -55,9 +56,33 @@ export default async function LessonPage({ params }: PageProps) {
   );
   const accessibleLesson = hasAccess || lesson.isFree;
 
-  // Resolve video & workbooks via admin (works regardless of RLS).
-  const videoUrl = accessibleLesson
-    ? await resolveStorageUrl(STORAGE_BUCKETS.videos, lesson.video_path)
+  // Mint signed Mux playback + thumbnail tokens server-side. Tokens have a
+  // 15 min TTL — fine for a single lesson view.
+  const muxReady =
+    accessibleLesson &&
+    lesson.mux_status === "ready" &&
+    !!lesson.mux_playback_id;
+
+  const playbackToken = muxReady
+    ? signMuxPlaybackToken({
+        playbackId: lesson.mux_playback_id!,
+        audience: "video",
+        subject: user.id,
+      })
+    : null;
+  const thumbnailToken = muxReady
+    ? signMuxPlaybackToken({
+        playbackId: lesson.mux_playback_id!,
+        audience: "thumbnail",
+        subject: user.id,
+      })
+    : null;
+  const storyboardToken = muxReady
+    ? signMuxPlaybackToken({
+        playbackId: lesson.mux_playback_id!,
+        audience: "storyboard",
+        subject: user.id,
+      })
     : null;
 
   const admin = getSupabaseAdminClient();
@@ -132,10 +157,15 @@ export default async function LessonPage({ params }: PageProps) {
             </h2>
           </div>
 
-          <VideoPlayer
-            src={videoUrl}
+          <MuxLessonPlayer
+            playbackId={lesson.mux_playback_id}
+            playbackToken={playbackToken}
+            thumbnailToken={thumbnailToken}
+            storyboardToken={storyboardToken}
             title={lesson.title}
             locked={!accessibleLesson}
+            userId={user.id}
+            lessonId={lesson.id}
           />
 
           <div className="flex flex-wrap items-center justify-between gap-3">
