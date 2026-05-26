@@ -223,8 +223,8 @@ export function CurriculumBuilder({
             Empezá creando el primer módulo
           </p>
           <p className="mt-1 text-sm text-charcoal-400">
-            Un módulo agrupa lecciones (videos). Ej: "Introducción", "Vocabulario
-            básico", "Conversación".
+            Un módulo agrupa lecciones (videos). Ej: &ldquo;Introducción&rdquo;, &ldquo;Vocabulario
+            básico&rdquo;, &ldquo;Conversación&rdquo;.
           </p>
           <Button onClick={addModule} className="mt-4" disabled={creating}>
             <Plus className="h-4 w-4" /> Crear primer módulo
@@ -232,6 +232,7 @@ export function CurriculumBuilder({
         </div>
       ) : (
         <DndContext
+          id="curriculum-modules"
           sensors={sensors}
           collisionDetection={closestCenter}
           onDragEnd={handleModuleDragEnd}
@@ -528,6 +529,7 @@ function LessonList({
 
   return (
     <DndContext
+      id={`lessons-${moduleId}`}
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}

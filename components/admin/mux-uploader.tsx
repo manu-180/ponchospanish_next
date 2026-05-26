@@ -1,20 +1,25 @@
 "use client";
 
 /**
- * Tus.io-based resumable uploader for Mux Direct Uploads.
+ * UpChunk-based resumable uploader for Mux Direct Uploads.
  *
  * Flow:
  *  1. POST /api/mux/direct-upload?lessonId=… → returns { uploadId, uploadUrl }
- *  2. Open a tus.Upload to uploadUrl, push the file in chunks with progress
- *  3. Once tus completes, Mux processes the video (status: processing)
+ *  2. UpChunk PUTs the file in chunks with progress
+ *  3. Once upload completes, Mux processes the video (status: processing)
  *  4. Our webhook flips lesson.mux_status to `ready` and sets playback IDs
  *
  * The component polls /api/admin/lessons-status/[id] every 4s while the
  * lesson is `processing` so the UI catches up without a page reload.
+ *
+ * Why UpChunk (not tus-js-client): Mux's TUS endpoint CORS preflight does
+ * not allow the `Tus-Resumable` header, so browser HEAD/PATCH from a
+ * different origin gets blocked. UpChunk uses plain PUT with Content-Range,
+ * which CORS handles natively.
  */
 
 import { useEffect, useRef, useState } from "react";
-import { Upload as TusUpload } from "tus-js-client";
+import * as UpChunk from "@mux/upchunk";
 import {
   CheckCircle2,
   Loader2,
@@ -50,7 +55,7 @@ export function MuxUploader({
   const [error, setError] = useState<string | null>(null);
   const [thumb, setThumb] = useState<string | null>(thumbnailUrl ?? null);
   const [duration, setDuration] = useState<number | null>(durationSeconds ?? null);
-  const uploadRef = useRef<TusUpload | null>(null);
+  const uploadRef = useRef<UpChunk.UpChunk | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Poll while processing
@@ -127,33 +132,37 @@ export function MuxUploader({
       return;
     }
 
-    const upload = new TusUpload(file, {
+    const upload = UpChunk.createUpload({
       endpoint: uploadUrl,
-      uploadUrl,
-      chunkSize: 30 * 1024 * 1024, // 30 MB
-      retryDelays: [0, 1000, 3000, 5000, 10000],
-      metadata: {
-        filename: file.name,
-        filetype: file.type,
-      },
-      onError(err) {
-        setError(err.message ?? "Error al subir");
-        setStatus("idle");
-        uploadRef.current = null;
-      },
-      onProgress(bytesSent, bytesTotal) {
-        setProgress((bytesSent / bytesTotal) * 100);
-      },
-      onSuccess() {
-        uploadRef.current = null;
-        setProgress(100);
-        setStatus("processing");
-        toast.success("Subida completa. Mux está procesando el video…");
-        onChange?.();
-      },
+      file,
+      chunkSize: 30720, // KB → 30 MB per chunk
+      attempts: 5,
+      delayBeforeAttempt: 1,
     });
+
+    upload.on("error", (event) => {
+      const message =
+        (event as CustomEvent<{ message?: string }>).detail?.message ??
+        "Error al subir";
+      setError(message);
+      setStatus("idle");
+      uploadRef.current = null;
+    });
+
+    upload.on("progress", (event) => {
+      const percent = (event as CustomEvent<number>).detail;
+      setProgress(percent);
+    });
+
+    upload.on("success", () => {
+      uploadRef.current = null;
+      setProgress(100);
+      setStatus("processing");
+      toast.success("Subida completa. Mux está procesando el video…");
+      onChange?.();
+    });
+
     uploadRef.current = upload;
-    upload.start();
   };
 
   const cancel = () => {

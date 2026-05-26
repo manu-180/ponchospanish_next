@@ -17,6 +17,7 @@
     "@hookform/resolvers": "^3.10.0",
     "@mux/mux-node": "^14.1.0",
     "@mux/mux-player-react": "^3.13.0",
+    "@mux/upchunk": "^3.5.0",
     "@paypal/react-paypal-js": "^8.8.1",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
@@ -58,7 +59,6 @@
     "sonner": "^1.7.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "tus-js-client": "^4.3.1",
     "zod": "^3.24.1",
     "zustand": "^5.0.2"
   },
