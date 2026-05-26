@@ -13,10 +13,22 @@ const DEFAULT_TTL_SECONDS = 15 * 60; // 15 minutes
 const TRAILER_TTL_SECONDS = 60 * 60; // 1 hour (trailers play unauthenticated)
 
 export type MuxTokenAudience =
-  | "video"   // playback URL
-  | "thumbnail"
-  | "gif"
-  | "storyboard";
+  | "video"   // playback URL → aud "v"
+  | "thumbnail" // → aud "t"
+  | "gif"     // → aud "g"
+  | "storyboard"; // → aud "s"
+
+/**
+ * Mux expects single-letter audience codes in the JWT `aud` claim, not the
+ * friendly names. Using "thumbnail" instead of "t" makes Mux return
+ * 403 "Not Authorized".
+ */
+const AUDIENCE_CODE: Record<MuxTokenAudience, "v" | "t" | "g" | "s"> = {
+  video: "v",
+  thumbnail: "t",
+  gif: "g",
+  storyboard: "s",
+};
 
 interface SignOptions {
   playbackId: string;
@@ -45,7 +57,7 @@ export function signMuxPlaybackToken({
   return jwt.sign(
     {
       sub: subject ?? playbackId,
-      aud: audience,
+      aud: AUDIENCE_CODE[audience],
       exp: Math.floor(Date.now() / 1000) + ttlSeconds,
       kid: env.MUX_SIGNING_KEY_ID,
     },
