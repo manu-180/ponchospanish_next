@@ -35,20 +35,24 @@ interface SignOptions {
   audience?: MuxTokenAudience;
   ttlSeconds?: number;
   /**
-   * Optional opaque user context. Mux echoes back in analytics so we can
-   * filter by user. Do NOT put PII here.
+   * @deprecated Mux requires `sub` to be the playback ID. To filter by user
+   * in Mux Data, pass `viewer_user_id` via the player's `metadata` prop
+   * instead.
    */
   subject?: string;
 }
 
 /**
  * Sign a Mux playback token. Returns the JWT.
+ *
+ * Mux REQUIRES the `sub` claim to match the playback ID — otherwise the
+ * player errors with "Video URL is formatted incorrectly: The video's
+ * playback ID does not match the one encoded in the playback-token."
  */
 export function signMuxPlaybackToken({
   playbackId,
   audience = "video",
   ttlSeconds = DEFAULT_TTL_SECONDS,
-  subject,
 }: SignOptions): string {
   const privateKey = Buffer.from(env.MUX_SIGNING_KEY_PRIVATE, "base64").toString(
     "utf-8",
@@ -56,7 +60,7 @@ export function signMuxPlaybackToken({
 
   return jwt.sign(
     {
-      sub: subject ?? playbackId,
+      sub: playbackId,
       aud: AUDIENCE_CODE[audience],
       exp: Math.floor(Date.now() / 1000) + ttlSeconds,
       kid: env.MUX_SIGNING_KEY_ID,
