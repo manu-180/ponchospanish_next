@@ -10,6 +10,7 @@ import {
   getCurrentProfile,
   getSupabaseAdminClient,
 } from "@/lib/supabase/server";
+import { buildSignedThumbnailUrl } from "@/lib/mux/signing";
 
 export const dynamic = "force-dynamic";
 
@@ -33,9 +34,17 @@ export async function GET(
   if (error || !data) {
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
+  // Mux assets use a signed playback policy, so the unsigned thumbnail URL
+  // stored in the DB returns 403 in the browser. Sign a fresh one on each
+  // poll when the asset is ready.
+  const signedThumbnailUrl =
+    data.mux_status === "ready" && data.mux_playback_id
+      ? buildSignedThumbnailUrl(data.mux_playback_id, 5)
+      : data.mux_thumbnail_url;
+
   return NextResponse.json({
     status: data.mux_status,
-    thumbnailUrl: data.mux_thumbnail_url,
+    thumbnailUrl: signedThumbnailUrl,
     durationSeconds: data.mux_duration_seconds,
     playbackId: data.mux_playback_id,
   });

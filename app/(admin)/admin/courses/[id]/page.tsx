@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getSupabaseAdminClient } from "@/lib/supabase/server";
+import { buildSignedThumbnailUrl } from "@/lib/mux/signing";
 import { Button } from "@/components/ui/button";
 import {
   Tabs,
@@ -28,7 +29,7 @@ export default async function AdminCourseEditPage({ params }: PageProps) {
     admin
       .from("modules")
       .select(
-        "id, title, slug, description, position, is_free, lessons(id, title, slug, description, position, is_free_preview, mux_status, mux_thumbnail_url, mux_duration_seconds)",
+        "id, title, slug, description, position, is_free, lessons(id, title, slug, description, position, is_free_preview, mux_status, mux_playback_id, mux_thumbnail_url, mux_duration_seconds)",
       )
       .eq("course_id", id)
       .order("position", { ascending: true }),
@@ -36,11 +37,22 @@ export default async function AdminCourseEditPage({ params }: PageProps) {
 
   if (!course) notFound();
 
+  // Mux assets are created with playback_policy: "signed", so the unsigned
+  // mux_thumbnail_url stored in the DB returns 403. Sign a fresh thumbnail
+  // URL server-side for each ready lesson (default 15 min TTL — long enough
+  // for the admin page session).
   const modules = (modulesRaw ?? []).map((m) => ({
     ...m,
     lessons: (m.lessons ?? [])
       .slice()
-      .sort((a, b) => (a.position ?? 0) - (b.position ?? 0)),
+      .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
+      .map((l) => ({
+        ...l,
+        mux_thumbnail_url:
+          l.mux_status === "ready" && l.mux_playback_id
+            ? buildSignedThumbnailUrl(l.mux_playback_id, 5)
+            : l.mux_thumbnail_url,
+      })),
   }));
 
   return (
