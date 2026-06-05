@@ -12,14 +12,8 @@ import {
   Sparkles,
   Star,
 } from "lucide-react";
-import {
-  getSupabaseServerClient,
-  getCurrentUser,
-} from "@/lib/supabase/server";
-import {
-  getCourseBySlugCached,
-  userHasAccessToCourse,
-} from "@/lib/supabase/queries";
+import { getCourseBySlugCached } from "@/lib/supabase/queries";
+import { getSupabasePublicClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,12 +24,35 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { formatCurrency, formatDuration } from "@/lib/utils";
-import { CheckoutPanel } from "@/components/learn/checkout-panel";
+import { EnrolPanel } from "@/components/learn/enrol-panel";
 import { JsonLd } from "@/components/seo/json-ld";
 import { graph, courseSchema, breadcrumbSchema } from "@/lib/seo/schema";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+// Static/ISR: the page has no per-user server data anymore (the enrol CTA is a
+// client island), so anonymous SEO traffic is served cached HTML and
+// re-rendered at most every 5 min instead of on every request.
+export const revalidate = 300;
+
+/**
+ * Prerender every published course at build time (and ISR-revalidate them).
+ * Cookieless public client → no dynamic APIs, so the pages are truly static.
+ * New courses added later still render on-demand and then get cached.
+ */
+export async function generateStaticParams() {
+  try {
+    const supabase = getSupabasePublicClient();
+    const { data } = await supabase
+      .from("courses")
+      .select("slug")
+      .eq("is_published", true);
+    return (data ?? []).map((c) => ({ slug: c.slug as string }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -72,18 +89,6 @@ export default async function CourseDetailPage({ params }: PageProps) {
     console.warn("[course-detail] failed:", err);
   }
   if (!course) notFound();
-
-  const supabase = await getSupabaseServerClient();
-
-  const user = await getCurrentUser();
-  let hasAccess = false;
-  if (user) {
-    try {
-      hasAccess = await userHasAccessToCourse(supabase, user.id, course.id);
-    } catch {
-      hasAccess = false;
-    }
-  }
 
   const totalLessons = course.modules.reduce(
     (acc, m) => acc + m.lessons.length,
@@ -306,10 +311,12 @@ export default async function CourseDetailPage({ params }: PageProps) {
                           lesson.is_free_preview ||
                           lesson.is_trailer ||
                           mod.is_free;
-                        const canPreview = free || hasAccess;
+                        // Static render shows free lessons as previewable;
+                        // owners enter the full course via "Start learning".
+                        const canPreview = free;
                         const inner = (
                           <>
-                            {free || hasAccess ? (
+                            {free ? (
                               <PlayCircle className="h-4 w-4 text-mustard-600 shrink-0" />
                             ) : (
                               <Lock className="h-4 w-4 text-charcoal-300 shrink-0" />
@@ -399,21 +406,14 @@ export default async function CourseDetailPage({ params }: PageProps) {
                       : "Free"}
                   </p>
                 </div>
-                {hasAccess ? (
-                  <Button asChild size="lg" className="w-full">
-                    <Link href={`/learn/${course.slug}`}>Start learning</Link>
-                  </Button>
-                ) : (
-                  <CheckoutPanel
-                    course={{
-                      id: course.id,
-                      slug: course.slug,
-                      title: course.title,
-                      price_gbp: course.price_gbp,
-                    }}
-                    isAuthenticated={Boolean(user)}
-                  />
-                )}
+                <EnrolPanel
+                  course={{
+                    id: course.id,
+                    slug: course.slug,
+                    title: course.title,
+                    price_gbp: course.price_gbp,
+                  }}
+                />
                 <ul className="space-y-2 text-sm text-charcoal-500 pt-2 border-t border-charcoal-100/40">
                   <li className="flex items-center gap-2">
                     <ShieldCheck className="h-4 w-4 text-emerald-500" />

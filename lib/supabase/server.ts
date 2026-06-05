@@ -34,6 +34,25 @@ export async function getSupabaseServerClient() {
 }
 
 /**
+ * Cookieless public/anon client for STATIC + ISR reads of PUBLIC data (e.g. the
+ * published course catalog). Because it reads NO cookies, pages that use it can
+ * be statically rendered / ISR-cached instead of being forced dynamic. RLS
+ * still applies under the anon role, so only public rows are returned.
+ *
+ * Do NOT use for anything user-specific — it has no session.
+ */
+let _publicClient: ReturnType<typeof createClient<Database>> | null = null;
+export function getSupabasePublicClient() {
+  if (_publicClient) return _publicClient;
+  _publicClient = createClient<Database>(
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    { auth: { autoRefreshToken: false, persistSession: false } },
+  );
+  return _publicClient;
+}
+
+/**
  * Admin client (service role). NEVER expose to client. Use only inside
  * server actions / route handlers where you've already authorised the request.
  */

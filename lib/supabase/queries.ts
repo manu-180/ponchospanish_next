@@ -7,7 +7,10 @@ import type {
   DigitalProduct,
   DigitalProductPurchase,
 } from "@/types/database";
-import { getSupabaseServerClient } from "@/lib/supabase/server";
+import {
+  getSupabaseServerClient,
+  getSupabasePublicClient,
+} from "@/lib/supabase/server";
 
 // Derive Client from the actual return type of `getSupabaseServerClient`.
 // The admin client (`getSupabaseAdminClient`) has a compatible runtime shape
@@ -97,7 +100,11 @@ export async function getCourseBySlug(
  */
 export const getCourseBySlugCached = cache(
   async (slug: string): Promise<CourseTree | null> => {
-    const supabase = await getSupabaseServerClient();
+    // Cookieless public client → keeps callers (e.g. the ISR course-detail
+    // page) statically renderable. Course catalog data is public. The cast
+    // bridges the slightly different generic signature of createClient vs
+    // createServerClient — they share the same runtime `.from()` surface.
+    const supabase = getSupabasePublicClient() as unknown as Client;
     return getCourseBySlug(supabase, slug);
   },
 );
