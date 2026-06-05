@@ -22,6 +22,7 @@ import { env } from "@/lib/env";
 import { getSupabaseAdminClient } from "@/lib/supabase/server";
 import { buildSignedAudioUrl, buildSignedStaticMp4Url } from "@/lib/mux/signing";
 import { STORAGE_BUCKETS, subtitlesPath } from "@/lib/supabase/storage";
+import { toErrorMessage } from "@/lib/utils";
 
 let _openai: OpenAI | null = null;
 function getOpenAI(): OpenAI {
@@ -232,28 +233,42 @@ export async function generateSubtitlesForLesson(args: {
       language === "auto" ? normalizeWhisperLang(transcript.language) : language;
     const segments = transcript.segments ?? [];
 
+    if (segments.length === 0) {
+      // Whisper returned no timed segments — usually silent/empty audio. Don't
+      // mark the track "auto" with zero cues; surface a clear, actionable error.
+      throw new Error(
+        "La transcripción no devolvió texto. ¿El video tiene audio audible?",
+      );
+    }
+
     // Insert cues
-    if (segments.length > 0) {
-      const rows = segments.map((seg, idx) => ({
-        lesson_id: lessonId,
-        language: detectedLang,
-        position: idx,
-        start_seconds: seg.start,
-        end_seconds: seg.end,
-        text: seg.text.trim(),
-      }));
-      await admin.from("subtitle_cues").insert(rows);
+    const rows = segments.map((seg, idx) => ({
+      lesson_id: lessonId,
+      language: detectedLang,
+      position: idx,
+      start_seconds: seg.start,
+      end_seconds: seg.end,
+      text: seg.text.trim(),
+    }));
+    const { error: cuesError } = await admin
+      .from("subtitle_cues")
+      .insert(rows);
+    if (cuesError) {
+      throw new Error(`No se pudieron guardar las líneas: ${cuesError.message}`);
     }
 
     // Render VTT + upload
     const vtt = renderVtt(segments);
     const path = subtitlesPath(lessonId, detectedLang);
-    await admin.storage
+    const { error: uploadError } = await admin.storage
       .from(STORAGE_BUCKETS.subtitles)
       .upload(path, new Blob([vtt], { type: "text/vtt" }), {
         upsert: true,
         contentType: "text/vtt",
       });
+    if (uploadError) {
+      throw new Error(`No se pudo subir el VTT: ${uploadError.message}`);
+    }
 
     // Finalize the row (update language from the provisional value).
     await admin
@@ -274,7 +289,7 @@ export async function generateSubtitlesForLesson(args: {
       cues: segments.length,
     };
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
+    const message = toErrorMessage(err, "No se pudo generar la transcripción.");
     await admin
       .from("lesson_subtitles")
       .update({ status: "failed", error: message })

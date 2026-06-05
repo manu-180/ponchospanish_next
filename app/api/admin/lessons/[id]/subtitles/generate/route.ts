@@ -15,6 +15,7 @@ import { z } from "zod";
 import { requireAdmin, getSupabaseAdminClient } from "@/lib/supabase/server";
 import { features } from "@/lib/env";
 import { generateSubtitlesForLesson } from "@/lib/transcription/whisper";
+import { toErrorMessage } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 // Transcription is the long pole here — give it room on platforms that honour
@@ -77,28 +78,41 @@ export async function POST(
     );
   }
 
-  const result = await generateSubtitlesForLesson({
-    lessonId: id,
-    playbackId: lesson.mux_playback_id,
-    language: parsed.data.language ?? "auto",
-    forceOverwriteEdits: parsed.data.force ?? false,
-  });
+  try {
+    const result = await generateSubtitlesForLesson({
+      lessonId: id,
+      playbackId: lesson.mux_playback_id,
+      language: parsed.data.language ?? "auto",
+      forceOverwriteEdits: parsed.data.force ?? false,
+    });
 
-  if (result.status === "skipped") {
+    if (result.status === "skipped") {
+      return NextResponse.json(
+        {
+          ...result,
+          message:
+            "Estos subtítulos fueron editados a mano. Usá 'Regenerar' para reemplazarlos.",
+        },
+        { status: 409 },
+      );
+    }
+    if (!result.ok) {
+      return NextResponse.json(
+        { ...result, message: result.error ?? "No se pudo generar." },
+        { status: 500 },
+      );
+    }
+    return NextResponse.json(result);
+  } catch (err) {
+    // Last-resort guard: anything the pipeline didn't catch (e.g. an unexpected
+    // throw before its own try/catch) still returns legible JSON instead of a
+    // bodyless 500 that breaks the client's res.json().
+    const message = toErrorMessage(err, "No se pudo generar la transcripción.");
+    // eslint-disable-next-line no-console
+    console.error(`[subtitles/generate] uncaught for ${id}:`, message);
     return NextResponse.json(
-      {
-        ...result,
-        message:
-          "Estos subtítulos fueron editados a mano. Usá 'Regenerar' para reemplazarlos.",
-      },
-      { status: 409 },
-    );
-  }
-  if (!result.ok) {
-    return NextResponse.json(
-      { ...result, message: result.error ?? "No se pudo generar." },
+      { ok: false, status: "failed", error: message, message },
       { status: 500 },
     );
   }
-  return NextResponse.json(result);
 }

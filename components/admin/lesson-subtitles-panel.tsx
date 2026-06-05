@@ -26,7 +26,7 @@ import {
   Languages,
 } from "lucide-react";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
+import { cn, toErrorMessage } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 export type SubtitleStatus =
@@ -91,16 +91,18 @@ export function LessonSubtitlesPanel({
           body: JSON.stringify({ language: "auto", force }),
         },
       );
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        throw new Error(data.message ?? data.error ?? "No se pudo generar");
+        throw new Error(
+          toErrorMessage(data.message ?? data.error, "No se pudo generar"),
+        );
       }
       setStatus("auto");
       setLanguage(data.language ?? null);
       setCues(data.cues ?? 0);
       toast.success("Subtítulos generados. Ya podés editarlos.");
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Error";
+      const message = toErrorMessage(err, "Error al generar subtítulos");
       setStatus("failed");
       setError(message);
       toast.error(message);

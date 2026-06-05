@@ -50,6 +50,34 @@ export function clampPercent(value: number): number {
   return Math.max(0, Math.min(100, value));
 }
 
+/**
+ * Coerce ANY thrown value into a human-readable string.
+ *
+ * Plain Error → its `.message`. Supabase errors (PostgrestError / StorageError)
+ * and similar API errors are plain objects (NOT Error instances) with a
+ * `.message`/`.error_description`/`.error` field — `String(obj)` on those
+ * yields the useless "[object Object]". This drills into common shapes first
+ * and only falls back to JSON so callers always surface something legible.
+ */
+export function toErrorMessage(err: unknown, fallback = "Error inesperado"): string {
+  if (err == null) return fallback;
+  if (typeof err === "string") return err || fallback;
+  if (err instanceof Error) return err.message || fallback;
+  if (typeof err === "object") {
+    const o = err as Record<string, unknown>;
+    const candidate =
+      o.message ?? o.error_description ?? o.error ?? o.msg ?? o.hint ?? o.details;
+    if (typeof candidate === "string" && candidate) return candidate;
+    try {
+      const json = JSON.stringify(err);
+      if (json && json !== "{}") return json;
+    } catch {
+      /* circular / non-serialisable — fall through */
+    }
+  }
+  return fallback;
+}
+
 export function absoluteUrl(path: string = "") {
   const base =
     process.env.NEXT_PUBLIC_SITE_URL ??
