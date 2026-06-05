@@ -3,13 +3,14 @@
 /**
  * Renders the active subtitle cue on top of a video, styled by a preset.
  *
- * Reused in BOTH the admin editor (live preview) and the student player so a
- * design looks identical in both places. Must be placed inside a
- * `position: relative` parent (the player wrapper).
+ * Must be placed inside a `position: relative` parent (the player wrapper).
  *
- * When `showControls` is true (student player only):
- *   - A frosted-glass A−/A+ pill appears in the top-right for font size.
- *   - The subtitle itself is draggable; double-click/tap resets to default position.
+ * Modes:
+ *  - Default (no props): passive overlay, no controls. Used in admin editor preview.
+ *  - `showControls`: drag-to-reposition + continuous A−/A+ font control, always
+ *    visible. Use only in the subtitle editor tool where precise positioning matters.
+ *  - `showSizeControl`: three-level (S/M/L) font-size picker, no drag. Use in
+ *    the student player so viewers can adjust readability without moving captions.
  *
  * Responsive sizing uses CSS container query units (`cqi`): the overlay is the
  * query container, so `fontScale * fontMultiplier * 100 cqi` = that fraction of
@@ -49,6 +50,13 @@ interface DragStart {
   bubbleY: number;
 }
 
+// Three viewer-facing size levels mapped to fontMultiplier values
+const SIZE_LEVELS = [
+  { label: "A", multiplier: 0.75, title: "Pequeño" },
+  { label: "A", multiplier: 1.0,  title: "Normal"  },
+  { label: "A", multiplier: 1.4,  title: "Grande"  },
+] as const;
+
 interface Props {
   cues: OverlayCue[];
   currentTime: number;
@@ -57,10 +65,15 @@ interface Props {
   hidden?: boolean;
   className?: string;
   /**
-   * Enable interactive controls (font-size +/- and drag-to-reposition).
-   * Keep false in the admin editor so the preview stays passive.
+   * Enable drag-to-reposition and continuous A−/A+ font controls (always visible).
+   * Use only inside the subtitle editor tool.
    */
   showControls?: boolean;
+  /**
+   * Enable the S/M/L font-size picker without drag.
+   * Use in the student player so viewers can adjust readability.
+   */
+  showSizeControl?: boolean;
 }
 
 export function CaptionOverlay({
@@ -70,6 +83,7 @@ export function CaptionOverlay({
   hidden,
   className,
   showControls = false,
+  showSizeControl = false,
 }: Props) {
   const preset = getCaptionPreset(presetId);
 
@@ -149,8 +163,8 @@ export function CaptionOverlay({
   // ── early exits ───────────────────────────────────────────────────────────
 
   if (hidden) return null;
-  // If there are no controls to show AND no active cue, nothing to render
-  if (!showControls && (!active || !active.text.trim())) return null;
+  const hasAnyControl = showControls || showSizeControl;
+  if (!hasAnyControl && (!active || !active.text.trim())) return null;
 
   // Map fontMultiplier (0.5–2.2) → 5 dots (0–4 filled)
   const dotsFilled = Math.round(((fontMultiplier - 0.5) / (2.2 - 0.5)) * 4);
@@ -162,7 +176,7 @@ export function CaptionOverlay({
       className={cn("pointer-events-none absolute inset-0 z-10", className)}
       style={{ containerType: "inline-size" }}
     >
-      {/* ── Font-size control pill ── */}
+      {/* ── Editor font-size control (continuous A−/A+ with level dots) ── */}
       {showControls && (
         <div
           className="absolute top-3 right-3 flex items-center rounded-full"
@@ -175,7 +189,6 @@ export function CaptionOverlay({
             gap: 2,
           }}
         >
-          {/* A− button */}
           <button
             onClick={decreaseFont}
             disabled={fontMultiplier <= 0.5}
@@ -197,7 +210,6 @@ export function CaptionOverlay({
             </span>
           </button>
 
-          {/* Level dots */}
           <div className="flex items-center gap-[3px] px-1">
             {[0, 1, 2, 3, 4].map((i) => (
               <div
@@ -215,7 +227,6 @@ export function CaptionOverlay({
             ))}
           </div>
 
-          {/* A+ button */}
           <button
             onClick={increaseFont}
             disabled={fontMultiplier >= 2.2}
@@ -236,6 +247,53 @@ export function CaptionOverlay({
               A+
             </span>
           </button>
+        </div>
+      )}
+
+      {/* ── Viewer font-size control (S / M / L preset levels) ── */}
+      {!showControls && showSizeControl && (
+        <div
+          className="absolute top-3 right-3 flex items-center rounded-full"
+          style={{
+            pointerEvents: "auto",
+            background: "rgba(0,0,0,0.48)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            padding: "4px 6px",
+            gap: 0,
+          }}
+        >
+          {SIZE_LEVELS.map(({ label, multiplier, title }, i) => {
+            const isActive = fontMultiplier === multiplier;
+            return (
+              <button
+                key={multiplier}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setFontMultiplier(multiplier);
+                }}
+                title={title}
+                style={{
+                  fontFamily: "system-ui, sans-serif",
+                  fontSize: [10, 13, 17][i],
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  letterSpacing: "-0.01em",
+                  color: isActive
+                    ? "rgba(255,255,255,1)"
+                    : "rgba(255,255,255,0.35)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "2px 5px",
+                  userSelect: "none",
+                  transition: "color 0.15s",
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
       )}
 

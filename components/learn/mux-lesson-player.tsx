@@ -225,7 +225,7 @@ export function MuxLessonPlayer({
           cues={captionCues as OverlayCue[]}
           currentTime={currentTime}
           presetId={captionPreset ?? "classic"}
-          showControls
+          showSizeControl
         />
       )}
       {showUpNext && (

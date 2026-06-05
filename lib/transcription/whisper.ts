@@ -92,9 +92,10 @@ async function fetchAudioBlob(candidates: string[]): Promise<Blob> {
         return blob;
       }
       lastStatus = res.status;
-      // 404/412 → rendition not ready yet; wait and retry. Any other status
-      // (e.g. 403) → stop retrying this URL and move to the next candidate.
-      if (res.status !== 404 && res.status !== 412) break;
+      // 404/412/403 → rendition not ready yet (Mux returns 403 on signed URLs
+      // when the static rendition file doesn't exist yet); wait and retry.
+      // Any other status → stop retrying this URL and move to the next candidate.
+      if (res.status !== 404 && res.status !== 412 && res.status !== 403) break;
       if (attempt < MAX_ATTEMPTS) {
         await new Promise((r) => setTimeout(r, 5000));
       }
