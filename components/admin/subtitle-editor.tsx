@@ -574,6 +574,7 @@ export function SubtitleEditor({
                   currentTime={currentTime}
                   presetId={presetId}
                   hidden={!showCaptions}
+                  showControls
                 />
               </>
             ) : (
