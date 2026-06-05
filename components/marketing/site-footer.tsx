@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, Mail, Sparkles } from "lucide-react";
+import { Instagram, Mail } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -11,12 +11,8 @@ export function SiteFooter() {
           </div>
           <p className="text-sm leading-relaxed text-cream/60 max-w-xs">
             Made by real people, for real people. Spanish that feels relaxed,
-            positive, and meaningful — from Buenos Aires to your living room.
+            positive, and meaningful.
           </p>
-          <div className="flex items-center gap-2 text-sm text-mustard-200">
-            <Sparkles className="h-4 w-4" />
-            <span>British English friendly · Native Spanish teacher</span>
-          </div>
         </div>
 
         <div>

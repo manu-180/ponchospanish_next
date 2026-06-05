@@ -6,6 +6,7 @@ import {
   BookOpen,
   CheckCircle2,
   Compass,
+  FileText,
   PlayCircle,
 } from "lucide-react";
 import {
@@ -16,13 +17,16 @@ import {
 import {
   getCompletedLessonIds,
   listUserEnrollments,
+  listUserPurchases,
 } from "@/lib/supabase/queries";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { RedeemCodeCard } from "@/components/learn/redeem-code-card";
+import { DownloadProductButton } from "@/components/learn/download-product-button";
 import { AdminBanner } from "@/components/admin/admin-banner";
+import { formatBytes } from "@/lib/utils";
 
 export const metadata = { title: "My Academy" };
 export const dynamic = "force-dynamic";
@@ -36,9 +40,13 @@ export default async function DashboardPage() {
   const supabase = await getSupabaseServerClient();
   let enrollments: Awaited<ReturnType<typeof listUserEnrollments>> = [];
   let completedIds: string[] = [];
+  let purchases: Awaited<ReturnType<typeof listUserPurchases>> = [];
   try {
-    enrollments = await listUserEnrollments(supabase, user.id);
-    completedIds = await getCompletedLessonIds(supabase, user.id);
+    [enrollments, completedIds, purchases] = await Promise.all([
+      listUserEnrollments(supabase, user.id),
+      getCompletedLessonIds(supabase, user.id),
+      listUserPurchases(supabase, user.id),
+    ]);
   } catch (err) {
     console.warn("[dashboard] queries failed (DB may not be provisioned yet):", err);
   }
@@ -113,8 +121,21 @@ export default async function DashboardPage() {
             {enrollments.map((e) => {
               const course = e.course;
               if (!course) return null;
-              const totalLessonsCount = 0; // computed below by client if needed; simplistic for now
-              const completedCount = completedIds.length; // we'll show overall
+
+              // Count total lessons in this course
+              const modules = (course as any).modules ?? [];
+              const totalLessonsCount = modules.reduce(
+                (acc: number, m: any) => acc + ((m.lessons ?? []).length),
+                0,
+              );
+
+              // Count completed lessons for this course
+              const courseLessonIds = modules.flatMap((m: any) =>
+                (m.lessons ?? []).map((l: any) => l.id)
+              );
+              const completedCount = completedIds.filter((id) =>
+                courseLessonIds.includes(id)
+              ).length;
               const progress = totalLessonsCount > 0 ? (completedCount / totalLessonsCount) * 100 : 0;
 
               return (
@@ -169,6 +190,76 @@ export default async function DashboardPage() {
           </div>
         )}
       </section>
+
+      {purchases.length > 0 && (
+        <section>
+          <div className="flex items-end justify-between mb-6">
+            <div>
+              <h2 className="font-serif text-2xl md:text-3xl">
+                My ebooks &amp; resources
+              </h2>
+              <p className="text-sm text-charcoal-400">
+                {purchases.length} download{purchases.length === 1 ? "" : "s"}{" "}
+                unlocked — yours forever.
+              </p>
+            </div>
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/ondemand">
+                More resources <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {purchases.map((p) => {
+              const product = p.product;
+              if (!product) return null;
+              return (
+                <Card key={p.id} className="overflow-hidden">
+                  <div className="flex gap-4 p-4">
+                    <div className="relative h-28 w-20 shrink-0 overflow-hidden rounded-md rounded-l-sm shadow-soft ring-1 ring-charcoal-100/40 bg-gradient-to-br from-mustard/20 via-cream-100 to-terracotta/20">
+                      {product.cover_image_path ? (
+                        <Image
+                          src={product.cover_image_path}
+                          alt={product.title}
+                          fill
+                          sizes="80px"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <FileText className="h-8 w-8 text-mustard/60" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex min-w-0 flex-1 flex-col">
+                      <Link
+                        href={`/ondemand/ebooks/${product.slug}`}
+                        className="font-serif text-base leading-tight line-clamp-2 hover:text-mustard-600 transition-colors"
+                      >
+                        {product.title}
+                      </Link>
+                      <p className="mt-1 text-[11px] text-charcoal-400">
+                        {product.file_size_bytes
+                          ? `PDF · ${formatBytes(product.file_size_bytes)}`
+                          : "PDF"}
+                      </p>
+                      <div className="mt-auto pt-3">
+                        <DownloadProductButton
+                          productId={product.id}
+                          label="Download"
+                          size="sm"
+                          variant="soft"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

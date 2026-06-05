@@ -2,8 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getSupabaseAdminClient } from "@/lib/supabase/server";
+import { features } from "@/lib/env";
 import { buildSignedThumbnailUrl } from "@/lib/mux/signing";
 import { Button } from "@/components/ui/button";
+import type { InitialSubtitle } from "@/components/admin/lesson-subtitles-panel";
 import {
   Tabs,
   TabsContent,
@@ -29,7 +31,7 @@ export default async function AdminCourseEditPage({ params }: PageProps) {
     admin
       .from("modules")
       .select(
-        "id, title, slug, description, position, is_free, lessons(id, title, slug, description, position, is_free_preview, mux_status, mux_playback_id, mux_thumbnail_url, mux_duration_seconds)",
+        "id, title, slug, description, position, is_free, lessons(id, title, slug, description, position, is_free_preview, mux_status, mux_playback_id, mux_thumbnail_url, mux_duration_seconds, lesson_subtitles(status, language, error))",
       )
       .eq("course_id", id)
       .order("position", { ascending: true }),
@@ -46,13 +48,24 @@ export default async function AdminCourseEditPage({ params }: PageProps) {
     lessons: (m.lessons ?? [])
       .slice()
       .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
-      .map((l) => ({
-        ...l,
-        mux_thumbnail_url:
-          l.mux_status === "ready" && l.mux_playback_id
-            ? buildSignedThumbnailUrl(l.mux_playback_id, 5)
-            : l.mux_thumbnail_url,
-      })),
+      .map((l) => {
+        const sub = l.lesson_subtitles?.[0];
+        return {
+          ...l,
+          mux_thumbnail_url:
+            l.mux_status === "ready" && l.mux_playback_id
+              ? buildSignedThumbnailUrl(l.mux_playback_id, 5)
+              : l.mux_thumbnail_url,
+          subtitle: sub
+            ? ({
+                status: sub.status,
+                language: sub.language,
+                error: sub.error,
+                cuesCount: 0,
+              } as InitialSubtitle)
+            : null,
+        };
+      }),
   }));
 
   return (
@@ -102,7 +115,11 @@ export default async function AdminCourseEditPage({ params }: PageProps) {
         </TabsList>
 
         <TabsContent value="curriculum" className="mt-6">
-          <CurriculumBuilder courseId={course.id} initialModules={modules} />
+          <CurriculumBuilder
+            courseId={course.id}
+            initialModules={modules}
+            whisperEnabled={features.whisper}
+          />
         </TabsContent>
 
         <TabsContent value="info" className="mt-6">

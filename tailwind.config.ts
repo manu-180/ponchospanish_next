@@ -143,6 +143,18 @@ const config: Config = {
           "0%": { backgroundPosition: "-1000px 0" },
           "100%": { backgroundPosition: "1000px 0" },
         },
+        "shimmer-sweep": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+        "page-in": {
+          "0%": { opacity: "0", transform: "translateY(6px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "pulse-soft": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.55" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -151,6 +163,9 @@ const config: Config = {
         "slide-in-from-left": "slide-in-from-left 0.8s ease-out forwards",
         marquee: "marquee 40s linear infinite",
         shimmer: "shimmer 2s linear infinite",
+        "shimmer-sweep": "shimmer-sweep 1.6s ease-in-out infinite",
+        "page-in": "page-in 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
+        "pulse-soft": "pulse-soft 1.8s ease-in-out infinite",
       },
     },
   },

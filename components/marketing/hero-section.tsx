@@ -56,7 +56,11 @@ export function HeroSection() {
             transition={{ duration: 0.7, delay: 0.55 }}
             className="text-lg leading-relaxed text-charcoal-500/85 max-w-xl"
           >
-            Without the panic or the perfectionism.
+            <span className="font-semibold text-charcoal-600">
+              Online Spanish lessons for kids, teens and families across the UK
+            </span>{" "}
+            — private one-to-one classes, small groups and GCSE support. Without
+            the panic or the perfectionism.
           </motion.p>
 
           <motion.div
@@ -66,7 +70,7 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row gap-3 sm:items-center"
           >
             <Button asChild size="pill-lg">
-              <Link href="/#contact">
+              <Link href="https://calendly.com/ponchospanish/30min" target="_blank" rel="noopener noreferrer">
                 Book a free trial
                 <ArrowRight className="h-4 w-4" />
               </Link>

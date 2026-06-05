@@ -14,11 +14,14 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdminClient } from "@/lib/supabase/server";
 import { verifyMuxSignature } from "@/lib/mux/webhook";
-import { muxThumbnailUrl, muxStaticMp4Url } from "@/lib/mux/client";
+import { muxThumbnailUrl, muxAudioUrl } from "@/lib/mux/client";
 import { generateSubtitlesForLesson } from "@/lib/transcription/whisper";
 import type { Json } from "@/types/database";
 
 export const dynamic = "force-dynamic";
+// Transcription can take a while; allow the handler to run long enough for
+// the best-effort Whisper job to finish on platforms that honour this.
+export const maxDuration = 300;
 
 interface MuxAssetPayload {
   id: string;
@@ -108,8 +111,6 @@ export async function POST(req: Request) {
           break;
         }
 
-        const staticMp4 = muxStaticMp4Url(playbackId, "high");
-
         await admin
           .from("lessons")
           .update({
@@ -117,16 +118,23 @@ export async function POST(req: Request) {
             mux_playback_id: playbackId,
             mux_status: "ready",
             mux_duration_seconds: duration,
-            mux_static_mp4_url: staticMp4,
+            // Audio-only rendition (`audio.m4a`); used by the Whisper pipeline.
+            mux_static_mp4_url: muxAudioUrl(playbackId),
             mux_thumbnail_url: muxThumbnailUrl(playbackId, 5),
           })
           .eq("id", lessonId);
 
-        // Kick off Whisper in the background.
-        // We don't await — if it fails, the admin can re-run from the UI.
+        // Kick off Whisper in the background (best-effort). The audio-only
+        // rendition may not be ready yet at asset.ready time; the pipeline
+        // retries the fetch, and the admin can always re-run from the UI.
+        // `language: "auto"` lets Whisper detect the spoken language.
+        // `skipIfPresent` makes a re-delivered event (or an already-generated
+        // track) a no-op instead of paying OpenAI twice.
         generateSubtitlesForLesson({
           lessonId,
-          audioUrl: staticMp4,
+          playbackId,
+          language: "auto",
+          skipIfPresent: true,
         }).catch((err) => {
           // eslint-disable-next-line no-console
           console.error("[mux/webhook] whisper trigger failed:", err);

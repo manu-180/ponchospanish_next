@@ -138,7 +138,7 @@ export function DigitalProductForm({
         </div>
       )}
 
-      <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
+      <div className="grid gap-6 md:grid-cols-[1fr_240px] md:items-start">
         <div className="space-y-5">
           <div className="space-y-2">
             <Label htmlFor="title">Título</Label>
@@ -193,7 +193,7 @@ export function DigitalProductForm({
           </div>
         </div>
 
-        <div className="space-y-5">
+        <div className="space-y-5 md:sticky md:top-6">
           <FileUploader
             bucket="covers"
             accept="image/*"
@@ -268,7 +268,7 @@ function SaveStatus({
   if (saving)
     return (
       <p className="inline-flex items-center gap-2 text-xs text-charcoal-400">
-        <Loader2 className="h-3 w-3 animate-spin" /> Guardando…
+        <Loader2 className="h-3 w-3 animate-spin" /><span>Guardando…</span>
       </p>
     );
   if (dirty > 0)
@@ -280,7 +280,7 @@ function SaveStatus({
   if (lastSavedAt)
     return (
       <p className="inline-flex items-center gap-1.5 text-xs text-emerald-700">
-        <Check className="h-3 w-3" /> Todo guardado
+        <Check className="h-3 w-3" /><span>Todo guardado</span>
       </p>
     );
   return null;

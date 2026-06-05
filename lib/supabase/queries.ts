@@ -1,5 +1,13 @@
-import type { Course, Module, Lesson, Enrollment } from "@/types/database";
-import type { getSupabaseServerClient } from "@/lib/supabase/server";
+import { cache } from "react";
+import type {
+  Course,
+  Module,
+  Lesson,
+  Enrollment,
+  DigitalProduct,
+  DigitalProductPurchase,
+} from "@/types/database";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 // Derive Client from the actual return type of `getSupabaseServerClient`.
 // The admin client (`getSupabaseAdminClient`) has a compatible runtime shape
@@ -78,6 +86,22 @@ export async function getCourseBySlug(
   return { ...course, modules: sortedModules };
 }
 
+/**
+ * Request-scoped, deduplicated course loader.
+ *
+ * `getCourseBySlug` runs two DB queries. Pages call it from BOTH
+ * `generateMetadata` and the page body on the same request — without
+ * deduping that's 4 queries per render. `cache()` collapses repeat calls
+ * (same slug) within a single request to one, and creates its own server
+ * client so the cache key is just the slug.
+ */
+export const getCourseBySlugCached = cache(
+  async (slug: string): Promise<CourseTree | null> => {
+    const supabase = await getSupabaseServerClient();
+    return getCourseBySlug(supabase, slug);
+  },
+);
+
 /** Check if a user has access to a given course. */
 export async function userHasAccessToCourse(
   supabase: Client,
@@ -122,9 +146,75 @@ export async function listUserEnrollments(
 ): Promise<EnrollmentWithCourse[]> {
   const { data, error } = await supabase
     .from("enrollments")
-    .select("*, course:courses(*)")
+    .select("*, course:courses(*, modules(id, lessons(id)))")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
   if (error) throw error;
   return (data ?? []) as unknown as EnrollmentWithCourse[];
+}
+
+/* ------------------------------------------------------------------ *
+ * Digital products (ebooks, PDF packs, standalone resources)
+ * ------------------------------------------------------------------ */
+
+export type DigitalProductPurchaseWithProduct = DigitalProductPurchase & {
+  product: DigitalProduct | null;
+};
+
+/** Public — list published digital products (ebooks). */
+export async function listPublishedDigitalProducts(
+  supabase: Client,
+): Promise<DigitalProduct[]> {
+  const { data, error } = await supabase
+    .from("digital_products")
+    .select("*")
+    .eq("is_published", true)
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as unknown as DigitalProduct[];
+}
+
+/** Public — single digital product by slug. */
+export async function getDigitalProductBySlug(
+  supabase: Client,
+  slug: string,
+): Promise<DigitalProduct | null> {
+  const { data, error } = await supabase
+    .from("digital_products")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+  if (error) throw error;
+  return (data as DigitalProduct | null) ?? null;
+}
+
+/** Has the user purchased / unlocked this digital product? */
+export async function userHasPurchasedProduct(
+  supabase: Client,
+  userId: string,
+  productId: string,
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("digital_product_purchases")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("product_id", productId)
+    .limit(1)
+    .maybeSingle();
+  if (error) throw error;
+  return Boolean(data);
+}
+
+/** All digital products the user owns, newest first. */
+export async function listUserPurchases(
+  supabase: Client,
+  userId: string,
+): Promise<DigitalProductPurchaseWithProduct[]> {
+  const { data, error } = await supabase
+    .from("digital_product_purchases")
+    .select("*, product:digital_products(*)")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as unknown as DigitalProductPurchaseWithProduct[];
 }

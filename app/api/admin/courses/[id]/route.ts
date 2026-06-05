@@ -36,6 +36,7 @@ const PatchSchema = z.object({
   is_published: z.boolean().optional(),
   money_back_enabled: z.boolean().optional(),
   money_back_days: z.number().int().min(0).max(365).optional(),
+  caption_style: z.string().trim().max(40).optional(),
 });
 
 async function requireAdmin() {

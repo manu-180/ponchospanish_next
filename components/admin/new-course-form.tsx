@@ -127,11 +127,11 @@ export function NewCourseForm() {
       <Button onClick={submit} disabled={isPending} size="lg" className="w-full">
         {isPending ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" /> Creating...
+            <Loader2 className="h-4 w-4 animate-spin" /><span>Creating...</span>
           </>
         ) : (
           <>
-            <Sparkles className="h-4 w-4" /> Create draft course
+            <Sparkles className="h-4 w-4" /><span>Create draft course</span>
           </>
         )}
       </Button>

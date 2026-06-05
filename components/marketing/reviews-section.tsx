@@ -50,7 +50,7 @@ export function ReviewsSection() {
                 <div className="relative w-full">
                   <Image
                     src={src}
-                    alt={`Family review ${i + 1}`}
+                    alt={`Parent review of Poncho Spanish online Spanish lessons (${i + 1})`}
                     width={600}
                     height={800}
                     className="w-full h-auto object-contain"

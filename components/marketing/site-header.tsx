@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, BookOpen, Mail, GraduationCap, LogIn } from "lucide-react";
@@ -16,7 +16,7 @@ interface SiteHeaderProps {
 const links = [
   { href: "/", label: "Home", icon: null },
   { href: "/ondemand", label: "Academy", icon: GraduationCap },
-  { href: "/#contact", label: "Try a lesson", icon: Mail },
+  { href: "/#contact", label: "Get in Touch", icon: Mail },
 ];
 
 export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
@@ -24,6 +24,38 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  // Animated nav underline. We measure the active link with offsetLeft/
+  // offsetWidth (relative to <nav>, NOT the viewport) so the position is
+  // immune to page scroll. A Framer `layoutId` here mis-projects while the
+  // header is `position: sticky` and the page is scrolled, making the bar
+  // overshoot/bounce — this avoids that entirely.
+  const navRef = useRef<HTMLElement>(null);
+  const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const [underline, setUnderline] = useState<{ left: number; width: number } | null>(
+    null,
+  );
+
+  const activeIndex = links.findIndex(
+    (link) =>
+      pathname === link.href ||
+      (link.href !== "/" && pathname.startsWith(link.href)),
+  );
+
+  useEffect(() => {
+    const measure = () => {
+      const el = linkRefs.current[activeIndex];
+      if (!el) {
+        setUnderline(null);
+        return;
+      }
+      // px-4 (16px) inset on each side to match the text, not the padding box.
+      setUnderline({ left: el.offsetLeft + 16, width: el.offsetWidth - 32 });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [activeIndex]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -48,13 +80,15 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
       <div className="container-wide flex h-20 items-center justify-between gap-6">
         <Logo priority />
 
-        <nav className="hidden md:flex items-center gap-1">
-          {links.map((link) => {
-            const active = pathname === link.href ||
-              (link.href !== "/" && pathname.startsWith(link.href));
+        <nav ref={navRef} className="relative hidden md:flex items-center gap-1">
+          {links.map((link, i) => {
+            const active = i === activeIndex;
             return (
               <Link
                 key={link.href}
+                ref={(el) => {
+                  linkRefs.current[i] = el;
+                }}
                 href={link.href}
                 className={cn(
                   "relative px-4 py-2 text-sm font-semibold uppercase tracking-wider transition-colors",
@@ -64,16 +98,19 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
                 )}
               >
                 {link.label}
-                {active && (
-                  <motion.div
-                    layoutId="nav-underline"
-                    className="absolute -bottom-0.5 left-4 right-4 h-[2px] bg-mustard rounded-full"
-                    transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-                  />
-                )}
               </Link>
             );
           })}
+          {underline && (
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -bottom-0.5 h-[2px] rounded-full bg-mustard transition-[transform,width] duration-500 ease-out"
+              style={{
+                transform: `translateX(${underline.left}px)`,
+                width: underline.width,
+              }}
+            />
+          )}
         </nav>
 
         <div className="hidden md:flex items-center gap-3">

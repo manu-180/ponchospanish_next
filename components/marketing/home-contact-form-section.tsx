@@ -7,8 +7,8 @@ export function HomeContactFormSection() {
       <div className="container-narrow">
         <AnimatedSection>
           <div className="rounded-3xl bg-white shadow-soft-lg ring-1 ring-charcoal-100/40 p-6 md:p-10">
-            <h2 className="font-serif text-2xl md:text-3xl font-semibold leading-tight mb-2">
-              Try a lesson and see if we&rsquo;re a good match!
+            <h2 className="font-serif text-display-md uppercase leading-tight mb-2">
+              Get in touch
             </h2>
             <p className="text-sm text-charcoal-400 mb-8">
               We answer every message personally. Usually within 24 hours.

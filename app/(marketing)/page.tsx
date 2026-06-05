@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/marketing/hero-section";
 import { OnDemandSection } from "@/components/marketing/on-demand-section";
 import { ServicesSection } from "@/components/marketing/services-section";
@@ -5,7 +6,15 @@ import { ReviewsSection } from "@/components/marketing/reviews-section";
 import { AboutAntoSection } from "@/components/marketing/about-anto-section";
 import { CtaVideoSection } from "@/components/marketing/cta-video-section";
 import { PricingSection } from "@/components/marketing/pricing-section";
+import { FaqSection } from "@/components/marketing/faq-section";
 import { HomeContactFormSection } from "@/components/marketing/home-contact-form-section";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, faqPageSchema, lessonServicesSchema } from "@/lib/seo/schema";
+import { homeFaqs } from "@/lib/seo/faq";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function HomePage() {
   return (
@@ -17,7 +26,11 @@ export default function HomePage() {
       <AboutAntoSection />
       <CtaVideoSection />
       <PricingSection />
+      <FaqSection />
       <HomeContactFormSection />
+      <JsonLd
+        data={graph(faqPageSchema(homeFaqs), ...lessonServicesSchema())}
+      />
     </>
   );
 }

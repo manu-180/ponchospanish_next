@@ -50,7 +50,7 @@ export function ServicesSection() {
             Start with a trial. See how it feels.
           </p>
           <h2 className="font-serif text-display-lg uppercase text-balance gradient-text">
-            Live online learning
+            Online Spanish lessons
           </h2>
         </AnimatedSection>
 
@@ -72,7 +72,7 @@ export function ServicesSection() {
                 <div className="relative aspect-[5/4] overflow-hidden">
                   <Image
                     src={service.image}
-                    alt={service.title}
+                    alt={`${service.title} — online Spanish lessons for kids and teens with Poncho Spanish`}
                     fill
                     sizes="(min-width: 1024px) 33vw, 100vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"

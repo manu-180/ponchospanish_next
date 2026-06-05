@@ -177,7 +177,7 @@ export function CodesManager({
         <Dialog open={createOpen} onOpenChange={setCreateOpen}>
           <DialogTrigger asChild>
             <Button>
-              <Plus className="h-4 w-4" /> Nuevo código
+              <Plus className="h-4 w-4" /><span>Nuevo código</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-lg">
@@ -353,11 +353,11 @@ function CodeRow({
             <span className="inline-flex items-center gap-1 text-[11px] text-charcoal-400 group-hover/code:text-mustard-600 transition-colors">
               {copied ? (
                 <>
-                  <CheckCircle2 className="h-3 w-3 text-emerald-600" /> Copiado
+                  <CheckCircle2 className="h-3 w-3 text-emerald-600" /><span>Copiado</span>
                 </>
               ) : (
                 <>
-                  <Copy className="h-3 w-3" /> Click para copiar
+                  <Copy className="h-3 w-3" /><span>Click para copiar</span>
                 </>
               )}
             </span>
@@ -569,7 +569,7 @@ function CreateForm({
             )}
           >
             <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
-              <Gift className="h-3.5 w-3.5" /> Acceso gratis
+              <Gift className="h-3.5 w-3.5" /><span>Acceso gratis</span>
             </span>
             <span className="text-[11px] text-charcoal-400">
               Desbloquea el curso entero sin pagar.
@@ -586,7 +586,7 @@ function CreateForm({
             )}
           >
             <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
-              <Tag className="h-3.5 w-3.5" /> Descuento
+              <Tag className="h-3.5 w-3.5" /><span>Descuento</span>
             </span>
             <span className="text-[11px] text-charcoal-400">
               % off en el precio al pagar.
@@ -609,7 +609,7 @@ function CreateForm({
               className="font-mono"
             />
             <Button type="button" variant="soft" onClick={generate}>
-              <Wand2 className="h-3.5 w-3.5" /> Generar
+              <Wand2 className="h-3.5 w-3.5" /><span>Generar</span>
             </Button>
           </div>
           <p className="text-[11px] text-charcoal-400">

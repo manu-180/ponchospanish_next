@@ -205,14 +205,14 @@ export function MuxUploader({
           </div>
           <div className="flex-1">
             <p className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700">
-              <CheckCircle2 className="h-4 w-4" /> Video listo
+              <CheckCircle2 className="h-4 w-4" /><span>Video listo</span>
             </p>
             <p className="mt-1 text-xs text-charcoal-400">
-              Subtítulos: se generan automáticamente y aparecen en unos minutos.
+              Generá y editá los subtítulos en el panel de abajo.
             </p>
           </div>
           <Button variant="ghost" size="sm" onClick={pickFile}>
-            <RotateCcw className="h-3.5 w-3.5" /> Reemplazar
+            <RotateCcw className="h-3.5 w-3.5" /><span>Reemplazar</span>
           </Button>
         </div>
       )}
@@ -243,7 +243,7 @@ export function MuxUploader({
               onClick={cancel}
               className="text-xs text-charcoal-400 hover:text-destructive"
             >
-              <X className="h-3.5 w-3.5 inline" /> Cancelar
+              <X className="h-3.5 w-3.5 inline" /><span>Cancelar</span>
             </button>
           </div>
           <div className="h-2 w-full overflow-hidden rounded-full bg-charcoal-100">

@@ -66,7 +66,7 @@ export function AppHeader({ email, name, isAdmin, variant = "default" }: AppHead
         <div className="flex items-center gap-3">
           {variant !== "admin" && (
             <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-              <Link href="/#contact">Need help?</Link>
+              <Link href="/#faq">Need help?</Link>
             </Button>
           )}
           <UserMenu email={email} name={name} isAdmin={isAdmin} />

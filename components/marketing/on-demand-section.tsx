@@ -15,7 +15,7 @@ export function OnDemandSection() {
             What to expect
           </p>
           <h2 className="font-serif text-display-lg uppercase text-balance gradient-text">
-            On demand learning
+            On-demand Spanish courses
           </h2>
           <p className="mt-4 text-base md:text-lg text-charcoal-400">
             Instant access. Start anytime.
@@ -40,7 +40,7 @@ export function OnDemandSection() {
               <div className="relative aspect-[5/4] overflow-hidden bg-black">
                 <Image
                   src="/images/niñatapandoselosojos.jpg"
-                  alt="On demand Spanish courses"
+                  alt="On-demand, self-paced Spanish courses for kids and teens"
                   fill
                   sizes="(min-width: 1024px) 400px, 100vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"

@@ -4,10 +4,11 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { KeyRound, Loader2, LogIn } from "lucide-react";
+import { KeyRound, Loader2, LogIn, Mail } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { features } from "@/lib/env";
 
 interface CheckoutPanelProps {
   course: {
@@ -113,59 +114,68 @@ export function CheckoutPanel({ course, isAuthenticated }: CheckoutPanelProps) {
 
   return (
     <div className="space-y-4">
-      <PayPalScriptProvider
-        options={{
-          clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? "test",
-          currency: "GBP",
-          intent: "capture",
-          components: "buttons",
-        }}
-      >
-        <PayPalButtons
-          style={{
-            layout: "vertical",
-            color: "gold",
-            shape: "pill",
-            label: "paypal",
-            height: 48,
+      {features.paypal ? (
+        <PayPalScriptProvider
+          options={{
+            clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
+            currency: "GBP",
+            intent: "capture",
+            components: "buttons",
           }}
-          createOrder={async () => {
-            const res = await fetch("/api/paypal/create-order", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ courseId: course.id }),
-            });
-            const data = await res.json();
-            if (!res.ok || !data.orderId) {
-              toast.error(data.message ?? "Couldn't start checkout");
-              throw new Error(data.message ?? "PayPal create-order failed");
-            }
-            return data.orderId as string;
-          }}
-          onApprove={async (data) => {
-            try {
-              const res = await fetch("/api/paypal/capture-order", {
+        >
+          <PayPalButtons
+            style={{
+              layout: "vertical",
+              color: "gold",
+              shape: "pill",
+              label: "paypal",
+              height: 48,
+            }}
+            createOrder={async () => {
+              const res = await fetch("/api/paypal/create-order", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  orderId: data.orderID,
-                  courseId: course.id,
-                }),
+                body: JSON.stringify({ courseId: course.id }),
               });
-              const json = await res.json();
-              if (!res.ok) throw new Error(json.message ?? "Capture failed");
-              toast.success("Payment confirmed — welcome aboard!");
-              router.push(`/learn/${course.slug}`);
-              router.refresh();
-            } catch (err) {
-              toast.error(err instanceof Error ? err.message : "Capture failed");
-            }
-          }}
-          onError={() => {
-            toast.error("PayPal couldn't complete the order. Please try again.");
-          }}
-        />
-      </PayPalScriptProvider>
+              const data = await res.json();
+              if (!res.ok || !data.orderId) {
+                toast.error(data.message ?? "Couldn't start checkout");
+                throw new Error(data.message ?? "PayPal create-order failed");
+              }
+              return data.orderId as string;
+            }}
+            onApprove={async (data) => {
+              try {
+                const res = await fetch("/api/paypal/capture-order", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    orderId: data.orderID,
+                    courseId: course.id,
+                  }),
+                });
+                const json = await res.json();
+                if (!res.ok) throw new Error(json.message ?? "Capture failed");
+                toast.success("Payment confirmed — welcome aboard!");
+                router.push(`/learn/${course.slug}`);
+                router.refresh();
+              } catch (err) {
+                toast.error(err instanceof Error ? err.message : "Capture failed");
+              }
+            }}
+            onError={() => {
+              toast.error("PayPal couldn't complete the order. Please try again.");
+            }}
+          />
+        </PayPalScriptProvider>
+      ) : (
+        <Button asChild size="lg" className="w-full" variant="soft">
+          <a href="mailto:hello@ponchospanish.com?subject=Enrol%20in%20course">
+            <Mail className="h-4 w-4" />
+            <span>Contact us to enrol</span>
+          </a>
+        </Button>
+      )}
 
       <div className="relative my-1">
         <div className="absolute inset-0 flex items-center">

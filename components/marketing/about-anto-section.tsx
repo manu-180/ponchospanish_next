@@ -29,7 +29,7 @@ export function AboutAntoSection() {
               <div className="relative rounded-full bg-cream-50 p-1.5 shadow-soft-lg ring-1 ring-charcoal-100/40">
                 <Image
                   src="/images/nuevafotodeanto.jpg"
-                  alt="Anto — Spanish teacher"
+                  alt="Anto, certified Spanish teacher and founder of Poncho Spanish"
                   width={240}
                   height={240}
                   className="h-44 w-44 md:h-56 md:w-56 rounded-full object-cover"

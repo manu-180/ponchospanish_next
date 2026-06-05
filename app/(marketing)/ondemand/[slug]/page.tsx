@@ -17,7 +17,7 @@ import {
   getCurrentUser,
 } from "@/lib/supabase/server";
 import {
-  getCourseBySlug,
+  getCourseBySlugCached,
   userHasAccessToCourse,
 } from "@/lib/supabase/queries";
 import { Button } from "@/components/ui/button";
@@ -31,6 +31,8 @@ import {
 } from "@/components/ui/accordion";
 import { formatCurrency, formatDuration } from "@/lib/utils";
 import { CheckoutPanel } from "@/components/learn/checkout-panel";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, courseSchema, breadcrumbSchema } from "@/lib/seo/schema";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -38,9 +40,8 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const supabase = await getSupabaseServerClient();
   try {
-    const course = await getCourseBySlug(supabase, slug);
+    const course = await getCourseBySlugCached(slug);
     if (!course) return { title: "Course not found" };
     return {
       title: `${course.title} — Poncho Academy`,
@@ -62,16 +63,17 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function CourseDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const supabase = await getSupabaseServerClient();
 
   let course;
   try {
-    course = await getCourseBySlug(supabase, slug);
+    course = await getCourseBySlugCached(slug);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.warn("[course-detail] failed:", err);
   }
   if (!course) notFound();
+
+  const supabase = await getSupabaseServerClient();
 
   const user = await getCurrentUser();
   let hasAccess = false;
@@ -104,6 +106,27 @@ export default async function CourseDetailPage({ params }: PageProps) {
 
   return (
     <>
+      <JsonLd
+        data={graph(
+          courseSchema({
+            title: course.title,
+            slug: course.slug,
+            description: course.description,
+            subtitle: course.subtitle,
+            level: course.level,
+            price_gbp: course.price_gbp,
+            cover_image_path: course.cover_image_path,
+            avg_rating: course.avg_rating,
+            ratings_count: course.ratings_count,
+            totalDurationSeconds: totalDuration,
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Academy", path: "/ondemand" },
+            { name: course.title, path: `/ondemand/${course.slug}` },
+          ]),
+        )}
+      />
       <section className="relative pt-10 pb-12 md:pt-14 md:pb-16 overflow-hidden">
         <div
           aria-hidden="true"
@@ -283,12 +306,10 @@ export default async function CourseDetailPage({ params }: PageProps) {
                           lesson.is_free_preview ||
                           lesson.is_trailer ||
                           mod.is_free;
-                        return (
-                          <li
-                            key={lesson.id}
-                            className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-mustard/5 transition-colors"
-                          >
-                            {free ? (
+                        const canPreview = free || hasAccess;
+                        const inner = (
+                          <>
+                            {free || hasAccess ? (
                               <PlayCircle className="h-4 w-4 text-mustard-600 shrink-0" />
                             ) : (
                               <Lock className="h-4 w-4 text-charcoal-300 shrink-0" />
@@ -314,6 +335,23 @@ export default async function CourseDetailPage({ params }: PageProps) {
                                 Preview
                               </Badge>
                             )}
+                          </>
+                        );
+                        return canPreview ? (
+                          <li key={lesson.id}>
+                            <Link
+                              href={`/learn/${course.slug}/${lesson.slug}`}
+                              className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-mustard/5 transition-colors"
+                            >
+                              {inner}
+                            </Link>
+                          </li>
+                        ) : (
+                          <li
+                            key={lesson.id}
+                            className="flex items-center gap-3 rounded-lg px-3 py-2"
+                          >
+                            {inner}
                           </li>
                         );
                       })}

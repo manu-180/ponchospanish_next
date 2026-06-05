@@ -166,7 +166,7 @@ export type Database = {
           course_id: string;
           created_at: string;
           description: string | null;
-          file_path: string;
+          file_path: string | null;
           file_size_bytes: number | null;
           id: string;
           is_free_preview: boolean;
@@ -174,12 +174,13 @@ export type Database = {
           lesson_id: string | null;
           position: number;
           title: string;
+          url: string | null;
         };
         Insert: {
           course_id: string;
           created_at?: string;
           description?: string | null;
-          file_path: string;
+          file_path?: string | null;
           file_size_bytes?: number | null;
           id?: string;
           is_free_preview?: boolean;
@@ -187,12 +188,13 @@ export type Database = {
           lesson_id?: string | null;
           position?: number;
           title: string;
+          url?: string | null;
         };
         Update: {
           course_id?: string;
           created_at?: string;
           description?: string | null;
-          file_path?: string;
+          file_path?: string | null;
           file_size_bytes?: number | null;
           id?: string;
           is_free_preview?: boolean;
@@ -200,6 +202,7 @@ export type Database = {
           lesson_id?: string | null;
           position?: number;
           title?: string;
+          url?: string | null;
         };
         Relationships: [
           {
@@ -305,6 +308,7 @@ export type Database = {
       courses: {
         Row: {
           avg_rating: number | null;
+          caption_style: string;
           cover_image_path: string | null;
           created_at: string;
           created_by: string | null;
@@ -327,6 +331,7 @@ export type Database = {
         };
         Insert: {
           avg_rating?: number | null;
+          caption_style?: string;
           cover_image_path?: string | null;
           created_at?: string;
           created_by?: string | null;
@@ -349,6 +354,7 @@ export type Database = {
         };
         Update: {
           avg_rating?: number | null;
+          caption_style?: string;
           cover_image_path?: string | null;
           created_at?: string;
           created_by?: string | null;

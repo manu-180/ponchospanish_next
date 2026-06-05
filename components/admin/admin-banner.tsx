@@ -21,14 +21,14 @@ export function AdminBanner() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-mustard px-3 text-[11px] font-bold uppercase tracking-wider text-charcoal-700">
-              <Sparkles className="h-3 w-3" /> Tu estudio
+              <Sparkles className="h-3 w-3" /><span>Tu estudio</span>
             </span>
             <span className="text-[11px] uppercase tracking-[0.2em] text-cream-50/60">
               solo visible para vos
             </span>
           </div>
           <h2 className="font-serif text-2xl md:text-3xl leading-tight">
-            Bienvenida, profe.
+            Bienvenida.
           </h2>
           <p className="mt-2 text-sm text-cream-50/80 max-w-md">
             Subí videos, ebooks y cursos nuevos. Editá precios, descripciones y
@@ -40,14 +40,14 @@ export function AdminBanner() {
             href="/admin"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-mustard px-5 py-2.5 text-sm font-semibold text-charcoal-700 transition-colors hover:bg-mustard-400"
           >
-            <GraduationCap className="h-4 w-4" /> Ir al panel
+            <GraduationCap className="h-4 w-4" /><span>Ir al panel</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
             href="/admin/courses/new"
             className="inline-flex items-center justify-center gap-2 rounded-full border border-cream-50/30 bg-cream-50/10 px-5 py-2.5 text-sm font-semibold text-cream-50 transition-all hover:bg-cream-50/20"
           >
-            <Upload className="h-4 w-4" /> Subir curso
+            <Upload className="h-4 w-4" /><span>Subir curso</span>
           </Link>
         </div>
       </div>

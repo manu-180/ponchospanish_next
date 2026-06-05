@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description: "Poncho Spanish — terms of service for online lessons and Academy.",
+  alternates: { canonical: "/legal/terms" },
 };
 
 export default function TermsPage() {

@@ -23,6 +23,17 @@ export function formatDuration(seconds: number | null | undefined): string {
   return `${s}s`;
 }
 
+export function formatBytes(bytes: number | null | undefined): string {
+  if (!bytes || bytes <= 0) return "—";
+  const units = ["B", "KB", "MB", "GB"];
+  const i = Math.min(
+    units.length - 1,
+    Math.floor(Math.log(bytes) / Math.log(1024)),
+  );
+  const value = bytes / Math.pow(1024, i);
+  return `${value % 1 === 0 ? value : value.toFixed(1)} ${units[i]}`;
+}
+
 export function slugify(text: string): string {
   return text
     .toString()
@@ -42,6 +53,8 @@ export function clampPercent(value: number): number {
 export function absoluteUrl(path: string = "") {
   const base =
     process.env.NEXT_PUBLIC_SITE_URL ??
-    (typeof window !== "undefined" ? window.location.origin : "http://localhost:3000");
+    (typeof window !== "undefined"
+      ? window.location.origin
+      : "https://www.ponchospanish.com");
   return `${base.replace(/\/$/, "")}${path.startsWith("/") ? path : `/${path}`}`;
 }

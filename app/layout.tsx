@@ -1,6 +1,16 @@
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import { Libre_Baskerville, Montserrat } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
+import { TopProgressBar } from "@/components/ui/top-progress-bar";
+import { JsonLd } from "@/components/seo/json-ld";
+import {
+  graph,
+  organizationSchema,
+  websiteSchema,
+  personSchema,
+} from "@/lib/seo/schema";
+import { siteConfig, siteUrl } from "@/lib/seo/config";
 import "./globals.css";
 
 const baskerville = Libre_Baskerville({
@@ -17,46 +27,56 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default:
-      "Poncho Spanish — Online Spanish lessons for curious minds",
+    default: siteConfig.title,
     template: "%s · Poncho Spanish",
   },
-  description:
-    "Online Spanish classes for kids, teens & families who want to speak Spanish without the panic or the perfectionism. Private lessons, group classes, GCSE support & a streaming Academy.",
-  applicationName: "Poncho Spanish",
-  authors: [{ name: "Anto · Poncho Spanish" }],
-  keywords: [
-    "Spanish lessons online",
-    "Spanish for kids",
-    "Spanish for teens",
-    "GCSE Spanish",
-    "Spanish tutor UK",
-    "learn Spanish online",
-  ],
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: "Anto · Poncho Spanish", url: siteUrl }],
+  creator: "Poncho Spanish",
+  publisher: "Poncho Spanish",
+  keywords: [...siteConfig.keywords],
+  category: "education",
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
   openGraph: {
-    title: "Poncho Spanish — Online Spanish lessons for curious minds",
-    description:
-      "Online Spanish classes & a streaming Academy. Relaxed, positive, meaningful.",
-    url: siteUrl,
-    siteName: "Poncho Spanish",
     type: "website",
-    images: ["/images/foto1.jpeg"],
+    locale: siteConfig.locale,
+    url: siteUrl,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.tagline,
+    // OG/Twitter images come from app/opengraph-image.tsx (file convention).
   },
   twitter: {
     card: "summary_large_image",
-    title: "Poncho Spanish",
-    description:
-      "Online Spanish classes & a streaming Academy. Relaxed, positive, meaningful.",
-    images: ["/images/foto1.jpeg"],
+    title: siteConfig.title,
+    description: siteConfig.tagline,
   },
-  icons: { icon: "/images/logo.png" },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  formatDetection: { telephone: false, address: false, email: false },
+  other: {
+    "geo.region": "GB",
+    "geo.placename": "United Kingdom",
+  },
 };
 
 export const viewport: Viewport = {
@@ -70,13 +90,23 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      lang="en"
+      lang="en-GB"
       className={`${baskerville.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh font-sans antialiased" suppressHydrationWarning>
+        <Suspense fallback={null}>
+          <TopProgressBar />
+        </Suspense>
         {children}
         <Toaster />
+        <JsonLd
+          data={graph(
+            organizationSchema(),
+            websiteSchema(),
+            personSchema(),
+          )}
+        />
       </body>
     </html>
   );

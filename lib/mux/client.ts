@@ -31,12 +31,18 @@ export function getMux(): Mux {
 /**
  * Standard settings applied to every new asset created via Direct Upload.
  *  - `signed` playback policy → URLs require JWT signed with our key.
- *  - `standard` MP4 → enables Whisper to fetch the audio.
+ *  - `audio-only` MP4 → Mux produces a single tiny `audio.m4a` rendition
+ *    (instead of the old "standard" low/medium/high trio that cost storage
+ *    forever). It's all Whisper needs and always stays under the 25 MB limit.
  *  - `smart` encoding tier → great quality at lower cost.
+ *  - `max_resolution_tier: "1080p"` is Mux's MINIMUM cap (720p isn't a valid
+ *    encode tier). Delivery cost is capped separately on the player via
+ *    `maxResolution="720p"` — that's the lever that actually lowers the
+ *    per-minute-delivered bill.
  */
 export const DEFAULT_NEW_ASSET_SETTINGS = {
   playback_policy: ["signed"] as const,
-  mp4_support: "standard" as const,
+  mp4_support: "audio-only" as const,
   max_resolution_tier: "1080p" as const,
   encoding_tier: "smart" as const,
 };
@@ -57,9 +63,18 @@ export function muxGifPreviewUrl(playbackId: string): string {
 }
 
 /**
- * Build the static MP4 URL for a playback ID. Used by Whisper to fetch
- * audio. Requires `mp4_support: "standard"` on the asset.
+ * Build the static MP4 URL for a playback ID (legacy assets only — new assets
+ * use `mp4_support: "audio-only"` and expose `audio.m4a`, see `muxAudioUrl`).
  */
 export function muxStaticMp4Url(playbackId: string, quality: "low" | "medium" | "high" = "high"): string {
   return `https://stream.mux.com/${playbackId}/${quality}.mp4`;
+}
+
+/**
+ * Build the audio-only static rendition URL (`audio.m4a`). This is what
+ * `mp4_support: "audio-only"` produces and what Whisper now fetches — tiny,
+ * audio-only, and never anywhere near the 25 MB transcription limit.
+ */
+export function muxAudioUrl(playbackId: string): string {
+  return `https://stream.mux.com/${playbackId}/audio.m4a`;
 }

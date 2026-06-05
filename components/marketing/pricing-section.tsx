@@ -19,18 +19,12 @@ export function PricingSection() {
       <div className="container-narrow">
         <AnimatedSection>
           <div className="text-center mb-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-mustard-600 mb-3">
-              Investment options
-            </p>
             <h2 className="font-serif text-display-md uppercase">
-              Get in touch
+              Current Investment Options
             </h2>
           </div>
 
           <div className="rounded-3xl bg-cream-50 ring-1 ring-charcoal-100/40 shadow-soft p-6 md:p-10">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-terracotta-400 mb-6">
-              Current investment options
-            </h3>
             <div className="space-y-5 divide-y divide-charcoal-100/60">
               {pricing.map((p) => (
                 <div key={p.title} className="pt-5 first:pt-0">

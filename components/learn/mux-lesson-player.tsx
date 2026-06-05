@@ -8,9 +8,16 @@
  * scrubbing, etc.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { Lock, PlayCircle } from "lucide-react";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import {
+  CaptionOverlay,
+  type OverlayCue,
+} from "@/components/subtitles/caption-overlay";
+import { UpNextOverlay, type UpNextLesson } from "@/components/learn/up-next-overlay";
 
 // next/dynamic — mux-player-react is a client-only custom element that
 // throws if rendered during SSR. ssr:false keeps the bundle clean.
@@ -33,7 +40,26 @@ interface Props {
   userId?: string;
   /** lessonId for analytics — also used for live token refresh later. */
   lessonId?: string;
+  /** Subtitle cues to render as a styled overlay (the course's design). */
+  captionCues?: OverlayCue[];
+  /** Caption design preset id (from course.caption_style). */
+  captionPreset?: string;
   onComplete?: () => void;
+  /** Next lesson for the end-of-video "up next" card. */
+  nextUp?: UpNextLesson | null;
+  /** Course title (shown on the "course complete" end card). */
+  courseTitle?: string;
+  /** Course cover, used as fallback artwork in the up-next card. */
+  coverImage?: string | null;
+  /** /ondemand/{slug} — unlock CTA + back-to-course target. */
+  overviewHref?: string;
+  /** Whether this video should start playing automatically (auto-advance). */
+  autoPlay?: boolean;
+  /**
+   * When true the player writes a lesson_progress row to Supabase when the
+   * video ends. Requires userId + lessonId to be set.
+   */
+  autoMarkComplete?: boolean;
 }
 
 export function MuxLessonPlayer({
@@ -45,15 +71,78 @@ export function MuxLessonPlayer({
   locked,
   userId,
   lessonId,
+  captionCues,
+  captionPreset,
   onComplete,
+  nextUp,
+  courseTitle,
+  coverImage,
+  overviewHref,
+  autoPlay,
+  autoMarkComplete,
 }: Props) {
+  const router = useRouter();
   const [completed, setCompleted] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [showUpNext, setShowUpNext] = useState(false);
   const ref = useRef<HTMLElement | null>(null);
+  const hasCaptions = Boolean(captionCues && captionCues.length > 0);
 
-  // Reset completion flag when lesson changes
+  // Reset state when lesson changes
   useEffect(() => {
     setCompleted(false);
+    setShowUpNext(false);
   }, [playbackId]);
+
+  // Write a lesson_progress row and refresh the sidebar/outline.
+  const markComplete = useCallback(async () => {
+    if (!autoMarkComplete || !userId || !lessonId) return;
+    const supabase = getSupabaseBrowserClient();
+    const { error } = await supabase
+      .from("lesson_progress")
+      .upsert({ user_id: userId, lesson_id: lessonId } as never, {
+        onConflict: "user_id,lesson_id",
+      });
+    if (error) {
+      console.error("Failed to mark lesson complete:", error);
+      return;
+    }
+    router.refresh();
+  }, [autoMarkComplete, userId, lessonId, router]);
+
+  // Show overlay: if in fullscreen exit first so the overlay is visible.
+  const triggerEndCard = useCallback(() => {
+    const exitAndShow = () => {
+      setShowUpNext(true);
+    };
+    if (document.fullscreenElement) {
+      const onExit = () => {
+        document.removeEventListener("fullscreenchange", onExit);
+        exitAndShow();
+      };
+      document.addEventListener("fullscreenchange", onExit);
+      void document.exitFullscreen();
+    } else {
+      exitAndShow();
+    }
+  }, []);
+
+  const handleAdvance = (href: string) => {
+    router.push(`${href}?autoplay=1`);
+  };
+
+  const handleReplay = () => {
+    const media = ref.current as (HTMLMediaElement & HTMLElement) | null;
+    if (media) {
+      try {
+        media.currentTime = 0;
+        void media.play?.();
+      } catch {
+        /* ignore */
+      }
+    }
+    setShowUpNext(false);
+  };
 
   if (locked) {
     return (
@@ -97,6 +186,14 @@ export function MuxLessonPlayer({
         }}
         streamType="on-demand"
         accentColor="#d97706"
+        autoPlay={autoPlay ? "any" : undefined}
+        // Cap delivery at 720p. Mux bills per minute *delivered* by resolution,
+        // so this is the single biggest lever on the recurring streaming bill —
+        // 720p is indistinguishable for talking-head lessons on most screens.
+        maxResolution="720p"
+        // Only fetch metadata until the viewer hits play — avoids paying for
+        // segment delivery on lessons that are opened but never watched.
+        preload="metadata"
         style={{
           position: "absolute",
           inset: 0,
@@ -107,18 +204,41 @@ export function MuxLessonPlayer({
           if (!completed) {
             setCompleted(true);
             onComplete?.();
+            void markComplete();
           }
+          triggerEndCard();
         }}
         onTimeUpdate={(e) => {
           const target = e.target as HTMLMediaElement;
+          if (hasCaptions) setCurrentTime(target.currentTime || 0);
           if (!target.duration) return;
           const pct = (target.currentTime / target.duration) * 100;
           if (pct >= 92 && !completed) {
             setCompleted(true);
             onComplete?.();
+            void markComplete();
           }
         }}
       />
+      {hasCaptions && (
+        <CaptionOverlay
+          cues={captionCues as OverlayCue[]}
+          currentTime={currentTime}
+          presetId={captionPreset ?? "classic"}
+          showControls
+        />
+      )}
+      {showUpNext && (
+        <UpNextOverlay
+          next={nextUp ?? null}
+          coverImage={coverImage}
+          courseTitle={courseTitle ?? "this course"}
+          overviewHref={overviewHref ?? "/ondemand"}
+          onAdvance={handleAdvance}
+          onReplay={handleReplay}
+          onDismiss={() => setShowUpNext(false)}
+        />
+      )}
     </div>
   );
 }

@@ -9,7 +9,11 @@
 import jwt from "jsonwebtoken";
 import { env } from "@/lib/env";
 
-const DEFAULT_TTL_SECONDS = 15 * 60; // 15 minutes
+const DEFAULT_TTL_SECONDS = 2 * 60 * 60; // 2 hours — covers a full lesson without a
+                                          // mid-playback refresh, and slashes calls
+                                          // to /api/mux/playback-token (fewer
+                                          // serverless invocations). Token is still
+                                          // bound to the user + playback ID.
 const TRAILER_TTL_SECONDS = 60 * 60; // 1 hour (trailers play unauthenticated)
 
 export type MuxTokenAudience =
@@ -88,6 +92,48 @@ export function buildSignedPlaybackUrl(
     url: `https://stream.mux.com/${playbackId}.m3u8?token=${token}`,
     expiresAt: Date.now() + ttl * 1000,
   };
+}
+
+/**
+ * Build a signed static MP4 URL. Static renditions are served under the
+ * "video" audience (aud "v"), so a signed-policy asset returns 403 on the
+ * bare URL.
+ *
+ * Used as a LEGACY fallback for the Whisper pipeline: assets created before
+ * the `audio-only` switch only have low/medium/high MP4 renditions.
+ *
+ * Default TTL is 1h — long enough for a transcription job to fetch the bytes.
+ */
+export function buildSignedStaticMp4Url(
+  playbackId: string,
+  quality: "low" | "medium" | "high" = "low",
+  ttlSeconds = 60 * 60,
+): string {
+  const token = signMuxPlaybackToken({
+    playbackId,
+    audience: "video",
+    ttlSeconds,
+  });
+  return `https://stream.mux.com/${playbackId}/${quality}.mp4?token=${token}`;
+}
+
+/**
+ * Build a signed audio-only rendition URL (`audio.m4a`). This is the PREFERRED
+ * source for Whisper: it's audio-only (no video bytes to download or store)
+ * and always well under the 25 MB limit. Produced by `mp4_support: "audio-only"`.
+ *
+ * Served under the "video" audience (aud "v"), same as other static renditions.
+ */
+export function buildSignedAudioUrl(
+  playbackId: string,
+  ttlSeconds = 60 * 60,
+): string {
+  const token = signMuxPlaybackToken({
+    playbackId,
+    audience: "video",
+    ttlSeconds,
+  });
+  return `https://stream.mux.com/${playbackId}/audio.m4a?token=${token}`;
 }
 
 /**

@@ -40,7 +40,7 @@ export const env = {
   NEXT_PUBLIC_PAYPAL_CLIENT_ID:
     process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? "test",
   NEXT_PUBLIC_SITE_URL:
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ponchospanish.com",
 
   // Analytics & monitoring (public)
   NEXT_PUBLIC_POSTHOG_KEY: optional(process.env.NEXT_PUBLIC_POSTHOG_KEY),
@@ -118,10 +118,22 @@ export const env = {
  * UI when a secret isn't configured yet (e.g. hide subtitle editor button
  * until OPENAI_API_KEY is set).
  */
+const PAYPAL_PLACEHOLDERS = new Set([
+  "",
+  "test",
+  "your-paypal-client-id",
+  "your_paypal_client_id",
+]);
+
 export const features = {
   mux: Boolean(process.env.MUX_TOKEN_ID && process.env.MUX_TOKEN_SECRET),
   whisper: Boolean(process.env.OPENAI_API_KEY),
   resend: Boolean(process.env.RESEND_API_KEY),
   posthog: Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY),
   sentry: Boolean(process.env.NEXT_PUBLIC_SENTRY_DSN),
+  /** True only when a real PayPal client ID is configured (not a placeholder). */
+  paypal: Boolean(
+    process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID &&
+      !PAYPAL_PLACEHOLDERS.has(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID),
+  ),
 };

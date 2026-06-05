@@ -21,12 +21,20 @@ import {
 
 export const dynamic = "force-dynamic";
 
-// Allowlist — extend as we add features.
+// Allowlist of API-level bucket aliases (what the client sends).
 const ALLOWED_BUCKETS = new Set([
   "covers",
   "digital-products",
   "course-resources",
 ]);
+
+// Maps the API alias → actual Supabase bucket name.
+// "covers" is stored in Supabase as "course-covers".
+const SUPABASE_BUCKET: Record<string, string> = {
+  "covers": "course-covers",
+  "digital-products": "digital-products",
+  "course-resources": "course-resources",
+};
 
 const Schema = z.object({
   bucket: z.string().min(1),
@@ -64,9 +72,11 @@ export async function POST(req: Request) {
   const cleanName = parsed.data.filename.replace(/\s+/g, "-").toLowerCase();
   const path = `admin/${profile.id}/${Date.now()}-${cleanName}`;
 
+  const storageBucket = SUPABASE_BUCKET[parsed.data.bucket];
+
   const admin = getSupabaseAdminClient();
   const { data, error } = await admin.storage
-    .from(parsed.data.bucket)
+    .from(storageBucket)
     .createSignedUploadUrl(path);
 
   if (error || !data) {
@@ -78,7 +88,7 @@ export async function POST(req: Request) {
 
   // Get the public URL we'll need after upload (or, if bucket is private,
   // the path the client should store).
-  const { data: pub } = admin.storage.from(parsed.data.bucket).getPublicUrl(path);
+  const { data: pub } = admin.storage.from(storageBucket).getPublicUrl(path);
 
   return NextResponse.json({
     bucket: parsed.data.bucket,

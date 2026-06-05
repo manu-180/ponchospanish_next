@@ -17,7 +17,7 @@
  *   - For other files: shows filename + size + remove button.
  */
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Upload,
   Loader2,
@@ -68,6 +68,15 @@ export function FileUploader({
     currentName ?? null,
   );
 
+  // Sync preview state when the parent updates the prop (e.g. after a save/refetch).
+  useEffect(() => {
+    setPreviewUrl(currentUrl ?? null);
+  }, [currentUrl]);
+
+  useEffect(() => {
+    setPreviewName(currentName ?? null);
+  }, [currentName]);
+
   const pick = () => inputRef.current?.click();
 
   const upload = async (file: File) => {
@@ -87,10 +96,11 @@ export function FileUploader({
           contentType: file.type,
         }),
       });
-      const sign = await signRes.json();
       if (!signRes.ok) {
-        throw new Error(sign.message ?? sign.error ?? "Error firmando URL");
+        const errData = await signRes.json().catch(() => ({})) as Record<string, string>;
+        throw new Error(errData.message ?? errData.error ?? `HTTP ${signRes.status}`);
       }
+      const sign = await signRes.json();
 
       // Direct PUT to the signed URL — Supabase Storage supports this for any
       // size up to bucket limits. We use XHR so we get progress events.
@@ -170,7 +180,7 @@ export function FileUploader({
           )}
           <div className="flex-1 min-w-0">
             <p className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
-              <CheckCircle2 className="h-3.5 w-3.5" /> Subido
+              <CheckCircle2 className="h-3.5 w-3.5" /><span>Subido</span>
             </p>
             <p className="mt-0.5 truncate text-sm text-charcoal-600">
               {previewName ?? previewUrl}
@@ -184,7 +194,7 @@ export function FileUploader({
               onClick={clear}
               className="text-[11px] text-charcoal-400 hover:text-destructive"
             >
-              <X className="h-3 w-3 inline" /> Quitar
+              <X className="h-3 w-3 inline" /><span>Quitar</span>
             </button>
           </div>
         </div>
@@ -193,7 +203,7 @@ export function FileUploader({
       {busy && (
         <div className="rounded-2xl border border-charcoal-100/60 bg-cream-50 p-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-charcoal-600">
-            <Loader2 className="h-4 w-4 animate-spin text-mustard-600" /> Subiendo… {progress.toFixed(0)}%
+            <Loader2 className="h-4 w-4 animate-spin text-mustard-600" /><span>Subiendo… {progress.toFixed(0)}%</span>
           </div>
           <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-charcoal-100">
             <div

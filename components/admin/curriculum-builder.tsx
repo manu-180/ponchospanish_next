@@ -21,7 +21,7 @@
  *    that lesson (great for a sales hook).
  */
 
-import { useState, useTransition } from "react";
+import { createContext, useContext, useState, useTransition } from "react";
 import {
   DndContext,
   DragEndEvent,
@@ -58,7 +58,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MuxUploader, type MuxStatus } from "./mux-uploader";
+import {
+  LessonSubtitlesPanel,
+  type InitialSubtitle,
+} from "./lesson-subtitles-panel";
+import { LessonResourcesPanel } from "./lesson-resources-panel";
 import type { Lesson as LessonRow, Module as ModuleRow } from "@/types/database";
+
+/**
+ * Shared admin context so deeply-nested lesson rows can reach the courseId
+ * (for the subtitle editor link) and the Whisper feature flag without
+ * threading props through ModuleCard → LessonList → LessonRow.
+ */
+const CurriculumContext = createContext<{
+  courseId: string;
+  whisperEnabled: boolean;
+}>({ courseId: "", whisperEnabled: false });
 
 type LessonItem = Pick<
   LessonRow,
@@ -71,7 +86,10 @@ type LessonItem = Pick<
   | "mux_status"
   | "mux_thumbnail_url"
   | "mux_duration_seconds"
->;
+> & {
+  /** Subtitle track summary (one per lesson). Undefined for freshly created rows. */
+  subtitle?: InitialSubtitle | null;
+};
 
 type ModuleItem = Pick<
   ModuleRow,
@@ -83,9 +101,11 @@ type ModuleItem = Pick<
 export function CurriculumBuilder({
   courseId,
   initialModules,
+  whisperEnabled = false,
 }: {
   courseId: string;
   initialModules: ModuleItem[];
+  whisperEnabled?: boolean;
 }) {
   const [modules, setModules] = useState<ModuleItem[]>(initialModules);
   const [expanded, setExpanded] = useState<Set<string>>(
@@ -199,6 +219,7 @@ export function CurriculumBuilder({
   );
 
   return (
+    <CurriculumContext.Provider value={{ courseId, whisperEnabled }}>
     <div className="space-y-5">
       <div className="flex items-center justify-between gap-3">
         <div>
@@ -227,7 +248,7 @@ export function CurriculumBuilder({
             básico&rdquo;, &ldquo;Conversación&rdquo;.
           </p>
           <Button onClick={addModule} className="mt-4" disabled={creating}>
-            <Plus className="h-4 w-4" /> Crear primer módulo
+            <Plus className="h-4 w-4" /><span>Crear primer módulo</span>
           </Button>
         </div>
       ) : (
@@ -262,6 +283,7 @@ export function CurriculumBuilder({
         </DndContext>
       )}
     </div>
+    </CurriculumContext.Provider>
   );
 }
 
@@ -574,6 +596,7 @@ function LessonRow({
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: lesson.id });
+  const { courseId, whisperEnabled } = useContext(CurriculumContext);
   const [expanded, setExpanded] = useState(lesson.mux_status === "idle");
   const [editingTitle, setEditingTitle] = useState(false);
   const [titleDraft, setTitleDraft] = useState(lesson.title);
@@ -782,6 +805,21 @@ function LessonRow({
             }}
           />
 
+          <LessonSubtitlesPanel
+            lessonId={lesson.id}
+            courseId={courseId}
+            muxReady={lesson.mux_status === "ready"}
+            whisperEnabled={whisperEnabled}
+            initial={
+              lesson.subtitle ?? {
+                status: "none",
+                language: null,
+                error: null,
+                cuesCount: 0,
+              }
+            }
+          />
+
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-charcoal-500">
               Descripción de la lección (opcional)
@@ -794,6 +832,8 @@ function LessonRow({
               rows={3}
             />
           </div>
+
+          <LessonResourcesPanel lessonId={lesson.id} />
         </div>
       )}
     </div>

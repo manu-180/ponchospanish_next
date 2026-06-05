@@ -1,0 +1,807 @@
+{
+  "C:\\MisProyectos\\Family\\poncho_next\\.eslintrc.json": {
+    "mtime": 1779330511.4613826,
+    "ast_hash": "9b8be5ef96ddd69ecd1ddc1554c61a88",
+    "semantic_hash": "9b8be5ef96ddd69ecd1ddc1554c61a88"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\codes\\page.tsx": {
+    "mtime": 1779765237.3700194,
+    "ast_hash": "856ef6e663e33854c5a60ab4a8c1e033",
+    "semantic_hash": "856ef6e663e33854c5a60ab4a8c1e033"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\courses\\[id]\\page.tsx": {
+    "mtime": 1780521160.0456102,
+    "ast_hash": "9a3127a35f79b8202ba90eb474a838dd",
+    "semantic_hash": "9a3127a35f79b8202ba90eb474a838dd"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\courses\\new\\page.tsx": {
+    "mtime": 1779324231.8353958,
+    "ast_hash": "2dd9769505de51d9f4ec39af2755e84c",
+    "semantic_hash": "2dd9769505de51d9f4ec39af2755e84c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\courses\\page.tsx": {
+    "mtime": 1779324226.5128608,
+    "ast_hash": "df3e65c6708c65f63c9c6eb949859365",
+    "semantic_hash": "df3e65c6708c65f63c9c6eb949859365"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\digital-products\\[id]\\page.tsx": {
+    "mtime": 1779588714.4154656,
+    "ast_hash": "18242c502b222adaeecc481a1acf0737",
+    "semantic_hash": "18242c502b222adaeecc481a1acf0737"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\digital-products\\new\\page.tsx": {
+    "mtime": 1779588709.3159528,
+    "ast_hash": "681ac22ac59ca91f1a696e3f76070279",
+    "semantic_hash": "681ac22ac59ca91f1a696e3f76070279"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\digital-products\\page.tsx": {
+    "mtime": 1779588703.6220992,
+    "ast_hash": "921634e76ce51c0dfee20bbf8510c4ab",
+    "semantic_hash": "921634e76ce51c0dfee20bbf8510c4ab"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\layout.tsx": {
+    "mtime": 1779588672.6930254,
+    "ast_hash": "e457e3707cadfaac0d8ecd61a4e2853b",
+    "semantic_hash": "e457e3707cadfaac0d8ecd61a4e2853b"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\orders\\page.tsx": {
+    "mtime": 1779330617.052081,
+    "ast_hash": "54ff7d784d8f49670bfe0d7645c6960f",
+    "semantic_hash": "54ff7d784d8f49670bfe0d7645c6960f"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\page.tsx": {
+    "mtime": 1779324208.0657685,
+    "ast_hash": "ab7f98615a3bba1afb22076553f885bb",
+    "semantic_hash": "ab7f98615a3bba1afb22076553f885bb"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\reviews\\page.tsx": {
+    "mtime": 1779324298.5151548,
+    "ast_hash": "535e4d10f929b6624b1b3e6a69e8d873",
+    "semantic_hash": "535e4d10f929b6624b1b3e6a69e8d873"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\settings\\page.tsx": {
+    "mtime": 1779330641.364867,
+    "ast_hash": "fe3c31aabdc879619741943f69ad8057",
+    "semantic_hash": "fe3c31aabdc879619741943f69ad8057"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(admin)\\admin\\students\\page.tsx": {
+    "mtime": 1779324283.231677,
+    "ast_hash": "17760c62c827a176e708b4b174616dcc",
+    "semantic_hash": "17760c62c827a176e708b4b174616dcc"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(app)\\account\\page.tsx": {
+    "mtime": 1778792771.1933632,
+    "ast_hash": "8e8460cc7183c4ccadb6118e8154a92b",
+    "semantic_hash": "8e8460cc7183c4ccadb6118e8154a92b"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(app)\\dashboard\\page.tsx": {
+    "mtime": 1779590010.1378396,
+    "ast_hash": "3b2e56516e148d89e715b4d4a906a454",
+    "semantic_hash": "3b2e56516e148d89e715b4d4a906a454"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(app)\\layout.tsx": {
+    "mtime": 1778792715.7252395,
+    "ast_hash": "374e59cc92cc46e6933ed49375aa6ca0",
+    "semantic_hash": "374e59cc92cc46e6933ed49375aa6ca0"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(app)\\learn\\[slug]\\[lessonSlug]\\page.tsx": {
+    "mtime": 1779766544.8884456,
+    "ast_hash": "93a7b7ea78ebf4369dfaf81d8e7e98d0",
+    "semantic_hash": "93a7b7ea78ebf4369dfaf81d8e7e98d0"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(app)\\learn\\[slug]\\page.tsx": {
+    "mtime": 1779323898.3463433,
+    "ast_hash": "4fe1668d4aec4df580174aec9b47858a",
+    "semantic_hash": "4fe1668d4aec4df580174aec9b47858a"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(marketing)\\layout.tsx": {
+    "mtime": 1778792411.8038554,
+    "ast_hash": "022d1493237e1d5b22d34da0f4b6d091",
+    "semantic_hash": "022d1493237e1d5b22d34da0f4b6d091"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(marketing)\\legal\\terms\\page.tsx": {
+    "mtime": 1780447873.067865,
+    "ast_hash": "58a249bfa3e6dc428685e890266f52bc",
+    "semantic_hash": "58a249bfa3e6dc428685e890266f52bc"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(marketing)\\ondemand\\[slug]\\page.tsx": {
+    "mtime": 1780447766.660812,
+    "ast_hash": "77ed542778c3875264d7d217967e5ce2",
+    "semantic_hash": "77ed542778c3875264d7d217967e5ce2"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(marketing)\\ondemand\\page.tsx": {
+    "mtime": 1780447798.786742,
+    "ast_hash": "8360eddcab32d9d8df3a9f64e1941caa",
+    "semantic_hash": "8360eddcab32d9d8df3a9f64e1941caa"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\(marketing)\\page.tsx": {
+    "mtime": 1780447745.0344257,
+    "ast_hash": "7b019bf39f7bd2fc7dd832d35e0408ce",
+    "semantic_hash": "7b019bf39f7bd2fc7dd832d35e0408ce"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\codes\\[id]\\route.ts": {
+    "mtime": 1779765218.836623,
+    "ast_hash": "90be7adfdd2f0924c1e66ef2ce2af125",
+    "semantic_hash": "90be7adfdd2f0924c1e66ef2ce2af125"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\codes\\route.ts": {
+    "mtime": 1779765208.0054228,
+    "ast_hash": "abf7bccdfff36a1d6c7a00eb81c2d004",
+    "semantic_hash": "abf7bccdfff36a1d6c7a00eb81c2d004"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\courses\\[id]\\modules\\reorder\\route.ts": {
+    "mtime": 1779588208.0379725,
+    "ast_hash": "96f82fb8640088cb83e99760a350078d",
+    "semantic_hash": "96f82fb8640088cb83e99760a350078d"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\courses\\[id]\\modules\\route.ts": {
+    "mtime": 1779588201.1896348,
+    "ast_hash": "bfe5dcf8b52e50bd3ed1d6164002371c",
+    "semantic_hash": "bfe5dcf8b52e50bd3ed1d6164002371c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\courses\\[id]\\route.ts": {
+    "mtime": 1779588191.3773534,
+    "ast_hash": "83c74b1f55f4a6d8ea27d3a9a622300b",
+    "semantic_hash": "83c74b1f55f4a6d8ea27d3a9a622300b"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\courses\\route.ts": {
+    "mtime": 1779324256.6088061,
+    "ast_hash": "ee0f25354844cb07857d41c43ab25793",
+    "semantic_hash": "ee0f25354844cb07857d41c43ab25793"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\digital-products\\[id]\\route.ts": {
+    "mtime": 1779588276.289531,
+    "ast_hash": "4f1fbdf86554da3ff8560c5740534320",
+    "semantic_hash": "4f1fbdf86554da3ff8560c5740534320"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\digital-products\\route.ts": {
+    "mtime": 1779588262.9072964,
+    "ast_hash": "ff756a13cd9e601e64e5586f662f0945",
+    "semantic_hash": "ff756a13cd9e601e64e5586f662f0945"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\lessons-status\\[id]\\route.ts": {
+    "mtime": 1779763199.2652028,
+    "ast_hash": "9697a4c9a127332fbbdb5d3f3b8f294d",
+    "semantic_hash": "9697a4c9a127332fbbdb5d3f3b8f294d"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\lessons\\[id]\\route.ts": {
+    "mtime": 1779588240.3797097,
+    "ast_hash": "d675cc35adecdeb583a0b3fbec5af1fb",
+    "semantic_hash": "d675cc35adecdeb583a0b3fbec5af1fb"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\lessons\\[id]\\subtitles\\generate\\route.ts": {
+    "mtime": 1780520785.4906094,
+    "ast_hash": "4f8fed6487a171b3297de72d4df3bbbb",
+    "semantic_hash": "4f8fed6487a171b3297de72d4df3bbbb"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\lessons\\[id]\\subtitles\\route.ts": {
+    "mtime": 1780520774.4609766,
+    "ast_hash": "8a8ba71c804cae790f6cc9079bd730ce",
+    "semantic_hash": "8a8ba71c804cae790f6cc9079bd730ce"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\modules\\[id]\\lessons\\reorder\\route.ts": {
+    "mtime": 1779588232.0145407,
+    "ast_hash": "f118e95bfd405dfc83b61fde57da5dc9",
+    "semantic_hash": "f118e95bfd405dfc83b61fde57da5dc9"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\modules\\[id]\\lessons\\route.ts": {
+    "mtime": 1779588225.8031557,
+    "ast_hash": "f339377732517ff76dc12c9c5b336761",
+    "semantic_hash": "f339377732517ff76dc12c9c5b336761"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\modules\\[id]\\route.ts": {
+    "mtime": 1779588216.3716319,
+    "ast_hash": "fe92f52d542fcb40d0b240daf01e87a3",
+    "semantic_hash": "fe92f52d542fcb40d0b240daf01e87a3"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\admin\\upload\\route.ts": {
+    "mtime": 1780447081.3152695,
+    "ast_hash": "5c6f7847df3aeb52d6ca514305d07dd6",
+    "semantic_hash": "5c6f7847df3aeb52d6ca514305d07dd6"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\auth\\signout\\route.ts": {
+    "mtime": 1778792681.8194468,
+    "ast_hash": "23373572af74eac80d6ff083c8bedc3a",
+    "semantic_hash": "23373572af74eac80d6ff083c8bedc3a"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\codes\\redeem\\route.ts": {
+    "mtime": 1778792933.1095283,
+    "ast_hash": "99e4af22de0584196920207e9a151675",
+    "semantic_hash": "99e4af22de0584196920207e9a151675"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\codes\\validate\\route.ts": {
+    "mtime": 1779324137.0842624,
+    "ast_hash": "6838c928a0076ae7bd2f8c0f7312b5cf",
+    "semantic_hash": "6838c928a0076ae7bd2f8c0f7312b5cf"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\contact\\route.ts": {
+    "mtime": 1778792573.6673262,
+    "ast_hash": "80341454c8a2a1976863d39333b7022c",
+    "semantic_hash": "80341454c8a2a1976863d39333b7022c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\enrollments\\free\\route.ts": {
+    "mtime": 1778792941.5694263,
+    "ast_hash": "64d5f48e02febd041611e501c8d4d5e2",
+    "semantic_hash": "64d5f48e02febd041611e501c8d4d5e2"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\mux\\direct-upload\\route.ts": {
+    "mtime": 1779324078.1457725,
+    "ast_hash": "b6b1c29dcfd66580a51ceeff114cfc81",
+    "semantic_hash": "b6b1c29dcfd66580a51ceeff114cfc81"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\mux\\playback-token\\route.ts": {
+    "mtime": 1779324119.579451,
+    "ast_hash": "c1592eee4ea95007f83c52f139cbba65",
+    "semantic_hash": "c1592eee4ea95007f83c52f139cbba65"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\mux\\webhook\\route.ts": {
+    "mtime": 1780520740.7558935,
+    "ast_hash": "75e1a1b46183f3de77150a4b4656d906",
+    "semantic_hash": "75e1a1b46183f3de77150a4b4656d906"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\paypal\\capture-order\\route.ts": {
+    "mtime": 1779330818.278802,
+    "ast_hash": "851edbb83e12b874d309d0bfeeba27ce",
+    "semantic_hash": "851edbb83e12b874d309d0bfeeba27ce"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\api\\paypal\\create-order\\route.ts": {
+    "mtime": 1778792906.7879794,
+    "ast_hash": "98ac3cbc3c15ee03b66d5838e7fad5e2",
+    "semantic_hash": "98ac3cbc3c15ee03b66d5838e7fad5e2"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\auth\\callback\\route.ts": {
+    "mtime": 1778792676.685624,
+    "ast_hash": "45baaa6c483c48faee0ecda4499e9c31",
+    "semantic_hash": "45baaa6c483c48faee0ecda4499e9c31"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\auth\\layout.tsx": {
+    "mtime": 1778792594.881728,
+    "ast_hash": "fe8892dadbb48b3cd041901e3731b7e5",
+    "semantic_hash": "fe8892dadbb48b3cd041901e3731b7e5"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\auth\\login\\page.tsx": {
+    "mtime": 1778792622.847249,
+    "ast_hash": "a08809c7c90452d5066c24383f8d0604",
+    "semantic_hash": "a08809c7c90452d5066c24383f8d0604"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\auth\\signup\\page.tsx": {
+    "mtime": 1778792670.026813,
+    "ast_hash": "21970485e43c06b6d657d3a550676bdf",
+    "semantic_hash": "21970485e43c06b6d657d3a550676bdf"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\icon.tsx": {
+    "mtime": 1780447626.662382,
+    "ast_hash": "5eb1a105264ee265ca6e82a75d4fb401",
+    "semantic_hash": "5eb1a105264ee265ca6e82a75d4fb401"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\layout.tsx": {
+    "mtime": 1780448245.7972002,
+    "ast_hash": "6c219876cc59b288f8eac610b2d5ba3c",
+    "semantic_hash": "6c219876cc59b288f8eac610b2d5ba3c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\manifest.ts": {
+    "mtime": 1780447592.3876054,
+    "ast_hash": "90d2b4e3744e13cccbf5a8cf9b3507c5",
+    "semantic_hash": "90d2b4e3744e13cccbf5a8cf9b3507c5"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\opengraph-image.tsx": {
+    "mtime": 1780447638.3760726,
+    "ast_hash": "a2c361e1081662a148ac85a281777207",
+    "semantic_hash": "a2c361e1081662a148ac85a281777207"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\robots.ts": {
+    "mtime": 1780447511.556213,
+    "ast_hash": "980255545ce13d299e5d11b0a814438d",
+    "semantic_hash": "980255545ce13d299e5d11b0a814438d"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\app\\sitemap.ts": {
+    "mtime": 1780447578.9899485,
+    "ast_hash": "4219cc98653045d4c9411f58c18a3d6e",
+    "semantic_hash": "4219cc98653045d4c9411f58c18a3d6e"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\admin-banner.tsx": {
+    "mtime": 1779588349.4569886,
+    "ast_hash": "58f092909328bb9ace2ae34e045f2c00",
+    "semantic_hash": "58f092909328bb9ace2ae34e045f2c00"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\admin-sidebar.tsx": {
+    "mtime": 1779588336.987846,
+    "ast_hash": "cd4444267796885bd4fb91ec27833011",
+    "semantic_hash": "cd4444267796885bd4fb91ec27833011"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\codes-manager.tsx": {
+    "mtime": 1779765391.0493078,
+    "ast_hash": "b0f404c06a5cc0eeddb3d892d8159296",
+    "semantic_hash": "b0f404c06a5cc0eeddb3d892d8159296"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\course-meta-form.tsx": {
+    "mtime": 1779588507.1516833,
+    "ast_hash": "5d6faeeccbca14b10c17aa367fa61a44",
+    "semantic_hash": "5d6faeeccbca14b10c17aa367fa61a44"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\curriculum-builder.tsx": {
+    "mtime": 1780521060.082641,
+    "ast_hash": "21185288b38270d484d605b2b520e049",
+    "semantic_hash": "21185288b38270d484d605b2b520e049"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\digital-product-form.tsx": {
+    "mtime": 1779588668.5080214,
+    "ast_hash": "0089d201263ec421afdbedc08dd4e88f",
+    "semantic_hash": "0089d201263ec421afdbedc08dd4e88f"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\file-uploader.tsx": {
+    "mtime": 1780447097.9964015,
+    "ast_hash": "f85dfafc467d51fc630f15e2a3271e13",
+    "semantic_hash": "f85dfafc467d51fc630f15e2a3271e13"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\lesson-subtitles-panel.tsx": {
+    "mtime": 1780521182.6780016,
+    "ast_hash": "fefb619439c374077a676ac940a04b22",
+    "semantic_hash": "fefb619439c374077a676ac940a04b22"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\mux-uploader.tsx": {
+    "mtime": 1780521192.5404966,
+    "ast_hash": "d4929416ec1c64fa344e1f0c15587e18",
+    "semantic_hash": "d4929416ec1c64fa344e1f0c15587e18"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\new-course-form.tsx": {
+    "mtime": 1779324246.9702823,
+    "ast_hash": "f749c8bd6768d4cd89651d219a2f1281",
+    "semantic_hash": "f749c8bd6768d4cd89651d219a2f1281"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\admin\\publish-toggle.tsx": {
+    "mtime": 1779588467.075964,
+    "ast_hash": "caa1171a9efb9bf7578b8a1f3319bad5",
+    "semantic_hash": "caa1171a9efb9bf7578b8a1f3319bad5"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\auth\\login-form.tsx": {
+    "mtime": 1779684881.4793012,
+    "ast_hash": "f3fea8483192e8e13c2423f0597cf169",
+    "semantic_hash": "f3fea8483192e8e13c2423f0597cf169"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\auth\\signup-form.tsx": {
+    "mtime": 1779728304.697168,
+    "ast_hash": "70cf45269bb3625e20894987279bf402",
+    "semantic_hash": "70cf45269bb3625e20894987279bf402"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\learn\\account-form.tsx": {
+    "mtime": 1779330944.393489,
+    "ast_hash": "7fb2221e170b5ef106beb3d8fde63ff1",
+    "semantic_hash": "7fb2221e170b5ef106beb3d8fde63ff1"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\learn\\app-header.tsx": {
+    "mtime": 1779683877.5052645,
+    "ast_hash": "908f63f87c3fded2d021a799307eb16d",
+    "semantic_hash": "908f63f87c3fded2d021a799307eb16d"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\learn\\checkout-panel.tsx": {
+    "mtime": 1779323877.8851223,
+    "ast_hash": "6fbee6cd7c0e4f6f7118693072807788",
+    "semantic_hash": "6fbee6cd7c0e4f6f7118693072807788"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\learn\\course-outline.tsx": {
+    "mtime": 1778792978.5095916,
+    "ast_hash": "4246db23a13575d642e1d1879a747309",
+    "semantic_hash": "4246db23a13575d642e1d1879a747309"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\learn\\mark-complete-button.tsx": {
+    "mtime": 1779330956.3083558,
+    "ast_hash": "f4906ca25949039e4d28184ee3ceba63",
+    "semantic_hash": "f4906ca25949039e4d28184ee3ceba63"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\learn\\mux-lesson-player.tsx": {
+    "mtime": 1779766508.1038022,
+    "ast_hash": "20bb9347b4d3c0d653ec83956aff89a7",
+    "semantic_hash": "20bb9347b4d3c0d653ec83956aff89a7"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\learn\\redeem-code-card.tsx": {
+    "mtime": 1778792729.299708,
+    "ast_hash": "f2071b7acbcfb96f74cc4d0d0a4076c3",
+    "semantic_hash": "f2071b7acbcfb96f74cc4d0d0a4076c3"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\learn\\video-player.tsx": {
+    "mtime": 1778792993.1557443,
+    "ast_hash": "ff984109da1ab39f65371935bd873c2e",
+    "semantic_hash": "ff984109da1ab39f65371935bd873c2e"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\learn\\workbook-viewer.tsx": {
+    "mtime": 1779330947.5325718,
+    "ast_hash": "be1b18b9897754af9fb0afb4a8a4e19a",
+    "semantic_hash": "be1b18b9897754af9fb0afb4a8a4e19a"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\about-anto-section.tsx": {
+    "mtime": 1780447865.3203816,
+    "ast_hash": "ad9324215c14e70e615c884bf0134480",
+    "semantic_hash": "ad9324215c14e70e615c884bf0134480"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\academy-section.tsx": {
+    "mtime": 1779323887.8166227,
+    "ast_hash": "8761ce423cbc6acc969e3bb0bda55886",
+    "semantic_hash": "8761ce423cbc6acc969e3bb0bda55886"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\auth-card.tsx": {
+    "mtime": 1778792615.537681,
+    "ast_hash": "82624e29e6ac2dc51c0beaad88d6b02f",
+    "semantic_hash": "82624e29e6ac2dc51c0beaad88d6b02f"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\contact-form.tsx": {
+    "mtime": 1778792536.576686,
+    "ast_hash": "920e3dbe58385d6bd4b2d709ed30a0d9",
+    "semantic_hash": "920e3dbe58385d6bd4b2d709ed30a0d9"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\cta-video-section.tsx": {
+    "mtime": 1779683602.8622992,
+    "ast_hash": "dd3d2a7ea07573a0ba7a73ecd7b34c0e",
+    "semantic_hash": "dd3d2a7ea07573a0ba7a73ecd7b34c0e"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\faq-section.tsx": {
+    "mtime": 1780447717.8562064,
+    "ast_hash": "4b09b3e8633e371fc2e19aa9e939a5cc",
+    "semantic_hash": "4b09b3e8633e371fc2e19aa9e939a5cc"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\hero-section.tsx": {
+    "mtime": 1780447837.4098551,
+    "ast_hash": "54d29ca20bf233f19afc660048ee0928",
+    "semantic_hash": "54d29ca20bf233f19afc660048ee0928"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\home-contact-form-section.tsx": {
+    "mtime": 1780446377.2540364,
+    "ast_hash": "6701b01524aafa042613c01812a55fcd",
+    "semantic_hash": "6701b01524aafa042613c01812a55fcd"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\on-demand-section.tsx": {
+    "mtime": 1780447855.5886898,
+    "ast_hash": "2c30ff5a415083b0970264caf77e4bfd",
+    "semantic_hash": "2c30ff5a415083b0970264caf77e4bfd"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\pricing-section.tsx": {
+    "mtime": 1780446383.9308534,
+    "ast_hash": "b35611f39a37356da4adfb2c45f6123f",
+    "semantic_hash": "b35611f39a37356da4adfb2c45f6123f"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\reviews-section.tsx": {
+    "mtime": 1780447860.0708425,
+    "ast_hash": "d5fd0fdcea1b0561ebdc487ecab9e77b",
+    "semantic_hash": "d5fd0fdcea1b0561ebdc487ecab9e77b"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\services-section.tsx": {
+    "mtime": 1780447846.1408925,
+    "ast_hash": "f4713afc9f8fdebb27b7ee2ba14f50a9",
+    "semantic_hash": "f4713afc9f8fdebb27b7ee2ba14f50a9"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\site-footer.tsx": {
+    "mtime": 1780446399.377765,
+    "ast_hash": "7c81337036b5e5fe86e84df180c58198",
+    "semantic_hash": "7c81337036b5e5fe86e84df180c58198"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\marketing\\site-header.tsx": {
+    "mtime": 1780446366.300315,
+    "ast_hash": "0f9900a2adf0351dc5238c1e66e23d4e",
+    "semantic_hash": "0f9900a2adf0351dc5238c1e66e23d4e"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\seo\\json-ld.tsx": {
+    "mtime": 1780447430.1236494,
+    "ast_hash": "bfc86c14a26cf5ce46c7432f662f1a36",
+    "semantic_hash": "bfc86c14a26cf5ce46c7432f662f1a36"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\shared\\animated-section.tsx": {
+    "mtime": 1778792328.7144032,
+    "ast_hash": "948a97e4f7c9f329afb8b4f7e4450c0b",
+    "semantic_hash": "948a97e4f7c9f329afb8b4f7e4450c0b"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\shared\\logo.tsx": {
+    "mtime": 1778792336.63433,
+    "ast_hash": "06b0e1c5c917c0ba5dd15f58f965157c",
+    "semantic_hash": "06b0e1c5c917c0ba5dd15f58f965157c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\shared\\user-menu.tsx": {
+    "mtime": 1778792698.4616156,
+    "ast_hash": "be71aa7f08c6520f8fbb2aea48faa01c",
+    "semantic_hash": "be71aa7f08c6520f8fbb2aea48faa01c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\accordion.tsx": {
+    "mtime": 1778792230.6006787,
+    "ast_hash": "c48746688694e8012552b000fc17f6b1",
+    "semantic_hash": "c48746688694e8012552b000fc17f6b1"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\badge.tsx": {
+    "mtime": 1778792158.6102004,
+    "ast_hash": "b2b1024ab9422adf0f24e5ecd74049a6",
+    "semantic_hash": "b2b1024ab9422adf0f24e5ecd74049a6"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\button.tsx": {
+    "mtime": 1778792119.6929274,
+    "ast_hash": "80da888e9d2e2dfea222143816a630ef",
+    "semantic_hash": "80da888e9d2e2dfea222143816a630ef"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\card.tsx": {
+    "mtime": 1778792150.6640856,
+    "ast_hash": "510ecc1fe204805973198fff777eab1f",
+    "semantic_hash": "510ecc1fe204805973198fff777eab1f"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\dialog.tsx": {
+    "mtime": 1778792192.5394044,
+    "ast_hash": "c9689ef08d28e6d2e7f6e01faa7344e2",
+    "semantic_hash": "c9689ef08d28e6d2e7f6e01faa7344e2"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\input.tsx": {
+    "mtime": 1778792126.345591,
+    "ast_hash": "56daa1fd1eee36df45184e846fecf130",
+    "semantic_hash": "56daa1fd1eee36df45184e846fecf130"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\label.tsx": {
+    "mtime": 1778792139.041596,
+    "ast_hash": "61758105ef7c0c3bf04df02f1351a9ea",
+    "semantic_hash": "61758105ef7c0c3bf04df02f1351a9ea"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\progress.tsx": {
+    "mtime": 1778792199.20411,
+    "ast_hash": "8e94058a090bb228e0690bbc842f93aa",
+    "semantic_hash": "8e94058a090bb228e0690bbc842f93aa"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\select.tsx": {
+    "mtime": 1778792176.6866727,
+    "ast_hash": "ade37491b74dc8d89b51eead16118ba7",
+    "semantic_hash": "ade37491b74dc8d89b51eead16118ba7"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\separator.tsx": {
+    "mtime": 1778792209.7952344,
+    "ast_hash": "c3486ccb2b0a7e192711ee12aa5ab489",
+    "semantic_hash": "c3486ccb2b0a7e192711ee12aa5ab489"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\switch.tsx": {
+    "mtime": 1779588303.8350728,
+    "ast_hash": "e6189ea2d4e5dd54dc5fc3de1b5a466d",
+    "semantic_hash": "e6189ea2d4e5dd54dc5fc3de1b5a466d"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\tabs.tsx": {
+    "mtime": 1778792220.0195773,
+    "ast_hash": "95add541e384466a57ad27893479143f",
+    "semantic_hash": "95add541e384466a57ad27893479143f"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\textarea.tsx": {
+    "mtime": 1778792132.3631232,
+    "ast_hash": "6b736d933013c0f7d42ee2f6bc7f73a1",
+    "semantic_hash": "6b736d933013c0f7d42ee2f6bc7f73a1"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\components\\ui\\toaster.tsx": {
+    "mtime": 1779768439.170018,
+    "ast_hash": "78ae666ce5f0bd6790c9e668d547028c",
+    "semantic_hash": "78ae666ce5f0bd6790c9e668d547028c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\emails\\send.ts": {
+    "mtime": 1779330983.57648,
+    "ast_hash": "13906f00068e470e3680188a6a783b3b",
+    "semantic_hash": "13906f00068e470e3680188a6a783b3b"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\env.ts": {
+    "mtime": 1780447898.9278185,
+    "ast_hash": "7318aaaeb19bc29e03507c566e745dc6",
+    "semantic_hash": "7318aaaeb19bc29e03507c566e745dc6"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\mux\\client.ts": {
+    "mtime": 1779323946.68654,
+    "ast_hash": "caf96e69ae01ef7a7c0be0684641ffc0",
+    "semantic_hash": "caf96e69ae01ef7a7c0be0684641ffc0"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\mux\\signing.ts": {
+    "mtime": 1780520656.927616,
+    "ast_hash": "c4fc51d06e061edbdf72a0af44bf3ccc",
+    "semantic_hash": "c4fc51d06e061edbdf72a0af44bf3ccc"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\mux\\webhook.ts": {
+    "mtime": 1779323969.2409606,
+    "ast_hash": "73b42fdf47be2fea4558184f90e71eb3",
+    "semantic_hash": "73b42fdf47be2fea4558184f90e71eb3"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\paypal\\client.ts": {
+    "mtime": 1778792893.2260618,
+    "ast_hash": "99d7ab281a8da310f7fcbe39fb0edabe",
+    "semantic_hash": "99d7ab281a8da310f7fcbe39fb0edabe"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\ratelimit.ts": {
+    "mtime": 1779323984.0330262,
+    "ast_hash": "aeb45c662f78c69e387c66614e07525e",
+    "semantic_hash": "aeb45c662f78c69e387c66614e07525e"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\seo\\config.ts": {
+    "mtime": 1780447214.4738674,
+    "ast_hash": "773198d92e5e0707ac6b557e941bc4d8",
+    "semantic_hash": "773198d92e5e0707ac6b557e941bc4d8"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\seo\\faq.ts": {
+    "mtime": 1780447691.796118,
+    "ast_hash": "4bd222927f05634c378cfe756ff941d6",
+    "semantic_hash": "4bd222927f05634c378cfe756ff941d6"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\seo\\schema.ts": {
+    "mtime": 1780447783.5232606,
+    "ast_hash": "baf734e9f6eaf0bf4b9e94d85a907b2c",
+    "semantic_hash": "baf734e9f6eaf0bf4b9e94d85a907b2c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\supabase\\client.ts": {
+    "mtime": 1779331019.7267969,
+    "ast_hash": "ea4a97e1b66bd7b8613a9e90a3f0aea5",
+    "semantic_hash": "ea4a97e1b66bd7b8613a9e90a3f0aea5"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\supabase\\middleware.ts": {
+    "mtime": 1779590055.6298258,
+    "ast_hash": "574d0eae39dddfc4ab5d329be9ba0d32",
+    "semantic_hash": "574d0eae39dddfc4ab5d329be9ba0d32"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\supabase\\queries.ts": {
+    "mtime": 1779331296.3910832,
+    "ast_hash": "128453b93d76b8601548d16522edc175",
+    "semantic_hash": "128453b93d76b8601548d16522edc175"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\supabase\\server.ts": {
+    "mtime": 1779590007.5217073,
+    "ast_hash": "30640cbb02c6e59e7dc58a178b6d0929",
+    "semantic_hash": "30640cbb02c6e59e7dc58a178b6d0929"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\supabase\\storage.ts": {
+    "mtime": 1779323563.8802626,
+    "ast_hash": "f6131e585fdde112a9ac850d9ba4a62c",
+    "semantic_hash": "f6131e585fdde112a9ac850d9ba4a62c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\transcription\\whisper.ts": {
+    "mtime": 1780521458.5598872,
+    "ast_hash": "8d3049709bca4122f46bd9ed663e534c",
+    "semantic_hash": "8d3049709bca4122f46bd9ed663e534c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\lib\\utils.ts": {
+    "mtime": 1780447903.2112887,
+    "ast_hash": "d449904880d6c72293bc3cdf52264e86",
+    "semantic_hash": "d449904880d6c72293bc3cdf52264e86"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\middleware.ts": {
+    "mtime": 1778792059.1899898,
+    "ast_hash": "68ce02708a888ef9026c95d34bb02699",
+    "semantic_hash": "68ce02708a888ef9026c95d34bb02699"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\next.config.mjs": {
+    "mtime": 1779323857.208419,
+    "ast_hash": "443d3490f5f4efb5783afca1c1a5e789",
+    "semantic_hash": "443d3490f5f4efb5783afca1c1a5e789"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\package.json": {
+    "mtime": 1779756992.780622,
+    "ast_hash": "400c444814bb4c3cc2deff3489084780",
+    "semantic_hash": "400c444814bb4c3cc2deff3489084780"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\postcss.config.mjs": {
+    "mtime": 1778791903.126997,
+    "ast_hash": "d3fd1d29b05a09ff76b595a70e1e7d50",
+    "semantic_hash": "d3fd1d29b05a09ff76b595a70e1e7d50"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\supabase\\migrations\\20260523_admin_editor_setup.sql": {
+    "mtime": 1779588787.0361114,
+    "ast_hash": "53c43423d05ec6e20c1e06655b1a0497",
+    "semantic_hash": "53c43423d05ec6e20c1e06655b1a0497"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\supabase\\migrations\\20260523_fix_profiles_recursion.sql": {
+    "mtime": 1779590032.5812013,
+    "ast_hash": "2cb2728960c0662d26d130ed0505a8ea",
+    "semantic_hash": "2cb2728960c0662d26d130ed0505a8ea"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\supabase\\migrations\\20260525_fix_rls_public_reads.sql": {
+    "mtime": 1779763105.4181883,
+    "ast_hash": "2b27ad78c663040e9a667f918ca7b16f",
+    "semantic_hash": "2b27ad78c663040e9a667f918ca7b16f"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\tailwind.config.ts": {
+    "mtime": 1778791928.0916505,
+    "ast_hash": "be310d62195ae3f967894dccec84a4a5",
+    "semantic_hash": "be310d62195ae3f967894dccec84a4a5"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\tsconfig.json": {
+    "mtime": 1778791893.0080714,
+    "ast_hash": "f83e1c401d53b5ec32dfa752d59815b3",
+    "semantic_hash": "f83e1c401d53b5ec32dfa752d59815b3"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\types\\database.ts": {
+    "mtime": 1780521299.1891828,
+    "ast_hash": "38d50dfe00669a20ddf8f26a3ce8364c",
+    "semantic_hash": "38d50dfe00669a20ddf8f26a3ce8364c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\BUILD_SUMMARY.md": {
+    "mtime": 1779324398.2232301,
+    "ast_hash": "07f2cfda84ce66dc0c9cd6f6cfd187eb",
+    "semantic_hash": "07f2cfda84ce66dc0c9cd6f6cfd187eb"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\DECISIONS.md": {
+    "mtime": 1779323661.8797853,
+    "ast_hash": "bdc0592ed11b1aa6dc8ef475c9d80acd",
+    "semantic_hash": "bdc0592ed11b1aa6dc8ef475c9d80acd"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\FUTURE.md": {
+    "mtime": 1779323685.8425608,
+    "ast_hash": "17889c26c6cc61e96cb84944c8910575",
+    "semantic_hash": "17889c26c6cc61e96cb84944c8910575"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\TODO_HUMAN.md": {
+    "mtime": 1779323616.2467885,
+    "ast_hash": "80723125c81a87cd3ddebf9e1a0270f9",
+    "semantic_hash": "80723125c81a87cd3ddebf9e1a0270f9"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\docs\\ONDEMAND_BUILD_PROMPT.md": {
+    "mtime": 1779312107.951056,
+    "ast_hash": "4cac52f29e93d07c3c1365494ef6ff2a",
+    "semantic_hash": "4cac52f29e93d07c3c1365494ef6ff2a"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\pdf\\terms_and_conditions.pdf": {
+    "mtime": 1779683821.7745461,
+    "ast_hash": "9e2a32a1df925669b607f1f8c22118af",
+    "semantic_hash": "9e2a32a1df925669b607f1f8c22118af"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\anto_profile.png": {
+    "mtime": 1778791958.0822752,
+    "ast_hash": "f6abea2393a596d9b0b2c46fd5290cc1",
+    "semantic_hash": "f6abea2393a596d9b0b2c46fd5290cc1"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\anto_profile1.jpeg": {
+    "mtime": 1778791958.0866692,
+    "ast_hash": "10eb8f7531aa7afb39037f85d2521821",
+    "semantic_hash": "10eb8f7531aa7afb39037f85d2521821"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\foto1.jpeg": {
+    "mtime": 1778791958.0960875,
+    "ast_hash": "72ec54c2efef584b51a41f8f309609a3",
+    "semantic_hash": "72ec54c2efef584b51a41f8f309609a3"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\foto2.jpeg": {
+    "mtime": 1778791958.0876672,
+    "ast_hash": "d820ada9ca73a799501d6e579a93e76a",
+    "semantic_hash": "d820ada9ca73a799501d6e579a93e76a"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\foto3.jpeg": {
+    "mtime": 1778791958.0906575,
+    "ast_hash": "f51eca4aa50a9fe63de54f780edabeb8",
+    "semantic_hash": "f51eca4aa50a9fe63de54f780edabeb8"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\logo.png": {
+    "mtime": 1778791958.0802798,
+    "ast_hash": "2babd16a024c4cb32cbd76d00a42eea6",
+    "semantic_hash": "2babd16a024c4cb32cbd76d00a42eea6"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\nuevafotodeanto.jpg": {
+    "mtime": 1779683269.262995,
+    "ast_hash": "5407955d7cf6cd4d7908c4b3e7f24dab",
+    "semantic_hash": "5407955d7cf6cd4d7908c4b3e7f24dab"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\review1.jpeg": {
+    "mtime": 1778791958.0842712,
+    "ast_hash": "de787860fbddd785202fbb49381e004a",
+    "semantic_hash": "de787860fbddd785202fbb49381e004a"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\review2.jpeg": {
+    "mtime": 1778791958.094651,
+    "ast_hash": "0a4dadcd037e45bb749a5eb9dd861352",
+    "semantic_hash": "0a4dadcd037e45bb749a5eb9dd861352"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\review3.jpeg": {
+    "mtime": 1778791958.0926528,
+    "ast_hash": "80b30f5344d6b77a9a920233d22f0f01",
+    "semantic_hash": "80b30f5344d6b77a9a920233d22f0f01"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\review4.jpeg": {
+    "mtime": 1778791958.0856707,
+    "ast_hash": "3e3689620b6fd76e6178dfb68b7bf32c",
+    "semantic_hash": "3e3689620b6fd76e6178dfb68b7bf32c"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\images\\review5.jpeg": {
+    "mtime": 1778791958.0886638,
+    "ast_hash": "f99b3ce26bef47d6206a4635e69b7250",
+    "semantic_hash": "f99b3ce26bef47d6206a4635e69b7250"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\videos\\video1.mp4": {
+    "mtime": 1778791958.123308,
+    "ast_hash": "fb47245d36e738c81033e3c4b1f85e08",
+    "semantic_hash": "fb47245d36e738c81033e3c4b1f85e08"
+  },
+  "C:\\MisProyectos\\Family\\poncho_next\\public\\videos\\video2.mp4": {
+    "mtime": 1778791958.1298156,
+    "ast_hash": "ccdb1a0782a69c723bc4c47b26f6b1db",
+    "semantic_hash": "ccdb1a0782a69c723bc4c47b26f6b1db"
+  }
+}
