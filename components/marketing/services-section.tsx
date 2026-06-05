@@ -22,6 +22,7 @@ const services = [
     title: "Start your own group",
     subtitle: "Ages 7 – 18",
     price: "£40 per session",
+    priceNote: "(shared between the participants)",
     bullet: "Small group lessons with friends (up to 4 learners)",
     description:
       "A lovely balance between social learning and individual attention.",

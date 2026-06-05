@@ -53,7 +53,7 @@ export async function GET(
   const url = await resolveStorageUrl(
     STORAGE_BUCKETS.digitalProducts,
     product.file_path,
-    60 * 5, // 5 min — long enough to start the download
+    60 * 5,
   );
   if (!url) {
     return NextResponse.json(
@@ -62,5 +62,24 @@ export async function GET(
     );
   }
 
-  return NextResponse.json({ ok: true, url });
+  // Proxy the file through our domain so Content-Disposition: attachment is respected
+  // (browsers ignore the `download` attribute for cross-origin URLs)
+  const fileRes = await fetch(url);
+  if (!fileRes.ok) {
+    return NextResponse.json(
+      { ok: false, message: "Couldn't fetch the file." },
+      { status: 502 },
+    );
+  }
+
+  const ext = product.file_path.split(".").pop() ?? "pdf";
+  const filename = `${product.title.replace(/[^a-z0-9]/gi, "_")}.${ext}`;
+
+  return new NextResponse(fileRes.body, {
+    headers: {
+      "Content-Type": fileRes.headers.get("Content-Type") ?? "application/octet-stream",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Cache-Control": "no-store",
+    },
+  });
 }

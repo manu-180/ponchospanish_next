@@ -31,17 +31,22 @@ export function DownloadProductButton({
     setLoading(true);
     try {
       const res = await fetch(`/api/digital-products/${productId}/download`);
-      const data = await res.json();
-      if (!res.ok || !data.url) {
-        throw new Error(data.message ?? "Couldn't get the download link");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error((data as { message?: string }).message ?? "Couldn't get the download link");
       }
-      // Create link with download attribute to force browser download
+      const blob = await res.blob();
+      const disposition = res.headers.get("Content-Disposition") ?? "";
+      const match = disposition.match(/filename="([^"]+)"/);
+      const filename = match?.[1] ?? "download";
+      const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = data.url as string;
-      link.setAttribute("download", "");
+      link.href = url;
+      link.download = filename;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Try again");
     } finally {

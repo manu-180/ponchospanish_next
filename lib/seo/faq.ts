@@ -26,7 +26,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "Are the Spanish lessons online?",
     answer:
-      "Yes, all live lessons take place online over Zoom during term time, so children and teens anywhere in the UK can learn from home. The self-paced Academy courses are also fully online, with instant access on mobile, tablet or desktop.",
+      "Yes, all live lessons take place online over Zoom during term time, so children and teens anywhere can learn from home. The self-paced Academy courses are also fully online, with instant access on mobile, tablet or desktop.",
   },
   {
     question: "Is Poncho Spanish suitable for homeschooling and after-school learning?",

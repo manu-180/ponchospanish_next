@@ -90,9 +90,12 @@ export function CaptionOverlay({
   const [fontMultiplier, setFontMultiplier] = useState(1.0);
   const [dragPos, setDragPos] = useState<DragPos | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [bubbleWidth, setBubbleWidth] = useState(72); // % of container width
+  const [isResizing, setIsResizing] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const dragStartRef = useRef<DragStart | null>(null);
+  const resizeStartRef = useRef<{ pointerX: number; startWidth: number; side: "left" | "right" } | null>(null);
 
   const active = useMemo(
     () =>
@@ -145,8 +148,40 @@ export function CaptionOverlay({
   }, []);
 
   const resetPosition = useCallback(() => {
-    if (showControls) setDragPos(null);
+    if (showControls) {
+      setDragPos(null);
+      setBubbleWidth(72);
+    }
   }, [showControls]);
+
+  // ── resize handlers ────────────────────────────────────────────────────────
+
+  const handleResizeDown = useCallback(
+    (e: ReactPointerEvent<HTMLDivElement>, side: "left" | "right") => {
+      if (!showControls) return;
+      e.stopPropagation();
+      e.currentTarget.setPointerCapture(e.pointerId);
+      setIsResizing(true);
+      resizeStartRef.current = { pointerX: e.clientX, startWidth: bubbleWidth, side };
+    },
+    [showControls, bubbleWidth],
+  );
+
+  const handleResizeMove = useCallback(
+    (e: ReactPointerEvent<HTMLDivElement>) => {
+      if (!resizeStartRef.current || !containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const dx = ((e.clientX - resizeStartRef.current.pointerX) / rect.width) * 100;
+      const sign = resizeStartRef.current.side === "right" ? 1 : -1;
+      setBubbleWidth(Math.max(20, Math.min(96, resizeStartRef.current.startWidth + sign * dx * 2)));
+    },
+    [],
+  );
+
+  const handleResizeUp = useCallback(() => {
+    setIsResizing(false);
+    resizeStartRef.current = null;
+  }, []);
 
   // ── font-size handlers ─────────────────────────────────────────────────────
 
@@ -310,17 +345,20 @@ export function CaptionOverlay({
             left: `${pos.x}%`,
             top: `${pos.y}%`,
             transform: "translate(-50%, -50%)",
-            maxWidth: "88%",
+            width: showControls ? `${bubbleWidth}%` : undefined,
+            maxWidth: showControls ? undefined : "88%",
             textAlign: "center",
             pointerEvents: showControls ? "auto" : "none",
             cursor: showControls
-              ? isDragging
+              ? isResizing
+                ? "ew-resize"
+                : isDragging
                 ? "grabbing"
                 : "grab"
               : "default",
             touchAction: "none",
             userSelect: "none",
-            transition: isDragging ? "none" : "top 0.08s ease, left 0.08s ease",
+            transition: isDragging || isResizing ? "none" : "top 0.08s ease, left 0.08s ease",
           }}
         >
           <span
@@ -335,6 +373,54 @@ export function CaptionOverlay({
           >
             {active.text}
           </span>
+
+          {/* Resize handles — editor only */}
+          {showControls && (
+            <>
+              <div
+                onPointerDown={(e) => handleResizeDown(e, "left")}
+                onPointerMove={handleResizeMove}
+                onPointerUp={handleResizeUp}
+                onPointerCancel={handleResizeUp}
+                style={{
+                  position: "absolute",
+                  left: 4,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: 16,
+                  height: 32,
+                  cursor: "ew-resize",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  touchAction: "none",
+                }}
+              >
+                <div style={{ width: 3, height: 20, borderRadius: 99, background: "rgba(255,255,255,0.65)" }} />
+              </div>
+              <div
+                onPointerDown={(e) => handleResizeDown(e, "right")}
+                onPointerMove={handleResizeMove}
+                onPointerUp={handleResizeUp}
+                onPointerCancel={handleResizeUp}
+                style={{
+                  position: "absolute",
+                  right: 4,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: 16,
+                  height: 32,
+                  cursor: "ew-resize",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  touchAction: "none",
+                }}
+              >
+                <div style={{ width: 3, height: 20, borderRadius: 99, background: "rgba(255,255,255,0.65)" }} />
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
