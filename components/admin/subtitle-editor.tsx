@@ -186,12 +186,21 @@ export function SubtitleEditor({
     new Map(initialCues.map((c) => [c.id, c.text])),
   );
 
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
   const activeId = useMemo(() => {
     const hit = cues.find(
       (c) => currentTime >= c.start_seconds && currentTime < c.end_seconds,
     );
     return hit?.id ?? null;
   }, [cues, currentTime]);
+
+  // Auto-scroll to the active cue while video plays
+  useEffect(() => {
+    if (!activeId) return;
+    const el = document.getElementById(`cue-${activeId}`);
+    el?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [activeId]);
 
   const overlayCues = useMemo(
     () =>
@@ -210,6 +219,14 @@ export function SubtitleEditor({
     el.currentTime = Math.max(0, t);
     if (play) void el.play?.();
   }, []);
+
+  const onSelectCue = useCallback(
+    (id: string, startSeconds: number) => {
+      setSelectedId(id);
+      seek(startSeconds, false);
+    },
+    [seek],
+  );
 
   const togglePlay = useCallback(() => {
     const el = playerRef.current;
@@ -652,7 +669,9 @@ export function SubtitleEditor({
                   cue={c}
                   index={i}
                   isActive={c.id === activeId}
+                  isSelected={c.id === selectedId}
                   onSeek={() => seek(c.start_seconds)}
+                  onSelect={() => onSelectCue(c.id, c.start_seconds)}
                   onChangeText={onChangeText}
                   onCommitText={commitText}
                   onDelete={() => deleteCue(c.id)}
@@ -676,7 +695,9 @@ interface CueRowProps {
   cue: Cue;
   index: number;
   isActive: boolean;
+  isSelected: boolean;
   onSeek: () => void;
+  onSelect: () => void;
   onChangeText: (id: string, text: string) => void;
   onCommitText: (id: string, text: string) => void;
   onDelete: () => void;
@@ -687,21 +708,29 @@ const CueRow = memo(function CueRow({
   cue,
   index,
   isActive,
+  isSelected,
   onSeek,
+  onSelect,
   onChangeText,
   onCommitText,
   onDelete,
   onUpdateTiming,
 }: CueRowProps) {
+  const highlighted = isActive || isSelected;
   return (
     <li
       id={`cue-${cue.id}`}
       className={cn(
-        "group rounded-xl border bg-cream-50 p-3 transition-colors",
-        isActive
+        "group rounded-xl border bg-cream-50 p-3 transition-colors cursor-pointer",
+        highlighted
           ? "border-mustard ring-2 ring-mustard/25"
           : "border-charcoal-100/60 hover:border-charcoal-200",
       )}
+      onClick={(e) => {
+        // Don't intercept clicks on interactive children
+        if ((e.target as HTMLElement).closest("button, textarea, input")) return;
+        onSelect();
+      }}
     >
       <div className="flex items-start gap-3">
         <span className="mt-1 w-6 shrink-0 text-right font-mono text-[10px] tabular-nums text-charcoal-300">
@@ -712,6 +741,7 @@ const CueRow = memo(function CueRow({
           <textarea
             defaultValue={cue.text}
             rows={1}
+            onFocus={onSelect}
             onChange={(e) => {
               e.target.style.height = "auto";
               e.target.style.height = `${e.target.scrollHeight}px`;
@@ -719,14 +749,14 @@ const CueRow = memo(function CueRow({
             }}
             onBlur={(e) => onCommitText(cue.id, e.target.value)}
             placeholder="(línea vacía)"
-            className="w-full resize-none rounded-lg border border-transparent bg-transparent px-2 py-1 text-sm leading-relaxed text-charcoal-700 outline-none transition-colors focus:border-mustard/40 focus:bg-white"
+            className="w-full resize-none rounded-lg border border-transparent bg-transparent px-2 py-1 text-sm leading-relaxed text-charcoal-700 outline-none transition-colors focus:border-mustard/40 focus:bg-white cursor-text"
           />
 
-          {/* timing controls — visible on hover/focus or when active */}
+          {/* timing controls — visible on hover/focus or when active/selected */}
           <div
             className={cn(
               "mt-1 flex flex-wrap items-center gap-1.5 transition-opacity",
-              isActive
+              highlighted
                 ? "opacity-100"
                 : "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100",
             )}

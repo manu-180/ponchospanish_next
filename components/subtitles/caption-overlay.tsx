@@ -52,9 +52,9 @@ interface DragStart {
 
 // Three viewer-facing size levels mapped to fontMultiplier values
 const SIZE_LEVELS = [
-  { label: "A", multiplier: 0.75, title: "Pequeño" },
+  { label: "A", multiplier: 0.85, title: "Pequeño" },
   { label: "A", multiplier: 1.0,  title: "Normal"  },
-  { label: "A", multiplier: 1.4,  title: "Grande"  },
+  { label: "A", multiplier: 1.18, title: "Grande"  },
 ] as const;
 
 interface Props {
