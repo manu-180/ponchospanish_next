@@ -1,11 +1,14 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "fs/promises";
+import { join } from "path";
 
-// Branded favicon — a charcoal tile with a cream "P" monogram. Generated so we
-// don't ship a squished wide logo as the favicon.
-export const size = { width: 64, height: 64 };
+export const size = { width: 128, height: 128 };
 export const contentType = "image/png";
 
-export default function Icon() {
+export default async function Icon() {
+  const logoData = await readFile(join(process.cwd(), "public/images/logo.png"));
+  const base64 = `data:image/png;base64,${logoData.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -15,13 +18,13 @@ export default function Icon() {
           justifyContent: "center",
           width: "100%",
           height: "100%",
-          background: "#2A2521",
-          color: "#F2F0E9",
-          fontSize: 46,
-          fontWeight: 700,
+          background: "white",
         }}
       >
-        P
+        <img
+          src={base64}
+          style={{ width: "100%", height: "auto", objectFit: "contain" }}
+        />
       </div>
     ),
     size,
