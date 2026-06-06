@@ -57,9 +57,9 @@ export function HeroSection() {
             className="text-lg leading-relaxed text-charcoal-500/85 max-w-xl"
           >
             <span className="font-semibold text-charcoal-600">
-              Online Spanish lessons for kids, teens and families across the UK
+              Online Spanish lessons for kids &amp; teens.
             </span>{" "}
-            — private one-to-one classes, small groups and GCSE support. Without
+            private one-to-one classes, small groups and GCSE support. Without
             the panic or the perfectionism.
           </motion.p>
 
