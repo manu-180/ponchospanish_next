@@ -47,12 +47,12 @@ export function ServicesSection() {
     <section className="relative py-20 md:py-32">
       <div className="container-wide">
         <AnimatedSection className="mx-auto max-w-3xl text-center mb-14 md:mb-20">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-charcoal-400 mb-4">
-            Start with a trial. See how it feels.
-          </p>
           <h2 className="font-serif text-display-lg uppercase text-balance gradient-text">
             Online Spanish lessons
           </h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-charcoal-400 mt-4">
+            Start with a trial. See how it feels.
+          </p>
         </AnimatedSection>
 
         <div className="grid gap-8 md:grid-cols-3">

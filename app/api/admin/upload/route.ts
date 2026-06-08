@@ -38,13 +38,17 @@ const SUPABASE_BUCKET: Record<string, string> = {
 
 const Schema = z.object({
   bucket: z.string().min(1),
-  filename: z
-    .string()
-    .min(1)
-    .max(200)
-    .regex(/^[\w.\- ()]+$/, "filename has invalid characters"),
+  // Accept any filename — sanitized server-side before use in the storage path.
+  // A restrictive regex was causing "invalid_body" errors for files with accented
+  // characters (e.g. "Introducción.pdf", "clase 1 – García.pdf").
+  filename: z.string().min(1).max(200),
   contentType: z.string().min(1).max(120).optional(),
 });
+
+/** Strip accents from a string (á→a, ñ→n, ü→u, etc.) */
+function stripDiacritics(s: string): string {
+  return s.normalize("NFD").replace(/[̀-ͯ]/g, "");
+}
 
 export async function POST(req: Request) {
   const profile = await getCurrentProfile();
@@ -69,7 +73,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "bucket_not_allowed" }, { status: 400 });
   }
 
-  const cleanName = parsed.data.filename.replace(/\s+/g, "-").toLowerCase();
+  // Sanitize filename for a safe storage path:
+  // 1. Strip accent marks (NFD decomposition + remove combining chars)
+  // 2. Replace anything that isn't a word char, dot, dash, space, or parens with _
+  const sanitized = stripDiacritics(parsed.data.filename)
+    .replace(/[^\w.\-\s()]/g, "_")
+    .trim();
+  const cleanName = (sanitized || "file").replace(/\s+/g, "-").toLowerCase();
   const path = `admin/${profile.id}/${Date.now()}-${cleanName}`;
 
   const storageBucket = SUPABASE_BUCKET[parsed.data.bucket];

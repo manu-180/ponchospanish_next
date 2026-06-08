@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
+const CALENDLY_URL = "https://calendly.com/ponchospanish/30min";
+
 interface SiteHeaderProps {
   isAuthenticated?: boolean;
 }
@@ -134,7 +136,7 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
             </Button>
           )}
           <Button asChild size="pill">
-            <Link href="/#contact">Book a trial</Link>
+            <Link href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">Book a trial</Link>
           </Button>
         </div>
 
@@ -197,7 +199,7 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
                   </Button>
                 )}
                 <Button asChild size="lg">
-                  <Link href="/#contact">Book a trial</Link>
+                  <Link href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">Book a trial</Link>
                 </Button>
               </div>
             </nav>

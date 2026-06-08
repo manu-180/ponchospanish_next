@@ -210,10 +210,10 @@ export function DigitalProductForm({
             bucket="digital-products"
             accept="application/pdf,application/epub+zip,application/zip"
             label="Archivo del ebook"
-            hint="PDF o EPUB. Hasta 200 MB."
+            hint="PDF o EPUB. Hasta 500 MB."
             currentUrl={data.file_path}
             currentName={data.file_path?.split("/").pop()}
-            maxBytes={200 * 1024 * 1024}
+            maxBytes={500 * 1024 * 1024}
             onUploaded={({ path, fileName, sizeBytes }) => {
               update("file_path", path);
               update("file_size_bytes", sizeBytes);
