@@ -85,6 +85,7 @@ export function MuxLessonPlayer({
   const [completed, setCompleted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [showUpNext, setShowUpNext] = useState(false);
+  const [captionsVisible, setCaptionsVisible] = useState(true);
   const ref = useRef<HTMLElement | null>(null);
   const hasCaptions = Boolean(captionCues && captionCues.length > 0);
 
@@ -225,7 +226,10 @@ export function MuxLessonPlayer({
           cues={captionCues as OverlayCue[]}
           currentTime={currentTime}
           presetId={captionPreset ?? "classic"}
+          hidden={!captionsVisible}
           showSizeControl
+          showVisibilityToggle
+          onToggleVisible={() => setCaptionsVisible((v) => !v)}
         />
       )}
       {showUpNext && (

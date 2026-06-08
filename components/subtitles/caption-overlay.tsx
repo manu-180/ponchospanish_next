@@ -91,6 +91,8 @@ export function CaptionOverlay({
   className,
   showControls = false,
   showSizeControl = false,
+  showVisibilityToggle = false,
+  onToggleVisible,
 }: Props) {
   const preset = getCaptionPreset(presetId);
 
@@ -110,9 +112,10 @@ export function CaptionOverlay({
     [cues, currentTime],
   );
 
-  // Default resting position (before any drag)
+  // Default resting position — y:76 keeps the subtitle above the player's
+  // controls bar (~bottom 15%), preventing overlap across all player skins.
   const defaultPos: DragPos =
-    preset.position === "bottom" ? { x: 50, y: 85 } : { x: 50, y: 15 };
+    preset.position === "bottom" ? { x: 50, y: 76 } : { x: 50, y: 15 };
   const pos = dragPos ?? defaultPos;
 
   // ── drag handlers ─────────────────────────────────────────────────────────
@@ -143,7 +146,8 @@ export function CaptionOverlay({
         ((e.clientY - dragStartRef.current.pointerY) / rect.height) * 100;
       setDragPos({
         x: Math.max(8, Math.min(92, dragStartRef.current.bubbleX + dx)),
-        y: Math.max(8, Math.min(88, dragStartRef.current.bubbleY + dy)),
+        // Max 78% — keeps subtitle above the Mux controls bar in editor too
+        y: Math.max(8, Math.min(78, dragStartRef.current.bubbleY + dy)),
       });
     },
     [isDragging],
@@ -204,8 +208,10 @@ export function CaptionOverlay({
 
   // ── early exits ───────────────────────────────────────────────────────────
 
-  if (hidden) return null;
-  const hasAnyControl = showControls || showSizeControl;
+  const hasAnyControl = showControls || showSizeControl || showVisibilityToggle;
+  // When hidden we still render if there's a toggle button to show (so the user
+  // can turn captions back on). Otherwise bail out entirely.
+  if (hidden && !hasAnyControl) return null;
   if (!hasAnyControl && (!active || !active.text.trim())) return null;
 
   // Map fontMultiplier (0.5–2.2) → 5 dots (0–4 filled)
@@ -292,8 +298,8 @@ export function CaptionOverlay({
         </div>
       )}
 
-      {/* ── Viewer font-size control (S / M / L preset levels) ── */}
-      {!showControls && showSizeControl && (
+      {/* ── Viewer controls pill: [CC toggle] + [S / M / L] ── */}
+      {!showControls && (showSizeControl || showVisibilityToggle) && (
         <div
           className="absolute top-3 right-3 flex items-center rounded-full"
           style={{
@@ -305,7 +311,52 @@ export function CaptionOverlay({
             gap: 0,
           }}
         >
-          {SIZE_LEVELS.map(({ label, multiplier, title }, i) => {
+          {/* CC toggle — always visible so users can re-enable captions */}
+          {showVisibilityToggle && (
+            <button
+              aria-pressed={!hidden}
+              aria-label={hidden ? "Activar subtítulos" : "Desactivar subtítulos"}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleVisible?.();
+              }}
+              style={{
+                fontFamily: "system-ui, sans-serif",
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.04em",
+                lineHeight: 1,
+                color: hidden
+                  ? "rgba(255,255,255,0.28)"
+                  : "rgba(255,255,255,0.95)",
+                textDecoration: hidden ? "line-through" : "none",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "2px 6px",
+                userSelect: "none",
+                transition: "color 0.2s",
+              }}
+            >
+              CC
+            </button>
+          )}
+
+          {/* Divider — only when both CC toggle and size control are present */}
+          {showVisibilityToggle && showSizeControl && !hidden && (
+            <div
+              style={{
+                width: 1,
+                height: 14,
+                background: "rgba(255,255,255,0.2)",
+                margin: "0 1px",
+                flexShrink: 0,
+              }}
+            />
+          )}
+
+          {/* S / M / L — hidden when captions are off */}
+          {showSizeControl && !hidden && SIZE_LEVELS.map(({ label, multiplier, title }, i) => {
             const isActive = fontMultiplier === multiplier;
             return (
               <button
@@ -340,7 +391,7 @@ export function CaptionOverlay({
       )}
 
       {/* ── Subtitle bubble ── */}
-      {active && active.text.trim() && (
+      {!hidden && active && active.text.trim() && (
         <div
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}

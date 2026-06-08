@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUploader } from "./file-uploader";
-import { PdfCompressorUploader } from "./pdf-compressor-uploader";
+import { UniversalFileUploader } from "./universal-file-uploader";
 import { PublishToggle } from "./publish-toggle";
 import type { DigitalProduct } from "@/types/database";
 
@@ -139,7 +139,7 @@ export function DigitalProductForm({
         </div>
       )}
 
-      <div className="grid gap-6 md:grid-cols-[1fr_240px] md:items-start">
+      <div className="grid gap-6 md:grid-cols-[2fr_3fr] md:items-start">
         <div className="space-y-5">
           <div className="space-y-2">
             <Label htmlFor="title">Título</Label>
@@ -207,10 +207,11 @@ export function DigitalProductForm({
             onClear={() => update("cover_image_path", null)}
           />
 
-          <PdfCompressorUploader
+          <UniversalFileUploader
             bucket="digital-products"
             label="Archivo del ebook"
-            hint="PDF. Compresión automática incluida. Hasta 500 MB."
+            hint="PDF, video, ZIP u otro formato. Compresión automática para PDF e imágenes."
+            accept="*/*"
             currentName={data.file_path?.split("/").pop()}
             onUploaded={({ path, sizeBytes }) => {
               update("file_path", path);
@@ -222,10 +223,11 @@ export function DigitalProductForm({
             }}
           />
 
-          <PdfCompressorUploader
+          <UniversalFileUploader
             bucket="digital-products"
             label="Preview (opcional)"
-            hint="Páginas de muestra para mostrar antes de comprar"
+            hint="Páginas de muestra o clip corto para mostrar antes de comprar"
+            accept="application/pdf,.pdf,video/*"
             currentName={data.preview_path?.split("/").pop()}
             onUploaded={({ path }) => update("preview_path", path)}
             onClear={() => update("preview_path", null)}
