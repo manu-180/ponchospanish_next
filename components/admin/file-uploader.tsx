@@ -104,19 +104,26 @@ export function FileUploader({
 
       // Direct PUT to the signed URL — Supabase Storage supports this for any
       // size up to bucket limits. We use XHR so we get progress events.
+      // x-upsert must match the token's upsert setting or Supabase returns 400.
       await new Promise<void>((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open("PUT", sign.signedUrl, true);
-        xhr.setRequestHeader(
-          "Content-Type",
-          file.type || "application/octet-stream",
-        );
+        xhr.setRequestHeader("Content-Type", file.type || "application/octet-stream");
+        xhr.setRequestHeader("x-upsert", "true");
         xhr.upload.onprogress = (e) => {
           if (e.lengthComputable) setProgress((e.loaded / e.total) * 100);
         };
         xhr.onload = () => {
-          if (xhr.status >= 200 && xhr.status < 300) resolve();
-          else reject(new Error(`HTTP ${xhr.status}`));
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve();
+          } else {
+            let message = `HTTP ${xhr.status}`;
+            try {
+              const body = JSON.parse(xhr.responseText) as Record<string, string>;
+              message = body.message ?? body.error ?? message;
+            } catch { /* keep default */ }
+            reject(new Error(message));
+          }
         };
         xhr.onerror = () => reject(new Error("Error de red"));
         xhr.send(file);

@@ -87,7 +87,7 @@ export async function POST(req: Request) {
   const admin = getSupabaseAdminClient();
   const { data, error } = await admin.storage
     .from(storageBucket)
-    .createSignedUploadUrl(path);
+    .createSignedUploadUrl(path, { upsert: true });
 
   if (error || !data) {
     return NextResponse.json(
