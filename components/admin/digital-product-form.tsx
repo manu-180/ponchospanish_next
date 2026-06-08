@@ -139,7 +139,7 @@ export function DigitalProductForm({
         </div>
       )}
 
-      <div className="grid gap-6 md:grid-cols-[2fr_3fr] md:items-start">
+      <div className="grid gap-6 md:grid-cols-[1fr_260px] md:items-start">
         <div className="space-y-5">
           <div className="space-y-2">
             <Label htmlFor="title">Título</Label>

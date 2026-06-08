@@ -12,6 +12,7 @@ import {
   userHasAccessToCourse,
 } from "@/lib/supabase/queries";
 import { resolveStorageUrl, STORAGE_BUCKETS } from "@/lib/supabase/storage";
+import { isChunkedPath } from "@/lib/supabase/chunked";
 import { signMuxPlaybackToken, buildSignedThumbnailUrl } from "@/lib/mux/signing";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -171,8 +172,13 @@ export default async function LessonPage({ params, searchParams }: PageProps) {
         title: r.title,
         description: r.description,
         kind: r.kind as LessonResource["kind"],
+        // Chunked files (manifest path) can't be served by a plain signed URL —
+        // route them through the reassembly proxy. Single objects keep using a
+        // direct signed URL.
         resolvedUrl: r.file_path
-          ? await resolveStorageUrl(STORAGE_BUCKETS.resources, r.file_path)
+          ? isChunkedPath(r.file_path)
+            ? `/api/resources/${r.id}/download`
+            : await resolveStorageUrl(STORAGE_BUCKETS.resources, r.file_path)
           : null,
         url: r.url,
         file_size_bytes: r.file_size_bytes,

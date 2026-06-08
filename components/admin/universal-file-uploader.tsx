@@ -13,10 +13,22 @@ import {
   X,
   Zap,
   ArrowRight,
+  Layers,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+
+// ── chunking constants (mirror of lib/supabase/chunked.ts — kept in sync) ──────
+// Supabase Free tier caps a single stored object at 50 MB. Files larger than
+// SINGLE_OBJECT_MAX (after optional compression) are split into ≤ CHUNK_SIZE
+// parts + a manifest, then transparently reassembled on download.
+const CHUNK_SIZE = 45 * 1024 * 1024; // 45 MB
+const SINGLE_OBJECT_MAX = CHUNK_SIZE;
+// Above this, skip in-browser PDF compression (pdf-lib loads the whole doc into
+// memory and the gain on big image-heavy PDFs is negligible — go straight to
+// chunking the raw file instead).
+const PDF_COMPRESS_MAX = 80 * 1024 * 1024; // 80 MB
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
@@ -73,6 +85,40 @@ async function compressImage(file: File): Promise<Blob> {
   });
 }
 
+/** PUT a blob to a Supabase signed upload URL with progress + real error text. */
+function putWithProgress(
+  url: string,
+  blob: Blob,
+  contentType: string,
+  onProgress: (pct: number) => void,
+): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", url, true);
+    xhr.setRequestHeader("Content-Type", contentType);
+    xhr.setRequestHeader("x-upsert", "true");
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) onProgress((e.loaded / e.total) * 100);
+    };
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve();
+      } else {
+        let msg = `HTTP ${xhr.status}`;
+        try {
+          const body = JSON.parse(xhr.responseText) as Record<string, string>;
+          msg = body.message ?? body.error ?? msg;
+        } catch {
+          /* keep default */
+        }
+        reject(new Error(msg));
+      }
+    };
+    xhr.onerror = () => reject(new Error("Error de red"));
+    xhr.send(blob);
+  });
+}
+
 // ── types ─────────────────────────────────────────────────────────────────────
 
 type Step = "idle" | "reading" | "compressing" | "uploading" | "done" | "error";
@@ -86,6 +132,19 @@ const STEP_LIST = [
 interface Stats {
   original: number;
   compressed: number;
+}
+
+interface SignSingle {
+  mode?: "single";
+  signedUrl: string;
+  path: string;
+  publicUrl: string;
+}
+interface SignChunked {
+  mode: "chunked";
+  manifestPath: string;
+  manifest: { path: string; signedUrl: string };
+  parts: { index: number; path: string; signedUrl: string }[];
 }
 
 export interface UniversalFileUploaderProps {
@@ -123,6 +182,10 @@ export function UniversalFileUploader({
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [kind, setKind] = useState<FileKind>("other");
+  // Multi-part upload progress: { current, total } while chunking, else null.
+  const [partInfo, setPartInfo] = useState<{ current: number; total: number } | null>(null);
+  // Number of parts the finished upload was split into (0 = single object).
+  const [totalParts, setTotalParts] = useState(0);
 
   const processingIdx = STEP_LIST.findIndex((s) => s.key === step);
 
@@ -137,12 +200,90 @@ export function UniversalFileUploader({
       ? 100
       : 0;
 
+  // ── single-object upload ─────────────────────────────────────────────────────
+  const uploadSingle = async (
+    filename: string,
+    contentType: string,
+    blob: Blob,
+  ): Promise<string> => {
+    const signRes = await fetch("/api/admin/upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bucket, filename, contentType }),
+    });
+    if (!signRes.ok) {
+      const err = (await signRes.json().catch(() => ({}))) as Record<string, string>;
+      throw new Error(err.message ?? err.error ?? `HTTP ${signRes.status}`);
+    }
+    const sign = (await signRes.json()) as SignSingle;
+    await putWithProgress(sign.signedUrl, blob, contentType, setUploadPct);
+    return sign.path;
+  };
+
+  // ── chunked upload: split → upload each part → write manifest ─────────────────
+  const uploadChunked = async (
+    filename: string,
+    contentType: string,
+    blob: Blob,
+  ): Promise<string> => {
+    const partCount = Math.ceil(blob.size / CHUNK_SIZE);
+    setTotalParts(partCount);
+
+    const signRes = await fetch("/api/admin/upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bucket, filename, contentType, parts: partCount }),
+    });
+    if (!signRes.ok) {
+      const err = (await signRes.json().catch(() => ({}))) as Record<string, string>;
+      throw new Error(err.message ?? err.error ?? `HTTP ${signRes.status}`);
+    }
+    const sign = (await signRes.json()) as SignChunked;
+
+    let uploadedBytes = 0;
+    for (let i = 0; i < partCount; i++) {
+      const start = i * CHUNK_SIZE;
+      const end = Math.min(start + CHUNK_SIZE, blob.size);
+      const slice = blob.slice(start, end); // zero-copy view, memory-safe
+      setPartInfo({ current: i + 1, total: partCount });
+
+      await putWithProgress(
+        sign.parts[i].signedUrl,
+        slice,
+        "application/octet-stream",
+        (pct) => {
+          const partBytes = (pct / 100) * slice.size;
+          setUploadPct(((uploadedBytes + partBytes) / blob.size) * 100);
+        },
+      );
+      uploadedBytes += slice.size;
+      setUploadPct((uploadedBytes / blob.size) * 100);
+    }
+
+    // Write the manifest last — its presence means the upload is complete.
+    const manifest = {
+      v: 1 as const,
+      originalName: filename,
+      contentType,
+      totalSize: blob.size,
+      parts: sign.parts.map((p) => p.path),
+    };
+    const manifestBlob = new Blob([JSON.stringify(manifest)], {
+      type: "application/json",
+    });
+    await putWithProgress(sign.manifest.signedUrl, manifestBlob, "application/json", () => {});
+
+    return sign.manifest.path;
+  };
+
   const run = async (file: File) => {
     const fileKind = getKind(file);
     setKind(fileKind);
     setErrorMsg(null);
     setUploadPct(0);
     setStats(null);
+    setPartInfo(null);
+    setTotalParts(0);
 
     try {
       // ── 1. Read ───────────────────────────────────────────────────────────
@@ -155,16 +296,19 @@ export function UniversalFileUploader({
       let contentType = file.type || "application/octet-stream";
 
       if (fileKind === "pdf") {
-        try {
-          blob = await compressPdf(file);
-          contentType = "application/pdf";
-        } catch {
-          blob = file; // encrypted/malformed → upload as-is
+        contentType = "application/pdf";
+        if (file.size <= PDF_COMPRESS_MAX) {
+          try {
+            blob = await compressPdf(file);
+          } catch {
+            blob = file; // encrypted/malformed → upload as-is
+          }
         }
       } else if (fileKind === "image") {
         try {
           blob = await compressImage(file);
-          contentType = file.type === "image/png" ? "image/png" : "image/jpeg";
+          contentType =
+            blob.type || (file.type === "image/png" ? "image/png" : "image/jpeg");
         } catch {
           blob = file;
         }
@@ -173,56 +317,19 @@ export function UniversalFileUploader({
 
       setStats({ original: originalSize, compressed: blob.size });
 
-      // ── 3. Get signed URL ─────────────────────────────────────────────────
+      // ── 3. Upload — single object or chunked depending on final size ──────
       setStep("uploading");
-      const signRes = await fetch("/api/admin/upload", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bucket, filename: file.name, contentType }),
-      });
-      if (!signRes.ok) {
-        const err = (await signRes.json().catch(() => ({}))) as Record<string, string>;
-        throw new Error(err.message ?? err.error ?? `HTTP ${signRes.status}`);
-      }
-      const sign = (await signRes.json()) as {
-        signedUrl: string;
-        path: string;
-        publicUrl: string;
-      };
+      const storedPath =
+        blob.size <= SINGLE_OBJECT_MAX
+          ? await uploadSingle(file.name, contentType, blob)
+          : await uploadChunked(file.name, contentType, blob);
 
-      // ── 4. PUT directly to Supabase ───────────────────────────────────────
-      await new Promise<void>((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("PUT", sign.signedUrl, true);
-        xhr.setRequestHeader("Content-Type", contentType);
-        xhr.setRequestHeader("x-upsert", "true");
-        xhr.upload.onprogress = (e) => {
-          if (e.lengthComputable) setUploadPct((e.loaded / e.total) * 100);
-        };
-        xhr.onload = () => {
-          if (xhr.status >= 200 && xhr.status < 300) {
-            resolve();
-          } else {
-            let msg = `HTTP ${xhr.status}`;
-            try {
-              const body = JSON.parse(xhr.responseText) as Record<string, string>;
-              msg = body.message ?? body.error ?? msg;
-            } catch {
-              /* keep default */
-            }
-            reject(new Error(msg));
-          }
-        };
-        xhr.onerror = () => reject(new Error("Error de red"));
-        xhr.send(blob);
-      });
-
-      // ── 5. Done ───────────────────────────────────────────────────────────
+      // ── 4. Done ───────────────────────────────────────────────────────────
       setDoneName(file.name);
       setStep("done");
       onUploaded({
-        path: sign.path,
-        publicUrl: sign.publicUrl,
+        path: storedPath,
+        publicUrl: "",
         fileName: file.name,
         sizeBytes: blob.size,
       });
@@ -241,6 +348,8 @@ export function UniversalFileUploader({
     setStats(null);
     setDoneName(null);
     setErrorMsg(null);
+    setPartInfo(null);
+    setTotalParts(0);
     onClear?.();
   };
 
@@ -314,7 +423,7 @@ export function UniversalFileUploader({
 
             <span className="inline-flex items-center gap-1.5 rounded-full border border-mustard/30 bg-mustard/10 px-3 py-1 text-[11px] font-semibold text-mustard-700 transition-colors group-hover:border-mustard/50 group-hover:bg-mustard/15">
               <Zap className="h-3 w-3" />
-              Compresión automática para PDF e imágenes
+              Cualquier tamaño · compresión y troceado automático
             </span>
           </motion.button>
         )}
@@ -395,8 +504,27 @@ export function UniversalFileUploader({
                       ? "Comprimiendo imagen…"
                       : "Preparando archivo…")}
                   {step === "uploading" &&
-                    `Subiendo a almacenamiento… ${uploadPct.toFixed(0)}%`}
+                    (partInfo
+                      ? `Subiendo parte ${partInfo.current} de ${partInfo.total} · ${uploadPct.toFixed(0)}%`
+                      : `Subiendo a almacenamiento… ${uploadPct.toFixed(0)}%`)}
                 </motion.p>
+              </AnimatePresence>
+
+              {/* Chunked badge */}
+              <AnimatePresence>
+                {partInfo && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-2.5 py-1 text-[10px] font-semibold text-sky-600">
+                      <Layers className="h-3 w-3" />
+                      Archivo grande · troceado en {partInfo.total} partes
+                    </span>
+                  </motion.div>
+                )}
               </AnimatePresence>
 
               {/* Live size preview after compression */}
@@ -463,64 +591,77 @@ export function UniversalFileUploader({
               </div>
             </div>
 
-            {/* Compression stats (only when there was actual compression) */}
-            {stats.compressed < stats.original ? (
-              <div className="px-4 py-3">
-                <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-widest text-charcoal-400">
-                  Resultado de compresión
-                </p>
-                <div className="flex flex-wrap items-center gap-2">
-                  <div className="flex flex-col rounded-xl border border-charcoal-100 bg-charcoal-50 px-3 py-2">
-                    <span className="text-[10px] font-medium text-charcoal-400">
-                      Original
-                    </span>
-                    <span className="text-sm font-bold text-charcoal-400 line-through">
-                      {formatBytes(stats.original)}
-                    </span>
+            <div className="space-y-2.5 px-4 py-3">
+              {/* Compression stats (only when there was actual compression) */}
+              {stats.compressed < stats.original ? (
+                <div>
+                  <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-widest text-charcoal-400">
+                    Resultado de compresión
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex flex-col rounded-xl border border-charcoal-100 bg-charcoal-50 px-3 py-2">
+                      <span className="text-[10px] font-medium text-charcoal-400">
+                        Original
+                      </span>
+                      <span className="text-sm font-bold text-charcoal-400 line-through">
+                        {formatBytes(stats.original)}
+                      </span>
+                    </div>
+
+                    <ArrowRight className="h-4 w-4 shrink-0 text-charcoal-300" />
+
+                    <div className="flex flex-col rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2">
+                      <span className="text-[10px] font-medium text-emerald-600">
+                        Comprimido
+                      </span>
+                      <span className="text-sm font-bold text-emerald-700">
+                        {formatBytes(stats.compressed)}
+                      </span>
+                    </div>
+
+                    <motion.div
+                      initial={{ scale: 0, rotate: -8 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{
+                        delay: 0.12,
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 22,
+                      }}
+                      className="flex flex-col items-center rounded-xl bg-gradient-to-br from-mustard/20 to-terracotta/20 px-3 py-2"
+                    >
+                      <span className="text-[10px] font-medium text-mustard-700">
+                        Ahorro
+                      </span>
+                      <span className="text-sm font-bold text-mustard-700">
+                        ↓{" "}
+                        {Math.round(
+                          (1 - stats.compressed / stats.original) * 100,
+                        )}
+                        %
+                      </span>
+                    </motion.div>
                   </div>
-
-                  <ArrowRight className="h-4 w-4 shrink-0 text-charcoal-300" />
-
-                  <div className="flex flex-col rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2">
-                    <span className="text-[10px] font-medium text-emerald-600">
-                      Comprimido
-                    </span>
-                    <span className="text-sm font-bold text-emerald-700">
-                      {formatBytes(stats.compressed)}
-                    </span>
-                  </div>
-
-                  <motion.div
-                    initial={{ scale: 0, rotate: -8 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{
-                      delay: 0.12,
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 22,
-                    }}
-                    className="flex flex-col items-center rounded-xl bg-gradient-to-br from-mustard/20 to-terracotta/20 px-3 py-2"
-                  >
-                    <span className="text-[10px] font-medium text-mustard-700">
-                      Ahorro
-                    </span>
-                    <span className="text-sm font-bold text-mustard-700">
-                      ↓{" "}
-                      {Math.round(
-                        (1 - stats.compressed / stats.original) * 100,
-                      )}
-                      %
-                    </span>
-                  </motion.div>
                 </div>
-              </div>
-            ) : (
-              <div className="px-4 py-3">
+              ) : (
                 <p className="text-xs text-charcoal-400">
                   {formatBytes(stats.compressed)} · Subido correctamente
                 </p>
-              </div>
-            )}
+              )}
+
+              {/* Chunked note — reassures that the file is whole on download */}
+              {totalParts > 1 && (
+                <div className="flex items-start gap-2 rounded-xl border border-sky-100 bg-sky-50/60 px-3 py-2">
+                  <Layers className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-500" />
+                  <p className="text-[11px] leading-relaxed text-sky-700">
+                    Archivo grande subido en{" "}
+                    <span className="font-bold">{totalParts} partes</span>. Se
+                    re-ensambla automáticamente en la descarga — el alumno baja un
+                    único archivo intacto.
+                  </p>
+                </div>
+              )}
+            </div>
           </motion.div>
         )}
 
@@ -544,7 +685,9 @@ export function UniversalFileUploader({
                 )}
                 {isSizeLimitError && (
                   <p className="mt-2 text-xs text-charcoal-500 leading-relaxed">
-                    El archivo supera el límite del bucket de Supabase. Para aumentarlo: Dashboard → Storage → digital-products → Edit → File size limit.
+                    Si esto persiste con un archivo muy grande, reintentá — el
+                    sistema lo trocea automáticamente para sortear el límite de
+                    Supabase.
                   </p>
                 )}
               </div>

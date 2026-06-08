@@ -1,15 +1,25 @@
 /**
  * POST /api/admin/upload
  *
- * Generates a signed upload URL for Supabase Storage so the browser can PUT
- * a file directly (no proxying through Next.js). Used for cover images, ebook
+ * Generates signed upload URL(s) for Supabase Storage so the browser can PUT
+ * files directly (no proxying through Next.js). Used for cover images, ebook
  * PDFs, course resources, etc.
  *
- * Body: { bucket: string, path: string }
+ * Two modes:
  *
- * The bucket must be in our allowlist below. The path is namespaced under
- * `admin/{profile.id}/{timestamp}-{filename}` to avoid collisions and keep
- * uploads attributable.
+ *  • Single (default) — body: { bucket, filename, contentType? }
+ *      → { mode: "single", bucket, path, token, signedUrl, publicUrl }
+ *    For files that fit under Supabase's 50 MB free-tier per-object cap.
+ *
+ *  • Chunked — body: { bucket, filename, contentType?, parts: N }   (N > 1)
+ *      → { mode: "chunked", bucket, manifestPath, manifest: {...},
+ *          parts: [{ index, path, signedUrl, token }, ...] }
+ *    For large files split client-side into N parts of < 50 MB each, plus a
+ *    tiny manifest. All objects share one timestamped base path under the
+ *    admin namespace. See lib/supabase/chunked.ts for the download side.
+ *
+ * Every object is namespaced under `admin/{profile.id}/{timestamp}-{filename}`
+ * to avoid collisions and keep uploads attributable.
  */
 
 import { NextResponse } from "next/server";
@@ -18,6 +28,7 @@ import {
   getCurrentProfile,
   getSupabaseAdminClient,
 } from "@/lib/supabase/server";
+import { MANIFEST_SUFFIX } from "@/lib/supabase/chunked";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +54,8 @@ const Schema = z.object({
   // characters (e.g. "Introducción.pdf", "clase 1 – García.pdf").
   filename: z.string().min(1).max(200),
   contentType: z.string().min(1).max(120).optional(),
+  // When > 1, return signed URLs for a chunked (multi-part) upload.
+  parts: z.number().int().min(1).max(1000).optional(),
 });
 
 /** Strip accents from a string (á→a, ñ→n, ü→u, etc.) */
@@ -80,14 +93,68 @@ export async function POST(req: Request) {
     .replace(/[^\w.\-\s()]/g, "_")
     .trim();
   const cleanName = (sanitized || "file").replace(/\s+/g, "-").toLowerCase();
-  const path = `admin/${profile.id}/${Date.now()}-${cleanName}`;
+  const basePath = `admin/${profile.id}/${Date.now()}-${cleanName}`;
 
   const storageBucket = SUPABASE_BUCKET[parsed.data.bucket];
-
   const admin = getSupabaseAdminClient();
+
+  // ── Chunked mode ──────────────────────────────────────────────────────────
+  const partCount = parsed.data.parts ?? 1;
+  if (partCount > 1) {
+    const parts: Array<{
+      index: number;
+      path: string;
+      signedUrl: string;
+      token: string;
+    }> = [];
+
+    for (let i = 0; i < partCount; i++) {
+      const partPath = `${basePath}.part${i}`;
+      const { data, error } = await admin.storage
+        .from(storageBucket)
+        .createSignedUploadUrl(partPath, { upsert: true });
+      if (error || !data) {
+        return NextResponse.json(
+          { error: "signed_url_failed", message: error?.message ?? "unknown" },
+          { status: 500 },
+        );
+      }
+      parts.push({
+        index: i,
+        path: partPath,
+        signedUrl: data.signedUrl,
+        token: data.token,
+      });
+    }
+
+    const manifestPath = `${basePath}${MANIFEST_SUFFIX}`;
+    const { data: manifestSign, error: manifestErr } = await admin.storage
+      .from(storageBucket)
+      .createSignedUploadUrl(manifestPath, { upsert: true });
+    if (manifestErr || !manifestSign) {
+      return NextResponse.json(
+        { error: "signed_url_failed", message: manifestErr?.message ?? "unknown" },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({
+      mode: "chunked",
+      bucket: parsed.data.bucket,
+      manifestPath,
+      manifest: {
+        path: manifestPath,
+        signedUrl: manifestSign.signedUrl,
+        token: manifestSign.token,
+      },
+      parts,
+    });
+  }
+
+  // ── Single-object mode (default) ──────────────────────────────────────────
   const { data, error } = await admin.storage
     .from(storageBucket)
-    .createSignedUploadUrl(path, { upsert: true });
+    .createSignedUploadUrl(basePath, { upsert: true });
 
   if (error || !data) {
     return NextResponse.json(
@@ -98,11 +165,12 @@ export async function POST(req: Request) {
 
   // Get the public URL we'll need after upload (or, if bucket is private,
   // the path the client should store).
-  const { data: pub } = admin.storage.from(storageBucket).getPublicUrl(path);
+  const { data: pub } = admin.storage.from(storageBucket).getPublicUrl(basePath);
 
   return NextResponse.json({
+    mode: "single",
     bucket: parsed.data.bucket,
-    path,
+    path: basePath,
     token: data.token,
     signedUrl: data.signedUrl,
     publicUrl: pub.publicUrl,

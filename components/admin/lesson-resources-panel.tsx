@@ -45,8 +45,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { FileUploader } from "./file-uploader";
-import { PdfCompressorUploader } from "./pdf-compressor-uploader";
+import { UniversalFileUploader } from "./universal-file-uploader";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -153,7 +152,7 @@ export function LessonResourcesPanel({ lessonId }: { lessonId: string }) {
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState<"idle" | "upload" | "upload-pdf" | "link">("idle");
+  const [mode, setMode] = useState<"idle" | "upload" | "link">("idle");
   const [linkUrl, setLinkUrl] = useState("");
   const [linkTitle, setLinkTitle] = useState("");
   const [saving, startSaving] = useTransition();
@@ -344,12 +343,10 @@ export function LessonResourcesPanel({ lessonId }: { lessonId: string }) {
           {/* Add modes */}
           {mode === "upload" && (
             <div className="rounded-xl border border-charcoal-100/60 bg-cream-50 p-3 space-y-2">
-              <FileUploader
+              <UniversalFileUploader
                 bucket="course-resources"
-                accept="application/zip,audio/*,video/*,image/*,.zip,.rar,.mp3,.mp4,.mov"
-                maxBytes={500 * 1024 * 1024}
-                label="Subir archivo"
-                hint="ZIP, audio, video, imagen, presentación… Máx 500 MB."
+                accept="*/*"
+                hint="PDF, ZIP, audio, video, imagen… cualquier formato y tamaño."
                 onUploaded={(info) =>
                   createFileResource({
                     path: info.path,
@@ -358,32 +355,6 @@ export function LessonResourcesPanel({ lessonId }: { lessonId: string }) {
                     mime: "",
                   })
                 }
-              />
-              <Button
-                size="sm"
-                variant="ghost"
-                className="text-charcoal-400 hover:text-charcoal-600"
-                onClick={() => setMode("idle")}
-              >
-                <X className="h-3.5 w-3.5" /> Cancelar
-              </Button>
-            </div>
-          )}
-
-          {mode === "upload-pdf" && (
-            <div className="rounded-xl border border-charcoal-100/60 bg-cream-50 p-3 space-y-2">
-              <PdfCompressorUploader
-                bucket="course-resources"
-                label="Subir PDF"
-                hint="Compresión automática incluida. Máx 500 MB."
-                onUploaded={(info) => {
-                  createFileResource({
-                    path: info.path,
-                    fileName: info.fileName,
-                    sizeBytes: info.sizeBytes,
-                    mime: "application/pdf",
-                  });
-                }}
               />
               <Button
                 size="sm"
@@ -444,27 +415,22 @@ export function LessonResourcesPanel({ lessonId }: { lessonId: string }) {
 
           {/* Action buttons */}
           {mode === "idle" && (
-            <div className="flex flex-wrap items-center gap-2 pt-0.5">
+            <div className="flex items-center gap-2 pt-0.5">
               <Button
                 size="sm"
                 variant="soft"
-                onClick={() => setMode("upload-pdf")}
-              >
-                <FileText className="h-3.5 w-3.5" /> PDF
-              </Button>
-              <Button
-                size="sm"
-                variant="soft"
+                className="flex-1"
                 onClick={() => setMode("upload")}
               >
-                <Plus className="h-3.5 w-3.5" /> Otro archivo
+                <Plus className="h-3.5 w-3.5" /> Subir archivo
               </Button>
               <Button
                 size="sm"
                 variant="soft"
+                className="flex-1"
                 onClick={() => setMode("link")}
               >
-                <ExternalLink className="h-3.5 w-3.5" /> Link
+                <ExternalLink className="h-3.5 w-3.5" /> Agregar link
               </Button>
             </div>
           )}

@@ -5,8 +5,16 @@ import {
   getSupabaseAdminClient,
 } from "@/lib/supabase/server";
 import { resolveStorageUrl, STORAGE_BUCKETS } from "@/lib/supabase/storage";
+import { isChunkedPath, readManifest, reassembleChunkedFile } from "@/lib/supabase/chunked";
 
 export const dynamic = "force-dynamic";
+// Allow time for sequential multi-part streaming of large files.
+export const maxDuration = 300;
+
+function safeName(title: string, originalName: string): string {
+  const ext = originalName.includes(".") ? originalName.split(".").pop() : "bin";
+  return `${title.replace(/[^a-z0-9]/gi, "_")}.${ext}`;
+}
 
 export async function GET(
   _request: Request,
@@ -50,6 +58,32 @@ export async function GET(
     }
   }
 
+  // ── Chunked file: read manifest, stream parts concatenated ────────────────
+  if (isChunkedPath(product.file_path)) {
+    const manifest = await readManifest(
+      STORAGE_BUCKETS.digitalProducts,
+      product.file_path,
+    );
+    if (!manifest) {
+      return NextResponse.json(
+        { ok: false, message: "Couldn't read the file manifest." },
+        { status: 500 },
+      );
+    }
+    const { stream, contentType, totalSize, originalName } =
+      await reassembleChunkedFile(STORAGE_BUCKETS.digitalProducts, manifest);
+
+    return new NextResponse(stream, {
+      headers: {
+        "Content-Type": contentType,
+        "Content-Length": String(totalSize),
+        "Content-Disposition": `attachment; filename="${safeName(product.title, originalName)}"`,
+        "Cache-Control": "no-store",
+      },
+    });
+  }
+
+  // ── Single object: proxy as before ────────────────────────────────────────
   const url = await resolveStorageUrl(
     STORAGE_BUCKETS.digitalProducts,
     product.file_path,

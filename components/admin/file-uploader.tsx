@@ -171,20 +171,48 @@ export function FileUploader({
         }}
       />
 
-      {hasContent && !busy && (
-        <div className="flex items-start gap-3 rounded-2xl border border-charcoal-100/60 bg-cream-50 p-3">
-          {variant === "image" && previewUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
+      {hasContent && !busy && variant === "image" && (
+        <div className="space-y-2">
+          <div className="relative overflow-hidden rounded-xl border border-charcoal-100">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={previewUrl}
-              alt={previewName ?? "preview"}
-              className="h-20 w-20 rounded-xl object-cover ring-1 ring-charcoal-100"
+              src={previewUrl!}
+              alt={previewName ?? "portada"}
+              className="w-full object-cover"
             />
-          ) : (
-            <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-mustard/15 text-mustard-600">
-              <FileText className="h-5 w-5" />
-            </span>
-          )}
+            <div className="absolute inset-0 flex items-center justify-center gap-2 bg-charcoal-700/55 opacity-0 transition-opacity hover:opacity-100">
+              <button
+                type="button"
+                onClick={pick}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold text-charcoal-700 shadow-sm hover:bg-white"
+              >
+                <Upload className="h-3 w-3" /><span>Cambiar</span>
+              </button>
+              <button
+                type="button"
+                onClick={clear}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold text-destructive shadow-sm hover:bg-white"
+              >
+                <X className="h-3 w-3" /><span>Quitar</span>
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={pick}
+            className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-charcoal-100 bg-cream-50 py-2 text-xs font-medium text-charcoal-500 transition-colors hover:bg-charcoal-100/50 hover:text-charcoal-600"
+          >
+            <Upload className="h-3 w-3" />
+            <span>Cambiar imagen</span>
+          </button>
+        </div>
+      )}
+
+      {hasContent && !busy && variant !== "image" && (
+        <div className="flex items-start gap-3 rounded-2xl border border-charcoal-100/60 bg-cream-50 p-3">
+          <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-mustard/15 text-mustard-600">
+            <FileText className="h-5 w-5" />
+          </span>
           <div className="flex-1 min-w-0">
             <p className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
               <CheckCircle2 className="h-3.5 w-3.5" /><span>Subido</span>
