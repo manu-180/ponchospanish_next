@@ -175,7 +175,9 @@ export function UniversalFileUploader({
   onClear,
 }: UniversalFileUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [step, setStep] = useState<Step>("idle");
+  // If there is already an uploaded file (edit mode), start in "done" so the
+  // card renders immediately without waiting for a new upload.
+  const [step, setStep] = useState<Step>(() => (currentName ? "done" : "idle"));
   const [uploadPct, setUploadPct] = useState(0);
   const [stats, setStats] = useState<Stats | null>(null);
   const [doneName, setDoneName] = useState<string | null>(currentName ?? null);
@@ -559,7 +561,7 @@ export function UniversalFileUploader({
         )}
 
         {/* ───────────────────── DONE ─────────────────────────────────────── */}
-        {step === "done" && stats && (
+        {step === "done" && doneName && (
           <motion.div
             key="done"
             initial={{ opacity: 0, scale: 0.97 }}
@@ -591,77 +593,85 @@ export function UniversalFileUploader({
               </div>
             </div>
 
-            <div className="space-y-2.5 px-4 py-3">
-              {/* Compression stats (only when there was actual compression) */}
-              {stats.compressed < stats.original ? (
-                <div>
-                  <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-widest text-charcoal-400">
-                    Resultado de compresión
-                  </p>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <div className="flex flex-col rounded-xl border border-charcoal-100 bg-charcoal-50 px-3 py-2">
-                      <span className="text-[10px] font-medium text-charcoal-400">
-                        Original
-                      </span>
-                      <span className="text-sm font-bold text-charcoal-400 line-through">
-                        {formatBytes(stats.original)}
-                      </span>
+            {/* Body — compression stats appear only on a fresh upload */}
+            {stats ? (
+              <div className="space-y-2.5 px-4 py-3">
+                {/* Compression stats (only when there was actual compression) */}
+                {stats.compressed < stats.original ? (
+                  <div>
+                    <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-widest text-charcoal-400">
+                      Resultado de compresión
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <div className="flex flex-col rounded-xl border border-charcoal-100 bg-charcoal-50 px-3 py-2">
+                        <span className="text-[10px] font-medium text-charcoal-400">
+                          Original
+                        </span>
+                        <span className="text-sm font-bold text-charcoal-400 line-through">
+                          {formatBytes(stats.original)}
+                        </span>
+                      </div>
+
+                      <ArrowRight className="h-4 w-4 shrink-0 text-charcoal-300" />
+
+                      <div className="flex flex-col rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2">
+                        <span className="text-[10px] font-medium text-emerald-600">
+                          Comprimido
+                        </span>
+                        <span className="text-sm font-bold text-emerald-700">
+                          {formatBytes(stats.compressed)}
+                        </span>
+                      </div>
+
+                      <motion.div
+                        initial={{ scale: 0, rotate: -8 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{
+                          delay: 0.12,
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 22,
+                        }}
+                        className="flex flex-col items-center rounded-xl bg-gradient-to-br from-mustard/20 to-terracotta/20 px-3 py-2"
+                      >
+                        <span className="text-[10px] font-medium text-mustard-700">
+                          Ahorro
+                        </span>
+                        <span className="text-sm font-bold text-mustard-700">
+                          ↓{" "}
+                          {Math.round(
+                            (1 - stats.compressed / stats.original) * 100,
+                          )}
+                          %
+                        </span>
+                      </motion.div>
                     </div>
-
-                    <ArrowRight className="h-4 w-4 shrink-0 text-charcoal-300" />
-
-                    <div className="flex flex-col rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2">
-                      <span className="text-[10px] font-medium text-emerald-600">
-                        Comprimido
-                      </span>
-                      <span className="text-sm font-bold text-emerald-700">
-                        {formatBytes(stats.compressed)}
-                      </span>
-                    </div>
-
-                    <motion.div
-                      initial={{ scale: 0, rotate: -8 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{
-                        delay: 0.12,
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 22,
-                      }}
-                      className="flex flex-col items-center rounded-xl bg-gradient-to-br from-mustard/20 to-terracotta/20 px-3 py-2"
-                    >
-                      <span className="text-[10px] font-medium text-mustard-700">
-                        Ahorro
-                      </span>
-                      <span className="text-sm font-bold text-mustard-700">
-                        ↓{" "}
-                        {Math.round(
-                          (1 - stats.compressed / stats.original) * 100,
-                        )}
-                        %
-                      </span>
-                    </motion.div>
                   </div>
-                </div>
-              ) : (
-                <p className="text-xs text-charcoal-400">
-                  {formatBytes(stats.compressed)} · Subido correctamente
-                </p>
-              )}
-
-              {/* Chunked note — reassures that the file is whole on download */}
-              {totalParts > 1 && (
-                <div className="flex items-start gap-2 rounded-xl border border-sky-100 bg-sky-50/60 px-3 py-2">
-                  <Layers className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-500" />
-                  <p className="text-[11px] leading-relaxed text-sky-700">
-                    Archivo grande subido en{" "}
-                    <span className="font-bold">{totalParts} partes</span>. Se
-                    re-ensambla automáticamente en la descarga — el alumno baja un
-                    único archivo intacto.
+                ) : (
+                  <p className="text-xs text-charcoal-400">
+                    {formatBytes(stats.compressed)} · Subido correctamente
                   </p>
-                </div>
-              )}
-            </div>
+                )}
+
+                {/* Chunked note — reassures that the file is whole on download */}
+                {totalParts > 1 && (
+                  <div className="flex items-start gap-2 rounded-xl border border-sky-100 bg-sky-50/60 px-3 py-2">
+                    <Layers className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-500" />
+                    <p className="text-[11px] leading-relaxed text-sky-700">
+                      Archivo grande subido en{" "}
+                      <span className="font-bold">{totalParts} partes</span>. Se
+                      re-ensambla automáticamente en la descarga — el alumno baja un
+                      único archivo intacto.
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              /* Pre-existing file (page loaded in edit mode) — show a minimal footer */
+              <div className="px-4 py-2.5">
+                <p className="text-xs text-charcoal-400">Archivo guardado · listo para descarga</p>
+              </div>
+            )}
           </motion.div>
         )}
 
