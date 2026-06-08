@@ -74,6 +74,13 @@ interface Props {
    * Use in the student player so viewers can adjust readability.
    */
   showSizeControl?: boolean;
+  /**
+   * Show a CC on/off toggle button alongside the size picker.
+   * Use in the student player — keeps the pill visible even when captions are off.
+   */
+  showVisibilityToggle?: boolean;
+  /** Called when the CC button is clicked. */
+  onToggleVisible?: () => void;
 }
 
 export function CaptionOverlay({

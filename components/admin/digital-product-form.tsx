@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUploader } from "./file-uploader";
+import { PdfCompressorUploader } from "./pdf-compressor-uploader";
 import { PublishToggle } from "./publish-toggle";
 import type { DigitalProduct } from "@/types/database";
 
@@ -206,19 +207,14 @@ export function DigitalProductForm({
             onClear={() => update("cover_image_path", null)}
           />
 
-          <FileUploader
+          <PdfCompressorUploader
             bucket="digital-products"
-            accept="application/pdf,application/epub+zip,application/zip"
             label="Archivo del ebook"
-            hint="PDF o EPUB. Hasta 500 MB."
-            currentUrl={data.file_path}
+            hint="PDF. Compresión automática incluida. Hasta 500 MB."
             currentName={data.file_path?.split("/").pop()}
-            maxBytes={500 * 1024 * 1024}
-            onUploaded={({ path, fileName, sizeBytes }) => {
+            onUploaded={({ path, sizeBytes }) => {
               update("file_path", path);
               update("file_size_bytes", sizeBytes);
-              // Hint visual: also keep filename in the component state via path
-              void fileName;
             }}
             onClear={() => {
               update("file_path", null);
@@ -226,14 +222,11 @@ export function DigitalProductForm({
             }}
           />
 
-          <FileUploader
+          <PdfCompressorUploader
             bucket="digital-products"
-            accept="application/pdf"
             label="Preview (opcional)"
             hint="Páginas de muestra para mostrar antes de comprar"
-            currentUrl={data.preview_path}
             currentName={data.preview_path?.split("/").pop()}
-            maxBytes={50 * 1024 * 1024}
             onUploaded={({ path }) => update("preview_path", path)}
             onClear={() => update("preview_path", null)}
           />
