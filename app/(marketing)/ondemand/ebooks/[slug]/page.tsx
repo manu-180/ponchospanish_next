@@ -19,7 +19,6 @@ import {
   getDigitalProductBySlug,
   userHasPurchasedProduct,
 } from "@/lib/supabase/queries";
-import { resolveStorageUrl, STORAGE_BUCKETS } from "@/lib/supabase/storage";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -84,11 +83,7 @@ export default async function EbookDetailPage({ params }: PageProps) {
 
   const isFree = product.price_gbp === 0;
   const previewUrl = product.preview_path
-    ? await resolveStorageUrl(
-        STORAGE_BUCKETS.digitalProducts,
-        product.preview_path,
-        60 * 10,
-      )
+    ? `/api/digital-products/${product.id}/preview`
     : null;
 
   const includes = [

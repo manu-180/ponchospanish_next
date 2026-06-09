@@ -529,33 +529,6 @@ export function UniversalFileUploader({
                 )}
               </AnimatePresence>
 
-              {/* Live size preview after compression */}
-              <AnimatePresence>
-                {stats && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    className="flex items-center gap-2 overflow-hidden"
-                  >
-                    <span className="text-xs text-charcoal-400 line-through">
-                      {formatBytes(stats.original)}
-                    </span>
-                    <ArrowRight className="h-3 w-3 shrink-0 text-charcoal-300" />
-                    <span className="text-xs font-bold text-charcoal-700">
-                      {formatBytes(stats.compressed)}
-                    </span>
-                    {stats.compressed < stats.original && (
-                      <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-600">
-                        ↓
-                        {Math.round(
-                          (1 - stats.compressed / stats.original) * 100,
-                        )}
-                        %
-                      </span>
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           </motion.div>
         )}
@@ -579,18 +552,13 @@ export function UniversalFileUploader({
                   {doneName}
                 </p>
               </div>
-              <div className="flex shrink-0 items-center gap-1.5">
-                <Button size="sm" variant="soft" onClick={pick} className="h-7 text-xs">
-                  <RotateCcw className="h-3 w-3" /> Cambiar
-                </Button>
-                <button
-                  onClick={clear}
-                  className="rounded-lg p-1.5 text-charcoal-300 transition-colors hover:bg-charcoal-100 hover:text-destructive"
-                  aria-label="Quitar archivo"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              </div>
+              <button
+                onClick={clear}
+                className="rounded-lg p-1.5 text-charcoal-300 transition-colors hover:bg-charcoal-100 hover:text-destructive"
+                aria-label="Quitar archivo"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
             </div>
 
             {/* Body — compression stats appear only on a fresh upload */}
@@ -665,11 +633,20 @@ export function UniversalFileUploader({
                     </p>
                   </div>
                 )}
+
+                <div className="flex justify-end pt-1">
+                  <Button size="sm" variant="soft" onClick={pick} className="h-7 text-xs">
+                    <RotateCcw className="h-3 w-3" /> Cambiar
+                  </Button>
+                </div>
               </div>
             ) : (
               /* Pre-existing file (page loaded in edit mode) — show a minimal footer */
-              <div className="px-4 py-2.5">
+              <div className="flex items-center justify-between px-4 py-2.5">
                 <p className="text-xs text-charcoal-400">Archivo guardado · listo para descarga</p>
+                <Button size="sm" variant="soft" onClick={pick} className="h-7 text-xs">
+                  <RotateCcw className="h-3 w-3" /> Cambiar
+                </Button>
               </div>
             )}
           </motion.div>
