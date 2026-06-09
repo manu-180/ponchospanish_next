@@ -1,0 +1,45 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - link "Poncho Spanish" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - link "Back to home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - text: Back to home
+    - main [ref=e8]:
+      - generic [ref=e9]:
+        - generic: "404"
+        - generic [ref=e10]:
+          - img [ref=e11]
+          - generic [ref=e14]: Page not found
+        - heading "¡Ay, no! Lost in translation?" [level=1] [ref=e15]
+        - paragraph [ref=e16]:
+          - text: This page doesn't exist — but your Spanish journey does.
+          - text: Let's get you back on track.
+        - generic [ref=e17]:
+          - link "Take me home" [ref=e18] [cursor=pointer]:
+            - /url: /
+            - img [ref=e19]
+            - text: Take me home
+          - link "Start learning" [ref=e22] [cursor=pointer]:
+            - /url: /#pricing
+            - img [ref=e23]
+            - text: Start learning
+        - generic [ref=e25]:
+          - generic [ref=e26]: Or explore
+          - link "How it works" [ref=e27] [cursor=pointer]:
+            - /url: /#how-it-works
+            - text: How it works
+            - img [ref=e28]
+          - link "Pricing" [ref=e30] [cursor=pointer]:
+            - /url: /#pricing
+            - text: Pricing
+            - img [ref=e31]
+          - link "On-demand classes" [ref=e33] [cursor=pointer]:
+            - /url: /ondemand
+            - text: On-demand classes
+            - img [ref=e34]
+    - contentinfo [ref=e36]:
+      - paragraph [ref=e37]: © 2026 Poncho Spanish · Real lessons, real results
+  - region "Notifications alt+T"

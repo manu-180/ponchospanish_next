@@ -1,0 +1,187 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Poncho Spanish — Home" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "Poncho Spanish" [ref=e6]
+        - navigation [ref=e7]:
+          - link "Home" [ref=e8] [cursor=pointer]:
+            - /url: /
+          - link "Academy" [ref=e9] [cursor=pointer]:
+            - /url: /ondemand
+          - link "Get in Touch" [ref=e10] [cursor=pointer]:
+            - /url: /#contact
+        - generic [ref=e11]:
+          - button "My Academy" [ref=e12] [cursor=pointer]:
+            - img [ref=e13]
+            - text: My Academy
+          - link "Book a trial" [ref=e15] [cursor=pointer]:
+            - /url: https://calendly.com/ponchospanish/30min
+    - main [ref=e16]:
+      - generic [ref=e17]:
+        - generic [ref=e19]:
+          - generic [ref=e20]:
+            - generic [ref=e21]:
+              - generic [ref=e22]: Beginner
+              - generic [ref=e23]:
+                - img [ref=e24]
+                - text: 14-day money-back
+            - heading "Spanish for Confident Kids" [level=1] [ref=e27]
+            - paragraph [ref=e28]: A Self-Paced Beginner Programme Designed for Modern Families - INCLUDES WORKBOOK!
+            - paragraph [ref=e29]: "Spanish for Confident Kids isn’t about turning language learning into another stressful after-school activity or adding pressure to your home education journey. It’s a softer approach to learning Spanish designed for families who want steady progress, real confidence, and a supportive way to begin. This self-paced 10-week beginner course for ages 7–11 helps children build practical Spanish naturally through simple lessons, gentle repetition, and engaging activities they can complete from home, at their own rhythm. Inside, your child will learn everyday Spanish through real-life themes including: — Numbers 1–100 — Colours — Days & Months — Family — Physical Description — Feelings — Weather — Hobbies — Food & Drinks + Includes: → 10-week parent-friendly schedule → Digital or printable workbook with a final mini project designed to help children apply what they’ve learned in a fun, achievable way. This course is for families who are: • tired of rigid learning methods • looking for a more relaxed introduction to Spanish • home education/homeschooling or supplementing school learning • raising globally-minded children • wanting screen-time that actually feels meaningful • prioritising confidence before perfection Created for modern families who want meaningful learning at home! Start anytime, learn at your own pace, and revisit lessons whenever you need."
+            - list [ref=e30]:
+              - listitem [ref=e31]:
+                - img [ref=e32]
+                - text: 5 modules
+              - listitem [ref=e34]:
+                - img [ref=e35]
+                - text: 11 lessons
+              - listitem [ref=e38]:
+                - img [ref=e39]
+                - text: Approx. 1h 11m
+          - img "Spanish for Confident Kids" [ref=e44]
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - generic [ref=e48]:
+              - heading "Curriculum" [level=2] [ref=e49]
+              - paragraph [ref=e50]: 5 modules · 11 mini lessons · 1h 11m
+            - generic [ref=e51]:
+              - generic [ref=e52]:
+                - heading "01 Spanish for Confident Kids! 1 lessons Free module" [level=3] [ref=e53]:
+                  - button "01 Spanish for Confident Kids! 1 lessons Free module" [expanded] [ref=e54] [cursor=pointer]:
+                    - generic [ref=e55]:
+                      - generic [ref=e56]: "01"
+                      - generic [ref=e57]:
+                        - paragraph [ref=e58]: Spanish for Confident Kids!
+                        - paragraph [ref=e59]:
+                          - text: 1 lessons
+                          - generic [ref=e60]:
+                            - img [ref=e61]
+                            - text: Free module
+                    - img [ref=e63]
+                - region "01 Spanish for Confident Kids! 1 lessons Free module":
+                  - list [ref=e66]:
+                    - listitem [ref=e67]:
+                      - link "01. Welcome! 52s Preview" [ref=e68] [cursor=pointer]:
+                        - /url: /learn/spanish-for-confident-kids/leccion-1
+                        - img [ref=e69]
+                        - generic [ref=e72]: 01. Welcome!
+                        - generic [ref=e73]: 52s
+                        - generic [ref=e74]: Preview
+              - 'heading "02 Module 1: Foundations 3 lessons" [level=3] [ref=e76]':
+                - 'button "02 Module 1: Foundations 3 lessons" [ref=e77] [cursor=pointer]':
+                  - generic [ref=e78]:
+                    - generic [ref=e79]: "02"
+                    - generic [ref=e80]:
+                      - paragraph [ref=e81]: "Module 1: Foundations"
+                      - paragraph [ref=e82]: 3 lessons
+                  - img [ref=e83]
+              - 'heading "03 Module 2: All About Me 3 lessons" [level=3] [ref=e86]':
+                - 'button "03 Module 2: All About Me 3 lessons" [ref=e87] [cursor=pointer]':
+                  - generic [ref=e88]:
+                    - generic [ref=e89]: "03"
+                    - generic [ref=e90]:
+                      - paragraph [ref=e91]: "Module 2: All About Me"
+                      - paragraph [ref=e92]: 3 lessons
+                  - img [ref=e93]
+              - 'heading "04 Module 3: My World 2 lessons" [level=3] [ref=e96]':
+                - 'button "04 Module 3: My World 2 lessons" [ref=e97] [cursor=pointer]':
+                  - generic [ref=e98]:
+                    - generic [ref=e99]: "04"
+                    - generic [ref=e100]:
+                      - paragraph [ref=e101]: "Module 3: My World"
+                      - paragraph [ref=e102]: 2 lessons
+                  - img [ref=e103]
+              - 'heading "05 Module 4: Food & Everyday Life 2 lessons" [level=3] [ref=e106]':
+                - 'button "05 Module 4: Food & Everyday Life 2 lessons" [ref=e107] [cursor=pointer]':
+                  - generic [ref=e108]:
+                    - generic [ref=e109]: "05"
+                    - generic [ref=e110]:
+                      - paragraph [ref=e111]: "Module 4: Food & Everyday Life"
+                      - paragraph [ref=e112]: 2 lessons
+                  - img [ref=e113]
+            - generic [ref=e116]:
+              - heading "This course includes" [level=3] [ref=e117]:
+                - img [ref=e118]
+                - text: This course includes
+              - list [ref=e121]:
+                - listitem [ref=e122]:
+                  - img [ref=e123]
+                  - text: 1h 11m of HD video
+                - listitem [ref=e126]:
+                  - img [ref=e127]
+                  - text: Downloadable workbooks & resources
+                - listitem [ref=e130]:
+                  - img [ref=e131]
+                  - text: Subtitles in English & Spanish
+                - listitem [ref=e134]:
+                  - img [ref=e135]
+                  - text: Lifetime access — no subscription
+                - listitem [ref=e138]:
+                  - img [ref=e139]
+                  - text: Certificate of completion
+                - listitem [ref=e142]:
+                  - img [ref=e143]
+                  - text: Access on mobile, tablet & desktop
+          - complementary [ref=e146]:
+            - generic [ref=e148]:
+              - generic [ref=e149]:
+                - paragraph [ref=e150]: One payment · Lifetime access
+                - paragraph [ref=e151]: £27
+              - list [ref=e153]:
+                - listitem [ref=e154]:
+                  - img [ref=e155]
+                  - text: Secure PayPal checkout
+                - listitem [ref=e158]:
+                  - img [ref=e159]
+                  - text: Immediate, lifetime access
+                - listitem [ref=e162]:
+                  - img [ref=e163]
+                  - text: 14-day money-back guarantee
+                - listitem [ref=e166]:
+                  - img [ref=e167]
+                  - text: Free preview included
+    - contentinfo [ref=e169]:
+      - generic [ref=e170]:
+        - generic [ref=e171]:
+          - generic [ref=e172]: PONCHO SPANISH
+          - paragraph [ref=e173]: Made by real people, for real people. Spanish that feels relaxed, positive, and meaningful.
+        - generic [ref=e174]:
+          - heading "Explore" [level=3] [ref=e175]
+          - list [ref=e176]:
+            - listitem [ref=e177]:
+              - link "Home" [ref=e178] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e179]:
+              - link "Academy" [ref=e180] [cursor=pointer]:
+                - /url: /ondemand
+            - listitem [ref=e181]:
+              - link "Book a trial" [ref=e182] [cursor=pointer]:
+                - /url: https://calendly.com/ponchospanish/30min
+            - listitem [ref=e183]:
+              - link "Sign in" [ref=e184] [cursor=pointer]:
+                - /url: /auth/login
+            - listitem [ref=e185]:
+              - link "Terms & conditions" [ref=e186] [cursor=pointer]:
+                - /url: /legal/terms
+        - generic [ref=e187]:
+          - heading "Stay in touch" [level=3] [ref=e188]
+          - list [ref=e189]:
+            - listitem [ref=e190]:
+              - link "ponchospanish@gmail.com" [ref=e191] [cursor=pointer]:
+                - /url: mailto:ponchospanish@gmail.com
+                - img [ref=e192]
+                - text: ponchospanish@gmail.com
+            - listitem [ref=e195]:
+              - link "@poncho.spanish" [ref=e196] [cursor=pointer]:
+                - /url: https://instagram.com/poncho.spanish
+                - img [ref=e197]
+                - text: "@poncho.spanish"
+      - generic [ref=e201]:
+        - paragraph [ref=e202]: © 2026 Poncho Spanish. Made by Real People.
+        - paragraph [ref=e203]: Designed & built with curiosity in Buenos Aires.
+  - region "Notifications alt+T"
+  - alert [ref=e204]
+  - button "Open Next.js Dev Tools" [ref=e210] [cursor=pointer]:
+    - img [ref=e211]

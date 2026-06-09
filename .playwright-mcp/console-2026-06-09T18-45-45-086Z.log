@@ -1,0 +1,8 @@
+[     133ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[    1079ms] [LOG] [Fast Refresh] done in 1050ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[    1187ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[    1346ms] [LOG] [Fast Refresh] done in 261ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[    1974ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/eab36_next_dist_compiled_99400ea0._.js:16383
+[    2027ms] [WARNING] Image with src "/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/eab36_next_dist_0ee164e4._.js:1073
+[    2501ms] [WARNING] Image with src "https://wdpgkhghigaowtdtjztz.supabase.co/storage/v1/object/public/course-covers/admin/c2404dcd-c17b-48b8-84d8-d044ecaa8111/1780712364893-2.png" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ http://localhost:3000/_next/static/chunks/eab36_next_dist_0ee164e4._.js:1073

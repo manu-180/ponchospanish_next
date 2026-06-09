@@ -241,7 +241,7 @@ function SectionHeading({
 function CourseCard({ course }: { course: CourseWithCounts }) {
   return (
     <Link href={`/ondemand/${course.slug}`} className="group block">
-      <Card className="overflow-hidden h-full hover:shadow-soft-lg transition-all duration-500 hover:-translate-y-1">
+      <Card className="overflow-hidden h-full hover:shadow-soft-lg transition-all duration-500 hover:-translate-y-1 will-change-transform">
         <div className="relative aspect-[16/9] bg-gradient-to-br from-mustard/30 via-cream-100 to-terracotta/30">
           {course.cover_image_path ? (
             <Image

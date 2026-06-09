@@ -1,0 +1,30 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - link "Poncho Spanish — Home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Poncho Spanish" [ref=e6]
+    - main [ref=e7]:
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - img "Poncho Spanish" [ref=e14]
+          - heading "Welcome back" [level=1] [ref=e15]
+          - paragraph [ref=e16]: Sign in to continue with the Academy.
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - text: Email
+            - textbox "Email" [ref=e19]:
+              - /placeholder: you@example.com
+          - generic [ref=e20]:
+            - text: Password
+            - textbox "Password" [ref=e21]
+          - button "Sign in" [ref=e22] [cursor=pointer]
+        - generic [ref=e23]:
+          - text: New around here?
+          - link "Create an account" [ref=e24] [cursor=pointer]:
+            - /url: /auth/signup
+      - paragraph [ref=e25]:
+        - link "← Back to home" [ref=e26] [cursor=pointer]:
+          - /url: /
+  - region "Notifications alt+T"
+  - alert [ref=e27]

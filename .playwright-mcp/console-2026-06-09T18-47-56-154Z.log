@@ -1,0 +1,24 @@
+[     402ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[     403ms] [LOG] [Fast Refresh] done in 104ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[     735ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/eab36_next_dist_compiled_99400ea0._.js:16383
+[     821ms] [WARNING] Image with src "/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/eab36_next_dist_0ee164e4._.js:1073
+[    1245ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[    1633ms] [LOG] [Fast Refresh] done in 488ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[   66257ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[   66576ms] [LOG] [Fast Refresh] done in 429ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[   67229ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/api/paypal/create-order:0
+[   88871ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/api/courses/access-check?slug=spanish-for-confident-kids:0
+[  139303ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[  139585ms] [LOG] [Fast Refresh] done in 396ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[  139934ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/api/paypal/capture-order:0
+[  141836ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:3000/api/paypal/capture-order:0
+[ 1015416ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[ 1015505ms] [LOG] [Fast Refresh] done in 193ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[ 1015684ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[ 1015700ms] [LOG] [Fast Refresh] done in 122ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[ 1130767ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[ 1130857ms] [LOG] [Fast Refresh] done in 204ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[ 1145481ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[ 1145551ms] [LOG] [Fast Refresh] done in 184ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[ 1146505ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[ 1146575ms] [LOG] [Fast Refresh] done in 181ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891

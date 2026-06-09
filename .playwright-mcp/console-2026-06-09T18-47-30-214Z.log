@@ -1,0 +1,15 @@
+[     121ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[     790ms] [LOG] [Fast Refresh] done in 778ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[     922ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/eab36_next_dist_compiled_99400ea0._.js:16383
+[     975ms] [WARNING] Image with src "/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/eab36_next_dist_0ee164e4._.js:1073
+[    1006ms] [LOG] [Fast Refresh] done in NaNms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[    1080ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/icon:0
+[    1089ms] [WARNING] Error while trying to use the following icon from the Manifest: http://localhost:3000/icon (Download error or resource isn't a valid image) @ http://localhost:3000/auth/signup:0
+[   15173ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[   16485ms] [LOG] [Fast Refresh] done in 1414ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[   16601ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[   16633ms] [LOG] [Fast Refresh] done in 138ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[   17083ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:15027
+[   17099ms] [LOG] [Fast Refresh] done in 122ms @ http://localhost:3000/_next/static/chunks/eab36_next_dist_client_034a4610._.js:14891
+[   17947ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/icon:0
+[   17952ms] [WARNING] Error while trying to use the following icon from the Manifest: http://localhost:3000/icon (Download error or resource isn't a valid image) @ http://localhost:3000/dashboard:0
