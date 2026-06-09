@@ -10,12 +10,20 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Sparkles, Check } from "lucide-react";
+import { Loader2, Sparkles, Check, Trash2, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { FileUploader } from "./file-uploader";
 import { UniversalFileUploader } from "./universal-file-uploader";
 import { PublishToggle } from "./publish-toggle";
@@ -52,8 +60,10 @@ export function DigitalProductForm({
   });
   const [creating, startCreate] = useTransition();
   const [saving, startSave] = useTransition();
+  const [deleting, startDelete] = useTransition();
   const [dirty, setDirty] = useState<Set<keyof DraftState>>(new Set());
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   const update = <K extends keyof DraftState>(key: K, value: DraftState[K]) => {
     setData((d) => ({ ...d, [key]: value }));
@@ -123,6 +133,27 @@ export function DigitalProductForm({
         router.refresh();
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "Error");
+      }
+    });
+  };
+
+  const handleDelete = () => {
+    if (!initial) return;
+    startDelete(async () => {
+      try {
+        const res = await fetch(`/api/admin/digital-products/${initial.id}`, {
+          method: "DELETE",
+        });
+        if (!res.ok) {
+          const d = await res.json().catch(() => ({}));
+          throw new Error(d.message ?? d.error ?? "Error al eliminar");
+        }
+        toast.success("Ebook eliminado");
+        router.push("/admin/digital-products");
+        router.refresh();
+      } catch (err) {
+        toast.error(err instanceof Error ? err.message : "No se pudo eliminar");
+        setDeleteOpen(false);
       }
     });
   };
@@ -246,6 +277,76 @@ export function DigitalProductForm({
             Crear ebook (borrador)
           </Button>
         </div>
+      )}
+
+      {mode === "edit" && initial && (
+        <>
+          <div className="border-t border-charcoal-100 pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-widest text-charcoal-300">
+                  Zona peligrosa
+                </p>
+                <p className="mt-0.5 text-xs text-charcoal-400">
+                  Esta acción es permanente y no se puede deshacer.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDeleteOpen(true)}
+                className="group flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600 transition-all duration-200 hover:border-red-300 hover:bg-red-100 hover:text-red-700 hover:shadow-sm active:scale-[0.98]"
+              >
+                <Trash2 className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
+                Eliminar ebook
+              </button>
+            </div>
+          </div>
+
+          <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 ring-1 ring-red-100">
+                  <AlertTriangle className="h-7 w-7 text-red-500" />
+                </div>
+                <DialogTitle className="text-xl font-semibold text-charcoal-900">
+                  ¿Eliminar este ebook?
+                </DialogTitle>
+                <DialogDescription className="mt-2 text-sm text-charcoal-500">
+                  Estás a punto de eliminar{" "}
+                  <span className="font-medium text-charcoal-700">
+                    &ldquo;{initial.title}&rdquo;
+                  </span>
+                  . Esta acción es permanente — el registro y los metadatos
+                  desaparecerán del panel, aunque los archivos en storage no se
+                  borran automáticamente.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter className="mt-6 flex flex-col-reverse gap-2 sm:flex-row">
+                <Button
+                  variant="ghost"
+                  className="w-full sm:w-auto"
+                  onClick={() => setDeleteOpen(false)}
+                  disabled={deleting}
+                >
+                  Cancelar
+                </Button>
+                <button
+                  type="button"
+                  onClick={handleDelete}
+                  disabled={deleting}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-red-700 hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                >
+                  {deleting ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="h-4 w-4" />
+                  )}
+                  {deleting ? "Eliminando…" : "Sí, eliminar definitivamente"}
+                </button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </>
       )}
     </div>
   );
