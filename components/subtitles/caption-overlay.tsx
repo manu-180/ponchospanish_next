@@ -81,6 +81,16 @@ interface Props {
   showVisibilityToggle?: boolean;
   /** Called when the CC button is clicked. */
   onToggleVisible?: () => void;
+  /**
+   * Whether the player controls bar is currently visible (mouse recently moved).
+   * When false the CC/size pill fades out. Undefined = always show (editor mode).
+   */
+  controlsVisible?: boolean;
+  /**
+   * Use position:fixed instead of absolute. Set when the overlay is portaled
+   * into the fullscreen element so it covers the whole screen correctly.
+   */
+  useFixed?: boolean;
 }
 
 export function CaptionOverlay({
@@ -93,6 +103,8 @@ export function CaptionOverlay({
   showSizeControl = false,
   showVisibilityToggle = false,
   onToggleVisible,
+  controlsVisible,
+  useFixed = false,
 }: Props) {
   const preset = getCaptionPreset(presetId);
 
@@ -217,11 +229,18 @@ export function CaptionOverlay({
   // Map fontMultiplier (0.5–2.2) → 5 dots (0–4 filled)
   const dotsFilled = Math.round(((fontMultiplier - 0.5) / (2.2 - 0.5)) * 4);
 
+  // Pill visibility: always show in editor; fade with controls in student player
+  const pillVisible = controlsVisible === undefined || controlsVisible;
+
   return (
     <div
       ref={containerRef}
       aria-hidden
-      className={cn("pointer-events-none absolute inset-0 z-10", className)}
+      className={cn(
+        "pointer-events-none inset-0 z-10",
+        useFixed ? "fixed" : "absolute",
+        className,
+      )}
       style={{ containerType: "inline-size" }}
     >
       {/* ── Editor font-size control (continuous A−/A+ with level dots) ── */}
@@ -303,7 +322,9 @@ export function CaptionOverlay({
         <div
           className="absolute top-3 right-3 flex items-center rounded-full"
           style={{
-            pointerEvents: "auto",
+            pointerEvents: pillVisible ? "auto" : "none",
+            opacity: pillVisible ? 1 : 0,
+            transition: "opacity 0.3s ease",
             background: "rgba(0,0,0,0.48)",
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",

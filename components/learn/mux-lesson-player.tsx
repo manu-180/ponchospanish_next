@@ -9,6 +9,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { Lock, PlayCircle } from "lucide-react";
@@ -86,8 +87,27 @@ export function MuxLessonPlayer({
   const [currentTime, setCurrentTime] = useState(0);
   const [showUpNext, setShowUpNext] = useState(false);
   const [captionsVisible, setCaptionsVisible] = useState(true);
+  const [fullscreenEl, setFullscreenEl] = useState<Element | null>(null);
+  const [controlsVisible, setControlsVisible] = useState(false);
   const ref = useRef<HTMLElement | null>(null);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hasCaptions = Boolean(captionCues && captionCues.length > 0);
+
+  // Track when the browser enters/exits fullscreen so we can portal the overlay
+  useEffect(() => {
+    const onChange = () => setFullscreenEl(document.fullscreenElement);
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, []);
+
+  // Show controls pill while mouse is moving; hide after 3 s of inactivity
+  const handleMouseMove = useCallback(() => {
+    setControlsVisible(true);
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    hideTimer.current = setTimeout(() => setControlsVisible(false), 3000);
+  }, []);
+
+  useEffect(() => () => { if (hideTimer.current) clearTimeout(hideTimer.current); }, []);
 
   // Reset state when lesson changes
   useEffect(() => {
@@ -170,8 +190,25 @@ export function MuxLessonPlayer({
     );
   }
 
+  const captionOverlay = hasCaptions ? (
+    <CaptionOverlay
+      cues={captionCues as OverlayCue[]}
+      currentTime={currentTime}
+      presetId={captionPreset ?? "classic"}
+      hidden={!captionsVisible}
+      showSizeControl
+      showVisibilityToggle
+      controlsVisible={controlsVisible}
+      useFixed={Boolean(fullscreenEl)}
+      onToggleVisible={() => setCaptionsVisible((v) => !v)}
+    />
+  ) : null;
+
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-charcoal-900 ring-1 ring-charcoal-100/40 shadow-soft-lg">
+    <div
+      className="relative aspect-video w-full overflow-hidden rounded-2xl bg-charcoal-900 ring-1 ring-charcoal-100/40 shadow-soft-lg"
+      onMouseMove={handleMouseMove}
+    >
       <MuxPlayer
         ref={ref as never}
         playbackId={playbackId}
@@ -221,17 +258,11 @@ export function MuxLessonPlayer({
           }
         }}
       />
-      {hasCaptions && (
-        <CaptionOverlay
-          cues={captionCues as OverlayCue[]}
-          currentTime={currentTime}
-          presetId={captionPreset ?? "classic"}
-          hidden={!captionsVisible}
-          showSizeControl
-          showVisibilityToggle
-          onToggleVisible={() => setCaptionsVisible((v) => !v)}
-        />
-      )}
+      {/* When fullscreen, portal the overlay into the fullscreen element so it
+          isn't clipped — Mux takes its own element fullscreen, not our wrapper. */}
+      {captionOverlay && fullscreenEl
+        ? createPortal(captionOverlay, fullscreenEl)
+        : captionOverlay}
       {showUpNext && (
         <UpNextOverlay
           next={nextUp ?? null}
