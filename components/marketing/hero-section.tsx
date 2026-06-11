@@ -59,7 +59,7 @@ export function HeroSection() {
             <span className="font-semibold text-charcoal-600">
               Online Spanish lessons for kids &amp; teens.
             </span>{" "}
-            private one-to-one classes, small groups and GCSE support. Without
+            Private one-to-one classes, small groups and GCSE support. Without
             the panic or the perfectionism.
           </motion.p>
 

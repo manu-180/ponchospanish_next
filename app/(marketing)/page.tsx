@@ -13,7 +13,15 @@ import { graph, faqPageSchema, lessonServicesSchema } from "@/lib/seo/schema";
 import { homeFaqs } from "@/lib/seo/faq";
 
 export const metadata: Metadata = {
+  title: "Spanish Lessons for Kids & Teens in the UK",
+  description:
+    "Online Spanish lessons for kids & teens in the UK. Private 1-to-1 classes, small groups and GCSE support with a certified native teacher. Book a free trial.",
   alternates: { canonical: "/" },
+  openGraph: {
+    title: "Spanish Lessons for Kids & Teens — Poncho Spanish",
+    description:
+      "Private 1-to-1 classes, small groups and GCSE support. Book your free trial with a certified native teacher.",
+  },
 };
 
 export default function HomePage() {

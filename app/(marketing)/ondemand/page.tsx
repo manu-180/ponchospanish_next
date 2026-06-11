@@ -31,14 +31,14 @@ import {
 } from "@/lib/seo/schema";
 
 export const metadata = {
-  title: "On-Demand Spanish Courses & Ebooks — Poncho Academy",
+  title: "Online Spanish Courses & Ebooks — Poncho Academy",
   description:
-    "Self-paced Spanish courses and downloadable ebooks by Anto. Watch, read, practise. Pay once, learn forever — no subscriptions.",
+    "Self-paced Spanish courses and ebooks by Anto. Watch, read and practise at your own pace. Pay once, lifetime access — no subscription. UK learners welcome.",
   alternates: { canonical: "/ondemand" },
   openGraph: {
-    title: "On-Demand Spanish Courses & Ebooks — Poncho Academy",
+    title: "Online Spanish Courses & Ebooks — Poncho Academy",
     description:
-      "Pay-once, lifetime-access Spanish courses and ebooks by a real teacher.",
+      "Pay once, lifetime access. Spanish courses and ebooks by a certified native teacher.",
     url: "/ondemand",
     type: "website",
   },
@@ -95,11 +95,13 @@ export default async function OnDemandPage() {
               <GraduationCap className="h-3 w-3 mr-1.5" /> Poncho Academy
             </Badge>
             <h1 className="font-serif text-display-xl text-balance">
-              <span className="gradient-text">Self-paced Spanish</span>,
-              <br />
-              made beautifully simple.
+              <span className="gradient-text">Online Spanish Courses</span>
+              {" "}&amp; Ebooks
             </h1>
-            <p className="mt-5 text-lg text-charcoal-500/80 max-w-2xl">
+            <p className="mt-3 text-xl text-charcoal-500/70">
+              Made beautifully simple.
+            </p>
+            <p className="mt-3 text-lg text-charcoal-500/80 max-w-2xl">
               Watch the video, read the ebook, fill in the workbook, tick off
               each lesson. Lifetime access, paid once. No subscriptions.
             </p>
@@ -134,7 +136,7 @@ export default async function OnDemandPage() {
           <SectionHeading
             eyebrow="Courses"
             icon={PlayCircle}
-            title="Video courses"
+            title="Spanish Video Courses"
             count={courses.length}
             countNoun="course"
             description="Structured, watch-at-your-own-pace programmes with workbooks and progress tracking."
@@ -179,7 +181,7 @@ export default async function OnDemandPage() {
               <SectionHeading
                 eyebrow="Ebooks & resources"
                 icon={BookMarked}
-                title="Ebooks & printables"
+                title="Spanish Ebooks & Printables"
                 count={ebooks.length}
                 countNoun="resource"
                 description="Standalone guides, workbooks and cheat-sheets you can download and keep forever."

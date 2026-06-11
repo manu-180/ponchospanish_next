@@ -60,6 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.tagline,
+    creator: siteConfig.instagramHandle,
   },
   robots: {
     index: true,

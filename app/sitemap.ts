@@ -10,10 +10,12 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
+  const SITE_LAUNCHED = new Date("2026-06-01");
+
   const routes: MetadataRoute.Sitemap = [
     {
       url: `${siteUrl}/`,
-      lastModified: now,
+      lastModified: SITE_LAUNCHED,
       changeFrequency: "weekly",
       priority: 1,
     },
@@ -25,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${siteUrl}/legal/terms`,
-      lastModified: now,
+      lastModified: SITE_LAUNCHED,
       changeFrequency: "yearly",
       priority: 0.3,
     },
@@ -50,6 +52,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: course.updated_at ? new Date(course.updated_at) : now,
         changeFrequency: "monthly",
         priority: 0.8,
+      });
+    }
+
+    const { data: products } = await supabase
+      .from("digital_products")
+      .select("slug, updated_at")
+      .eq("is_published", true);
+
+    for (const product of products ?? []) {
+      routes.push({
+        url: `${siteUrl}/ondemand/ebooks/${product.slug}`,
+        lastModified: product.updated_at ? new Date(product.updated_at) : now,
+        changeFrequency: "monthly",
+        priority: 0.7,
       });
     }
   } catch {

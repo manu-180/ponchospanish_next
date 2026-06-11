@@ -257,16 +257,18 @@ export interface DigitalProductSchemaInput {
 export function digitalProductSchema(p: DigitalProductSchemaInput): JsonLdNode {
   const url = absolute(`/ondemand/ebooks/${p.slug}`);
   return {
-    "@type": "Product",
-    "@id": `${url}#product`,
+    "@type": "Book",
+    "@id": `${url}#book`,
     name: p.title,
     description:
       p.description?.slice(0, 280) ??
       p.subtitle ??
-      `${p.title} — a downloadable Spanish resource by Poncho Spanish.`,
+      `${p.title} — a downloadable Spanish ebook by Poncho Spanish.`,
     url,
-    category: "Ebook",
-    brand: { "@id": ORG_ID },
+    bookFormat: "https://schema.org/EBook",
+    inLanguage: "en",
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": ORG_ID },
     ...(p.cover_image_path ? { image: p.cover_image_path } : {}),
     offers: {
       "@type": "Offer",

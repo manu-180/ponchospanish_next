@@ -70,7 +70,9 @@ export async function generateMetadata({ params }: PageProps) {
       openGraph: {
         title: course.title,
         description: course.subtitle ?? undefined,
-        images: course.cover_image_path ? [course.cover_image_path] : undefined,
+        images: course.cover_image_path?.startsWith("http")
+          ? [course.cover_image_path]
+          : undefined,
       },
     };
   } catch {
