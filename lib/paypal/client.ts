@@ -35,6 +35,16 @@ export async function getPaypalAccessToken(): Promise<string> {
 
   if (!res.ok) {
     const text = await res.text();
+    if (res.status === 401) {
+      // invalid_client almost always means the credentials don't match the
+      // endpoint we're calling (live key against sandbox, or vice versa).
+      throw new Error(
+        `PayPal OAuth failed (HTTP 401) against ${BASE_URL}. This usually means ` +
+          `PAYPAL_ENVIRONMENT="${env.PAYPAL_ENVIRONMENT}" does not match your ` +
+          `credentials: live keys require PAYPAL_ENVIRONMENT=production, sandbox ` +
+          `keys require PAYPAL_ENVIRONMENT=sandbox. Raw response: ${text}`,
+      );
+    }
     throw new Error(`PayPal token request failed: ${res.status} ${text}`);
   }
   const data = (await res.json()) as AccessTokenResponse;

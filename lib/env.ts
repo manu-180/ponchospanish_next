@@ -31,6 +31,25 @@ function optional(value: string | undefined, fallback = ""): string {
   return value && value.length > 0 ? value : fallback;
 }
 
+/**
+ * Resolve which PayPal API (live vs sandbox) to talk to. PayPal credentials are
+ * NOT distinguishable by format, so a live key paired with the sandbox endpoint
+ * fails with a confusing 401 invalid_client. To make that impossible to trip on:
+ *   - An explicit PAYPAL_ENVIRONMENT of "sandbox" or "production" wins
+ *     (whitespace/casing tolerant — "Production", " production " all work).
+ *   - Anything else falls back to the deploy target: live on Vercel production,
+ *     sandbox on previews / local dev.
+ * Net effect: the ONLY way to run sandbox in production is to literally set
+ * PAYPAL_ENVIRONMENT=sandbox, so a typo can never silently break live payments.
+ */
+function resolvePaypalEnvironment(): "sandbox" | "production" {
+  const explicit = process.env.PAYPAL_ENVIRONMENT?.trim().toLowerCase();
+  if (explicit === "sandbox" || explicit === "production") {
+    return explicit;
+  }
+  return process.env.VERCEL_ENV === "production" ? "production" : "sandbox";
+}
+
 export const env = {
   // ---------------- Public (safe to expose) ----------------
   NEXT_PUBLIC_SUPABASE_URL:
@@ -49,9 +68,9 @@ export const env = {
   NEXT_PUBLIC_SENTRY_DSN: optional(process.env.NEXT_PUBLIC_SENTRY_DSN),
 
   // ---------------- Static server-only (safe defaults) ------
-  PAYPAL_ENVIRONMENT: (process.env.PAYPAL_ENVIRONMENT ?? "sandbox") as
-    | "sandbox"
-    | "production",
+  // See resolvePaypalEnvironment() above: an explicit sandbox/production wins,
+  // otherwise live on Vercel production and sandbox on previews / local dev.
+  PAYPAL_ENVIRONMENT: resolvePaypalEnvironment(),
   PAYPAL_WEBHOOK_ID: optional(process.env.PAYPAL_WEBHOOK_ID),
   CONTACT_TO_EMAIL: process.env.CONTACT_TO_EMAIL ?? "ponchospanish@gmail.com",
   RESEND_FROM_EMAIL:
