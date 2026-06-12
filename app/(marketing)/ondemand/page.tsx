@@ -99,7 +99,7 @@ export default async function OnDemandPage() {
               {" "}&amp; Ebooks
             </h1>
             <p className="mt-3 text-xl text-charcoal-500/70">
-              Made beautifully simple.
+              <strong>Made beautifully simple.</strong>
             </p>
             <p className="mt-3 text-lg text-charcoal-500/80 max-w-2xl">
               Watch the video, read the ebook, fill in the workbook, tick off
