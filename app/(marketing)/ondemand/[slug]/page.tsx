@@ -13,7 +13,6 @@ import {
   Star,
 } from "lucide-react";
 import { getCourseBySlugCached } from "@/lib/supabase/queries";
-import { getSupabasePublicClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -32,28 +31,13 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-// Static/ISR: the page has no per-user server data anymore (the enrol CTA is a
-// client island), so anonymous SEO traffic is served cached HTML and
-// re-rendered at most every 5 min instead of on every request.
+// ISR: cache pages for 5 minutes. Compatible with the dynamic marketing layout
+// (which reads auth from the cookie store to hydrate the nav). generateStaticParams
+// is intentionally omitted — it marks routes as "pre-rendered static" which
+// conflicts with a dynamic parent layout in Next.js 15 and causes a
+// "Page changed from static to dynamic" 500. Pure revalidate = ISR caching
+// without the static-generation constraint, which is what we actually need.
 export const revalidate = 300;
-
-/**
- * Prerender every published course at build time (and ISR-revalidate them).
- * Cookieless public client → no dynamic APIs, so the pages are truly static.
- * New courses added later still render on-demand and then get cached.
- */
-export async function generateStaticParams() {
-  try {
-    const supabase = getSupabasePublicClient();
-    const { data } = await supabase
-      .from("courses")
-      .select("slug")
-      .eq("is_published", true);
-    return (data ?? []).map((c) => ({ slug: c.slug as string }));
-  } catch {
-    return [];
-  }
-}
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
