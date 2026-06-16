@@ -35,9 +35,9 @@ export function OnDemandSection() {
           >
             <Link
               href="/ondemand"
-              className="block h-full overflow-hidden rounded-3xl bg-cream-50 shadow-soft transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-soft-lg ring-1 ring-charcoal-100/30"
+              className="block h-full overflow-hidden rounded-3xl bg-cream-50 shadow-soft transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-soft-lg ring-1 ring-charcoal-100/30 [transform:translateZ(0)]"
             >
-              <div className="relative aspect-[5/4] overflow-hidden bg-black">
+              <div className="relative aspect-[5/4] overflow-hidden rounded-t-3xl bg-black">
                 <Image
                   src="/images/niñatapandoselosojos.jpg"
                   alt="On-demand, self-paced Spanish courses for kids and teens"

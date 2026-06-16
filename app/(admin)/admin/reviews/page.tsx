@@ -1,27 +1,47 @@
-import { Construction } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { getSupabaseAdminClient } from "@/lib/supabase/server";
+import { ReviewsInbox, type ReviewRow } from "@/components/admin/reviews-inbox";
 
-export default function AdminReviewsPage() {
+export const metadata = {
+  title: "Reviews — Admin",
+};
+
+export default async function AdminReviewsPage() {
+  const admin = getSupabaseAdminClient();
+
+  const { data, error } = await admin
+    .from("course_reviews")
+    .select(
+      "*, profile:profiles!course_reviews_user_id_fkey(full_name, email), course:courses!course_reviews_course_id_fkey(title, slug)",
+    )
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+
+  const reviews = (data ?? []) as unknown as ReviewRow[];
+  const pendingCount = reviews.filter((r) => !r.is_visible).length;
+
   return (
-    <div className="container-wide py-10 md:py-14 space-y-8 max-w-3xl">
-      <div>
-        <h1 className="font-serif text-3xl md:text-4xl">Reviews</h1>
-        <p className="text-charcoal-400 mt-1">
-          Moderate course reviews (hide / pin / delete).
-        </p>
-      </div>
-      <Card>
-        <CardContent className="p-8 text-center space-y-3">
-          <div className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-mustard/15 text-mustard-600">
-            <Construction className="h-7 w-7" />
-          </div>
-          <h2 className="font-serif text-xl">Moderation UI coming next iteration</h2>
-          <p className="text-charcoal-400 max-w-md mx-auto text-sm">
-            Backend ready (RLS, hide/pin policies, students-only-after-30%
-            constraint). UI ships in the next round.
+    <div className="container-wide py-10 md:py-14 max-w-3xl space-y-8">
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <h1 className="font-serif text-3xl md:text-4xl">Reviews</h1>
+          <p className="text-charcoal-400 mt-1">
+            Approve and manage reviews left by your students.
           </p>
-        </CardContent>
-      </Card>
+        </div>
+        {pendingCount > 0 && (
+          <div className="shrink-0 rounded-xl bg-mustard/15 px-4 py-2 text-center">
+            <p className="text-2xl font-bold text-mustard-600 leading-none">
+              {pendingCount}
+            </p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-mustard-500 mt-0.5">
+              pending
+            </p>
+          </div>
+        )}
+      </div>
+
+      <ReviewsInbox reviews={reviews} />
     </div>
   );
 }

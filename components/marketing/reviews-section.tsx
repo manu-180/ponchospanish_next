@@ -12,6 +12,13 @@ const reviews = [
   "/images/review5.jpeg",
 ];
 
+// Short text-only screenshots — stacked vertically to fill the 6th grid slot
+const shortReviews = [
+  "/images/textreview1.jpg",
+  "/images/textreview2.jpg",
+  "/images/textreview3.jpg",
+];
+
 export function ReviewsSection() {
   return (
     <section className="relative py-20 md:py-28 bg-cream-100/60 border-y border-charcoal-100/40">
@@ -58,6 +65,39 @@ export function ReviewsSection() {
                 </div>
               </motion.figure>
             ))}
+
+            {/* Stacked cell — fills the empty 6th slot with short text screenshots */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{
+                duration: 0.7,
+                delay: reviews.length * 0.08,
+                ease: [0.21, 0.47, 0.32, 0.98],
+              }}
+              className="flex flex-col gap-5"
+            >
+              {shortReviews.map((src, i) => (
+                <figure
+                  key={src}
+                  className="group relative overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-charcoal-100/40 hover:shadow-soft-lg transition-shadow duration-500"
+                >
+                  <div className="absolute top-3 left-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-mustard/15 text-mustard-600 z-10">
+                    <Quote className="h-4 w-4" />
+                  </div>
+                  <div className="relative w-full">
+                    <Image
+                      src={src}
+                      alt={`Parent review of Poncho Spanish online Spanish lessons (${reviews.length + i + 1})`}
+                      width={600}
+                      height={300}
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                </figure>
+              ))}
+            </motion.div>
           </div>
         </div>
       </div>

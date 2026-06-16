@@ -9,8 +9,10 @@ import {
 import {
   getCourseBySlugCached,
   getCompletedLessonIds,
+  getUserReviewForCourse,
   userHasAccessToCourse,
 } from "@/lib/supabase/queries";
+import { CourseCompletionReview } from "@/components/learn/course-completion-review";
 import { resolveStorageUrl, STORAGE_BUCKETS } from "@/lib/supabase/storage";
 import { isChunkedPath } from "@/lib/supabase/chunked";
 import { signMuxPlaybackToken, buildSignedThumbnailUrl } from "@/lib/mux/signing";
@@ -52,10 +54,15 @@ export default async function LessonPage({ params, searchParams }: PageProps) {
   const prev = index > 0 ? allLessons[index - 1] : null;
   const next = index < allLessons.length - 1 ? allLessons[index + 1] : null;
 
+  const isLastLesson = !next;
+
   // Independent of each other → fetch in parallel (shorter function duration).
-  const [hasAccess, completedIds] = await Promise.all([
+  const [hasAccess, completedIds, hasReviewed] = await Promise.all([
     userHasAccessToCourse(supabase, user.id, course.id).catch(() => false),
     getCompletedLessonIds(supabase, user.id, course.id).catch(() => [] as string[]),
+    isLastLesson
+      ? getUserReviewForCourse(supabase, user.id, course.id).catch(() => false)
+      : Promise.resolve(false),
   ]);
   const accessibleLesson = hasAccess || lesson.isFree;
 
@@ -278,14 +285,23 @@ export default async function LessonPage({ params, searchParams }: PageProps) {
 
           <div className="flex flex-wrap items-center justify-between gap-3">
             {accessibleLesson ? (
-              <MarkCompleteButton
-                lessonId={lesson.id}
-                userId={user.id}
-                initiallyCompleted={completedIds.includes(lesson.id)}
-                nextLessonHref={
-                  next ? `/learn/${course.slug}/${next.slug}` : null
-                }
-              />
+              isLastLesson ? (
+                <CourseCompletionReview
+                  lessonId={lesson.id}
+                  userId={user.id}
+                  courseId={course.id}
+                  courseTitle={course.title}
+                  initiallyCompleted={completedIds.includes(lesson.id)}
+                  hasAlreadyReviewed={hasReviewed}
+                />
+              ) : (
+                <MarkCompleteButton
+                  lessonId={lesson.id}
+                  userId={user.id}
+                  initiallyCompleted={completedIds.includes(lesson.id)}
+                  nextLessonHref={`/learn/${course.slug}/${next!.slug}`}
+                />
+              )
             ) : (
               <Button asChild>
                 <Link href={`/ondemand/${course.slug}`}>

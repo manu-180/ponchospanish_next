@@ -12,6 +12,7 @@ interface MarkCompleteButtonProps {
   userId: string;
   initiallyCompleted: boolean;
   nextLessonHref?: string | null;
+  onComplete?: () => void;
 }
 
 export function MarkCompleteButton({
@@ -19,6 +20,7 @@ export function MarkCompleteButton({
   userId,
   initiallyCompleted,
   nextLessonHref,
+  onComplete,
 }: MarkCompleteButtonProps) {
   const router = useRouter();
   const [done, setDone] = useState(initiallyCompleted);
@@ -55,6 +57,7 @@ export function MarkCompleteButton({
       }
       setDone(true);
       toast.success("Unit completed!");
+      onComplete?.();
       router.refresh();
       if (nextLessonHref) router.push(nextLessonHref);
     });

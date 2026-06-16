@@ -23,6 +23,8 @@ const interests = [
   "Private Lessons",
   "Start Your Own Group",
   "GCSE Exam Support",
+  "On-Demand Courses",
+  "Other",
 ] as const;
 
 const ContactSchema = z.object({
@@ -130,7 +132,7 @@ export function ContactForm({ defaultInterest }: { defaultInterest?: string }) {
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-3 gap-5 items-end">
         <div className="space-y-2">
           <Label htmlFor="age">Learner&rsquo;s age *</Label>
           <Input

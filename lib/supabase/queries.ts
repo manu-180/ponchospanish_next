@@ -212,6 +212,21 @@ export async function userHasPurchasedProduct(
   return Boolean(data);
 }
 
+/** Returns true if the user has already submitted a review for a course. */
+export async function getUserReviewForCourse(
+  supabase: Client,
+  userId: string,
+  courseId: string,
+): Promise<boolean> {
+  const { data } = await supabase
+    .from("course_reviews")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("course_id", courseId)
+    .maybeSingle();
+  return Boolean(data);
+}
+
 /** All digital products the user owns, newest first. */
 export async function listUserPurchases(
   supabase: Client,
