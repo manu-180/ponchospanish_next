@@ -227,6 +227,49 @@ export async function getUserReviewForCourse(
   return Boolean(data);
 }
 
+/** A single approved review, shaped for public display. */
+export type PublicCourseReview = {
+  id: string;
+  rating: number;
+  title: string | null;
+  body: string | null;
+  created_at: string;
+  is_pinned: boolean;
+  reviewer_name: string;
+  reviewer_avatar: string | null;
+};
+
+/**
+ * Public — approved reviews for a course (pinned first, then newest).
+ *
+ * Goes through the `get_course_public_reviews` SECURITY DEFINER RPC so the
+ * cookieless anon client (used by the ISR course-detail page) can read the
+ * reviewer's display name without `profiles` being publicly readable. Only
+ * visible reviews are returned, and only a privacy-safe name (first name +
+ * last initial) and avatar are exposed — never email or full surname.
+ *
+ * Wrapped in `cache()` so a render that touches it more than once on the same
+ * request hits the DB only once.
+ */
+export const listPublicCourseReviews = cache(
+  async (courseId: string): Promise<PublicCourseReview[]> => {
+    // The RPC isn't in the generated Database types, so narrow the client to
+    // just the rpc shape we need (same `as unknown as` bridge this file uses
+    // elsewhere for the cookieless public client).
+    const supabase = getSupabasePublicClient() as unknown as {
+      rpc: (
+        fn: "get_course_public_reviews",
+        args: { p_course_id: string },
+      ) => Promise<{ data: PublicCourseReview[] | null; error: unknown }>;
+    };
+    const { data, error } = await supabase.rpc("get_course_public_reviews", {
+      p_course_id: courseId,
+    });
+    if (error) throw error;
+    return data ?? [];
+  },
+);
+
 /** All digital products the user owns, newest first. */
 export async function listUserPurchases(
   supabase: Client,

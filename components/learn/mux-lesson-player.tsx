@@ -19,6 +19,7 @@ import {
   type OverlayCue,
 } from "@/components/subtitles/caption-overlay";
 import { UpNextOverlay, type UpNextLesson } from "@/components/learn/up-next-overlay";
+import { ReviewModal } from "@/components/learn/review-modal";
 
 // next/dynamic — mux-player-react is a client-only custom element that
 // throws if rendered during SSR. ssr:false keeps the bundle clean.
@@ -61,6 +62,15 @@ interface Props {
    * video ends. Requires userId + lessonId to be set.
    */
   autoMarkComplete?: boolean;
+  /**
+   * Last-lesson review prompt. When present and not yet reviewed, the
+   * end-of-course card gets a "Leave a review" button that opens the modal.
+   */
+  reviewPrompt?: {
+    courseId: string;
+    courseTitle: string;
+    alreadyReviewed: boolean;
+  } | null;
 }
 
 export function MuxLessonPlayer({
@@ -81,11 +91,14 @@ export function MuxLessonPlayer({
   overviewHref,
   autoPlay,
   autoMarkComplete,
+  reviewPrompt,
 }: Props) {
   const router = useRouter();
   const [completed, setCompleted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [showUpNext, setShowUpNext] = useState(false);
+  const [reviewOpen, setReviewOpen] = useState(false);
+  const canLeaveReview = Boolean(reviewPrompt && !reviewPrompt.alreadyReviewed);
   const [captionsVisible, setCaptionsVisible] = useState(true);
   const [fullscreenEl, setFullscreenEl] = useState<Element | null>(null);
   const [controlsVisible, setControlsVisible] = useState(false);
@@ -272,6 +285,26 @@ export function MuxLessonPlayer({
           onAdvance={handleAdvance}
           onReplay={handleReplay}
           onDismiss={() => setShowUpNext(false)}
+          onLeaveReview={
+            canLeaveReview
+              ? () => {
+                  setShowUpNext(false);
+                  setReviewOpen(true);
+                }
+              : undefined
+          }
+        />
+      )}
+      {reviewPrompt && (
+        <ReviewModal
+          open={reviewOpen}
+          onClose={() => {
+            setReviewOpen(false);
+            // Re-sync server state (hasReviewed) so the CTA doesn't reappear.
+            router.refresh();
+          }}
+          courseId={reviewPrompt.courseId}
+          courseTitle={reviewPrompt.courseTitle}
         />
       )}
     </div>

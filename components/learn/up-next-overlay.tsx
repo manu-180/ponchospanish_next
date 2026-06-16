@@ -22,6 +22,7 @@ import {
   Play,
   RotateCcw,
   Sparkles,
+  Star,
   X,
 } from "lucide-react";
 import { formatDuration } from "@/lib/utils";
@@ -50,6 +51,11 @@ interface Props {
   onAdvance: (href: string) => void;
   onReplay: () => void;
   onDismiss: () => void;
+  /**
+   * Last-lesson only: when provided, the "course complete" card shows a
+   * primary "Leave a review" button. Omitted once the user has reviewed.
+   */
+  onLeaveReview?: () => void;
 }
 
 export function UpNextOverlay({
@@ -60,6 +66,7 @@ export function UpNextOverlay({
   onAdvance,
   onReplay,
   onDismiss,
+  onLeaveReview,
 }: Props) {
   const canAutoAdvance = Boolean(next && !next.locked && next.href);
   const [counting, setCounting] = useState(canAutoAdvance);
@@ -248,25 +255,48 @@ export function UpNextOverlay({
               <p className="mx-auto max-w-md text-sm leading-relaxed text-cream/65">
                 That&rsquo;s a wrap on{" "}
                 <span className="text-cream/90">{courseTitle}</span>. ¡Bien
-                hecho!
+                hecho!{" "}
+                {onLeaveReview && "Tell us how you found it."}
               </p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
-              <a
-                href={overviewHref}
-                className="inline-flex items-center gap-2 rounded-full bg-mustard-500 px-6 py-2.5 text-sm font-semibold text-charcoal-700 shadow-sm transition hover:bg-mustard-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-300 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-700"
-              >
-                Back to course
-                <ArrowRight className="h-4 w-4" />
-              </a>
-              <button
-                type="button"
-                onClick={onReplay}
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-cream/70 ring-1 ring-cream/15 transition hover:bg-cream/10 hover:text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-400"
-              >
-                <RotateCcw className="h-4 w-4" />
-                Replay lesson
-              </button>
+              {onLeaveReview ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={onLeaveReview}
+                    className="inline-flex items-center gap-2 rounded-full bg-mustard-500 px-6 py-2.5 text-sm font-semibold text-charcoal-700 shadow-sm transition hover:bg-mustard-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-300 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-700"
+                  >
+                    <Star className="h-4 w-4 fill-current" />
+                    Leave a review
+                  </button>
+                  <a
+                    href={overviewHref}
+                    className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-cream/70 ring-1 ring-cream/15 transition hover:bg-cream/10 hover:text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-400"
+                  >
+                    Back to course
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </>
+              ) : (
+                <>
+                  <a
+                    href={overviewHref}
+                    className="inline-flex items-center gap-2 rounded-full bg-mustard-500 px-6 py-2.5 text-sm font-semibold text-charcoal-700 shadow-sm transition hover:bg-mustard-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-300 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-700"
+                  >
+                    Back to course
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={onReplay}
+                    className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-cream/70 ring-1 ring-cream/15 transition hover:bg-cream/10 hover:text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-mustard-400"
+                  >
+                    <RotateCcw className="h-4 w-4" />
+                    Replay lesson
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}

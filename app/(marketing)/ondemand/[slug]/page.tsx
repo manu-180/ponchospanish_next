@@ -12,7 +12,10 @@ import {
   Sparkles,
   Star,
 } from "lucide-react";
-import { getCourseBySlugCached } from "@/lib/supabase/queries";
+import {
+  getCourseBySlugCached,
+  listPublicCourseReviews,
+} from "@/lib/supabase/queries";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,6 +27,7 @@ import {
 } from "@/components/ui/accordion";
 import { formatCurrency, formatDuration } from "@/lib/utils";
 import { EnrolPanel } from "@/components/learn/enrol-panel";
+import { CourseReviewsSection } from "@/components/marketing/course-reviews-section";
 import { JsonLd } from "@/components/seo/json-ld";
 import { graph, courseSchema, breadcrumbSchema } from "@/lib/seo/schema";
 
@@ -75,6 +79,10 @@ export default async function CourseDetailPage({ params }: PageProps) {
     console.warn("[course-detail] failed:", err);
   }
   if (!course) notFound();
+
+  // Approved student reviews (privacy-safe, via SECURITY DEFINER RPC). Never
+  // breaks the page — falls back to an empty list, which renders nothing.
+  const reviews = await listPublicCourseReviews(course.id).catch(() => []);
 
   const totalLessons = course.modules.reduce(
     (acc, m) => acc + m.lessons.length,
@@ -169,6 +177,14 @@ export default async function CourseDetailPage({ params }: PageProps) {
                     <span className="text-charcoal-300">·</span>
                     <span>{course.students_count.toLocaleString()} students</span>
                   </>
+                )}
+                {reviews.length > 0 && (
+                  <Link
+                    href="#reviews"
+                    className="ml-1 font-medium text-mustard-600 underline-offset-4 hover:underline"
+                  >
+                    Read reviews
+                  </Link>
                 )}
               </p>
             )}
@@ -425,6 +441,8 @@ export default async function CourseDetailPage({ params }: PageProps) {
           </aside>
         </div>
       </section>
+
+      <CourseReviewsSection reviews={reviews} />
     </>
   );
 }

@@ -281,6 +281,15 @@ export default async function LessonPage({ params, searchParams }: PageProps) {
             overviewHref={`/ondemand/${course.slug}`}
             autoPlay={autoplay === "1"}
             autoMarkComplete={accessibleLesson}
+            reviewPrompt={
+              isLastLesson && accessibleLesson
+                ? {
+                    courseId: course.id,
+                    courseTitle: course.title,
+                    alreadyReviewed: hasReviewed,
+                  }
+                : null
+            }
           />
 
           <div className="flex flex-wrap items-center justify-between gap-3">
