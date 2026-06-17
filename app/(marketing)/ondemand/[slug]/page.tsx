@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import {
   BookOpen,
   CheckCircle2,
+  ChevronDown,
   Compass,
   FileText,
   Lock,
@@ -82,7 +83,11 @@ export default async function CourseDetailPage({ params }: PageProps) {
 
   // Approved student reviews (privacy-safe, via SECURITY DEFINER RPC). Never
   // breaks the page — falls back to an empty list, which renders nothing.
-  const reviews = await listPublicCourseReviews(course.id).catch(() => []);
+  const reviews = await listPublicCourseReviews(course.id).catch((err) => {
+    // eslint-disable-next-line no-console
+    console.warn("[course-detail] reviews fetch failed:", err);
+    return [];
+  });
 
   const totalLessons = course.modules.reduce(
     (acc, m) => acc + m.lessons.length,
@@ -152,41 +157,64 @@ export default async function CourseDetailPage({ params }: PageProps) {
               </p>
             )}
             {course.ratings_count > 0 && course.avg_rating != null && (
-              <p className="flex items-center gap-2 text-sm text-charcoal-500">
-                <span className="flex items-center gap-0.5">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className={
-                        i < Math.round(course.avg_rating ?? 0)
-                          ? "h-4 w-4 fill-mustard-400 text-mustard-400"
-                          : "h-4 w-4 text-charcoal-200"
-                      }
-                    />
-                  ))}
-                </span>
-                <span className="font-semibold text-charcoal-600">
-                  {course.avg_rating.toFixed(1)}
-                </span>
-                <span className="text-charcoal-400">
-                  ({course.ratings_count}{" "}
-                  {course.ratings_count === 1 ? "review" : "reviews"})
-                </span>
-                {course.students_count > 0 && (
-                  <>
-                    <span className="text-charcoal-300">·</span>
-                    <span>{course.students_count.toLocaleString()} students</span>
-                  </>
-                )}
-                {reviews.length > 0 && (
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-charcoal-500">
+                {reviews.length > 0 ? (
                   <Link
                     href="#reviews"
-                    className="ml-1 font-medium text-mustard-600 underline-offset-4 hover:underline"
+                    aria-label="Read student reviews"
+                    className="group inline-flex items-center gap-2 transition-colors hover:text-charcoal-700"
                   >
-                    Read reviews
+                    <span className="flex items-center gap-0.5">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star
+                          key={i}
+                          className={
+                            i < Math.round(course.avg_rating ?? 0)
+                              ? "h-4 w-4 fill-mustard-400 text-mustard-400"
+                              : "h-4 w-4 text-charcoal-200"
+                          }
+                        />
+                      ))}
+                    </span>
+                    <span className="font-semibold text-charcoal-600">
+                      {course.avg_rating.toFixed(1)}
+                    </span>
+                    <span className="text-charcoal-400 underline-offset-4 group-hover:underline">
+                      ({course.ratings_count}{" "}
+                      {course.ratings_count === 1 ? "review" : "reviews"})
+                    </span>
+                    <ChevronDown className="h-3.5 w-3.5 text-mustard-600 transition-transform group-hover:translate-y-0.5" />
                   </Link>
+                ) : (
+                  <span className="inline-flex items-center gap-2">
+                    <span className="flex items-center gap-0.5">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star
+                          key={i}
+                          className={
+                            i < Math.round(course.avg_rating ?? 0)
+                              ? "h-4 w-4 fill-mustard-400 text-mustard-400"
+                              : "h-4 w-4 text-charcoal-200"
+                          }
+                        />
+                      ))}
+                    </span>
+                    <span className="font-semibold text-charcoal-600">
+                      {course.avg_rating.toFixed(1)}
+                    </span>
+                    <span className="text-charcoal-400">
+                      ({course.ratings_count}{" "}
+                      {course.ratings_count === 1 ? "review" : "reviews"})
+                    </span>
+                  </span>
                 )}
-              </p>
+                {course.students_count > 0 && (
+                  <span className="inline-flex items-center gap-2 text-charcoal-500">
+                    <span className="text-charcoal-300">·</span>
+                    <span>{course.students_count.toLocaleString()} students</span>
+                  </span>
+                )}
+              </div>
             )}
             {course.description && (
               <p className="text-base leading-relaxed text-charcoal-500/80 max-w-2xl whitespace-pre-line">
