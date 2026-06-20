@@ -81,11 +81,30 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-cream/10">
-        <div className="container-wide flex flex-col md:flex-row items-center justify-between gap-3 py-6 text-xs text-cream/40">
+        <div className="container-wide flex flex-col md:flex-row items-center justify-between gap-4 py-6 text-xs text-cream/40">
           <p>© {new Date().getFullYear()} Poncho Spanish. Made by Real People.</p>
-          <p className="text-[11px] tracking-wide">
-            Designed &amp; built with curiosity in Buenos Aires.
-          </p>
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-5">
+            <p className="text-[11px] tracking-wide">
+              Designed &amp; built with curiosity in Buenos Aires.
+            </p>
+            <a
+              href="https://www.theapexweb.com"
+              target="_blank"
+              rel="noopener"
+              aria-label="Desarrollado por APEX — desarrollo web (se abre en una pestaña nueva)"
+              className="group inline-flex items-center gap-1.5 text-[11px] tracking-wide text-cream/45 transition-colors duration-300 hover:text-mustard-200 focus-visible:text-mustard-200 motion-reduce:transition-none"
+            >
+              <span
+                aria-hidden="true"
+                className="grid h-[18px] w-[18px] place-items-center rounded-[5px] border border-cream/20 font-serif text-[10px] leading-none text-cream/55 transition-colors duration-300 group-hover:border-mustard-200/60 group-hover:text-mustard-200 motion-reduce:transition-none"
+              >
+                A
+              </span>
+              <span>
+                Desarrollado por <span className="font-medium">APEX</span>
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
