@@ -9,6 +9,8 @@ import {
   getCurrentProfile,
   getSupabaseAdminClient,
 } from "@/lib/supabase/server";
+import { STORAGE_BUCKETS } from "@/lib/supabase/storage";
+import { isChunkedPath, readManifest } from "@/lib/supabase/chunked";
 
 export const dynamic = "force-dynamic";
 
@@ -84,6 +86,14 @@ export async function DELETE(
   }
   const { id } = await params;
   const admin = getSupabaseAdminClient();
+
+  // Fetch file paths before deleting the DB row so we can clean up storage.
+  const { data: product } = await admin
+    .from("digital_products")
+    .select("file_path")
+    .eq("id", id)
+    .single();
+
   const { error } = await admin.from("digital_products").delete().eq("id", id);
   if (error) {
     return NextResponse.json(
@@ -91,5 +101,18 @@ export async function DELETE(
       { status: 500 },
     );
   }
+
+  // Clean up storage after DB row is gone (best-effort, non-blocking).
+  if (product?.file_path) {
+    const filePath = product.file_path;
+    if (isChunkedPath(filePath)) {
+      const manifest = await readManifest(STORAGE_BUCKETS.digitalProducts, filePath);
+      const toDelete = manifest ? [...manifest.parts, filePath] : [filePath];
+      await admin.storage.from(STORAGE_BUCKETS.digitalProducts).remove(toDelete).catch(() => {});
+    } else {
+      await admin.storage.from(STORAGE_BUCKETS.digitalProducts).remove([filePath]).catch(() => {});
+    }
+  }
+
   return NextResponse.json({ ok: true });
 }

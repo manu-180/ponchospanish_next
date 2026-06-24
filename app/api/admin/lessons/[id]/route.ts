@@ -9,6 +9,8 @@ import {
   getCurrentProfile,
   getSupabaseAdminClient,
 } from "@/lib/supabase/server";
+import { STORAGE_BUCKETS, subtitlesPath } from "@/lib/supabase/storage";
+import { isChunkedPath, readManifest } from "@/lib/supabase/chunked";
 
 export const dynamic = "force-dynamic";
 
@@ -68,6 +70,13 @@ export async function DELETE(
   }
   const { id } = await params;
   const admin = getSupabaseAdminClient();
+
+  // Collect resource file paths before deleting the DB row.
+  const { data: resources } = await admin
+    .from("course_resources")
+    .select("file_path")
+    .eq("lesson_id", id);
+
   const { error } = await admin.from("lessons").delete().eq("id", id);
   if (error) {
     return NextResponse.json(
@@ -75,5 +84,35 @@ export async function DELETE(
       { status: 500 },
     );
   }
+
+  // Clean up storage after DB row is gone (best-effort).
+  const cleanups: Promise<unknown>[] = [];
+
+  // Delete each downloadable resource (handles chunked files).
+  for (const r of resources ?? []) {
+    const fp = r.file_path as string | null;
+    if (!fp) continue;
+    if (isChunkedPath(fp)) {
+      cleanups.push(
+        readManifest(STORAGE_BUCKETS.resources, fp).then((manifest) => {
+          const toDelete = manifest ? [...manifest.parts, fp] : [fp];
+          return admin.storage.from(STORAGE_BUCKETS.resources).remove(toDelete);
+        }).catch(() => {}),
+      );
+    } else {
+      cleanups.push(admin.storage.from(STORAGE_BUCKETS.resources).remove([fp]).catch(() => {}));
+    }
+  }
+
+  // Delete the subtitle VTT for this lesson (both langs, ignore if missing).
+  cleanups.push(
+    admin.storage
+      .from(STORAGE_BUCKETS.subtitles)
+      .remove([subtitlesPath(id, "en"), subtitlesPath(id, "es")])
+      .catch(() => {}),
+  );
+
+  await Promise.all(cleanups);
+
   return NextResponse.json({ ok: true });
 }
