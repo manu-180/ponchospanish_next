@@ -1,6 +1,6 @@
 ﻿import type { MetadataRoute } from 'next'
 
-const BASE = 'https://ponchospanish.com'
+const BASE = 'https://www.ponchospanish.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
