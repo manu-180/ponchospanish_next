@@ -9,9 +9,15 @@
  */
 
 /** Production canonical origin (no trailing slash). */
-export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ponchospanish.com"
-).replace(/\/+$/, "");
+const PRODUCTION_ORIGIN = "https://www.ponchospanish.com";
+
+// En Vercel NEXT_PUBLIC_SITE_URL estaba puesta en el dominio de preview, y de
+// acá sale el canonical: todas las páginas declaraban como original una URL
+// *.vercel.app. Un origen de preview nunca es el canónico de producción.
+const envOrigin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/+$/, "");
+
+export const siteUrl =
+  envOrigin && !envOrigin.includes(".vercel.app") ? envOrigin : PRODUCTION_ORIGIN;
 
 export const siteConfig = {
   name: "Poncho Spanish",
