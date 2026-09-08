@@ -38,6 +38,11 @@ gh auth status
 bash ~/.claude/scripts/gh-switch.sh manu-180
 ```
 
+La cuenta puede volver a cambiar **a mitad de sesión** (pasó escribiendo este archivo: un
+push que había funcionado veinte minutos antes falló con `Permission denied to
+developers-insights`). Ante cualquier 403 o "Repository not found", el primer reflejo es
+`gh auth status`, no buscar el problema en el remoto.
+
 El script también deja el `user.email` del repo en
 `157671390+manu-180@users.noreply.github.com`. **Ese mail importa:** Vercel marca el deploy
 como `BLOCKED` cuando no puede atribuir el autor del commit a un miembro del proyecto, y el
