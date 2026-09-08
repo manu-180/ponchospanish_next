@@ -11,7 +11,7 @@ import {
   PlayCircle,
   Star,
 } from "lucide-react";
-import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { getSupabasePublicClient, type getSupabaseServerClient } from "@/lib/supabase/server";
 import {
   listPublishedCourses,
   listPublishedDigitalProducts,
@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatBytes } from "@/lib/utils";
 import { JsonLd } from "@/components/seo/json-ld";
+import { pageMetadata } from "@/lib/seo/metadata";
 import {
   graph,
   breadcrumbSchema,
@@ -30,36 +31,22 @@ import {
   digitalProductListSchema,
 } from "@/lib/seo/schema";
 
-export const metadata = {
-  title: "Online Spanish Courses & Ebooks — Poncho Academy",
+export const metadata = pageMetadata({
+  title: "Online Spanish Courses & Ebooks",
   description:
     "Self-paced Spanish courses and ebooks by Anto. Watch, read and practise at your own pace. Pay once, lifetime access — no subscription. UK learners welcome.",
-  alternates: { canonical: "/ondemand" },
-  openGraph: {
-    title: "Online Spanish Courses & Ebooks — Poncho Academy",
-    description:
-      "Pay once, lifetime access. Spanish courses and ebooks by a certified native teacher.",
-    url: "/ondemand",
-    type: "website",
-  },
-};
+  path: "/ondemand",
+});
 
 export const revalidate = 60; // ISR — refresh every minute
 
 export default async function OnDemandPage() {
-  const supabase = await getSupabaseServerClient();
+  const supabase = getSupabasePublicClient() as unknown as Awaited<ReturnType<typeof getSupabaseServerClient>>;
 
-  let courses: CourseWithCounts[] = [];
-  let ebooks: DigitalProduct[] = [];
-  try {
-    [courses, ebooks] = await Promise.all([
-      listPublishedCourses(supabase),
-      listPublishedDigitalProducts(supabase),
-    ]);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.warn("[ondemand] failed to fetch catalogue:", err);
-  }
+  const [courses, ebooks] = await Promise.all([
+    listPublishedCourses(supabase),
+    listPublishedDigitalProducts(supabase),
+  ]);
 
   const hasCourses = courses.length > 0;
   const hasEbooks = ebooks.length > 0;
@@ -90,6 +77,9 @@ export default async function OnDemandPage() {
           className="pointer-events-none absolute top-40 -left-40 h-[360px] w-[360px] rounded-full bg-terracotta/10 blur-3xl"
         />
         <div className="container-wide relative">
+          <nav aria-label="Breadcrumb" className="mb-8 text-sm text-charcoal-400">
+            <Link href="/" className="underline underline-offset-4 hover:text-mustard-600">Home</Link><span className="mx-3" aria-hidden="true">/</span><span aria-current="page">Academy</span>
+          </nav>
           <div className="max-w-3xl">
             <Badge variant="terracotta" className="mb-4">
               <GraduationCap className="h-3 w-3 mr-1.5" /> Poncho Academy
@@ -104,6 +94,11 @@ export default async function OnDemandPage() {
             <p className="mt-3 text-lg text-charcoal-500/80 max-w-2xl">
               Watch the video, read the ebook, fill in the workbook, tick off
               each lesson. Lifetime access, paid once. No subscriptions.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-charcoal-500/80 max-w-2xl">
+              Prefer time with a teacher? Compare our{" "}
+              <Link href="/spanish-lessons" className="underline underline-offset-4 hover:text-mustard-600">live online Spanish lessons</Link>{" "}
+              for children, home-educating families, exam students and adults.
             </p>
           </div>
 

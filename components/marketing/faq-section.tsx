@@ -1,19 +1,11 @@
-"use client";
-
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { AnimatedSection } from "@/components/shared/animated-section";
+import Link from "next/link";
 import { homeFaqs } from "@/lib/seo/faq";
 
 export function FaqSection() {
   return (
     <section id="faq" className="py-16 md:py-24">
       <div className="container-narrow">
-        <AnimatedSection className="text-center mb-10 md:mb-14">
+        <div className="text-center mb-10 md:mb-14">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-charcoal-400 mb-4">
             Good to know
           </p>
@@ -24,30 +16,26 @@ export function FaqSection() {
             Everything parents usually ask about online Spanish lessons for kids
             and teens.
           </p>
-        </AnimatedSection>
+        </div>
 
-        <AnimatedSection delay={0.1}>
-          <Accordion
-            type="single"
-            collapsible
-            className="rounded-3xl bg-cream-50 ring-1 ring-charcoal-100/40 shadow-soft px-6 md:px-9"
-          >
+        <div className="divide-y divide-charcoal-100/60 rounded-3xl bg-cream-50 ring-1 ring-charcoal-100/40 shadow-soft px-6 md:px-9">
             {homeFaqs.map((faq) => (
-              <AccordionItem
+              <details
                 key={faq.question}
-                value={faq.question}
-                className="last:border-b-0"
+                className="group py-5"
               >
-                <AccordionTrigger className="font-serif text-lg md:text-xl py-5">
+                <summary className="cursor-pointer font-serif text-lg leading-relaxed text-charcoal-500 marker:text-charcoal-600 hover:text-charcoal-600 md:text-xl">
                   {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-base leading-relaxed text-charcoal-500/85 max-w-2xl">
+                </summary>
+                <p className="mt-4 text-base leading-relaxed text-charcoal-500/85 max-w-2xl">
                   {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+                </p>
+              </details>
             ))}
-          </Accordion>
-        </AnimatedSection>
+        </div>
+        <p className="mt-6 text-center text-sm text-charcoal-500">
+          <Link href="/spanish-lessons" className="inline-block py-2 text-charcoal-600 underline underline-offset-4 hover:text-charcoal-500">Compare lesson options</Link>{" "}or read the{" "}<Link href="/legal/terms" className="inline-block py-2 text-charcoal-600 underline underline-offset-4 hover:text-charcoal-500">terms and conditions</Link>.
+        </p>
       </div>
     </section>
   );

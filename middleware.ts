@@ -7,13 +7,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for:
-     * - _next/static (static files)
-     * - _next/image (image optimisation files)
-     * - favicon.ico
-     * - public assets (images, videos, pdf)
-     */
-    "/((?!_next/static|_next/image|favicon.ico|images|videos|pdf|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp4|webm|pdf)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|images|videos|pdf|robots\\.txt$|sitemap\\.xml$|llms\\.txt$|manifest\\.webmanifest$|opengraph-image(?:/|$)|twitter-image(?:/|$)|icon(?:/|$)|apple-icon(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp4|webm|pdf)$).*)",
   ],
 };

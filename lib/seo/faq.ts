@@ -1,17 +1,10 @@
 import type { FaqItem } from "@/lib/seo/schema";
 
-/**
- * Homepage FAQ — written as self-contained, ~40-60 word answers so they're easy
- * for search snippets and AI answer engines to extract, while naturally
- * covering the priority keywords (pricing, GCSE/IGCSE, ages, online,
- * homeschooling, after-school). Rendered visibly AND as FAQPage structured data
- * from the same source, so the two never drift apart.
- */
 export const homeFaqs: FaqItem[] = [
   {
     question: "How much do online Spanish lessons cost?",
     answer:
-      "Private one-to-one lessons are £35 per 50-minute session for children, teens and adults alike, small group lessons are £40, and GCSE or IGCSE exam support is £50 (shared between participants in a group). Every new student starts with a free trial lesson, and fees are paid monthly via PayPal.",
+      "Private one-to-one lessons are £35 per 50-minute session for children, teens and adults. Small group lessons are £40 per session in total, shared between up to four learners. GCSE or IGCSE support is £50 per session, shared when learning in a group. Start with a free trial; regular fees are paid monthly via PayPal.",
   },
   {
     question: "Do you offer GCSE and IGCSE Spanish support?",
@@ -31,16 +24,16 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "Is Poncho Spanish suitable for homeschooling and after-school learning?",
     answer:
-      "Absolutely. The lessons are popular with home-educating families and as an after-school or extra-curricular activity. The relaxed, confidence-first approach fits naturally around home education timetables and busy school weeks.",
+      "Yes. Live Spanish lessons can be part of a home education routine or an after-school activity for children aged 7–18. Choose one-to-one tuition or organise a group of up to four learners. Sessions take place during term time; discuss current availability and your family's timetable with Anto.",
   },
   {
     question: "Who teaches the lessons?",
     answer:
-      "Lessons are taught by Anto, a certified ELE (Spanish as a Foreign Language) teacher and native speaker from Buenos Aires with nearly 20 years of experience teaching children and teens. She founded Poncho Spanish in 2020.",
+      "Lessons are taught by Anto, a certified ELE (Spanish as a Foreign Language) teacher and native speaker from Buenos Aires, Argentina. She has been teaching since 2005, both in schools and independently, and founded Poncho Spanish in 2020.",
   },
   {
     question: "Do I have to commit to a subscription?",
     answer:
-      "No. Live lessons are booked during term time and paid monthly via PayPal — cancel whenever you need to. The on-demand Academy courses are pay-once with lifetime access, so there's no subscription to manage.",
+      "The on-demand Academy courses are pay-once with lifetime access, so there is no subscription to manage. Live lessons are arranged during term time and paid monthly via PayPal. Check the lesson terms and conditions for payment and cancellation arrangements before booking regular sessions.",
   },
 ];

@@ -31,55 +31,37 @@ import { EnrolPanel } from "@/components/learn/enrol-panel";
 import { CourseReviewsSection } from "@/components/marketing/course-reviews-section";
 import { JsonLd } from "@/components/seo/json-ld";
 import { graph, courseSchema, breadcrumbSchema } from "@/lib/seo/schema";
+import { pageMetadata, privateRobots } from "@/lib/seo/metadata";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-// ISR: cache pages for 5 minutes. Compatible with the dynamic marketing layout
-// (which reads auth from the cookie store to hydrate the nav). generateStaticParams
-// is intentionally omitted — it marks routes as "pre-rendered static" which
-// conflicts with a dynamic parent layout in Next.js 15 and causes a
-// "Page changed from static to dynamic" 500. Pure revalidate = ISR caching
-// without the static-generation constraint, which is what we actually need.
 export const revalidate = 300;
+
+export function generateStaticParams() {
+  return [];
+}
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  try {
-    const course = await getCourseBySlugCached(slug);
-    if (!course) return { title: "Course not found" };
-    return {
-      title: `${course.title} — Poncho Academy`,
-      description:
-        course.description?.slice(0, 155) ??
-        course.subtitle ??
-        `${course.title} — on-demand Spanish course by Anto.`,
-      alternates: { canonical: `/ondemand/${course.slug}` },
-      openGraph: {
-        title: course.title,
-        description: course.subtitle ?? undefined,
-        images: course.cover_image_path?.startsWith("http")
-          ? [course.cover_image_path]
-          : undefined,
-      },
-    };
-  } catch {
-    return { title: "Course" };
-  }
+  const course = await getCourseBySlugCached(slug);
+  if (!course || !course.is_published) return { title: "Course not found", robots: privateRobots };
+  return pageMetadata({
+    title: course.title,
+    description:
+      (course.subtitle || course.description)?.replace(/<[^>]*>/g, " ").replace(/[#*_`]/g, "").replace(/\s+/g, " ").trim().slice(0, 160) ||
+      `${course.title} — on-demand Spanish course by Anto.`,
+    path: `/ondemand/${course.slug}`,
+    image: course.cover_image_path,
+  });
 }
 
 export default async function CourseDetailPage({ params }: PageProps) {
   const { slug } = await params;
 
-  let course;
-  try {
-    course = await getCourseBySlugCached(slug);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.warn("[course-detail] failed:", err);
-  }
-  if (!course) notFound();
+  const course = await getCourseBySlugCached(slug);
+  if (!course || !course.is_published) notFound();
 
   // Approved student reviews (privacy-safe, via SECURITY DEFINER RPC). Never
   // breaks the page — falls back to an empty list, which renders nothing.
@@ -132,6 +114,13 @@ export default async function CourseDetailPage({ params }: PageProps) {
         )}
       />
       <section className="relative pt-10 pb-12 md:pt-14 md:pb-16 overflow-hidden">
+        <nav aria-label="Breadcrumb" className="container-wide relative z-10 mb-8 text-sm text-charcoal-400">
+          <ol className="flex flex-wrap items-center gap-3">
+            <li><Link href="/" className="underline underline-offset-4 hover:text-mustard-600">Home</Link></li><li aria-hidden="true">/</li>
+            <li><Link href="/ondemand" className="underline underline-offset-4 hover:text-mustard-600">Academy</Link></li><li aria-hidden="true">/</li>
+            <li aria-current="page">{course.title}</li>
+          </ol>
+        </nav>
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-32 -right-32 h-[460px] w-[460px] rounded-full bg-mustard/15 blur-3xl"

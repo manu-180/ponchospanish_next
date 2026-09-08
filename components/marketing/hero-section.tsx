@@ -1,13 +1,41 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-const headline = ["Helping", "curious minds", "learn", "Spanish"];
+const headline = ["Online", "Spanish", "lessons for", "kids & teens"];
 
 export function HeroSection() {
+  const reducedMotion = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (reducedMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.pause();
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        if (!video.getAttribute("src")) video.src = "/videos/video1.mp4";
+        void video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+    observer.observe(video);
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
+  }, [reducedMotion]);
+
   return (
     <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-28">
       {/* decorative blobs */}
@@ -22,47 +50,31 @@ export function HeroSection() {
 
       <div className="container-wide relative grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="space-y-8">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+          <div
             className="inline-flex items-center gap-2 rounded-full border border-mustard/40 bg-mustard/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-mustard-600"
           >
             <span className="size-1.5 rounded-full bg-mustard animate-pulse" />
             Online · One-to-one · Group · GCSE
-          </motion.div>
+          </div>
 
           <h1 className="font-serif text-display-2xl uppercase leading-[0.95] text-balance">
             {headline.map((word, i) => (
-              <motion.span
+              <span
                 key={word + i}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.1 + i * 0.08,
-                  ease: [0.21, 0.47, 0.32, 0.98],
-                }}
                 className="block gradient-text"
               >
-                {word}
-              </motion.span>
+                {word}{i < headline.length - 1 ? " " : ""}
+              </span>
             ))}
           </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.55 }}
+          <p
             className="max-w-xl text-xl font-bold leading-snug text-charcoal-400 md:text-2xl"
           >
             Without the panic or the perfectionism.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.7 }}
+          <div
             className="flex flex-col sm:flex-row gap-3 sm:items-center"
           >
             <Button asChild size="pill-lg">
@@ -77,47 +89,46 @@ export function HeroSection() {
                 Explore the Academy
               </Link>
             </Button>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
+          <div
             className="flex items-center gap-6 pt-2 text-sm text-charcoal-400"
           >
             <div className="flex items-center gap-1.5">
-              <span className="font-serif text-xl text-mustard-600">20+</span>
+              <span className="font-serif text-xl text-charcoal-500">20+</span>
               <span>years teaching</span>
             </div>
             <div className="h-4 w-px bg-charcoal-200" />
             <div className="flex items-center gap-1.5">
-              <span className="font-serif text-xl text-mustard-600">100+</span>
-              <span>happy families</span>
+              <span className="font-serif text-xl text-charcoal-500">Native</span>
+              <span>Spanish teacher</span>
             </div>
             <div className="hidden sm:block h-4 w-px bg-charcoal-200" />
             <div className="hidden sm:flex items-center gap-1.5">
-              <span className="font-serif text-xl text-mustard-600">★ 5.0</span>
-              <span>parent reviews</span>
+              <span className="font-serif text-xl text-charcoal-500">ELE</span>
+              <span>certified</span>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative"
-        >
+        <div className="relative">
           <div className="relative aspect-[4/3] lg:aspect-square overflow-hidden rounded-[2rem] shadow-soft-lg ring-1 ring-charcoal-100/40">
+            <Image
+              src="/images/hero-poster.webp"
+              alt="A young learner taking an online Spanish lesson"
+              fill
+              priority
+              sizes="(min-width: 1280px) 592px, (min-width: 1024px) 46vw, 100vw"
+              className="object-cover"
+            />
             <video
-              src="/videos/video1.mp4"
-              autoPlay
+              ref={videoRef}
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="none"
               className="absolute inset-0 h-full w-full object-cover"
-              aria-label="A welcome from Anto, Spanish teacher"
+              aria-label="A young learner taking an online Spanish lesson"
             />
             <div
               aria-hidden="true"
@@ -126,9 +137,8 @@ export function HeroSection() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, x: -16, y: 16 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.6, delay: 1 }}
+            whileHover={reducedMotion ? undefined : { y: -4 }}
+            transition={{ duration: 0.25 }}
             className="absolute -bottom-6 -left-4 sm:-left-8 max-w-[260px] glass-card rounded-2xl p-4"
           >
             <p className="text-xs uppercase tracking-[0.18em] text-mustard-600 font-semibold mb-1">
@@ -139,7 +149,7 @@ export function HeroSection() {
               around.”
             </p>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

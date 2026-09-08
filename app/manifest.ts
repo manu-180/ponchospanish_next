@@ -13,10 +13,10 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: siteConfig.language,
     categories: ["education", "kids"],
     icons: [
-      { src: "/icon", sizes: "any", type: "image/png", purpose: "any" },
+      { src: "/icon.png", sizes: "192x192", type: "image/png", purpose: "any" },
       {
-        src: "/images/logo.png",
-        sizes: "220x70",
+        src: "/icon-512.png",
+        sizes: "512x512",
         type: "image/png",
       },
     ],

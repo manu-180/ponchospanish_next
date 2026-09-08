@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Menu, X, BookOpen, Mail, GraduationCap, LogIn } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
@@ -23,9 +23,31 @@ const links = [
 
 export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
   const pathname = usePathname();
-  const router = useRouter();
+  const [authenticated, setAuthenticated] = useState(isAuthenticated);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    let disposed = false;
+    let unsubscribe: (() => void) | undefined;
+
+    void import("@/lib/supabase/client")
+      .then(({ getSupabaseBrowserClient }) => {
+        if (disposed) return;
+        const { data } = getSupabaseBrowserClient().auth.onAuthStateChange(
+          (_event, session) => setAuthenticated(Boolean(session?.user)),
+        );
+        unsubscribe = () => data.subscription.unsubscribe();
+      })
+      .catch(() => {
+        if (!disposed) setAuthenticated(false);
+      });
+
+    return () => {
+      disposed = true;
+      unsubscribe?.();
+    };
+  }, []);
 
   // Animated nav underline. We measure the active link with offsetLeft/
   // offsetWidth (relative to <nav>, NOT the viewport) so the position is
@@ -116,23 +138,29 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          {isAuthenticated ? (
+          {authenticated ? (
             <Button
+              asChild
               variant="soft"
               size="sm"
-              onClick={() => router.push("/dashboard")}
+              className="min-w-32"
             >
-              <BookOpen className="h-4 w-4" />
-              My Academy
+              <Link href="/dashboard">
+                <BookOpen className="h-4 w-4" />
+                My Academy
+              </Link>
             </Button>
           ) : (
             <Button
+              asChild
               variant="ghost"
               size="sm"
-              onClick={() => router.push("/auth/login")}
+              className="min-w-32"
             >
-              <LogIn className="h-4 w-4" />
-              Sign in
+              <Link href="/auth/login">
+                <LogIn className="h-4 w-4" />
+                Sign in
+              </Link>
             </Button>
           )}
           <Button asChild size="pill">
@@ -144,7 +172,9 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
           type="button"
           onClick={() => setOpen((v) => !v)}
           className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-charcoal-500 hover:bg-charcoal-100/40 transition-colors"
-          aria-label="Open menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -159,7 +189,7 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
             transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
             className="md:hidden overflow-hidden border-b border-charcoal-100/30 bg-cream/95 backdrop-blur-xl"
           >
-            <nav className="container-wide flex flex-col gap-1 py-4">
+            <nav id="mobile-navigation" className="container-wide flex flex-col gap-1 py-4">
               {links.map((link) => {
                 const active = pathname === link.href ||
                   (link.href !== "/" && pathname.startsWith(link.href));
@@ -181,21 +211,25 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
                 );
               })}
               <div className="flex flex-col gap-2 mt-3 px-1 pb-2">
-                {isAuthenticated ? (
+                {authenticated ? (
                   <Button
+                    asChild
                     variant="soft"
-                    onClick={() => router.push("/dashboard")}
                   >
-                    <BookOpen className="h-4 w-4" />
-                    My Academy
+                    <Link href="/dashboard">
+                      <BookOpen className="h-4 w-4" />
+                      My Academy
+                    </Link>
                   </Button>
                 ) : (
                   <Button
+                    asChild
                     variant="soft"
-                    onClick={() => router.push("/auth/login")}
                   >
-                    <LogIn className="h-4 w-4" />
-                    Sign in
+                    <Link href="/auth/login">
+                      <LogIn className="h-4 w-4" />
+                      Sign in
+                    </Link>
                   </Button>
                 )}
                 <Button asChild size="lg">

@@ -11,6 +11,8 @@ const CALENDLY_URL = "https://calendly.com/ponchospanish/30min";
 const services = [
   {
     id: "private",
+    href: "/spanish-lessons/children",
+    linkLabel: "Spanish lessons for children",
     title: "Private lessons",
     subtitle: "Ages 7 – 18",
     price: "£35 per session",
@@ -22,6 +24,8 @@ const services = [
   },
   {
     id: "group",
+    href: "/spanish-lessons/home-education",
+    linkLabel: "Home education & group lessons",
     title: "Start your own group",
     subtitle: "Ages 7 – 18",
     price: "£40 per session",
@@ -35,6 +39,8 @@ const services = [
   },
   {
     id: "gcse",
+    href: "/spanish-lessons/gcse",
+    linkLabel: "GCSE & IGCSE Spanish tuition",
     title: "(I)GCSE Exam Support",
     subtitle: "Confidence first",
     price: "£50 per session",
@@ -48,6 +54,8 @@ const services = [
   },
   {
     id: "adults",
+    href: "/spanish-lessons/adults",
+    linkLabel: "Spanish lessons for adults",
     title: "Private lessons",
     subtitle: "Adults",
     price: "£35 per session",
@@ -77,7 +85,7 @@ export function ServicesSection() {
           {services.map((service, i) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 32 }}
+              initial={{ opacity: 1, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{
@@ -104,7 +112,7 @@ export function ServicesSection() {
 
                 <div className="flex flex-1 flex-col p-7 space-y-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terracotta-400">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terracotta-500">
                       {service.subtitle}
                     </p>
                     <h3 className="mt-1 font-serif text-2xl leading-tight uppercase">
@@ -114,7 +122,7 @@ export function ServicesSection() {
 
                   <div className="h-[2px] w-10 bg-mustard" />
 
-                  <p className="font-serif text-lg text-mustard-600">
+                  <p className="font-serif text-lg text-charcoal-500">
                     {service.price}
                   </p>
                   {service.priceNote && (
@@ -133,10 +141,17 @@ export function ServicesSection() {
                   <div className="flex-1" />
 
                   <Link
+                    href={service.href}
+                    className="inline-flex min-h-11 items-center text-sm font-semibold text-charcoal-600 underline underline-offset-4 hover:text-charcoal-500"
+                  >
+                    {service.linkLabel}
+                  </Link>
+
+                  <Link
                     href={CALENDLY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 mt-2 rounded-full bg-mustard text-white font-semibold uppercase tracking-wider text-sm px-6 py-3 hover:bg-mustard-500 active:bg-mustard-600 transition-[background-color,transform,box-shadow] duration-300 ease-out shadow-soft hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0 motion-reduce:transform-none"
+                    className="inline-flex items-center justify-center gap-2 mt-2 rounded-full bg-mustard text-charcoal-700 font-semibold uppercase tracking-wider text-sm px-6 py-3 hover:bg-mustard-500 active:bg-mustard-500 transition-[background-color,transform,box-shadow] duration-300 ease-out shadow-soft hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0 motion-reduce:transform-none"
                   >
                     Book your trial
                     <ArrowUpRight className="h-4 w-4" />
@@ -147,10 +162,17 @@ export function ServicesSection() {
           ))}
         </div>
 
+        <p className="mt-8 text-center text-sm text-charcoal-500">
+          Find the right starting point: {" "}
+          <Link href="/spanish-lessons" className="inline-block py-2 font-semibold text-charcoal-600 underline underline-offset-4 hover:text-charcoal-500">
+            compare online Spanish lessons and prices
+          </Link>.
+        </p>
+
         <AnimatedSection delay={0.2} className="mt-20 md:mt-24 text-center">
           <p className="font-serif italic text-2xl md:text-3xl text-mustard-600">
             <span className="uppercase not-italic font-semibold">I&rsquo;m</span>{" "}
-            <span className="line-through text-charcoal-400/70 decoration-charcoal-400/70 decoration-[2px]">
+            <span className="line-through text-charcoal-400 decoration-charcoal-400 decoration-[2px]">
               we&rsquo;re
             </span>{" "}
             <span className="uppercase not-italic font-semibold">not</span> a big academy,

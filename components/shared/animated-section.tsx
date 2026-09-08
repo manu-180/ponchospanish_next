@@ -22,7 +22,7 @@ export function AnimatedSection({
 
   const variants: Variants = {
     hidden: {
-      opacity: 0,
+      opacity: 1,
       y: reduceMotion || direction !== "up" ? 0 : 24,
       x:
         reduceMotion || direction === "up" || direction === "none"

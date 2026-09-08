@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { AnimatedSection } from "@/components/shared/animated-section";
 
@@ -32,6 +30,7 @@ export function AboutAntoSection() {
                   alt="Anto, certified Spanish teacher and founder of Poncho Spanish"
                   width={240}
                   height={240}
+                  sizes="(min-width: 768px) 224px, 176px"
                   className="h-44 w-44 md:h-56 md:w-56 rounded-full object-cover"
                 />
               </div>

@@ -23,7 +23,7 @@ export function OnDemandSection() {
 
         <div className="mx-auto max-w-md">
           <motion.div
-            initial={{ opacity: 0, y: 32 }}
+            initial={{ opacity: 1, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{
@@ -45,7 +45,7 @@ export function OnDemandSection() {
 
                 <div className="absolute inset-0 flex items-center justify-center p-6">
                   <span className="inline-flex items-center gap-3 rounded-full bg-mustard py-2.5 pl-7 pr-2.5 shadow-[0_10px_28px_-10px_rgb(0_0_0/0.55)] transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transform-none">
-                    <span className="text-lg font-bold uppercase tracking-[0.06em] text-white sm:text-xl">
+                    <span className="text-lg font-bold uppercase tracking-[0.06em] text-charcoal-700 sm:text-xl">
                       Download now
                     </span>
                     <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white">
@@ -57,7 +57,7 @@ export function OnDemandSection() {
 
               <div className="p-7 space-y-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terracotta-400">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terracotta-500">
                     Independent learners
                   </p>
                   <h3 className="mt-1 font-serif text-2xl leading-tight uppercase">
@@ -70,7 +70,7 @@ export function OnDemandSection() {
                   pause &amp; revisit lessons anytime. Made to fit your life,
                   not complicate it!
                 </p>
-                <div className="pt-2 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-mustard-600">
+                <div className="pt-2 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-charcoal-500">
                   View courses
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </div>

@@ -8,7 +8,7 @@
  * Rule of thumb (per Google's guidelines): only describe content that is
  * actually present and true on the page — never fabricate ratings or data.
  */
-import { siteConfig, siteUrl, absolute } from "@/lib/seo/config";
+import { siteConfig, siteUrl, absolute, publicImageUrl } from "@/lib/seo/config";
 
 type JsonLdNode = Record<string, unknown>;
 
@@ -27,8 +27,6 @@ export function organizationSchema(): JsonLdNode {
     logo: {
       "@type": "ImageObject",
       url: absolute("/images/logo.png"),
-      width: 220,
-      height: 70,
     },
     image: absolute("/opengraph-image"),
     description: siteConfig.description,
@@ -37,7 +35,6 @@ export function organizationSchema(): JsonLdNode {
     founder: { "@id": PERSON_ID },
     knowsLanguage: ["en", "es"],
     areaServed: { "@type": "Country", name: siteConfig.areaServed },
-    address: { "@type": "PostalAddress", addressCountry: siteConfig.countryCode },
     sameAs: [siteConfig.instagram],
     contactPoint: {
       "@type": "ContactPoint",
@@ -73,8 +70,8 @@ export function personSchema(): JsonLdNode {
     description: f.bio,
     image: absolute(f.image),
     worksFor: { "@id": ORG_ID },
-    url: siteUrl,
-    nationality: f.nationality,
+    url: absolute("/#about"),
+    nationality: { "@type": "Country", name: "Argentina" },
     knowsLanguage: ["es", "en"],
     knowsAbout: [
       "Spanish language",
@@ -88,7 +85,6 @@ export function personSchema(): JsonLdNode {
       credentialCategory: "certification",
       name: f.credential,
     },
-    sameAs: [siteConfig.instagram],
   };
 }
 
@@ -190,7 +186,9 @@ export interface CourseSchemaInput {
 
 /** Course schema for an on-demand Academy course (Google Course rich result). */
 export function courseSchema(course: CourseSchemaInput): JsonLdNode {
-  const url = absolute(`/ondemand/${course.slug}`);
+  const url = absolute(`/ondemand/${encodeURIComponent(course.slug)}`);
+  const image = publicImageUrl(course.cover_image_path);
+  const duration = workload(course.totalDurationSeconds);
   const node: JsonLdNode = {
     "@type": "Course",
     "@id": `${url}#course`,
@@ -203,9 +201,7 @@ export function courseSchema(course: CourseSchemaInput): JsonLdNode {
     inLanguage: ["es", "en"],
     teaches: "Spanish",
     provider: { "@id": ORG_ID },
-    ...(course.cover_image_path
-      ? { image: course.cover_image_path }
-      : {}),
+    ...(image ? { image } : {}),
     ...(course.level ? { educationalLevel: course.level } : {}),
     offers: {
       "@type": "Offer",
@@ -218,13 +214,15 @@ export function courseSchema(course: CourseSchemaInput): JsonLdNode {
     hasCourseInstance: {
       "@type": "CourseInstance",
       courseMode: "online",
-      courseWorkload: workload(course.totalDurationSeconds),
+      ...(duration ? { courseWorkload: duration } : {}),
       instructor: { "@id": PERSON_ID },
     },
   };
 
   // Only emit ratings when they are real and visible on the page.
-  if ((course.ratings_count ?? 0) > 0 && course.avg_rating != null) {
+  if (Number.isInteger(course.ratings_count) && (course.ratings_count ?? 0) > 0 &&
+      course.avg_rating != null && Number.isFinite(course.avg_rating) &&
+      course.avg_rating >= 1 && course.avg_rating <= 5) {
     node.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: Number(course.avg_rating.toFixed(1)),
@@ -261,10 +259,11 @@ export interface DigitalProductSchemaInput {
 
 /** Product schema for a standalone ebook / downloadable resource. */
 export function digitalProductSchema(p: DigitalProductSchemaInput): JsonLdNode {
-  const url = absolute(`/ondemand/ebooks/${p.slug}`);
+  const url = absolute(`/ondemand/ebooks/${encodeURIComponent(p.slug)}`);
+  const image = publicImageUrl(p.cover_image_path);
   return {
-    "@type": "Book",
-    "@id": `${url}#book`,
+    "@type": ["Product", "Book"],
+    "@id": `${url}#product`,
     name: p.title,
     description:
       p.description?.slice(0, 280) ??
@@ -272,10 +271,11 @@ export function digitalProductSchema(p: DigitalProductSchemaInput): JsonLdNode {
       `${p.title} — a downloadable Spanish ebook by Poncho Spanish.`,
     url,
     bookFormat: "https://schema.org/EBook",
-    inLanguage: "en",
+    inLanguage: ["en", "es"],
     author: { "@id": PERSON_ID },
     publisher: { "@id": ORG_ID },
-    ...(p.cover_image_path ? { image: p.cover_image_path } : {}),
+    brand: { "@id": ORG_ID },
+    ...(image ? { image } : {}),
     offers: {
       "@type": "Offer",
       price: p.price_gbp,
@@ -300,12 +300,9 @@ export function digitalProductListSchema(
   };
 }
 
-/** ISO-8601 duration (e.g. PT2H30M) from seconds, defaulting to a sane value. */
-function workload(seconds?: number): string {
-  if (!seconds || seconds <= 0) return "PT1H";
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  return `PT${h > 0 ? `${h}H` : ""}${m > 0 ? `${m}M` : h > 0 ? "" : "30M"}`;
+function workload(seconds?: number): string | undefined {
+  if (!seconds || !Number.isFinite(seconds) || seconds <= 0) return undefined;
+  return `PT${Math.ceil(seconds)}S`;
 }
 
 /** Wrap nodes into a single schema.org graph. */

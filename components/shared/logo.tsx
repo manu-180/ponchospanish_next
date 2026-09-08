@@ -19,8 +19,9 @@ export function Logo({
     <Image
       src="/images/logo.png"
       alt="Poncho Spanish"
-      width={220}
-      height={70}
+      width={532}
+      height={469}
+      sizes="(min-width: 768px) 80px, 64px"
       priority={priority}
       className={cn("h-14 w-auto object-contain md:h-[70px]", imageClassName)}
     />

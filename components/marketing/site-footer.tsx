@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Instagram, Mail } from "lucide-react";
+import { lessonPages } from "@/lib/seo/lessons";
 
 export function SiteFooter() {
   return (
@@ -26,8 +27,20 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/spanish-lessons" className="hover:text-mustard-200 transition-colors">
+                Compare Spanish lessons
+              </Link>
+            </li>
+            {lessonPages.map((lesson) => (
+              <li key={lesson.slug}>
+                <Link href={`/spanish-lessons/${lesson.slug}`} className="hover:text-mustard-200 transition-colors">
+                  {lesson.heading}
+                </Link>
+              </li>
+            ))}
+            <li>
               <Link href="/ondemand" className="hover:text-mustard-200 transition-colors">
-                Academy
+                Spanish courses &amp; ebooks
               </Link>
             </li>
             <li>
@@ -81,7 +94,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-cream/10">
-        <div className="container-wide flex flex-col md:flex-row items-center justify-between gap-4 py-6 text-xs text-cream/40">
+        <div className="container-wide flex flex-col md:flex-row items-center justify-between gap-4 py-6 text-xs text-cream/70">
           <p>© {new Date().getFullYear()} Poncho Spanish. Made by Real People.</p>
           <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-5">
             <p className="text-[11px] tracking-wide">
@@ -91,8 +104,7 @@ export function SiteFooter() {
               href="https://www.theapexweb.com"
               target="_blank"
               rel="noopener"
-              aria-label="Desarrollado por APEX — desarrollo web (se abre en una pestaña nueva)"
-              className="group inline-flex items-center gap-1.5 text-[11px] tracking-wide text-cream/45 transition-colors duration-300 hover:text-mustard-200 focus-visible:text-mustard-200 motion-reduce:transition-none"
+              className="group inline-flex items-center gap-1.5 text-[11px] tracking-wide text-cream/70 transition-colors duration-300 hover:text-mustard-200 focus-visible:text-mustard-200 motion-reduce:transition-none"
             >
               <span
                 aria-hidden="true"
@@ -101,8 +113,9 @@ export function SiteFooter() {
                 A
               </span>
               <span>
-                Desarrollado por <span className="font-medium">APEX</span>
+                Built by <span className="font-medium">APEX</span>
               </span>
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </div>
         </div>

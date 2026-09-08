@@ -4,10 +4,11 @@ import {
   getCurrentProfile,
 } from "@/lib/supabase/server";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { privateRobots } from "@/lib/seo/metadata";
 
 export const metadata = {
   title: "Admin — Poncho",
-  robots: { index: false, follow: false },
+  robots: privateRobots,
 };
 
 export default async function AdminLayout({

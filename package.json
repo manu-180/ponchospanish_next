@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "seo:audit": "node scripts/seo-audit.mjs",
+    "test:seo": "node --test scripts/seo-schema.test.cjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

@@ -72,11 +72,12 @@ export async function getCourseBySlug(
   const course = courseRaw as Course | null;
   if (!course) return null;
 
-  const { data: modulesRaw } = await supabase
+  const { data: modulesRaw, error: modulesError } = await supabase
     .from("modules")
     .select("*, lessons(*)")
     .eq("course_id", course.id)
     .order("position", { ascending: true });
+  if (modulesError) throw modulesError;
 
   type ModuleWithLessons = Module & { lessons?: Lesson[] };
   const modules = (modulesRaw ?? []) as unknown as ModuleWithLessons[];

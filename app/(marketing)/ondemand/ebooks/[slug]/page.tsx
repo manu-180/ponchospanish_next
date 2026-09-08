@@ -27,6 +27,7 @@ import { DigitalProductCheckoutPanel } from "@/components/learn/digital-product-
 import { DownloadProductButton } from "@/components/learn/download-product-button";
 import { JsonLd } from "@/components/seo/json-ld";
 import { graph, digitalProductSchema, breadcrumbSchema } from "@/lib/seo/schema";
+import { pageMetadata, privateRobots } from "@/lib/seo/metadata";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -37,24 +38,17 @@ export async function generateMetadata({ params }: PageProps) {
   const supabase = await getSupabaseServerClient();
   try {
     const product = await getDigitalProductBySlug(supabase, slug);
-    if (!product) return { title: "Ebook not found" };
-    return {
-      title: `${product.title} — Poncho Academy`,
+    if (!product || !product.is_published) return { title: "Ebook not found", robots: privateRobots };
+    return pageMetadata({
+      title: product.title,
       description:
-        product.description?.slice(0, 155) ??
-        product.subtitle ??
+        (product.subtitle || product.description)?.replace(/<[^>]*>/g, " ").replace(/[#*_`]/g, "").replace(/\s+/g, " ").trim().slice(0, 160) ||
         `${product.title} — a downloadable Spanish resource by Anto.`,
-      alternates: { canonical: `/ondemand/ebooks/${product.slug}` },
-      openGraph: {
-        title: product.title,
-        description: product.subtitle ?? undefined,
-        images: product.cover_image_path
-          ? [product.cover_image_path]
-          : undefined,
-      },
-    };
+      path: `/ondemand/ebooks/${product.slug}`,
+      image: product.cover_image_path,
+    });
   } catch {
-    return { title: "Ebook" };
+    return { title: "Ebook", robots: privateRobots };
   }
 }
 

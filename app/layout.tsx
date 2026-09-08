@@ -11,6 +11,7 @@ import {
   personSchema,
 } from "@/lib/seo/schema";
 import { siteConfig, siteUrl } from "@/lib/seo/config";
+import { publicRobots } from "@/lib/seo/metadata";
 import "./globals.css";
 
 const baskerville = Libre_Baskerville({
@@ -60,24 +61,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.tagline,
-    creator: siteConfig.instagramHandle,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
+  robots: publicRobots,
   formatDetection: { telephone: false, address: false, email: false },
-  other: {
-    "geo.region": "GB",
-    "geo.placename": "United Kingdom",
-  },
 };
 
 export const viewport: Viewport = {

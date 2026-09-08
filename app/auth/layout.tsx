@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { Logo } from "@/components/shared/logo";
+import { privateRobots } from "@/lib/seo/metadata";
+
+export const metadata = { robots: privateRobots };
 
 export default function AuthLayout({
   children,

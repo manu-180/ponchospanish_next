@@ -1,11 +1,34 @@
-﻿import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next";
+import { absolute } from "@/lib/seo/config";
+import { getSitemapCatalog, type SitemapCatalogEntry } from "@/lib/seo/public-catalog";
 
-const BASE = 'https://www.ponchospanish.com'
+export const revalidate = 3600;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+function catalogEntries(entries: SitemapCatalogEntry[], prefix: string): MetadataRoute.Sitemap {
+  return entries.filter((entry) => entry.slug.trim()).map((entry) => {
+    const modified = new Date(entry.updated_at);
+    return {
+      url: absolute(`${prefix}/${encodeURIComponent(entry.slug)}`),
+      ...(Number.isNaN(modified.getTime()) ? {} : { lastModified: modified }),
+    };
+  });
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { courses, products } = await getSitemapCatalog();
+  const paths = [
+    "/",
+    "/ondemand",
+    "/spanish-lessons",
+    "/spanish-lessons/children",
+    "/spanish-lessons/gcse",
+    "/spanish-lessons/home-education",
+    "/spanish-lessons/adults",
+    "/legal/terms",
+  ];
   return [
-    { url: BASE,                      lastModified: new Date('2026-06-01'), changeFrequency: 'weekly',  priority: 1    },
-    { url: `${BASE}/ondemand`,        lastModified: new Date('2026-06-01'), changeFrequency: 'weekly',  priority: 0.9  },
-    { url: `${BASE}/legal/terms`,     lastModified: new Date('2026-01-01'), changeFrequency: 'yearly',  priority: 0.3  },
-  ]
+    ...paths.map((path) => ({ url: absolute(path) })),
+    ...catalogEntries(courses, "/ondemand"),
+    ...catalogEntries(products, "/ondemand/ebooks"),
+  ];
 }

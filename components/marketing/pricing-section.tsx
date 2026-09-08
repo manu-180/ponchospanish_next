@@ -35,7 +35,7 @@ export function PricingSection() {
                 <div key={p.title} className="pt-5 first:pt-0">
                   <div className="flex items-baseline justify-between gap-4">
                     <p className="font-semibold text-charcoal-500">{p.title}</p>
-                    <p className="font-serif text-lg text-mustard-600">
+                    <p className="font-serif text-lg text-charcoal-500">
                       {p.price}
                     </p>
                   </div>

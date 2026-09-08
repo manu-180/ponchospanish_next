@@ -147,12 +147,12 @@ export function ContactForm({ defaultInterest }: { defaultInterest?: string }) {
           )}
         </div>
         <div className="space-y-2">
-          <Label>Level of Spanish? *</Label>
+          <Label htmlFor="level">Level of Spanish? *</Label>
           <Select
             value={level}
             onValueChange={(v) => setValue("level", v as ContactInput["level"], { shouldValidate: true })}
           >
-            <SelectTrigger invalid={Boolean(errors.level)}>
+            <SelectTrigger id="level" aria-required="true" invalid={Boolean(errors.level)}>
               <SelectValue placeholder="Select level" />
             </SelectTrigger>
             <SelectContent>
@@ -168,14 +168,14 @@ export function ContactForm({ defaultInterest }: { defaultInterest?: string }) {
           )}
         </div>
         <div className="space-y-2">
-          <Label>What are you interested in? *</Label>
+          <Label htmlFor="interest">What are you interested in? *</Label>
           <Select
             value={interest}
             onValueChange={(v) =>
               setValue("interest", v as ContactInput["interest"], { shouldValidate: true })
             }
           >
-            <SelectTrigger invalid={Boolean(errors.interest)}>
+            <SelectTrigger id="interest" aria-required="true" invalid={Boolean(errors.interest)}>
               <SelectValue placeholder="Choose..." />
             </SelectTrigger>
             <SelectContent>
@@ -220,7 +220,7 @@ export function ContactForm({ defaultInterest }: { defaultInterest?: string }) {
             status === "success"
               ? "bg-emerald-500 hover:bg-emerald-500"
               : status === "error"
-                ? "bg-destructive hover:bg-destructive"
+                ? "bg-destructive hover:bg-destructive text-destructive-foreground"
                 : ""
           }
         >

@@ -1,6 +1,9 @@
 import { redirect } from "next/navigation";
 import { getCurrentUser, getCurrentProfile } from "@/lib/supabase/server";
 import { AppHeader } from "@/components/learn/app-header";
+import { privateRobots } from "@/lib/seo/metadata";
+
+export const metadata = { robots: privateRobots };
 
 export default async function AppShellLayout({
   children,

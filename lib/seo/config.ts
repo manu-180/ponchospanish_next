@@ -14,10 +14,12 @@ const PRODUCTION_ORIGIN = "https://www.ponchospanish.com";
 // En Vercel NEXT_PUBLIC_SITE_URL estaba puesta en el dominio de preview, y de
 // acá sale el canonical: todas las páginas declaraban como original una URL
 // *.vercel.app. Un origen de preview nunca es el canónico de producción.
-const envOrigin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/+$/, "");
+export const siteUrl = PRODUCTION_ORIGIN;
 
-export const siteUrl =
-  envOrigin && !envOrigin.includes(".vercel.app") ? envOrigin : PRODUCTION_ORIGIN;
+export const isIndexableDeployment =
+  process.env.VERCEL_ENV !== "preview" &&
+  process.env.VERCEL_ENV !== "development" &&
+  process.env.NODE_ENV !== "development";
 
 export const siteConfig = {
   name: "Poncho Spanish",
@@ -83,4 +85,19 @@ export const siteConfig = {
 /** Build an absolute URL from a site-relative path. */
 export function absolute(path = "/"): string {
   return `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+export function publicImageUrl(image?: string | null): string | undefined {
+  if (!image?.trim()) return undefined;
+  const value = image.trim();
+  if (!value.startsWith("/") && !/^https?:\/\//i.test(value)) return undefined;
+  if (value.startsWith("//")) return undefined;
+  try {
+    const url = new URL(value, siteUrl);
+    if (!["https:", "http:"].includes(url.protocol)) return undefined;
+    if (url.username || url.password || url.searchParams.has("token")) return undefined;
+    return url.href;
+  } catch {
+    return undefined;
+  }
 }

@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,15 +10,53 @@ import { Button } from "@/components/ui/button";
 const CALENDLY_URL = "https://calendly.com/ponchospanish/30min";
 
 export function CtaVideoSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || reducedMotion.matches) {
+          video.pause();
+          return;
+        }
+        if (!video.getAttribute("src")) video.src = "/videos/video2.mp4";
+        void video.play().catch(() => {});
+      },
+      { rootMargin: "200px" },
+    );
+
+    const onMotionChange = () => {
+      if (reducedMotion.matches) video.pause();
+    };
+    observer.observe(video);
+    reducedMotion.addEventListener("change", onMotionChange);
+
+    return () => {
+      observer.disconnect();
+      reducedMotion.removeEventListener("change", onMotionChange);
+      video.pause();
+    };
+  }, []);
+
   return (
-    <section className="relative overflow-hidden h-[560px] md:h-[600px]">
+    <section className="relative overflow-hidden h-[560px] md:h-[600px] bg-charcoal-600">
+      <Image
+        src="/images/cta-poster.webp"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
+      />
       <video
-        src="/videos/video2.mp4"
-        autoPlay
+        ref={videoRef}
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="none"
         className="absolute inset-0 h-full w-full object-cover"
         aria-hidden="true"
       />
@@ -31,7 +71,7 @@ export function CtaVideoSection() {
 
       <div className="relative container-wide h-full flex flex-col items-center justify-center text-center">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 1, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}

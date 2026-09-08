@@ -5,18 +5,18 @@ import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
 const reviews = [
-  "/images/review1.jpeg",
-  "/images/review2.jpeg",
-  "/images/review3.jpeg",
-  "/images/review4.jpeg",
-  "/images/review5.jpeg",
+  { src: "/images/review1.jpeg", width: 1170, height: 916 },
+  { src: "/images/review2.jpeg", width: 1170, height: 1275 },
+  { src: "/images/review3.jpeg", width: 1170, height: 666 },
+  { src: "/images/review4.jpeg", width: 1170, height: 866 },
+  { src: "/images/review5.jpeg", width: 1170, height: 686 },
 ];
 
 // Short text-only screenshots — stacked vertically to fill the 6th grid slot
 const shortReviews = [
-  "/images/textreview1.jpg",
-  "/images/textreview2.jpg",
-  "/images/textreview3.jpg",
+  { src: "/images/textreview1.jpg", width: 1060, height: 183 },
+  { src: "/images/textreview2.jpg", width: 860, height: 149 },
+  { src: "/images/textreview3.jpg", width: 882, height: 203 },
 ];
 
 export function ReviewsSection() {
@@ -28,7 +28,7 @@ export function ReviewsSection() {
             aria-hidden="true"
             className="dotted-divider text-terracotta-300 mx-auto w-32 mb-6"
           />
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-mustard-600 mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-charcoal-500 mb-3">
             Word of mouth
           </p>
           <h2 className="font-serif text-display-md text-balance">
@@ -38,10 +38,10 @@ export function ReviewsSection() {
 
         <div className="mx-auto max-w-5xl">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {reviews.map((src, i) => (
+            {reviews.map(({ src, width, height }, i) => (
               <motion.figure
                 key={src}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 1, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{
@@ -58,8 +58,9 @@ export function ReviewsSection() {
                   <Image
                     src={src}
                     alt={`Parent review of Poncho Spanish online Spanish lessons (${i + 1})`}
-                    width={600}
-                    height={800}
+                    width={width}
+                    height={height}
+                    sizes="(min-width: 1024px) 328px, (min-width: 640px) 46vw, 100vw"
                     className="w-full h-auto object-contain"
                   />
                 </div>
@@ -68,7 +69,7 @@ export function ReviewsSection() {
 
             {/* Stacked cell — fills the empty 6th slot with short text screenshots */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 1, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{
@@ -78,7 +79,7 @@ export function ReviewsSection() {
               }}
               className="flex flex-col gap-5"
             >
-              {shortReviews.map((src, i) => (
+              {shortReviews.map(({ src, width, height }, i) => (
                 <figure
                   key={src}
                   className="group relative overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-charcoal-100/40 hover:shadow-soft-lg transition-shadow duration-500"
@@ -90,8 +91,9 @@ export function ReviewsSection() {
                     <Image
                       src={src}
                       alt={`Parent review of Poncho Spanish online Spanish lessons (${reviews.length + i + 1})`}
-                      width={600}
-                      height={300}
+                      width={width}
+                      height={height}
+                      sizes="(min-width: 1024px) 328px, (min-width: 640px) 46vw, 100vw"
                       className="w-full h-auto object-contain"
                     />
                   </div>

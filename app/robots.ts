@@ -1,12 +1,13 @@
-﻿import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next";
+import { absolute, isIndexableDeployment } from "@/lib/seo/config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/admin/', '/dashboard/', '/account/', '/learn/'],
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/"],
     },
-    sitemap: 'https://www.ponchospanish.com/sitemap.xml',
-  }
+    ...(isIndexableDeployment ? { sitemap: absolute("/sitemap.xml") } : {}),
+  };
 }

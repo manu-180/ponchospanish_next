@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/metadata";
 import Link from "next/link";
 import { FileText, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Terms & Conditions",
   description: "Poncho Spanish — terms of service for online lessons and Academy.",
-  alternates: { canonical: "/legal/terms" },
-};
+  path: "/legal/terms",
+});
 
 export default function TermsPage() {
   return (

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/metadata";
 import { HeroSection } from "@/components/marketing/hero-section";
 import { OnDemandSection } from "@/components/marketing/on-demand-section";
 import { ServicesSection } from "@/components/marketing/services-section";
@@ -12,17 +12,12 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { graph, faqPageSchema, lessonServicesSchema } from "@/lib/seo/schema";
 import { homeFaqs } from "@/lib/seo/faq";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Spanish Lessons for Kids & Teens in the UK",
   description:
     "Online Spanish lessons for kids & teens in the UK. Private 1-to-1 classes, small groups and GCSE support with a certified native teacher. Book a free trial.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "Spanish Lessons for Kids & Teens — Poncho Spanish",
-    description:
-      "Private 1-to-1 classes, small groups and GCSE support. Book your free trial with a certified native teacher.",
-  },
-};
+  path: "/",
+});
 
 export default function HomePage() {
   return (
