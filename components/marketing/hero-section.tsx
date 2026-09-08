@@ -54,7 +54,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55 }}
-            className="max-w-xl text-xl font-bold leading-snug text-charcoal-600 md:text-2xl"
+            className="max-w-xl text-xl font-bold leading-snug text-charcoal-400 md:text-2xl"
           >
             Without the panic or the perfectionism.
           </motion.p>
