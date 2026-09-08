@@ -11,7 +11,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "How much do online Spanish lessons cost?",
     answer:
-      "Private one-to-one lessons are £35 per 50-minute session, small group lessons are £40, and GCSE or IGCSE exam support is £50 (shared between participants in a group). Every new student starts with a free trial lesson, and fees are paid monthly via PayPal.",
+      "Private one-to-one lessons are £35 per 50-minute session for children, teens and adults alike, small group lessons are £40, and GCSE or IGCSE exam support is £50 (shared between participants in a group). Every new student starts with a free trial lesson, and fees are paid monthly via PayPal.",
   },
   {
     question: "Do you offer GCSE and IGCSE Spanish support?",
@@ -21,7 +21,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "What ages do you teach?",
     answer:
-      "Poncho Spanish specialises in children and teenagers aged 7 to 18. Lessons are tailored to each learner's age and stage, and adults who'd like a relaxed, stress-free way to learn Spanish can arrange sessions on request.",
+      "Poncho Spanish specialises in children and teenagers aged 7 to 18, with lessons tailored to each learner's age and stage. Adults are welcome too: there are dedicated one-to-one adult lessons at £35 per session, built around your own goals at a relaxed, stress-free pace.",
   },
   {
     question: "Are the Spanish lessons online?",

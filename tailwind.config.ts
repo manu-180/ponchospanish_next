@@ -115,8 +115,7 @@ const config: Config = {
       boxShadow: {
         soft: "0 4px 24px -8px rgb(61 61 61 / 0.08), 0 2px 8px -2px rgb(61 61 61 / 0.04)",
         "soft-lg": "0 24px 48px -16px rgb(61 61 61 / 0.12), 0 8px 16px -4px rgb(61 61 61 / 0.06)",
-        glow: "0 0 0 1px rgb(232 168 76 / 0.2), 0 12px 32px -8px rgb(232 168 76 / 0.35)",
-        "glow-terracotta": "0 0 0 1px rgb(229 124 74 / 0.2), 0 12px 32px -8px rgb(229 124 74 / 0.35)",
+        lift: "0 12px 28px -10px rgb(0 0 0 / 0.22), 0 4px 10px -4px rgb(0 0 0 / 0.10)",
       },
       keyframes: {
         "accordion-down": {

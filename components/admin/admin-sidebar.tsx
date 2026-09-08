@@ -146,7 +146,7 @@ export function AdminSidebar({
         <Link
           href="/admin/courses/new"
           onClick={() => setMobileOpen(false)}
-          className="group flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-mustard via-mustard-400 to-terracotta px-4 py-3 text-sm font-semibold text-white shadow-soft transition-all hover:shadow-glow"
+          className="group flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-mustard via-mustard-400 to-terracotta px-4 py-3 text-sm font-semibold text-white shadow-soft transition-all hover:shadow-lift"
         >
           <Sparkles className="h-4 w-4" />
           Crear curso nuevo

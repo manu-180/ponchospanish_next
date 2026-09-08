@@ -11,6 +11,11 @@ const pricing = [
     note: "(shared between the participants)",
   },
   { title: "Exam Support", price: "£50 per session", note: null },
+  {
+    title: "Adult Private Lessons",
+    price: "£35 per session",
+    note: "(1:1, built around your goals)",
+  },
 ];
 
 export function PricingSection() {
@@ -45,8 +50,7 @@ export function PricingSection() {
             <p className="mt-8 text-sm leading-relaxed text-charcoal-400">
               All sessions are 50 minutes long and take place online via Zoom
               during term time. Fees are payable monthly via PayPal (in GBP or
-              the equivalent in your local currency). Adult lessons can be
-              arranged upon request.
+              the equivalent in your local currency).
             </p>
           </div>
         </AnimatedSection>

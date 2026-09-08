@@ -116,6 +116,12 @@ export function lessonServicesSchema(): JsonLdNode[] {
         "Focused GCSE and IGCSE Spanish preparation, 1-to-1 or in a small group, built to boost confidence and calm nerves.",
       price: 50,
     },
+    {
+      name: "Private 1-to-1 Spanish lessons for adults",
+      description:
+        "Personalised one-to-one online Spanish lessons for adults, with a relaxed, stress-free approach built around your own goals.",
+      price: 35,
+    },
   ];
 
   return services.map((s) => ({

@@ -10,15 +10,18 @@ const CALENDLY_URL = "https://calendly.com/ponchospanish/30min";
 
 const services = [
   {
+    id: "private",
     title: "Private lessons",
     subtitle: "Ages 7 – 18",
     price: "£35 per session",
     bullet: "1:1 personalised support",
     description: "Ideal for children who prefer individual attention.",
     image: "/images/foto1.jpeg",
+    alt: "Private one-to-one online Spanish lessons for children and teens aged 7 to 18",
     accent: "from-mustard/40 to-mustard/0",
   },
   {
+    id: "group",
     title: "Start your own group",
     subtitle: "Ages 7 – 18",
     price: "£40 per session",
@@ -27,9 +30,11 @@ const services = [
     description:
       "A lovely balance between social learning and individual attention.",
     image: "/images/foto2.jpeg",
+    alt: "Small group online Spanish lessons for kids and teens, up to four learners",
     accent: "from-terracotta/40 to-terracotta/0",
   },
   {
+    id: "gcse",
     title: "(I)GCSE Exam Support",
     subtitle: "Confidence first",
     price: "£50 per session",
@@ -38,7 +43,20 @@ const services = [
       "Focused support for (I)GCSE preparation. Available as 1:1 personalised support or small group lessons with friends (up to 4 learners).",
     description: "Perfect to boost confidence and calm nerves.",
     image: "/images/foto3.jpeg",
+    alt: "GCSE and IGCSE Spanish exam support lessons online",
     accent: "from-mustard/30 to-terracotta/20",
+  },
+  {
+    id: "adults",
+    title: "Private lessons",
+    subtitle: "Adults",
+    price: "£35 per session",
+    bullet: "1:1 stress-free approach",
+    description:
+      "Designed for adults looking for personalised lessons built around your goals.",
+    image: "/images/adulta-clases-online.jpg",
+    alt: "Adult learner taking a relaxed one-to-one online Spanish lesson from home",
+    accent: "from-terracotta/30 to-mustard/10",
   },
 ];
 
@@ -55,10 +73,10 @@ export function ServicesSection() {
           </p>
         </AnimatedSection>
 
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
           {services.map((service, i) => (
             <motion.div
-              key={service.title}
+              key={service.id}
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -73,9 +91,9 @@ export function ServicesSection() {
                 <div className="relative aspect-[5/4] overflow-hidden">
                   <Image
                     src={service.image}
-                    alt={`${service.title} — online Spanish lessons for kids and teens with Poncho Spanish`}
+                    alt={service.alt}
                     fill
-                    sizes="(min-width: 1024px) 33vw, 100vw"
+                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div
@@ -118,7 +136,7 @@ export function ServicesSection() {
                     href={CALENDLY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 mt-2 rounded-full bg-mustard text-white font-semibold uppercase tracking-wider text-sm px-6 py-3 hover:bg-mustard-500 active:bg-mustard-600 transition-colors shadow-soft hover:shadow-glow"
+                    className="inline-flex items-center justify-center gap-2 mt-2 rounded-full bg-mustard text-white font-semibold uppercase tracking-wider text-sm px-6 py-3 hover:bg-mustard-500 active:bg-mustard-600 transition-[background-color,transform,box-shadow] duration-300 ease-out shadow-soft hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0 motion-reduce:transform-none"
                   >
                     Book your trial
                     <ArrowUpRight className="h-4 w-4" />

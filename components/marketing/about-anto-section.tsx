@@ -59,7 +59,7 @@ export function AboutAntoSection() {
               <p>
                 With nearly 20 years of experience teaching children and teens,
                 my main focus is helping young learners grow in confidence and
-                curiosity, while occasionally supporting adults who are looking
+                curiosity, while also supporting adults who are looking
                 for a similarly stress-free approach.
               </p>
               <p>

@@ -10,9 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-mustard text-white hover:bg-mustard-500 active:bg-mustard-600 shadow-soft hover:shadow-glow",
+          "bg-mustard text-white hover:bg-mustard-500 active:bg-mustard-600 shadow-soft hover:shadow-lift hover:-translate-y-0.5 active:translate-y-0 motion-reduce:hover:translate-y-0",
         terracotta:
-          "bg-terracotta text-white hover:bg-terracotta-400 active:bg-terracotta-500 shadow-soft hover:shadow-glow-terracotta",
+          "bg-terracotta text-white hover:bg-terracotta-400 active:bg-terracotta-500 shadow-soft hover:shadow-lift hover:-translate-y-0.5 active:translate-y-0 motion-reduce:hover:translate-y-0",
         outline:
           "border-2 border-mustard text-mustard hover:bg-mustard hover:text-white",
         ghost:

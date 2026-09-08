@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronsRight } from "lucide-react";
 import { AnimatedSection } from "@/components/shared/animated-section";
 
 export function OnDemandSection() {
@@ -37,20 +36,22 @@ export function OnDemandSection() {
               href="/ondemand"
               className="block h-full overflow-hidden rounded-3xl bg-cream-50 shadow-soft transition-[transform,box-shadow] duration-500 ease-out hover:-translate-y-2 hover:shadow-soft-lg border border-charcoal-100/40 will-change-transform"
             >
-              <div className="relative aspect-[5/4] overflow-hidden rounded-t-3xl bg-black">
-                <Image
-                  src="/images/niñatapandoselosojos.jpg"
-                  alt="On-demand, self-paced Spanish courses for kids and teens"
-                  fill
-                  sizes="(min-width: 1024px) 400px, 100vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-70 mix-blend-multiply"
-                />
-                <div className="absolute top-4 right-4 inline-flex items-center justify-center h-9 w-9 rounded-full bg-cream/95 text-charcoal-500 backdrop-blur-md transition-transform duration-300 group-hover:rotate-45">
-                  <ArrowUpRight className="h-4 w-4" />
+              <div
+                aria-hidden="true"
+                className="relative aspect-[5/4] overflow-hidden rounded-t-3xl bg-charcoal-600"
+              >
+                <div className="absolute inset-0 bg-[radial-gradient(120%_95%_at_50%_15%,rgb(255_255_255/0.12),transparent_62%)]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-charcoal-700/25 to-charcoal-700/55" />
+
+                <div className="absolute inset-0 flex items-center justify-center p-6">
+                  <span className="inline-flex items-center gap-3 rounded-full bg-mustard py-2.5 pl-7 pr-2.5 shadow-[0_10px_28px_-10px_rgb(0_0_0/0.55)] transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transform-none">
+                    <span className="text-lg font-bold uppercase tracking-[0.06em] text-white sm:text-xl">
+                      Download now
+                    </span>
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white">
+                      <ChevronsRight className="h-5 w-5 text-mustard-600 transition-transform duration-500 ease-out group-hover:translate-x-0.5 motion-reduce:transform-none" />
+                    </span>
+                  </span>
                 </div>
               </div>
 
