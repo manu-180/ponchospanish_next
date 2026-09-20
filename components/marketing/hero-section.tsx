@@ -7,7 +7,7 @@ import { ArrowRight, PlayCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-const headline = ["Online", "Spanish", "lessons for", "kids & teens"];
+const headline = ["Helping", "curious", "minds", "learn", "Spanish"];
 
 export function HeroSection() {
   const reducedMotion = useReducedMotion();
@@ -69,7 +69,7 @@ export function HeroSection() {
           </h1>
 
           <p
-            className="max-w-xl text-xl font-bold leading-snug text-charcoal-400 md:text-2xl"
+            className="max-w-xl text-lg font-semibold leading-snug tracking-wide text-charcoal-500 md:text-xl"
           >
             Without the panic or the perfectionism.
           </p>

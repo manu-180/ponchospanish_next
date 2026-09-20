@@ -24,11 +24,11 @@ export const lessonPages: LessonPage[] = [
     description: "Online Spanish lessons for children aged 7–18 with Anto, a certified native teacher. Choose private or small group classes in the UK. Book a free trial today.",
     heading: "Online Spanish lessons for children",
     audience: "Children & teens · Ages 7–18",
-    introduction: "Give your child a place to try Spanish, ask questions and grow in confidence. Poncho Spanish offers live online Spanish lessons for children and teenagers aged 7–18, with a certified native teacher who gets to know the learner. Choose individual attention or learn alongside a small group of friends, from home anywhere in the UK.",
+    introduction: "Give your child a place to try Spanish, ask questions and grow in confidence. Poncho Spanish offers live online Spanish lessons for children and teenagers aged 7–18, with a certified native teacher who gets to know the learner. Choose individual attention or learn alongside a small group of friends, from home anywhere in the world.",
     image: "/images/foto1.jpeg",
     imageAlt: "One-to-one Spanish learning for children with Poncho Spanish",
     price: 35,
-    priceNote: "Private lesson · £40 per session for a group of up to four, shared between learners",
+    priceNote: "Private lesson",
     sections: [
       {
         heading: "A starting point that fits your child",
@@ -93,8 +93,8 @@ export const lessonPages: LessonPage[] = [
     introduction: "Make Spanish part of a home education routine that works for your family. Poncho Spanish offers online lessons for home-educated children and teenagers aged 7–18, taught by Anto, a certified native Spanish teacher. You can choose individual lessons or organise a small group, whether your child is exploring a new language or building towards a more specific goal.",
     image: "/images/foto2.jpeg",
     imageAlt: "Learning Spanish together in a small group",
-    price: 35,
-    priceNote: "Private lesson · £40 per session for your own group of up to four, shared between learners",
+    price: 40,
+    priceNote: "Start your own group",
     sections: [
       {
         heading: "Choose what Spanish is for in your family",
