@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, BookOpen, Mail, GraduationCap, LogIn } from "lucide-react";
+import { Menu, X, BookOpen, Mail, GraduationCap, LogIn, Newspaper, Sparkles } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,10 +15,15 @@ interface SiteHeaderProps {
   isAuthenticated?: boolean;
 }
 
+// El orden importa para el subrayado animado y para el `activeIndex`: se busca
+// el primer link cuyo pathname coincida por prefijo, así que "/" va primero y
+// las rutas más específicas después.
 const links = [
   { href: "/", label: "Home", icon: null },
+  { href: "/spanish-lessons", label: "Lessons", icon: Sparkles },
   { href: "/ondemand", label: "Academy", icon: GraduationCap },
-  { href: "/#contact", label: "Get in Touch", icon: Mail },
+  { href: "/guides", label: "Guides", icon: Newspaper },
+  { href: "/contact", label: "Contact", icon: Mail },
 ];
 
 export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {

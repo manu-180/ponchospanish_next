@@ -155,6 +155,35 @@ export function faqPageSchema(items: FaqItem[]): JsonLdNode {
   };
 }
 
+/** A guide / article page. `author` points at Anto so E-E-A-T is attributable. */
+export function articleSchema(article: {
+  headline: string;
+  description: string;
+  path: string;
+  image: string;
+  datePublished: string;
+  dateModified?: string;
+  wordCount?: number;
+}): JsonLdNode {
+  const url = absolute(article.path);
+  return {
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: article.headline,
+    description: article.description,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    image: absolute(article.image),
+    inLanguage: siteConfig.language,
+    datePublished: article.datePublished,
+    dateModified: article.dateModified ?? article.datePublished,
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": ORG_ID },
+    isAccessibleForFree: true,
+    ...(article.wordCount ? { wordCount: article.wordCount } : {}),
+  };
+}
+
 /** Breadcrumbs for nested pages. */
 export function breadcrumbSchema(
   crumbs: Array<{ name: string; path: string }>,

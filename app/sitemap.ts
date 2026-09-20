@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { absolute } from "@/lib/seo/config";
+import { guidePages } from "@/lib/seo/guides";
 import { getSitemapCatalog, type SitemapCatalogEntry } from "@/lib/seo/public-catalog";
 
 export const revalidate = 3600;
@@ -24,10 +25,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/spanish-lessons/gcse",
     "/spanish-lessons/home-education",
     "/spanish-lessons/adults",
+    "/guides",
+    "/contact",
     "/legal/terms",
   ];
   return [
     ...paths.map((path) => ({ url: absolute(path) })),
+    ...guidePages.map((guide) => ({
+      url: absolute(`/guides/${guide.slug}`),
+      lastModified: new Date(guide.updated),
+    })),
     ...catalogEntries(courses, "/ondemand"),
     ...catalogEntries(products, "/ondemand/ebooks"),
   ];

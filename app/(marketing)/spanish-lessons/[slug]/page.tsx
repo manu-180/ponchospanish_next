@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig, absolute } from "@/lib/seo/config";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { getLessonPage, lessonPages } from "@/lib/seo/lessons";
+import { guidePages } from "@/lib/seo/guides";
 import { breadcrumbSchema, faqPageSchema, graph } from "@/lib/seo/schema";
 
 interface PageProps {
@@ -29,6 +30,7 @@ export default async function LessonDetailPage({ params }: PageProps) {
   if (!page) notFound();
   const path = `/spanish-lessons/${page.slug}`;
   const related = lessonPages.filter((lesson) => page.related.includes(lesson.slug));
+  const guides = guidePages.filter((guide) => guide.relatedLessons.includes(page.slug));
 
   return (
     <>
@@ -116,6 +118,13 @@ export default async function LessonDetailPage({ params }: PageProps) {
             <p className="mt-4 text-base leading-relaxed text-charcoal-500/85">Anto is a native Spanish speaker from Buenos Aires and a certified ELE (Spanish as a Foreign Language) teacher. She has taught since 2005 and founded Poncho Spanish in 2020.</p>
             <Link href="/#about" className="mt-4 inline-block py-2 font-semibold text-charcoal-600 underline underline-offset-4">More about Anto</Link>
           </section>
+          {guides.length > 0 && (
+            <section className="rounded-3xl bg-mustard/10 p-7 md:p-9">
+              <h2 className="font-serif text-2xl">Read this first</h2>
+              <p className="mt-3 text-sm leading-relaxed text-charcoal-500">Free guides from Anto, no sign-up needed.</p>
+              <ul className="mt-4 space-y-2">{guides.map((guide) => <li key={guide.slug}><Link href={`/guides/${guide.slug}`} className="inline-block py-2 font-semibold text-charcoal-600 underline underline-offset-4">{guide.heading}</Link></li>)}</ul>
+            </section>
+          )}
           <section className="px-2">
             <h2 className="font-serif text-2xl">Explore your options</h2>
             <ul className="mt-4 space-y-2">{related.map((lesson) => <li key={lesson.slug}><Link href={`/spanish-lessons/${lesson.slug}`} className="inline-block py-2 text-charcoal-500 underline underline-offset-4 hover:text-charcoal-600">{lesson.heading}</Link></li>)}<li><Link href="/ondemand" className="inline-block py-2 text-charcoal-500 underline underline-offset-4 hover:text-charcoal-600">Self-paced Spanish courses and ebooks</Link></li></ul>

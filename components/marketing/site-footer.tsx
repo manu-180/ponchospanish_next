@@ -44,6 +44,16 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/guides" className="hover:text-mustard-200 transition-colors">
+                Guides for parents
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="hover:text-mustard-200 transition-colors">
+                Contact Anto
+              </Link>
+            </li>
+            <li>
               <Link href="https://calendly.com/ponchospanish/30min" target="_blank" rel="noopener noreferrer" className="hover:text-mustard-200 transition-colors">
                 Book a trial
               </Link>
