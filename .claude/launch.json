@@ -2,16 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "poncho-dev",
-      "runtimeExecutable": "envkit",
-      "runtimeArgs": [
-        "run",
-        "--",
-        "pnpm",
-        "dev"
-      ],
-      "port": 3000,
-      "autoPort": true
+      "name": "poncho-prod-preview",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["start", "-p", "3123"],
+      "port": 3123
     }
   ]
 }

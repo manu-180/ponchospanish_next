@@ -107,3 +107,36 @@ Al mirar la home en un browser headless: la mayoría de las secciones usan frame
 animaciones quedan congeladas en `opacity: 0` y la captura sale **en blanco** aunque el DOM
 esté perfecto. Además el scroll no repinta bien. La forma que funciona: poner el viewport
 alto (`1280x3400`), navegar, esperar unos segundos y capturar sin scrollear.
+
+---
+
+## SEO — estado y contexto (2026-09-20)
+
+**Línea base de Search Console antes de tocar nada:** 16 meses = 421 impresiones, 9 clics,
+CTR 2,1%, posición 10,7. La curva es plana desde febrero 2026, antes y después de la
+migración. O sea: el CTR y los snippets funcionan; **el problema es 100% volumen de
+impresiones**. No gastar tiempo en titles o velocidad; lo que mueve el número es contenido.
+
+**Migración Wix → Next sin redirects.** El dominio corrió sobre Wix hasta mayo 2026.
+`LEGACY_WIX_REDIRECTS` en `next.config.mjs` manda cada URL vieja con `statusCode: 301`
+(no `permanent: true`, que da 308). No borrar ese bloque. Si Search Console muestra un 404
+de una URL de Wix que falta, se agrega ahí.
+
+**`/guides`** (`lib/seo/guides.ts`, mismo patrón que `lib/seo/lessons.ts`). Tres guías
+confirmadas por Anto. La de GCSE sale de la especificación oficial de AQA 8692; si se
+actualiza un dato, cambiar también `updated` (mueve el `dateModified` del schema). Nunca
+escribir datos de exámenes sin verificarlos contra la fuente oficial. Cada guía declara
+`relatedLessons`, y las landings de `/spanish-lessons/[slug]` las muestran solas.
+
+**Público, según Anto:** chicos y adolescentes de 7 a 18, sobre todo en el Reino Unido,
+y también familias angloparlantes que viven en España u otro país hispanohablante con
+hijos en colegios británicos o internacionales (IGCSE, español como segunda lengua).
+Adultos solo como excepción. Anto vive en Buenos Aires y el negocio es 100% online: no
+aplica SEO local ni Google Business Profile.
+
+**Anto prefiere menos es más.** Pidió explícitamente no seguir agregando secciones. Antes
+de sumar páginas nuevas, preguntar.
+
+**Backlinks:** las dos fichas que existían están muertas. Club Hub da 404 (membresía
+vencida, cuesta desde £49/año) y la de Family Grapevine fue borrada (el alta es gratis en
+`thefamilygrapevine.co.uk/brighton-hove/send-your-free-listing/`).

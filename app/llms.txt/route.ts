@@ -11,7 +11,10 @@ export function GET() {
 
 > ${siteConfig.description}
 
-Poncho Spanish is a one-teacher online Spanish school serving the United Kingdom.
+Poncho Spanish is a one-teacher online Spanish school for children and teens, mainly
+in the United Kingdom, plus English-speaking families living in Spain and other
+Spanish-speaking countries whose children attend British or international schools
+(often studying IGCSE Spanish). Adults are taught one-to-one as an exception.
 All lessons are live on Zoom, 50 minutes long, taught by ${f.name}, a native Spanish
 speaker from Buenos Aires with an ELE (Spanish as a Foreign Language) teaching
 certification. Teaching since 2005; Poncho Spanish founded in ${siteConfig.foundingYear}.

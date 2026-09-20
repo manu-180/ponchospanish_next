@@ -80,6 +80,7 @@ export const lessonPages: LessonPage[] = [
     faqs: [
       { question: "How much does GCSE Spanish tuition cost?", answer: "GCSE and IGCSE support costs £50 per 50-minute online session. Choose one-to-one tuition or a group of up to four learners; the session fee is shared between participants in a group. Fees are paid monthly via PayPal." },
       { question: "Can home-educated learners ask about exam support?", answer: "Yes. Home-educating families can discuss GCSE or IGCSE support with Anto. Bring the intended qualification and exam year to the trial. Before making an exam plan, check entry arrangements directly with the exam board or your chosen examination centre." },
+      { question: "We live in Spain and my child goes to a British international school. Can you help?", answer: "Yes. Many learners live in Spain or another Spanish-speaking country, study in English at a British or international school and take Spanish as a school subject, often towards IGCSE. Living surrounded by Spanish does not always make the school exam easier. Tell Anto the school, the qualification and the exam year in the free trial." },
       { question: "Does my child need to know their exam board?", answer: "It helps to have the board and specification code before planning exam preparation. Ask the school or examination centre if you are unsure. Share these details with Anto so you can discuss the learner's course and whether the support fits their needs." },
     ],
     related: ["children", "home-education"],

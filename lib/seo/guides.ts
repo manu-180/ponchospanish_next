@@ -33,7 +33,7 @@ export const guidePages: GuidePage[] = [
     image: "/images/foto2.jpeg",
     imageAlt: "A teenager preparing for a GCSE Spanish exam at home",
     introduction:
-      "Teenagers sitting Spanish in summer 2026 are the first group to take the new GCSE specification, taught from September 2024. If your child mentions a dictation task or reading aloud and you do not remember either from your own school years, you are right: they are new. Here is what the qualification now looks like, described in plain English, so you can follow what your child is being asked to do.",
+      "Teenagers sitting Spanish in summer 2026 are the first group to take the new GCSE specification, taught from September 2024. If your child mentions a dictation task or reading aloud and you do not remember either from your own school years, you are right: they are new. Here is what the qualification now looks like, described in plain English, so you can follow what your child is being asked to do. The details below follow AQA's specification (8692).",
     keyFacts: [
       { label: "First exams", value: "Summer 2026" },
       { label: "Papers", value: "Listening, Speaking, Reading, Writing" },
@@ -118,6 +118,11 @@ export const guidePages: GuidePage[] = [
         question: "Can my child sit different tiers for different papers?",
         answer:
           "No. Students are entered at either Foundation or Higher tier and must sit that same tier across all four papers. Foundation covers grades 1 to 5 and Higher covers grades 4 to 9.",
+      },
+      {
+        question: "Does any of this apply to IGCSE Spanish?",
+        answer:
+          "Not directly. IGCSE is a separate qualification with its own specification, and it is what many British and international schools outside the UK teach, including in Spain. The changes in this guide describe the new GCSE. If your child is taking IGCSE, check the exam board and specification with the school.",
       },
       {
         question: "Do you teach IGCSE Spanish as well as GCSE?",
