@@ -41,13 +41,14 @@ export const metadata: Metadata = {
   publisher: "Poncho Spanish",
   keywords: [...siteConfig.keywords],
   category: "education",
-  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
-    ? {
-        verification: {
-          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-        },
-      }
-    : {}),
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+      : {}),
+    // Verificación de Bing Webmaster Tools (token público, no es un secreto).
+    // Si se borra, Bing pierde el acceso al sitio y hay que verificar de nuevo.
+    other: { "msvalidate.01": "87A140CB2FE20CA899AF6A5D30470CB4" },
+  },
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
