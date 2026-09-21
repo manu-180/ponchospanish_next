@@ -30,7 +30,7 @@ export const guidePages: GuidePage[] = [
     kicker: "GCSE & IGCSE · Exam guide",
     updated: "2026-09-20",
     readingMinutes: 8,
-    image: "/images/foto2.jpeg",
+    image: "/images/foto3.jpeg",
     imageAlt: "A teenager preparing for a GCSE Spanish exam at home",
     introduction:
       "Teenagers sitting Spanish in summer 2026 are the first group to take the new GCSE specification, taught from September 2024. If your child mentions a dictation task or reading aloud and you do not remember either from your own school years, you are right: they are new. Here is what the qualification now looks like, described in plain English, so you can follow what your child is being asked to do. The details below follow AQA's specification (8692).",
@@ -242,8 +242,8 @@ export const guidePages: GuidePage[] = [
     kicker: "Home education · Ages 7 to 18",
     updated: "2026-09-20",
     readingMinutes: 7,
-    image: "/images/foto3.jpeg",
-    imageAlt: "A home-educated child taking an online Spanish lesson",
+    image: "/images/foto2.jpeg",
+    imageAlt: "Home-educated children learning Spanish together in a small group",
     introduction:
       "Languages are one of the subjects home-educating families most often put off, usually for a practical reason rather than a philosophical one: it is hard to teach a language you do not speak, and harder to assess. Here is how families in the UK tend to make Spanish work, and the decisions worth making early.",
     sections: [
