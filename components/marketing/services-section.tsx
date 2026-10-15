@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Plus } from "lucide-react";
 import { AnimatedSection } from "@/components/shared/animated-section";
+import { AcademyExtra } from "@/components/marketing/academy-extra";
 
 const CALENDLY_URL = "https://calendly.com/ponchospanish/30min";
 
@@ -15,27 +16,13 @@ const services = [
     linkLabel: "Spanish lessons for children",
     title: "Private lessons",
     subtitle: "Ages 7 – 18",
-    price: "£35 per session",
+    price: "£150",
     bullet: "1:1 personalised support",
-    description: "Ideal for children who prefer individual attention.",
+    description:
+      "Lessons shaped around your child's interests, needs and goals.",
     image: "/images/foto1.jpeg",
     alt: "Private one-to-one online Spanish lessons for children and teens aged 7 to 18",
     accent: "from-mustard/40 to-mustard/0",
-  },
-  {
-    id: "group",
-    href: "/spanish-lessons/home-education",
-    linkLabel: "Home education & group lessons",
-    title: "Start your own group",
-    subtitle: "Ages 7 – 18",
-    price: "£40 per session",
-    priceNote: "(shared between the participants)",
-    bullet: "Small group lessons with friends (up to 4 learners)",
-    description:
-      "A lovely balance between social learning and individual attention.",
-    image: "/images/foto2.jpeg",
-    alt: "Small group online Spanish lessons for kids and teens, up to four learners",
-    accent: "from-terracotta/40 to-terracotta/0",
   },
   {
     id: "gcse",
@@ -43,10 +30,9 @@ const services = [
     linkLabel: "GCSE & IGCSE Spanish tuition",
     title: "(I)GCSE Exam Support",
     subtitle: "Confidence first",
-    price: "£50 per session",
-    priceNote: "(shared between participants when learning as a group)",
+    price: "£180",
     bullet:
-      "Focused support for (I)GCSE preparation. Available as 1:1 personalised support or small group lessons with friends (up to 4 learners).",
+      "Focused support for (I)GCSE preparation. Available as 1:1 personalised support.",
     description: "Perfect to boost confidence and calm nerves.",
     image: "/images/foto3.jpeg",
     alt: "GCSE and IGCSE Spanish exam support lessons online",
@@ -58,7 +44,7 @@ const services = [
     linkLabel: "Spanish lessons for adults",
     title: "Private lessons",
     subtitle: "Adults",
-    price: "£35 per session",
+    price: "£150",
     bullet: "1:1 stress-free approach",
     description:
       "Designed for adults looking for personalised lessons built around your goals.",
@@ -81,7 +67,7 @@ export function ServicesSection() {
           </p>
         </AnimatedSection>
 
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mx-auto max-w-6xl">
           {services.map((service, i) => (
             <motion.div
               key={service.id}
@@ -101,7 +87,7 @@ export function ServicesSection() {
                     src={service.image}
                     alt={service.alt}
                     fill
-                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div
@@ -122,20 +108,23 @@ export function ServicesSection() {
 
                   <div className="h-[2px] w-10 bg-mustard" />
 
-                  <p className="font-serif text-lg text-charcoal-500">
-                    {service.price}
+                  <p className="font-serif text-charcoal-600">
+                    <span className="text-3xl">{service.price}</span>
+                    <span className="ml-1.5 font-sans text-sm text-charcoal-400">
+                      per month
+                    </span>
                   </p>
-                  {service.priceNote && (
-                    <p className="-mt-3 text-xs italic text-charcoal-400">
-                      {service.priceNote}
-                    </p>
-                  )}
 
                   <p className="text-sm leading-relaxed text-charcoal-500/85">
                     {service.bullet}
                   </p>
                   <p className="text-sm leading-relaxed text-charcoal-400">
                     {service.description}
+                  </p>
+
+                  <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-terracotta-500">
+                    <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+                    Poncho Academy included
                   </p>
 
                   <div className="flex-1" />
@@ -168,6 +157,8 @@ export function ServicesSection() {
             compare online Spanish lessons and prices
           </Link>.
         </p>
+
+        <AcademyExtra />
 
         <AnimatedSection delay={0.2} className="mt-20 md:mt-24 text-center">
           <p className="font-serif italic text-2xl md:text-3xl text-mustard-600">

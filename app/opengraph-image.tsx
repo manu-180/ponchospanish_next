@@ -56,7 +56,7 @@ export default function OpenGraphImage() {
             Online Spanish lessons for curious kids &amp; teens
           </div>
           <div style={{ fontSize: 34, color: "#7c6f63", maxWidth: 900 }}>
-            Private classes, small groups, GCSE support &amp; an on-demand
+            Private 1:1 classes, GCSE support &amp; an on-demand
             Academy — across the UK.
           </div>
         </div>

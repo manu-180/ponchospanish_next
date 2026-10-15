@@ -28,7 +28,7 @@ export const guidePages: GuidePage[] = [
       "What changed in the new GCSE Spanish specification, how the four papers are assessed, what the dictation and reading aloud tasks involve, and how to support your teenager at home.",
     heading: "The new GCSE Spanish, explained for parents",
     kicker: "GCSE & IGCSE · Exam guide",
-    updated: "2026-09-20",
+    updated: "2026-10-15",
     readingMinutes: 8,
     image: "/images/foto3.jpeg",
     imageAlt: "A teenager preparing for a GCSE Spanish exam at home",
@@ -94,7 +94,7 @@ export const guidePages: GuidePage[] = [
         heading: "When outside support is worth it",
         paragraphs: [
           "A tutor is not automatically the answer. It tends to help when the gap is specific and speaking-related: a student who understands the material but dries up out loud, one who is anxious about reading aloud, or one who has just moved tier and needs to catch up on grammar quickly.",
-          "If that sounds familiar, focused GCSE and IGCSE Spanish sessions with Anto run one-to-one or in a small group of up to four, at £50 per 50-minute session. A free trial is a sensible way to find out whether it fits before committing to anything.",
+          "If that sounds familiar, focused one-to-one GCSE and IGCSE Spanish sessions with Anto are £180 per month, with 50-minute lessons during UK term time. A free trial is a sensible way to find out whether it fits before committing to anything.",
         ],
       },
     ],
@@ -127,7 +127,7 @@ export const guidePages: GuidePage[] = [
       {
         question: "Do you teach IGCSE Spanish as well as GCSE?",
         answer:
-          "Yes. Exam support sessions cover both GCSE and IGCSE Spanish, one-to-one or in a small group of up to four learners, at £50 per 50-minute session. Discuss your child's exam board and current tier in the free trial.",
+          "Yes. Exam support covers both GCSE and IGCSE Spanish, one-to-one, at £180 per month. Discuss your child's exam board and current tier in the free trial.",
       },
     ],
     cta: {
@@ -146,7 +146,7 @@ export const guidePages: GuidePage[] = [
       "Practical ways UK parents can support a child learning Spanish at home, even with no Spanish of their own. What actually helps, what to avoid, and how much time it really takes.",
     heading: "Helping your child with Spanish when you do not speak it",
     kicker: "For parents · Ages 7 to 18",
-    updated: "2026-09-20",
+    updated: "2026-10-15",
     readingMinutes: 7,
     image: "/images/foto1.jpeg",
     imageAlt: "A child practising Spanish at home with a parent nearby",
@@ -198,7 +198,7 @@ export const guidePages: GuidePage[] = [
         heading: "Signs it is worth getting help",
         paragraphs: [
           "Lessons outside school are not a default. They make sense when the same gap keeps reappearing, when confidence rather than ability is the blocker, or when an exam is close enough that time matters.",
-          "Poncho Spanish runs live online lessons for children and teens aged 7 to 18, one-to-one at £35 or in a small group of up to four friends at £40 per session. Every family starts with a free trial, which is mostly a conversation about where your child actually is.",
+          "Poncho Spanish runs live online lessons for children and teens aged 7 to 18, one-to-one at £150 per month, with complimentary access to the Poncho Academy. Every family starts with a free trial, which is mostly a conversation about where your child actually is.",
         ],
       },
     ],
@@ -219,9 +219,9 @@ export const guidePages: GuidePage[] = [
           "A modern foreign language has been a statutory part of the national curriculum at Key Stage 2 in England since 2014, so most children meet one from age seven. Children can start earlier or later. What matters more is regular contact and a low-pressure start. Poncho Spanish teaches learners aged 7 to 18.",
       },
       {
-        question: "Are group or one-to-one lessons better for a child?",
+        question: "Why are Poncho Spanish lessons one-to-one?",
         answer:
-          "It depends on the learner. One-to-one lessons at £35 per session suit a child who needs individual attention or feels self-conscious speaking. A small group of up to four at £40 per session suits a child who is more relaxed learning alongside friends. You can discuss which fits in the free trial.",
+          "Individual lessons let the pace, topics and corrections follow one child, which matters most for learners who feel self-conscious speaking. Private lessons are £150 per month, and you can see how one feels in the free trial.",
       },
     ],
     cta: {
@@ -237,13 +237,13 @@ export const guidePages: GuidePage[] = [
     slug: "spanish-for-home-education-uk",
     title: "Spanish for Home Education in the UK: A Practical Guide",
     description:
-      "How to fit Spanish into a home education routine in the UK, what families need to know about languages and qualifications, and how to choose between apps, small groups and a teacher.",
+      "How to fit Spanish into a home education routine in the UK, what families need to know about languages and qualifications, and how to choose between apps, workbooks and a teacher.",
     heading: "Fitting Spanish into home education",
     kicker: "Home education · Ages 7 to 18",
-    updated: "2026-09-20",
+    updated: "2026-10-15",
     readingMinutes: 7,
     image: "/images/foto2.jpeg",
-    imageAlt: "Home-educated children learning Spanish together in a small group",
+    imageAlt: "Home-educated children learning Spanish",
     introduction:
       "Languages are one of the subjects home-educating families most often put off, usually for a practical reason rather than a philosophical one: it is hard to teach a language you do not speak, and harder to assess. Here is how families in the UK tend to make Spanish work, and the decisions worth making early.",
     sections: [
@@ -273,10 +273,10 @@ export const guidePages: GuidePage[] = [
         ],
       },
       {
-        heading: "Small groups solve the social problem",
+        heading: "Speaking practice is the part to plan for",
         paragraphs: [
-          "Home-educated learners often have less incidental practice speaking to people outside the family, which is precisely what a language needs. A small group of up to four gives that without the pace of a class of thirty.",
-          "Families often form a group with friends already in their home education circle, which has an underrated advantage: the children trust each other enough to be wrong out loud.",
+          "Home-educated learners often have less incidental practice speaking to people outside the family, which is precisely what a language needs. A regular conversation with someone who is not a parent fills that gap.",
+          "One-to-one lessons do it without the pace of a class of thirty, and with room for a child to be wrong out loud without an audience. That is usually when speaking confidence starts to grow.",
         ],
       },
       {
@@ -295,7 +295,7 @@ export const guidePages: GuidePage[] = [
         heading: "How lessons fit a home education week",
         paragraphs: [
           "Live sessions run for 50 minutes on Zoom during term time, and daytime slots are available rather than only after school, which is usually the practical advantage for home-educating families.",
-          "Home education Spanish with Anto costs £35 per session one-to-one, or £40 per session for a group of up to four learners shared between families. Start with a free trial and talk through your routine, your child's stage, and whether you are working towards an exam.",
+          "Home education Spanish with Anto costs £150 per month for one-to-one lessons, with complimentary access to the Poncho Academy for independent study days. Start with a free trial and talk through your routine, your child's stage, and whether you are working towards an exam.",
         ],
       },
     ],
@@ -314,11 +314,6 @@ export const guidePages: GuidePage[] = [
         question: "Can we have Spanish lessons during the school day?",
         answer:
           "Yes. Daytime slots are available during term time, which suits home education routines better than after-school times. Discuss your availability with Anto in the free trial before settling on a regular slot.",
-      },
-      {
-        question: "Can my child learn with other home-educated children?",
-        answer:
-          "Yes. You can form a small group of up to four learners, which costs £40 per 50-minute session in total, shared between families. Share the children's ages and Spanish experience beforehand so you can discuss whether learning together makes sense.",
       },
     ],
     cta: {

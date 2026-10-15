@@ -54,7 +54,7 @@ export function HeroSection() {
             className="inline-flex items-center gap-2 rounded-full border border-mustard/40 bg-mustard/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-mustard-600"
           >
             <span className="size-1.5 rounded-full bg-mustard animate-pulse" />
-            Online · One-to-one · Group · GCSE
+            Online · One-to-one · GCSE
           </div>
 
           <h1 className="font-serif text-display-2xl uppercase leading-[0.95] text-balance">

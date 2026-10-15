@@ -21,7 +21,6 @@ import { Button } from "@/components/ui/button";
 const levels = ["Beginner", "Intermediate", "Advanced"] as const;
 const interests = [
   "Private Lessons",
-  "Start Your Own Group",
   "GCSE Exam Support",
   "On-Demand Courses",
   "Other",

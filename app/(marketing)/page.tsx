@@ -4,6 +4,7 @@ import { OnDemandSection } from "@/components/marketing/on-demand-section";
 import { ServicesSection } from "@/components/marketing/services-section";
 import { ReviewsSection } from "@/components/marketing/reviews-section";
 import { AboutAntoSection } from "@/components/marketing/about-anto-section";
+import { ApproachSection } from "@/components/marketing/approach-section";
 import { CtaVideoSection } from "@/components/marketing/cta-video-section";
 import { PricingSection } from "@/components/marketing/pricing-section";
 import { FaqSection } from "@/components/marketing/faq-section";
@@ -15,7 +16,7 @@ import { homeFaqs } from "@/lib/seo/faq";
 export const metadata = pageMetadata({
   title: "Spanish Lessons for Kids & Teens in the UK",
   description:
-    "Online Spanish lessons for kids & teens in the UK. Private 1-to-1 classes, small groups and GCSE support with a certified native teacher. Book a free trial.",
+    "Online Spanish lessons for kids & teens in the UK. Private 1-to-1 classes and GCSE support with a certified native teacher. Book a free trial.",
   path: "/",
 });
 
@@ -27,6 +28,7 @@ export default function HomePage() {
       <ServicesSection />
       <ReviewsSection />
       <AboutAntoSection />
+      <ApproachSection />
       <CtaVideoSection />
       <PricingSection />
       <FaqSection />

@@ -18,14 +18,15 @@ Spanish-speaking countries whose children attend British or international school
 All lessons are live on Zoom, 50 minutes long, taught by ${f.name}, a native Spanish
 speaker from Buenos Aires with an ELE (Spanish as a Foreign Language) teaching
 certification. Teaching since 2005; Poncho Spanish founded in ${siteConfig.foundingYear}.
-Every new learner starts with a free trial. Fees are paid monthly via PayPal.
+Every new learner starts with a free trial. Fees are paid monthly via PayPal. Group lessons are not offered.
 
-## Live lesson prices (GBP, per 50-minute session)
+## Live lesson prices (GBP, per month, 50-minute one-to-one sessions during UK term time)
 
-- Private one-to-one, children and teens aged 7-18: £35
-- Small group of up to 4 learners, children and teens: £40 total, shared between families
-- GCSE and IGCSE Spanish exam support: £50
-- Private one-to-one for adults: £35
+- Free trial lesson, around 30 minutes, no commitment
+- Private one-to-one, children (7+), teens and adults: £150 per month
+- GCSE and IGCSE Spanish exam support, one-to-one: £180 per month
+- Every monthly plan includes complimentary access to the Poncho Academy
+- Fees are paid at the start of each month; learners can unenrol at any time with notice before the next payment
 
 ## Lesson pages
 
@@ -41,7 +42,7 @@ ${guidePages
 
 ## Self-paced Academy
 
-- [Spanish courses and ebooks](${absolute("/ondemand")}): self-paced video courses and downloadable workbooks. Pay once, lifetime access, no subscription.
+- [Spanish courses and ebooks](${absolute("/ondemand")}): self-paced video courses, e-books and downloadable resources. Included free for live-lesson students; also sold individually, pay once with lifetime access.
 
 ## Contact
 

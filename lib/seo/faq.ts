@@ -4,17 +4,17 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "How much do online Spanish lessons cost?",
     answer:
-      "Private one-to-one lessons are £35 per 50-minute session for children, teens and adults. Small group lessons are £40 per session in total, shared between up to four learners. GCSE or IGCSE support is £50 per session, shared when learning in a group. Start with a free trial; regular fees are paid monthly via PayPal.",
+      "Private one-to-one lessons for children, teens and adults are £150 per month. GCSE or IGCSE exam support is £180 per month. Every learner starts with a free trial of around 30 minutes. Fees are paid at the start of each month via PayPal and include complimentary access to the Poncho Academy.",
   },
   {
     question: "Do you offer GCSE and IGCSE Spanish support?",
     answer:
-      "Yes. Poncho Spanish provides focused GCSE and IGCSE Spanish exam support, available one-to-one or in a small group of up to four learners. Lessons are built to strengthen grammar and speaking, boost confidence and calm exam nerves so teenagers feel genuinely prepared.",
+      "Yes. Poncho Spanish provides focused GCSE and IGCSE Spanish exam support, with personalised one-to-one lessons. Lessons are built to strengthen grammar and speaking, boost confidence and calm exam nerves so teenagers feel genuinely prepared.",
   },
   {
     question: "What ages do you teach?",
     answer:
-      "Poncho Spanish specialises in children and teenagers aged 7 to 18, with lessons tailored to each learner's age and stage. Adults are welcome too: there are dedicated one-to-one adult lessons at £35 per session, built around your own goals at a relaxed, stress-free pace.",
+      "Poncho Spanish specialises in children and teenagers aged 7 to 18, with lessons tailored to each learner's age and stage. Adults are welcome too: there are dedicated one-to-one adult lessons at £150 per month, built around your own goals at a relaxed, stress-free pace.",
   },
   {
     question: "Are the Spanish lessons online?",
@@ -24,7 +24,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "Is Poncho Spanish suitable for homeschooling and after-school learning?",
     answer:
-      "Yes. Live Spanish lessons can be part of a home education routine or an after-school activity for children aged 7–18. Choose one-to-one tuition or organise a group of up to four learners. Sessions take place during term time; discuss current availability and your family's timetable with Anto.",
+      "Yes. Live Spanish lessons can be part of a home education routine or an after-school activity for children aged 7–18. Lessons are one-to-one and take place during UK term time, with daytime slots available; discuss current availability and your family's timetable with Anto.",
   },
   {
     question: "Who teaches the lessons?",
@@ -32,8 +32,8 @@ export const homeFaqs: FaqItem[] = [
       "Lessons are taught by Anto, a certified ELE (Spanish as a Foreign Language) teacher and native speaker from Buenos Aires, Argentina. She has been teaching since 2005, both in schools and independently, and founded Poncho Spanish in 2020.",
   },
   {
-    question: "Do I have to commit to a subscription?",
+    question: "Do I have to commit for the whole year?",
     answer:
-      "The on-demand Academy courses are pay-once with lifetime access, so there is no subscription to manage. Live lessons are arranged during term time and paid monthly via PayPal. Check the lesson terms and conditions for payment and cancellation arrangements before booking regular sessions.",
+      "No. Live lessons are paid month by month via PayPal, and you are free to unenrol at any time during the year: just give notice before the next monthly payment is due. Academy courses and e-books can also be bought individually, with lifetime access. Check the terms and conditions for payment and cancellation details.",
   },
 ];

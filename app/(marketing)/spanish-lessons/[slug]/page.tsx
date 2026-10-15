@@ -45,7 +45,7 @@ export default async function LessonDetailPage({ params }: PageProps) {
           url: absolute(path),
           provider: { "@id": `${siteConfig.url}/#organization` },
           areaServed: { "@type": "Country", name: "United Kingdom" },
-          offers: { "@type": "Offer", price: page.price, priceCurrency: "GBP", description: page.priceNote, url: siteConfig.bookingUrl },
+          offers: { "@type": "Offer", price: page.price, priceCurrency: "GBP", description: page.priceNote, url: siteConfig.bookingUrl, priceSpecification: { "@type": "UnitPriceSpecification", price: page.price, priceCurrency: "GBP", unitText: "MONTH" } },
         },
       )} />
       <section className="relative overflow-hidden pt-8 pb-16 md:pt-12 md:pb-24">
@@ -82,7 +82,7 @@ export default async function LessonDetailPage({ params }: PageProps) {
         <div className="container-wide grid gap-8 md:grid-cols-[1fr_1.4fr] md:gap-16">
           <div>
             <h2 className="font-serif text-3xl">Lesson details</h2>
-            <p className="mt-4 font-serif text-3xl text-charcoal-600">£{page.price}<span className="ml-2 font-sans text-base text-charcoal-500">per session</span></p>
+            <p className="mt-4 font-serif text-3xl text-charcoal-600">£{page.price}<span className="ml-2 font-sans text-base text-charcoal-500">per month</span></p>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-charcoal-500">{page.priceNote}</p>
           </div>
           <div>

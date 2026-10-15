@@ -27,7 +27,7 @@ export const siteConfig = {
   title: "Poncho Spanish — Online Spanish Lessons for Kids & Teens in the UK",
   /** Primary site description (≤ 160 chars sweet spot for SERP). */
   description:
-    "Online Spanish lessons for kids, teens and families across the UK. Private 1-to-1 classes, small groups, GCSE & IGCSE support, plus a self-paced on-demand Academy.",
+    "Online Spanish lessons for kids, teens and families across the UK. Private 1-to-1 classes and GCSE & IGCSE support, plus the self-paced Poncho Academy.",
   /** Short variant for OG/Twitter and AI extraction. */
   tagline:
     "Online Spanish lessons for kids & teens in the UK — relaxed, positive and confidence-first.",

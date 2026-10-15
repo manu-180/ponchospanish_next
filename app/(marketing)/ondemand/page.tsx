@@ -34,7 +34,7 @@ import {
 export const metadata = pageMetadata({
   title: "Online Spanish Courses & Ebooks",
   description:
-    "Self-paced Spanish courses and ebooks by Anto. Watch, read and practise at your own pace. Pay once, lifetime access — no subscription. UK learners welcome.",
+    "Self-paced Spanish courses, ebooks and resources by Anto. Pay once for lifetime access, or get it all free with live lessons. UK learners welcome.",
   path: "/ondemand",
 });
 
@@ -93,10 +93,12 @@ export default async function OnDemandPage() {
             </p>
             <p className="mt-3 text-lg text-charcoal-500/80 max-w-2xl">
               Watch the video, read the ebook, fill in the workbook, tick off
-              each lesson. Lifetime access, paid once. No subscriptions.
+              each lesson. Lifetime access, paid once.
             </p>
             <p className="mt-4 text-base leading-relaxed text-charcoal-500/80 max-w-2xl">
-              Prefer time with a teacher? Compare our{" "}
+              Taking live lessons with Anto? The whole Academy is included:
+              redeem the code you received and download everything for free.
+              New here? Compare our{" "}
               <Link href="/spanish-lessons" className="underline underline-offset-4 hover:text-mustard-600">live online Spanish lessons</Link>{" "}
               for children, home-educating families, exam students and adults.
             </p>

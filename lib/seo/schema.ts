@@ -89,7 +89,7 @@ export function personSchema(): JsonLdNode {
 }
 
 /**
- * The live lesson offerings (homepage). Concrete prices help AI answer
+ * The live lesson offerings (homepage). Concrete monthly prices help AI answer
  * "how much are Spanish lessons in the UK" type queries.
  */
 export function lessonServicesSchema(): JsonLdNode[] {
@@ -98,25 +98,19 @@ export function lessonServicesSchema(): JsonLdNode[] {
       name: "Private 1-to-1 Spanish lessons",
       description:
         "Personalised one-to-one online Spanish lessons for children and teens aged 7–18.",
-      price: 35,
-    },
-    {
-      name: "Small group Spanish lessons",
-      description:
-        "Online Spanish lessons in a small group of up to 4 learners — social learning with individual attention.",
-      price: 40,
+      price: 150,
     },
     {
       name: "GCSE & IGCSE Spanish exam support",
       description:
-        "Focused GCSE and IGCSE Spanish preparation, 1-to-1 or in a small group, built to boost confidence and calm nerves.",
-      price: 50,
+        "Focused one-to-one GCSE and IGCSE Spanish preparation, built to boost confidence and calm nerves.",
+      price: 180,
     },
     {
       name: "Private 1-to-1 Spanish lessons for adults",
       description:
         "Personalised one-to-one online Spanish lessons for adults, with a relaxed, stress-free approach built around your own goals.",
-      price: 35,
+      price: 150,
     },
   ];
 
@@ -132,6 +126,12 @@ export function lessonServicesSchema(): JsonLdNode[] {
       "@type": "Offer",
       price: s.price,
       priceCurrency: "GBP",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: s.price,
+        priceCurrency: "GBP",
+        unitText: "MONTH",
+      },
       url: siteConfig.bookingUrl,
       availability: "https://schema.org/InStock",
     },
