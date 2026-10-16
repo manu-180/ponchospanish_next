@@ -149,3 +149,10 @@ Anto pide los cambios del sitio por el grupo de WhatsApp "Poncho". Cuando Manuel
 "fijate lo que pasó en el grupo de Poncho": skill `grupo-poncho`
 (`envkit run -- python scripts/wa-poncho/leer.py --since ultimo`), resumir los pedidos
 y armar la lista de tareas. No implementar sin confirmación.
+
+Desde 2026-10-16 Anto cierra cada tanda con **"Listo"** y eso arranca solo: el bot
+commitea la tanda a la rama `pedidos` y la rutina cloud `poncho-pedidos`
+(`trig_012vy2YXnbT6iTpBxQJWwxfT`) la implementa y deploya. El bot sólo le escribe al
+grupo si la rutina dejó una pregunta. Protocolo: `docs/pedidos/PROTOCOLO.md`. Si una
+tanda se trabaja a mano, hay que marcarla en `wa_private_pedidos` (estado `manual`) para
+que la rutina no la repita.
