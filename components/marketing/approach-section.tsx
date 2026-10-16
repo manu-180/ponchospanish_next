@@ -1,26 +1,11 @@
 import { AnimatedSection } from "@/components/shared/animated-section";
 
 const pillars = [
-  {
-    title: "Exclusive",
-    body: "A personal learning experience, never a one-size-fits-all service.",
-  },
-  {
-    title: "Personalised",
-    body: "Lessons shaped around each learner's interests, needs and goals.",
-  },
-  {
-    title: "Human-centred",
-    body: "Relationships, confidence and individual wellbeing matter.",
-  },
-  {
-    title: "Holistic",
-    body: "Learning goes beyond vocabulary and grammar to embrace communication, culture and real-life experiences.",
-  },
-  {
-    title: "Nordic-inspired",
-    body: "A simple, thoughtful and considered approach, where less is more and learning has room to grow.",
-  },
+  "Exclusive",
+  "Personalised",
+  "Human-centred",
+  "Holistic",
+  "Nordic-inspired",
 ];
 
 export function ApproachSection() {
@@ -43,10 +28,10 @@ export function ApproachSection() {
 
           <AnimatedSection as="div" delay={0.1}>
             <ol className="divide-y divide-charcoal-100/70 border-y border-charcoal-100/70">
-              {pillars.map((p, i) => (
+              {pillars.map((title, i) => (
                 <li
-                  key={p.title}
-                  className="grid grid-cols-[3rem_1fr] gap-x-4 py-7 md:grid-cols-[4rem_12rem_1fr] md:items-baseline md:gap-x-6"
+                  key={title}
+                  className="grid grid-cols-[3rem_1fr] items-baseline gap-x-4 py-7 md:grid-cols-[4rem_1fr] md:gap-x-6"
                 >
                   <span
                     aria-hidden="true"
@@ -54,12 +39,9 @@ export function ApproachSection() {
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-serif text-2xl uppercase leading-tight text-charcoal-600">
-                    {p.title}
+                  <h3 className="font-serif text-2xl uppercase leading-tight text-charcoal-600 md:text-3xl">
+                    {title}
                   </h3>
-                  <p className="col-start-2 mt-2 text-base leading-relaxed text-charcoal-500/85 md:col-start-3 md:mt-0">
-                    {p.body}
-                  </p>
                 </li>
               ))}
             </ol>

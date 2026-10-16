@@ -29,7 +29,7 @@ const options = [
 const details = [
   {
     heading: "Lesson format",
-    body: "All sessions last 50 minutes, take place online via Zoom and run during UK term time.",
+    body: "All sessions last 50 minutes, take place online via Zoom and run once a week during UK term time.",
   },
   {
     heading: "Payments",

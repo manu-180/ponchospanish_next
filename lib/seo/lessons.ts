@@ -12,7 +12,6 @@ export interface LessonPage {
   price: number;
   priceNote: string;
   sections: Array<{ heading: string; paragraphs: string[]; bullets?: string[] }>;
-  preparation: string[];
   faqs: FaqItem[];
   related: string[];
 }
@@ -32,22 +31,21 @@ export const lessonPages: LessonPage[] = [
     sections: [
       {
         heading: "A starting point that fits your child",
-        paragraphs: ["A child trying their first Spanish words has different needs from a teenager who already studies the language at school. Tell Anto about your child's experience, interests and confidence during the free trial so you can discuss a suitable starting point together.", "Lessons are personalised to the learner's age and stage. Your goal might be an enjoyable introduction to a new language, more confidence speaking aloud, or support alongside school Spanish. Children do not need to be preparing for an exam to take part."],
+        paragraphs: ["A child trying their first Spanish words has different needs from a teenager who already studies the language at school. Tell Anto about your child's experience, interests and confidence so you can discuss a suitable starting point together.", "Lessons are personalised to the learner's age and stage. Your goal might be an enjoyable introduction to a new language, more confidence speaking aloud, or support alongside school Spanish. Children do not need to be preparing for an exam to take part."],
       },
       {
         heading: "Why one-to-one",
-        paragraphs: ["Private lessons are £150 per month and give your child individual attention. There is time to ask questions, revisit something from school and build confidence at their own pace, without keeping up with anyone else.", "The monthly fee also includes complimentary access to the Poncho Academy, with self-paced courses, e-books and learning resources your child can use between lessons."],
+        paragraphs: ["Private lessons give your child individual attention. There is time to ask questions, revisit something from school and build confidence at their own pace, without keeping up with anyone else.", "The monthly fee also includes complimentary access to the Poncho Academy, with self-paced courses, e-books and learning resources your child can use between lessons."],
       },
       {
         heading: "Make Spanish part of an ordinary week",
-        paragraphs: ["Live sessions last 50 minutes and take place on Zoom during term time. Discuss available times before choosing an after-school slot or fitting lessons into your home education routine.", "Between lessons, keep practice manageable. Invite your child to teach you a word they remember, name a favourite colour in Spanish or say one sentence about their day. These are simple ideas to try together; you do not need to speak Spanish yourself or turn practice into another test."],
+        paragraphs: ["Live sessions last 50 minutes and take place once a week on Zoom during term time. Discuss available times before choosing an after-school slot or fitting lessons into your home education routine.", "Between lessons, keep practice manageable. Invite your child to teach you a word they remember, name a favourite colour in Spanish or say one sentence about their day. These are simple ideas to try together; you do not need to speak Spanish yourself or turn practice into another test."],
       },
     ],
-    preparation: ["Your child's age and any Spanish they have already learnt.", "What they enjoy and what currently feels difficult.", "What you would like Spanish to add to your child's week.", "Your availability and a device with working Zoom audio and video."],
     faqs: [
       { question: "Can a complete beginner join?", answer: "Yes. Lessons are tailored to each learner's age and stage, including children who are new to Spanish. The free trial is an opportunity to meet Anto and discuss a comfortable starting point before arranging regular sessions." },
       { question: "Do you teach teenagers as well as younger children?", answer: "Yes, children's and teens' lessons cover ages 7–18. Private lessons are £150 per month. If the main goal is GCSE or IGCSE preparation, the dedicated exam support option is £180 per month." },
-      { question: "Are the lessons one-to-one?", answer: "Yes. Every lesson is private and one-to-one with Anto, so the pace and content follow your child. Lessons last 50 minutes, take place on Zoom during UK term time and cost £150 per month, paid monthly via PayPal." },
+      { question: "Are the lessons one-to-one?", answer: "Yes. Every lesson is private and one-to-one with Anto, so the pace and content follow your child. Lessons last 50 minutes, take place once a week on Zoom during UK term time and cost £150 per month, paid monthly via PayPal." },
     ],
     related: ["home-education", "gcse"],
   },
@@ -76,7 +74,6 @@ export const lessonPages: LessonPage[] = [
         paragraphs: ["Instead of planning to 'revise all Spanish', identify one task that keeps causing difficulty. For example, try answering a familiar question aloud, then check whether the verb tense and word order say what you intended. Note the point you could not resolve and bring it to the lesson.", "Keep a short list of recurring questions rather than collecting more resources than you can use. A marked school exercise, a difficult sentence or feedback from a speaking task can give a clearer starting point than a broad request to cover everything."],
       },
     ],
-    preparation: ["Exam board, qualification code, exam year and tier where applicable.", "Recent teacher feedback or a task the learner found difficult.", "The areas that need attention and any upcoming school deadlines.", "Any dates you are working towards, such as mocks or the speaking exam."],
     faqs: [
       { question: "How much does GCSE Spanish tuition cost?", answer: "GCSE and IGCSE support costs £180 per month for one-to-one 50-minute online sessions during UK term time. Fees are paid monthly via PayPal and include complimentary access to the Poncho Academy." },
       { question: "Can home-educated learners ask about exam support?", answer: "Yes. Home-educating families can discuss GCSE or IGCSE support with Anto. Bring the intended qualification and exam year to the trial. Before making an exam plan, check entry arrangements directly with the exam board or your chosen examination centre." },
@@ -114,10 +111,9 @@ export const lessonPages: LessonPage[] = [
         paragraphs: ["If your teenager is considering a qualification, start by identifying the exact GCSE or IGCSE course and intended exam year. Poncho Spanish offers a separate exam support option at £180 per month. Discuss the qualification with Anto and check exam entry arrangements directly with the board or your chosen examination centre."],
       },
     ],
-    preparation: ["Your child's age, interests and previous experience of Spanish.", "What you want lessons to add to your home education routine.", "Your timetable and the times of day that suit your routine.", "Any qualification you are considering, including the board and exam year."],
     faqs: [
       { question: "Do parents need to speak Spanish?", answer: "No. Anto teaches the live lessons, so you do not need to teach the language yourself. You can help by sharing your child's interests, setting up Zoom and making room for any practice you agree is useful." },
-      { question: "How much do home education Spanish lessons cost?", answer: "Private one-to-one lessons are £150 per month, paid monthly via PayPal. Sessions last 50 minutes and take place on Zoom during UK term time. The fee includes complimentary access to the Poncho Academy." },
+      { question: "How much do home education Spanish lessons cost?", answer: "Private one-to-one lessons are £150 per month, paid monthly via PayPal. Sessions last 50 minutes and take place once a week on Zoom during UK term time. The fee includes complimentary access to the Poncho Academy." },
       { question: "Can we learn Spanish without preparing for an exam?", answer: "Yes. General lessons can be part of your child's wider home education, without an exam goal. If you later want to discuss GCSE or IGCSE preparation, there is a separate exam support option at £180 per month." },
     ],
     related: ["children", "gcse"],
@@ -140,16 +136,15 @@ export const lessonPages: LessonPage[] = [
       },
       {
         heading: "What private lessons involve",
-        paragraphs: ["Adult lessons are live, individual sessions on Zoom with Anto. Each session lasts 50 minutes and lessons are £150 per month. They take place during UK term time, with fees paid monthly via PayPal in GBP or the equivalent in your local currency.", "Share your availability before choosing a regular time. If you are learning towards a particular trip or event, mention the date and what you hope to feel more comfortable doing, so you can discuss realistic priorities for the time available."],
+        paragraphs: ["Adult lessons are live, individual sessions on Zoom with Anto. Each session lasts 50 minutes and lessons are £150 per month. They take place once a week during UK term time, with fees paid monthly via PayPal in GBP or the equivalent in your local currency.", "Share your availability before choosing a regular time. If you are learning towards a particular trip or event, mention the date and what you hope to feel more comfortable doing, so you can discuss realistic priorities for the time available."],
       },
       {
         heading: "Try a small speaking task between lessons",
         paragraphs: ["Choose one situation you care about and write down three things you would like to say. For a trip, that might be introducing yourself, asking for something or explaining a preference. Try saying the sentences aloud, then note the words or grammar you could not work out.", "Bring those questions to your next lesson. Keeping practice connected to your own life makes it easier to decide what to work on next. Your monthly fee includes complimentary access to the Poncho Academy, with self-paced courses and e-books for when you want materials to use independently."],
       },
     ],
-    preparation: ["Why you want to learn Spanish and any previous experience.", "A conversation or situation you would like to handle more comfortably.", "Any date you are working towards, such as a trip.", "Your availability and a device with working Zoom audio and video."],
     faqs: [
-      { question: "Are adult Spanish lessons one-to-one?", answer: "Yes. The adult option is private one-to-one tuition with Anto, built around your goals. Sessions are 50 minutes long, take place on Zoom during UK term time and cost £150 per month. Start with a free trial to discuss what you need." },
+      { question: "Are adult Spanish lessons one-to-one?", answer: "Yes. The adult option is private one-to-one tuition with Anto, built around your goals. Sessions are 50 minutes long, take place once a week on Zoom during UK term time and cost £150 per month. Start with a free trial to discuss what you need." },
       { question: "Can I start if I have never learnt Spanish?", answer: "You can discuss beginner lessons with Anto in the free trial. Explain any previous contact with Spanish and what you would like to do with the language. You do not need to arrive with a prepared vocabulary list or a particular level." },
       { question: "What is the difference between live lessons and the Academy?", answer: "Live lessons give you individual time with Anto at an agreed time. The Academy contains self-paced courses and downloadable resources for independent study, and access is included with your live lessons. Check each resource's description and level to choose material that fits what you want to practise." },
     ],

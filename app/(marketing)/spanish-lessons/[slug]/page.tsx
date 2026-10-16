@@ -87,7 +87,9 @@ export default async function LessonDetailPage({ params }: PageProps) {
           </div>
           <div>
             <dl className="grid gap-5 sm:grid-cols-2">
-              {[ ["Format", "Live online lessons via Zoom"], ["Length", "50-minute regular sessions"], ["When", "During term time, by arrangement"], ["Payment", "Monthly via PayPal"] ].map(([label, value]) => <div key={label}><dt className="text-xs font-semibold uppercase tracking-wider text-charcoal-400">{label}</dt><dd className="mt-2 text-charcoal-500">{value}</dd></div>)}
+              {[ ["Format", "Live online lessons via Zoom"], ["Length", "50-minute regular sessions"] ].map(([label, value]) => <div key={label}><dt className="text-xs font-semibold uppercase tracking-wider text-charcoal-400">{label}</dt><dd className="mt-2 text-charcoal-500">{value}</dd></div>)}
+              <div className="sm:col-span-2"><dt className="text-xs font-semibold uppercase tracking-wider text-charcoal-400">When</dt><dd className="mt-2 text-charcoal-500">Once a week during UK term time, at an agreed day and time (e.g. Tuesdays at 5.00 pm), subject to availability. Please see the attached UK term dates in <Link href="/legal/terms" className="underline underline-offset-4 hover:text-charcoal-600">Terms &amp; Conditions</Link>.</dd></div>
+              <div><dt className="text-xs font-semibold uppercase tracking-wider text-charcoal-400">Payment</dt><dd className="mt-2 text-charcoal-500">Monthly via PayPal</dd></div>
             </dl>
             <p className="mt-6 text-sm text-charcoal-400">Start with a free trial and agree availability with Anto. Read the <Link href="/legal/terms" className="underline underline-offset-4 hover:text-charcoal-600">lesson terms and conditions</Link>.</p>
           </div>
@@ -108,11 +110,6 @@ export default async function LessonDetailPage({ params }: PageProps) {
           </section>
         </div>
         <aside className="space-y-8">
-          <section className="rounded-3xl bg-cream-50 p-7 shadow-soft ring-1 ring-charcoal-100/30 md:p-9">
-            <h2 className="font-serif text-2xl">What to bring to the free trial</h2>
-            <ul className="mt-5 list-disc space-y-4 pl-5 text-base leading-relaxed text-charcoal-500 marker:text-charcoal-600">{page.preparation.map((item) => <li key={item}>{item}</li>)}</ul>
-            <Button asChild className="mt-7"><a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">Find a trial time</a></Button>
-          </section>
           <section className="px-2">
             <h2 className="font-serif text-2xl">Meet your Spanish teacher</h2>
             <p className="mt-4 text-base leading-relaxed text-charcoal-500/85">Anto is a native Spanish speaker from Buenos Aires and a certified ELE (Spanish as a Foreign Language) teacher. She has taught since 2005 and founded Poncho Spanish in 2020.</p>

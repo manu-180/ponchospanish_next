@@ -13,10 +13,9 @@ const services = [
   {
     id: "private",
     href: "/spanish-lessons/children",
-    linkLabel: "Spanish lessons for children",
+    linkContext: "Spanish lessons for children",
     title: "Private lessons",
     subtitle: "Ages 7 – 18",
-    price: "£150",
     bullet: "1:1 personalised support",
     description:
       "Lessons shaped around your child's interests, needs and goals.",
@@ -27,10 +26,9 @@ const services = [
   {
     id: "gcse",
     href: "/spanish-lessons/gcse",
-    linkLabel: "GCSE & IGCSE Spanish tuition",
+    linkContext: "GCSE & IGCSE Spanish tuition",
     title: "(I)GCSE Exam Support",
     subtitle: "Confidence first",
-    price: "£180",
     bullet:
       "Focused support for (I)GCSE preparation. Available as 1:1 personalised support.",
     description: "Perfect to boost confidence and calm nerves.",
@@ -41,10 +39,9 @@ const services = [
   {
     id: "adults",
     href: "/spanish-lessons/adults",
-    linkLabel: "Spanish lessons for adults",
+    linkContext: "Spanish lessons for adults",
     title: "Private lessons",
     subtitle: "Adults",
-    price: "£150",
     bullet: "1:1 stress-free approach",
     description:
       "Designed for adults looking for personalised lessons built around your goals.",
@@ -108,13 +105,6 @@ export function ServicesSection() {
 
                   <div className="h-[2px] w-10 bg-mustard" />
 
-                  <p className="font-serif text-charcoal-600">
-                    <span className="text-3xl">{service.price}</span>
-                    <span className="ml-1.5 font-sans text-sm text-charcoal-400">
-                      per month
-                    </span>
-                  </p>
-
                   <p className="text-sm leading-relaxed text-charcoal-500/85">
                     {service.bullet}
                   </p>
@@ -133,7 +123,8 @@ export function ServicesSection() {
                     href={service.href}
                     className="inline-flex min-h-11 items-center text-sm font-semibold text-charcoal-600 underline underline-offset-4 hover:text-charcoal-500"
                   >
-                    {service.linkLabel}
+                    Learn More Here
+                    <span className="sr-only">: {service.linkContext}</span>
                   </Link>
 
                   <Link

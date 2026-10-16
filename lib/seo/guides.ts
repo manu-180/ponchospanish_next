@@ -240,7 +240,7 @@ export const guidePages: GuidePage[] = [
       "How to fit Spanish into a home education routine in the UK, what families need to know about languages and qualifications, and how to choose between apps, workbooks and a teacher.",
     heading: "Fitting Spanish into home education",
     kicker: "Home education · Ages 7 to 18",
-    updated: "2026-10-15",
+    updated: "2026-10-16",
     readingMinutes: 7,
     image: "/images/foto2.jpeg",
     imageAlt: "Home-educated children learning Spanish",
@@ -270,13 +270,6 @@ export const guidePages: GuidePage[] = [
         paragraphs: [
           "Apps are good at vocabulary and streaks, and poor at the thing that matters most, which is producing unrehearsed speech in front of another person and being understood. A child can hold a long streak and still be unable to answer an unexpected question.",
           "A reasonable split is an app or workbook for daily contact, plus a live lesson for speaking and correction. The live element is the part that is hard to substitute at home.",
-        ],
-      },
-      {
-        heading: "Speaking practice is the part to plan for",
-        paragraphs: [
-          "Home-educated learners often have less incidental practice speaking to people outside the family, which is precisely what a language needs. A regular conversation with someone who is not a parent fills that gap.",
-          "One-to-one lessons do it without the pace of a class of thirty, and with room for a child to be wrong out loud without an audience. That is usually when speaking confidence starts to grow.",
         ],
       },
       {
