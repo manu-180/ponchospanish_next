@@ -115,7 +115,7 @@ def main() -> None:
         cuando = datetime.fromisoformat(m["ts"].replace("Z", "+00:00")).astimezone(AR)
         if cuando.date() != dia_actual:
             dia_actual = cuando.date()
-            print(f"\n── {cuando:%A %d/%m/%Y} ──")
+            print(f"\n── {DIAS[cuando.weekday()]} {cuando:%d/%m/%Y} ──")
         autor = "Bot" if m.get("from_me") else (m.get("push_name") or (m.get("sender") or "?").split("@")[0])
         texto = (m.get("text") or "").strip()
         tipo = m.get("media_type")
