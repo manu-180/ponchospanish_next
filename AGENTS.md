@@ -140,3 +140,12 @@ de sumar páginas nuevas, preguntar.
 **Backlinks:** las dos fichas que existían están muertas. Club Hub da 404 (membresía
 vencida, cuesta desde £49/año) y la de Family Grapevine fue borrada (el alta es gratis en
 `thefamilygrapevine.co.uk/brighton-hove/send-your-free-listing/`).
+
+---
+
+## Grupo de WhatsApp "Poncho"
+
+Anto pide los cambios del sitio por el grupo de WhatsApp "Poncho". Cuando Manuel diga
+"fijate lo que pasó en el grupo de Poncho": skill `grupo-poncho`
+(`envkit run -- python scripts/wa-poncho/leer.py --since ultimo`), resumir los pedidos
+y armar la lista de tareas. No implementar sin confirmación.
