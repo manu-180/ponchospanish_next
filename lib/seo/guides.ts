@@ -28,7 +28,7 @@ export const guidePages: GuidePage[] = [
       "What changed in the new GCSE Spanish specification, how the four papers are assessed, what the dictation and reading aloud tasks involve, and how to support your teenager at home.",
     heading: "The new GCSE Spanish, explained for parents",
     kicker: "GCSE & IGCSE · Exam guide",
-    updated: "2026-10-15",
+    updated: "2026-10-16",
     readingMinutes: 8,
     image: "/images/foto3.jpeg",
     imageAlt: "A teenager preparing for a GCSE Spanish exam at home",
@@ -94,7 +94,7 @@ export const guidePages: GuidePage[] = [
         heading: "When outside support is worth it",
         paragraphs: [
           "A tutor is not automatically the answer. It tends to help when the gap is specific and speaking-related: a student who understands the material but dries up out loud, one who is anxious about reading aloud, or one who has just moved tier and needs to catch up on grammar quickly.",
-          "If that sounds familiar, focused one-to-one GCSE and IGCSE Spanish sessions with Anto are £180 per month, with 50-minute lessons during UK term time. A free trial is a sensible way to find out whether it fits before committing to anything.",
+          "If that sounds familiar, focused one-to-one GCSE and IGCSE Spanish sessions with Anto are 50-minute lessons, once a week during UK term time. A free trial is a sensible way to find out whether it fits before committing to anything.",
         ],
       },
     ],
@@ -127,7 +127,7 @@ export const guidePages: GuidePage[] = [
       {
         question: "Do you teach IGCSE Spanish as well as GCSE?",
         answer:
-          "Yes. Exam support covers both GCSE and IGCSE Spanish, one-to-one, at £180 per month. Discuss your child's exam board and current tier in the free trial.",
+          "Yes. Exam support covers both GCSE and IGCSE Spanish, one-to-one. Discuss your child's exam board and current tier in the free trial.",
       },
     ],
     cta: {
@@ -146,7 +146,7 @@ export const guidePages: GuidePage[] = [
       "Practical ways UK parents can support a child learning Spanish at home, even with no Spanish of their own. What actually helps, what to avoid, and how much time it really takes.",
     heading: "Helping your child with Spanish when you do not speak it",
     kicker: "For parents · Ages 7 to 18",
-    updated: "2026-10-15",
+    updated: "2026-10-16",
     readingMinutes: 7,
     image: "/images/foto1.jpeg",
     imageAlt: "A child practising Spanish at home with a parent nearby",
@@ -198,7 +198,7 @@ export const guidePages: GuidePage[] = [
         heading: "Signs it is worth getting help",
         paragraphs: [
           "Lessons outside school are not a default. They make sense when the same gap keeps reappearing, when confidence rather than ability is the blocker, or when an exam is close enough that time matters.",
-          "Poncho Spanish runs live online lessons for children and teens aged 7 to 18, one-to-one at £150 per month, with complimentary access to the Poncho Academy. Every family starts with a free trial, which is mostly a conversation about where your child actually is.",
+          "Poncho Spanish runs live online lessons for children and teens aged 7 to 18, one-to-one, with complimentary access to the Poncho Academy. Every family starts with a free trial, which is mostly a conversation about where your child actually is.",
         ],
       },
     ],
@@ -221,7 +221,7 @@ export const guidePages: GuidePage[] = [
       {
         question: "Why are Poncho Spanish lessons one-to-one?",
         answer:
-          "Individual lessons let the pace, topics and corrections follow one child, which matters most for learners who feel self-conscious speaking. Private lessons are £150 per month, and you can see how one feels in the free trial.",
+          "Individual lessons let the pace, topics and corrections follow one child, which matters most for learners who feel self-conscious speaking. You can see how one feels in the free trial.",
       },
     ],
     cta: {
@@ -288,7 +288,7 @@ export const guidePages: GuidePage[] = [
         heading: "How lessons fit a home education week",
         paragraphs: [
           "Live sessions run for 50 minutes on Zoom during term time, and daytime slots are available rather than only after school, which is usually the practical advantage for home-educating families.",
-          "Home education Spanish with Anto costs £150 per month for one-to-one lessons, with complimentary access to the Poncho Academy for independent study days. Start with a free trial and talk through your routine, your child's stage, and whether you are working towards an exam.",
+          "Home education Spanish with Anto is one-to-one, with complimentary access to the Poncho Academy for independent study days. Start with a free trial and talk through your routine, your child's stage, and whether you are working towards an exam.",
         ],
       },
     ],

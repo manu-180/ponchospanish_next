@@ -14,7 +14,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "What ages do you teach?",
     answer:
-      "Poncho Spanish specialises in children and teenagers aged 7 to 18, with lessons tailored to each learner's age and stage. Adults are welcome too: there are dedicated one-to-one adult lessons at £150 per month, built around your own goals at a relaxed, stress-free pace.",
+      "Poncho Spanish specialises in children and teenagers aged 7 to 18, with lessons tailored to each learner's age and stage. Adults are welcome too: there are dedicated one-to-one adult lessons, built around your own goals at a relaxed, stress-free pace.",
   },
   {
     question: "Are the Spanish lessons online?",
