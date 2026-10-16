@@ -1,1 +1,6 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "pregunta": null,
+  "resumen": "Prueba del sistema de pedidos: la tanda traía un solo mensaje avisando que no había nada para cambiar en la web. No se tocó código ni se desplegó nada, así que no hay commits en main. El circuito completo funcionó: fetch de la rama pedidos, detección del pendiente, toma con estado 'trabajando' y cierre con este estado.json.",
+  "commits": []
+}
