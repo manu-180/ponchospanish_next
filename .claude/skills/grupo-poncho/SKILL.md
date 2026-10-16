@@ -6,8 +6,14 @@ description: Lee el grupo de WhatsApp "Poncho" (donde Anto pide cambios del siti
 # Grupo de WhatsApp "Poncho"
 
 El bot de Insights (`bot_fede`, Railway) escucha el grupo y guarda los mensajes en
-una tabla aislada (`wa_private_messages`). No responde nunca. Este repo los lee con
-un token de sólo lectura (envkit `poncho_next`: `PONCHO_WA_URL`, `PONCHO_WA_TOKEN`).
+una tabla aislada (`wa_private_messages`). Este repo los lee con un token de sólo
+lectura (envkit `poncho_next`: `PONCHO_WA_URL`, `PONCHO_WA_TOKEN`).
+
+Desde 2026-10-16 lo normal es automático: Anto cierra la tanda con "Listo", la rutina
+`poncho-pedidos` la implementa y el bot sólo escribe al grupo si quedó una pregunta
+(`docs/pedidos/PROTOCOLO.md`). Esta skill es para mirar a mano o trabajar una tanda
+que no pasó por ahí. Si la trabajás a mano, marcala en `wa_private_pedidos` (estado
+`manual`, `hasta` = último mensaje incluido) para que la próxima tanda no la repita.
 
 ## Pasos
 

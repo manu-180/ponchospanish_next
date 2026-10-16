@@ -41,3 +41,4 @@ yarn-error.log*
 
 # lectura del grupo de WhatsApp (scripts/wa-poncho)
 .wa-poncho/
+entregables/
