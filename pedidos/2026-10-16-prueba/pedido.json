@@ -1,0 +1,17 @@
+{
+  "id": "2026-10-16-prueba",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-16-manual",
+  "desde": "2026-10-16 17:05",
+  "hasta": "2026-10-16 18:00",
+  "mensajes": [
+    {
+      "hora": "2026-10-16 18:00",
+      "autor": "Manu Navarro",
+      "tipo": "text",
+      "texto": "Esto es una prueba del sistema de pedidos: no hay nada para cambiar en la web. Cerralo como hecho, sin commits y sin pregunta.",
+      "media": null
+    }
+  ]
+}
