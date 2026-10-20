@@ -98,12 +98,18 @@ En `../pedidos`, `$PEND/estado.json`:
 ```json
 {
   "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Ya cambié el título de la home y subí las fotos nuevas ✨",
   "pregunta": null,
   "resumen": "Qué se cambió, en dos o tres líneas, para Manuel.",
   "commits": ["<sha en main>"]
 }
 ```
 
+- `mensaje`: lo que el bot le manda a Anto en el grupo al terminar (ya le confirmó al
+  recibir el "Listo"). Mismo tono que `pregunta`: una o dos frases sobre lo que ella va
+  a ver en la web, sin tecnicismos. Si hay `pregunta`, el bot manda `mensaje` y abajo la
+  pregunta, así que el `mensaje` dice qué quedó hecho y no anticipa la duda. Sin
+  `mensaje`, el bot manda un "¡Listo, Anto! Ya está todo subido a la web ✨" genérico.
 - `pregunta`: `null`, o el texto **exacto** que el bot va a mandar al grupo. Para Anto:
   español rioplatense, cálido y corto, sin tecnicismos ni nombres de archivos. Una sola
   pregunta, o varias numeradas en el mismo mensaje. Que se entienda sin abrir nada
@@ -112,5 +118,6 @@ En `../pedidos`, `$PEND/estado.json`:
 - `estado: "fallido"` sólo si no se pudo desplegar nada (build roto que no se puede
   arreglar, push imposible); el `resumen` dice por qué.
 
-Commit (mismo autor) y `git push origin pedidos`. El bot manda la pregunta al grupo y
-el resumen por privado a Manuel.
+Commit (mismo autor) y `git push origin pedidos`. El bot manda `mensaje` y `pregunta` al
+grupo y el resumen por privado a Manuel. Con `fallido` (o si pasan 6 h sin cierre) le
+dice a Anto que Manu lo revisa.
