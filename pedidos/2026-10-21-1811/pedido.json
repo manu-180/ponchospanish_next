@@ -1,0 +1,59 @@
+{
+  "id": "2026-10-21-1811",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-21-1758",
+  "desde": "2026-10-21 17:58",
+  "hasta": "2026-10-21 18:11",
+  "mensajes": [
+    {
+      "hora": "2026-10-21 17:59",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Recibido, Anto! Ya me pongo con esto. Te aviso por acá cuando esté todo hecho 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 17:59",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Genial!! Gracias",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 18:08",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Hola, Anto! De esta tanda no llegué a cambiar la foto de la página 85: para esa necesito una manito tuya 💛\n\nPara la página 85 del Spanish for Travel no puedo buscar fotos nuevas desde acá, sólo puedo usar las que me mandás vos por el grupo. ¿Me pasás una foto de una farmacéutica que te guste (o dos, para elegir) y la cambio enseguida?",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 18:08",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Si! Ya te adjunto una (dame un minuto por favor)",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 18:10",
+      "autor": "Antonela Risaro",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/005-image.jpg"
+    },
+    {
+      "hora": "2026-10-21 18:11",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Vamos con esa mejor",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 18:11",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
