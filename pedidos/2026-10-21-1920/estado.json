@@ -1,1 +1,11 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Van los dos e-books en PDF: Spanish for Travel (94 páginas) y Spanish for International Residents (60 páginas). Y tal cual me dijiste, ninguno de los dos lleva códigos QR ni audios ✨",
+  "pregunta": null,
+  "resumen": "Pedido del 21/10 19:20: dos cosas, ninguna toca la web. (1) Respuesta a la pregunta de la tanda anterior: 'sin QR, sin audios'. Los QR nunca se llegaron a agregar (no hay ninguna mención de QR en scripts/ebooks/), así que queda confirmado y no hubo nada que sacar. (2) Anto pidió los PDF de Spanish for Travel y Spanish for International Residents: van los dos en entregables/. No son rebuilds nuevos: verifiqué por git log que los PDF ya entregados son los del estado actual de main — Travel es el de la tanda 2026-10-21-1811 (commit 6fafe98, la foto nueva del farmacéutico en Emergencies, último cambio de spanish_for_travel.py) y International Residents el de la tanda 2026-10-21-1836 (commit 2d02ac0, único commit del módulo). Chequeados: 94 y 60 páginas, PDF válidos, 7 MB y 5 MB. Sin cambios en main, así que no hubo push ni deploy (y por lo mismo no corrí type-check/build: no hay código nuevo). Sigue pendiente de antes el Football Dictionary (foto nueva en el pedido 2026-10-21-1622, media/042-image.jpg, sin módulo en books/), y el Spanish for International Residents sigue sin publicarse en la Academy esperando el OK de Manuel.",
+  "commits": [],
+  "adjuntos": [
+    "entregables/Spanish-for-Travel-Poncho.pdf",
+    "entregables/Spanish-for-International-Residents-Poncho.pdf"
+  ]
+}
