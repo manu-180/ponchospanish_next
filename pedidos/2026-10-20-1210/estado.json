@@ -1,0 +1,7 @@
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Ya están los cambios: el Foodie con una foto de un plato y frases para quien no come carne, el Spanish for Travel completo con todos los temas de tu lista (ejercicios y respuestas al final), fondo negro en las páginas con fotos, y el nuevo Spanish for Confident Teens para 11 a 14 años ✨",
+  "pregunta": null,
+  "resumen": "Trabajado a mano por Manuel (la rutina se trabó: no puede pushear sin la Claude GitHub App). Foodie: foto nueva y frases vegetarianas/veganas. Travel: 94 páginas, 14 capítulos de la lista de Anto. Nuevo e-book KS3 'Spanish for Confident Teens' (50 páginas) con estructura tipo Viva 1 y contenido original. Incluye también los pedidos del 21/10 (tanda 2026-10-21-manual).",
+  "commits": ["931bf31"]
+}
