@@ -1,0 +1,52 @@
+{
+  "id": "2026-10-21-1920",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-21-1836",
+  "desde": "2026-10-21 18:36",
+  "hasta": "2026-10-21 19:20",
+  "mensajes": [
+    {
+      "hora": "2026-10-21 18:37",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Recibido, Anto! Ya me pongo con esto. Te aviso por acá cuando esté todo hecho 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 18:37",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Genial",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 19:00",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Listo, Anto! Ya está armado el Spanish for International Residents: 60 páginas con los 6 capítulos que me pasaste más el de WhatsApp, y todo con el formato de siempre (diálogo real, lenguaje útil, dato cultural, «Try it yourself» y una hoja de frases para guardar en el móvil al final de cada capítulo). La portada es la foto que mandaste. Te lo dejo acá para que lo mires ✨\n\nUna sola cosa me quedó pendiente: los códigos QR con los audios de los diálogos. ¿Dónde van a estar esas grabaciones? Pasame el link (o los audios) y se los agrego al libro.",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 19:10",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Sin QR por favor (sin audios)",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 19:20",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Aguardo el PDF de los siguientes e-books:\nSpanish For Travel \nSpanish For International Residents",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 19:20",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
