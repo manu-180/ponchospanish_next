@@ -3,7 +3,7 @@
     python scripts/ebooks/build.py travel_dictionary
     python scripts/ebooks/build.py --all
 
-Cada libro es un módulo en books/ con un dict BOOK. Las fotos son de Pexels
+Cada libro es un módulo en books/ con un dict BOOK; los de kind="ebook" los arma ebook.py. Las fotos son de Pexels
 (licencia libre): el libro guarda sólo el id y se bajan a .cache/ la primera vez.
 El PDF lo imprime Chrome headless; los PDF salen a scripts/ebooks/out/.
 """
@@ -224,6 +224,9 @@ def activities(B):
 
 def build(name):
     B = importlib.import_module(f"books.{name}").BOOK
+    if B.get("kind") == "ebook":
+        from ebook import build_ebook
+        return build_ebook(name, B)
     cols = B.get("columns", ("Español", "English", "En una frase"))
     pages = []
 
