@@ -143,6 +143,25 @@ vencida, cuesta desde £49/año) y la de Family Grapevine fue borrada (el alta e
 
 ---
 
+## E-books y diccionarios (`scripts/ebooks/`)
+
+`python scripts/ebooks/build.py <libro>` (o `--all`) arma el PDF con Chrome headless.
+Necesita **Python 3.12+** (hay f-strings con backslash) y Chrome: en Linux lo busca solo
+en `/opt/pw-browsers/chromium` y `/usr/bin/chromium`, o se le pasa `CHROME=`.
+
+Las portadas que manda Anto van a `scripts/ebooks/photos/` y el libro guarda el nombre del
+archivo en `cover_photo`; el resto de las fotos son ids de Pexels que se bajan a `.cache/`.
+
+**Desde la sesión cloud de `poncho-pedidos` no se llega a `images.pexels.com`**, así que un
+rebuild falla con el cache vacío. Los JPEG originales (1800 px) están embebidos en los PDF
+que el bot mandó al grupo (`pedidos/<id>/media/` de la rama `pedidos`): aparecen en orden de
+documento, que es el mismo orden en que el módulo del libro los nombra
+(`cover_photo`, `toc_photo`, fotos de secciones, `end`). Recortando cada `\xff\xd8\xff` … `\xff\xd9`
+del PDF y guardándolos como `.cache/p<id>.jpg` el rebuild sale idéntico al original.
+`pdfimages` no sirve: se pierde todo lo que Chrome emite como patrón (portada, TOC, aperturas).
+
+---
+
 ## Grupo de WhatsApp "Poncho"
 
 Anto pide los cambios del sitio por el grupo de WhatsApp "Poncho". Cuando Manuel diga
