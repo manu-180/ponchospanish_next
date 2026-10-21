@@ -1,1 +1,7 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Ya están tus fotos nuevas en las portadas del Foodie, Animal Lovers, Conversaciones y Travel y en los dos e-books, el \"PONCHO Spanish\" quedó con la imagen nueva (SPANISH abajo, en un solo color) y en la página 24 del Spanish for Travel ahora dice \"habitación\". El del Football quedó igual: ese PDF lo armó Manu por fuera y no se puede regenerar desde acá, se lo dejé anotado ✨",
+  "pregunta": null,
+  "resumen": "Pedido del 21/10 (todo pasa por los PDF, no por la web). 1) Portadas nuevas con las fotos de Anto en Foodie, Animal Lovers, Real-Life Conversation y Travel Dictionary y en los dos e-books (Spanish for Travel y Confident Teens); van en scripts/ebooks/photos/ y photo() ahora acepta un archivo local además de un id de Pexels. 2) La marca \"PONCHO Spanish\" deja el manuscrito y pasa a PONCHO con SPANISH centrado abajo en un solo color, en los 7 libros. 3) Spanish for Travel pág. 24: \"la pieza\" -> \"la habitación\". Los 7 PDF rebuildeados (mismas páginas que los originales: 22/22/22/22/22, 50 y 94) están en entregables/. QUEDA PENDIENTE el Football Dictionary: Anto mandó foto nueva (media/042-image.jpg) pero ese PDF no tiene módulo en books/, así que hay que rehacerlo a mano o portarlo al generador. No hay cambios en la web, así que no hay deploy que verificar; pnpm build cae sólo al prerenderizar /sitemap.xml (la sesión cloud no llega a Supabase), con type-check y test:seo en verde. Nota: images.pexels.com también está bloqueado desde la sesión, así que las fotos de interior se recuperaron de los JPEG embebidos en los PDF que mandó el bot; quedó documentado en AGENTS.md.",
+  "commits": ["143b0ff", "76ee601"]
+}
