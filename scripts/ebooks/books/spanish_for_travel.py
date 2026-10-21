@@ -1259,7 +1259,8 @@ BOOK = {
         {
             "title": "Emergencies",
             "en": "Emergencias",
-            "photo": 14797864,
+            "photo": "travel-emergencies.jpg",
+            "pos": "50% 0%",
             "intro": "The phrases you hope not to need, and will be glad to know if you do. Read this chapter calmly before you travel.",
             "fact": ("¿Sabías que...?", "The emergency number across Spain and the rest of the European Union is 112. In Argentina, 911 works in most cities and 107 calls an ambulance. Save them in your phone before you travel."),
             "units": [
