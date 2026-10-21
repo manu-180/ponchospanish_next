@@ -4,8 +4,8 @@ BOOK = {
     "cover_sub": "El diccionario de los animales",
     "sticker": "Vocabulary · Examples · Activities",
     "kicker": "A pocket dictionary for young animal lovers<br>with Spain {ES} and Argentina {AR} words",
-    "cover_photo": 4453135,
-    "cover_pos": "50% 35%",
+    "cover_photo": "animal-lovers-cover.jpg",
+    "cover_pos": "50% 20%",
     "toc_photo": 28977022,
     "welcome": {
         "title": "¡Hola, amante de los animales!",

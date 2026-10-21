@@ -4,8 +4,8 @@ BOOK = {
     "cover_sub": "El diccionario del buen comer",
     "sticker": "Vocabulary · Examples · Activities",
     "kicker": "Markets, kitchens, tables and traditional dishes,<br>with Spain {ES} and Argentina {AR} vocabulary",
-    "cover_photo": 33554298,
-    "cover_pos": "50% 55%",
+    "cover_photo": "foodie-cover.jpg",
+    "cover_pos": "50% 50%",
     "toc_photo": 36905236,
     "welcome": {
         "title": "¡Buen provecho!",

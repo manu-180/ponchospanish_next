@@ -4,8 +4,8 @@ BOOK = {
     "cover_sub": "El diccionario del viajero",
     "sticker": "Vocabulary · Examples · Activities",
     "kicker": "The words you need from the airport to the beach,<br>with Spain {ES} and Argentina {AR} vocabulary",
-    "cover_photo": 4901995,
-    "cover_pos": "50% 40%",
+    "cover_photo": "travel-dictionary-cover.jpg",
+    "cover_pos": "50% 50%",
     "toc_photo": 9943265,
     "welcome": {
         "title": "¡Hola, viajero!",

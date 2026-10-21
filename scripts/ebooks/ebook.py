@@ -7,7 +7,7 @@ a sangre en negro para distinguir los e-books de los recursos (pedido de Anto).
 import random
 import subprocess
 
-from build import CACHE, CHROME, HERE, OUT, e, flags, photo, spanish_cell, strip, word_search, ws_table
+from build import CACHE, CHROME, CHROME_FLAGS, HERE, OUT, e, flags, photo, spanish_cell, strip, word_search, ws_table
 
 LETTERS = "ABCDEFGHIJKLMNOP"
 
@@ -146,7 +146,7 @@ def build_ebook(name, B):
         <h1 style="font-size:{B.get('title_pt', 100)}pt">{"<br>".join(e(x) for x in B["title_lines"])}</h1>
         <p class="cover-sub">{e(B["cover_sub"])}</p>
         <p class="cover-kicker">{flags(B["kicker"])}</p>
-        <p class="brand">PONCHO <span>Spanish</span></p>
+        <p class="brand">PONCHO<span>Spanish</span></p>
       </div>''', "cover"))
 
     W = B["welcome"]
@@ -211,7 +211,7 @@ def build_ebook(name, B):
         <p class="script">{e(End["script"])}</p>
         <p class="end-text">{e(End["text"])}</p>
         <img class="logo" src="{(HERE / "logo.png").as_uri()}" alt="">
-        <p class="brand">PONCHO <span>Spanish</span></p>
+        <p class="brand">PONCHO<span>Spanish</span></p>
         <p class="web">www.ponchospanish.com</p>
       </div>''', "end"))
 
@@ -224,7 +224,6 @@ def build_ebook(name, B):
     out_html = CACHE / f"{name}.html"
     out_html.write_text(doc, encoding="utf-8")
     out_pdf = OUT / f'{B["file"]}.pdf'
-    subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--allow-file-access-from-files",
-                    "--virtual-time-budget=30000", f"--print-to-pdf={out_pdf}", out_html.as_uri()],
+    subprocess.run([CHROME, *CHROME_FLAGS, "--virtual-time-budget=30000", f"--print-to-pdf={out_pdf}", out_html.as_uri()],
                    check=True, capture_output=True)
     print("built", out_pdf.name)

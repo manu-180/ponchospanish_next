@@ -6,8 +6,8 @@ BOOK = {
     "cover_sub": "Your KS3 Spanish e-book",
     "sticker": "Ages 11–14 · KS3 · Answers included",
     "kicker": "Me, my free time, my school, my family and friends, my town,<br>plus a grammar toolbox, with Spain {ES} and Argentina {AR} alternatives",
-    "cover_photo": 17029986,
-    "cover_pos": "50% 35%",
+    "cover_photo": "confident-teens-cover.jpg",
+    "cover_pos": "50% 20%",
     "welcome": {
         "title": "¡Hola! Welcome",
         "lead": "This e-book is your companion for the first years of secondary-school Spanish. It follows the big topics of Key Stage 3 and helps you speak, read and write about your own life with confidence.",

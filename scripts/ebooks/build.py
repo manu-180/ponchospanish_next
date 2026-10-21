@@ -4,12 +4,14 @@
     python scripts/ebooks/build.py --all
 
 Cada libro es un módulo en books/ con un dict BOOK; los de kind="ebook" los arma ebook.py. Las fotos son de Pexels
-(licencia libre): el libro guarda sólo el id y se bajan a .cache/ la primera vez.
+(licencia libre): el libro guarda sólo el id y se bajan a .cache/ la primera vez. Las que manda Anto van en photos/
+y el libro guarda el nombre del archivo en vez del id.
 El PDF lo imprime Chrome headless; los PDF salen a scripts/ebooks/out/.
 """
 
 import html
 import importlib
+import os
 import random
 import subprocess
 import sys
@@ -20,7 +22,17 @@ from pathlib import Path
 HERE = Path(__file__).parent
 CACHE = HERE / ".cache"
 OUT = HERE / "out"
-CHROME = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+PHOTOS = HERE / "photos"
+CHROME = next(
+    (c for c in (os.environ.get("CHROME"), "/opt/pw-browsers/chromium",
+                 "/usr/bin/chromium", "/usr/bin/google-chrome") if c and Path(c).exists()),
+    r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+)
+CHROME_FLAGS = ["--headless=new", "--disable-gpu", "--no-pdf-header-footer",
+                "--allow-file-access-from-files"]
+if os.name != "nt":
+    CHROME_FLAGS.append("--no-sandbox")  # Linux: Chrome no arranca como root sin esto
+
 COPY = "Copyright © 2026 PONCHO Spanish. All Rights Reserved."
 
 ES_FLAG = '<svg class="flag" viewBox="0 0 30 20"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg>'
@@ -34,6 +46,16 @@ def flags(text):
 
 
 def photo(pid):
+    """Foto de portada o de sección: un id de Pexels, o el nombre de un archivo de photos/.
+
+    Las que manda Anto por el grupo van a photos/ y se nombran con su archivo; las de
+    Pexels se bajan por id a .cache/ la primera vez.
+    """
+    if isinstance(pid, str):
+        f = PHOTOS / pid
+        if not f.exists():
+            raise FileNotFoundError(f"falta la foto {f}")
+        return f.as_uri()
     CACHE.mkdir(exist_ok=True)
     f = CACHE / f"p{pid}.jpg"
     if not f.exists():
@@ -238,7 +260,7 @@ def build(name):
         <h1>{"<br>".join(e(x) for x in B["title_lines"])}</h1>
         <p class="cover-sub">{e(B["cover_sub"])}</p>
         <p class="cover-kicker">{flags(B["kicker"])}</p>
-        <p class="brand">PONCHO <span>Spanish</span></p>
+        <p class="brand">PONCHO<span>Spanish</span></p>
       </div>''', "cover", footer=False))
 
     W = B["welcome"]
@@ -280,7 +302,7 @@ def build(name):
         <p class="script">{e(End["script"])}</p>
         <p>{e(End["text"])}</p>
         <img class="logo" src="{(HERE / "logo.png").as_uri()}" alt="">
-        <p class="brand">PONCHO <span>Spanish</span></p>
+        <p class="brand">PONCHO<span>Spanish</span></p>
         <p class="web">www.ponchospanish.com</p>
       </div>''', "end", footer=False))
 
@@ -292,8 +314,7 @@ def build(name):
     out_html = CACHE / f"{name}.html"
     out_html.write_text(doc, encoding="utf-8")
     out_pdf = OUT / f'{B["file"]}.pdf'
-    subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--allow-file-access-from-files",
-                    "--virtual-time-budget=20000", f"--print-to-pdf={out_pdf}", out_html.as_uri()],
+    subprocess.run([CHROME, *CHROME_FLAGS, "--virtual-time-budget=20000", f"--print-to-pdf={out_pdf}", out_html.as_uri()],
                    check=True, capture_output=True)
     print("built", out_pdf.name, len(pages), "pages")
 

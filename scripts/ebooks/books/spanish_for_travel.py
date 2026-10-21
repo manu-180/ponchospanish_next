@@ -5,8 +5,8 @@ BOOK = {
     "cover_sub": "The complete traveller's e-book",
     "sticker": "E-book · 14 chapters · Answers included",
     "kicker": "Everything you need to live the trip in Spanish, from the first ¡hola! to the last ¡buen viaje!,<br>with Spain {ES} and Argentina {AR} alternatives",
-    "cover_photo": 40237747,
-    "cover_pos": "50% 45%",
+    "cover_photo": "spanish-for-travel-cover.jpg",
+    "cover_pos": "50% 40%",
     "welcome": {
         "title": "¡Bienvenidos, viajeros!",
         "lead": "Travelling is the moment Spanish stops being a school subject and becomes a way to connect with real people, places and stories.",
@@ -364,7 +364,7 @@ BOOK = {
                     "en": "Daily life at home",
                     "intro": "Staying with a family, at a friend's or in a holiday flat? These are the words of every day.",
                     "grid": [
-                        ("la cocina", "the kitchen"), ("el salón / el living", "the living room", "ES/AR"), ("el dormitorio / la pieza", "the bedroom", "ES/AR"),
+                        ("la cocina", "the kitchen"), ("el salón / el living", "the living room", "ES/AR"), ("el dormitorio / la habitación", "the bedroom", "ES/AR"),
                         ("el baño", "the bathroom"), ("la ducha", "the shower"), ("el balcón", "the balcony"),
                         ("despertarse", "to wake up"), ("ducharse", "to have a shower"), ("vestirse", "to get dressed"),
                         ("lavar los platos", "to wash up"), ("poner la mesa", "to lay the table"), ("hacer la cama", "to make the bed"),

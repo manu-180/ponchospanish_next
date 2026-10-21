@@ -4,8 +4,8 @@ BOOK = {
     "cover_sub": "Conversation Dictionary",
     "sticker": "Expressions · Examples · Activities",
     "kicker": "The Spanish people really speak, with friends, at home and out and about,<br>from Spain {ES} and Argentina {AR}",
-    "cover_photo": 33867307,
-    "cover_pos": "50% 35%",
+    "cover_photo": "conversation-cover.jpg",
+    "cover_pos": "50% 15%",
     "toc_photo": 31986952,
     "welcome": {
         "title": "¿Qué tal? ¿Qué onda?",
