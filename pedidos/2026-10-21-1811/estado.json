@@ -1,1 +1,9 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! La página 85 del Spanish for Travel ya tiene la foto que me mandaste: queda de ancho arriba del capítulo de Emergencias, con la cara bien centrada. Te dejo el PDF nuevo para que lo mires ✨",
+  "pregunta": null,
+  "resumen": "Pedido del 21/10 18:11: es la respuesta a la pregunta que dejó la tanda anterior. Anto mandó la foto (media/005-image.jpg, un farmacéutico varón sonriendo; pidió 'farmacéutica' en la tanda previa pero después mandó ésta y dijo 'vamos con esa mejor', así que manda el mensaje posterior). Va a scripts/ebooks/photos/travel-emergencies.jpg y el capítulo 14 de spanish_for_travel.py guarda el nombre del archivo en vez del id de Pexels 14797864. La foto es vertical (1067x1600) y el banner de apertura es apaisado, así que lleva pos '50% 0%': con el 45% por defecto el recorte se comía la cara. PDF rebuildeado en entregables/Spanish-for-Travel-Poncho.pdf, 94 páginas igual que el original; verifiqué que de los 16 JPEG embebidos cambió sólo el del capítulo 14 (los otros 15 son byte a byte iguales, recuperados del PDF de la tanda anterior al .cache/). No hay cambios en la web, así que no hay nada que verificar en producción; pnpm type-check en verde y test:seo 8/8, y pnpm build cae sólo al prerenderizar /sitemap.xml porque la sesión cloud no llega a Supabase. Sigue pendiente de antes el Football Dictionary (foto nueva en el pedido 2026-10-21-1622, media/042-image.jpg, sin módulo en books/). Commit en main: 6fafe98.",
+  "commits": [
+    "6fafe98"
+  ]
+}
