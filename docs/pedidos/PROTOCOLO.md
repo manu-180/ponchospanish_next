@@ -101,7 +101,8 @@ En `../pedidos`, `$PEND/estado.json`:
   "mensaje": "¡Listo, Anto! Ya cambié el título de la home y subí las fotos nuevas ✨",
   "pregunta": null,
   "resumen": "Qué se cambió, en dos o tres líneas, para Manuel.",
-  "commits": ["<sha en main>"]
+  "commits": ["<sha en main>"],
+  "adjuntos": ["entregables/Spanish-for-Travel-Poncho.pdf"]
 }
 ```
 
@@ -115,9 +116,14 @@ En `../pedidos`, `$PEND/estado.json`:
   pregunta, o varias numeradas en el mismo mensaje. Que se entienda sin abrir nada
   ("En la página de adultos, ¿el precio va también en el título o sólo abajo?"). Nada
   de "¿Querés que...?" sobre cosas que ya están claras.
+- `adjuntos`: los archivos que Anto tiene que recibir en el grupo, con ruta relativa a
+  `$PEND/` (casi siempre `entregables/<archivo>`). El bot los manda después del
+  `mensaje`: PDF, documentos y fotos, cada uno con su nombre. Si se tocó un PDF, va acá
+  sí o sí: el `mensaje` nunca dice "te dejo el PDF" sin el archivo en `adjuntos`. Sólo
+  lo que cambió en esta tanda; nada de fuera de `$PEND/`. Hasta 60 MB por archivo.
 - `estado: "fallido"` sólo si no se pudo desplegar nada (build roto que no se puede
   arreglar, push imposible); el `resumen` dice por qué.
 
-Commit (mismo autor) y `git push origin pedidos`. El bot manda `mensaje` y `pregunta` al
+Commit (mismo autor) y `git push origin pedidos`. El bot manda `mensaje`, `pregunta` y `adjuntos` al
 grupo y el resumen por privado a Manuel. Con `fallido` (o si pasan 6 h sin cierre) le
 dice a Anto que Manu lo revisa.
