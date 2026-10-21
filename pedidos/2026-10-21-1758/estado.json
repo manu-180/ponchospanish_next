@@ -1,1 +1,9 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Hola, Anto! De esta tanda no llegué a cambiar la foto de la página 85: para esa necesito una manito tuya 💛",
+  "pregunta": "Para la página 85 del Spanish for Travel no puedo buscar fotos nuevas desde acá, sólo puedo usar las que me mandás vos por el grupo. ¿Me pasás una foto de una farmacéutica que te guste (o dos, para elegir) y la cambio enseguida?",
+  "resumen": "Pedido del 21/10 17:58. Lo único accionable de la tanda es el último mensaje de Anto: cambiar la foto de la pág. 85 del Spanish for Travel (apertura del capítulo 14, Emergencies, hoy un farmacéutico sij en una farmacia canadiense con el cartel 'Canada's' visible) por una farmacéutica occidental. El resto son agradecimientos y los 7 PDF que vos reenviaste al grupo. NO SE PUDO HACER y no hay nada que verificar en la web: la foto es el id de Pexels 14797864 en scripts/ebooks/books/spanish_for_travel.py y la política de red de la sesión cloud devuelve 403 a TODO banco de imágenes (probé pexels, unsplash, wikimedia, pixabay y flickr), así que no hay forma de conseguir una foto nueva desde acá. Revisé además las ~74 fotos embebidas en los 7 PDF y ninguna sirve. Queda esperando a que Anto mande la foto por el grupo (le pregunté): cuando llegue va a scripts/ebooks/photos/ y el capítulo guarda el nombre del archivo en vez del id, igual que las portadas. Alternativa si querés resolverlo vos: elegís el id en Pexels y corrés el rebuild desde tu máquina. Único commit en main: 2f27ee7, que sólo amplía la nota de AGENTS.md (antes decía que se bloqueaba images.pexels.com; ahora aclara que es todo banco de imágenes y qué hacer en ese caso). pnpm type-check en verde y test:seo 8/8; pnpm build cae sólo al prerenderizar /sitemap.xml porque Supabase también está bloqueado desde la sesión. Sigue pendiente de antes el Football Dictionary (foto nueva en el pedido 2026-10-21-1622, media/042-image.jpg, sin módulo en books/).",
+  "commits": [
+    "2f27ee7"
+  ]
+}
