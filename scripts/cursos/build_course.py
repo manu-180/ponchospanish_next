@@ -10,15 +10,18 @@ Voces: edge-tts (gratis, sin clave). Música: loop CC0 de Freesound en assets/mu
 
 import argparse
 import asyncio
+import base64
 import hashlib
 import html
 import importlib.util
 import json
+import os
 import re
 import shutil
 import subprocess
 import sys
 import unicodedata
+import urllib.request
 from pathlib import Path
 
 import edge_tts
@@ -40,6 +43,11 @@ VOICES = {
 }
 SPEAKER_VOICE = {"Nico": "es_m", "Maya": "es", "Camarera": "es_f2", "Lola": "es", "Ana": "ar_f"}
 VOICES["ar_f"] = ("es-AR-ElenaNeural", "-6%")
+
+ENGINE = os.environ.get("CURSO_TTS", "eleven" if os.environ.get("ELEVENLABS_API_KEY") else "edge")
+ELEVEN_MODEL = "eleven_multilingual_v2"
+ELEVEN_SETTINGS = {"stability": 0.45, "similarity_boost": 0.8, "style": 0.3, "use_speaker_boost": True}
+ELEVEN_VOICES = json.loads((HERE / "voices.json").read_text(encoding="utf-8")) if (HERE / "voices.json").exists() else {}
 
 BG = {"dark": "#141414", "cream": "#EFECE5", "terra": "#C95023"}
 TONE = {"dark": "oscuro", "cream": "claro", "terra": "terra"}
@@ -103,16 +111,44 @@ def decode(path):
     return np.frombuffer(raw, dtype=np.float32).copy()
 
 
+def _eleven(text, voice_id, mp3):
+    """ElevenLabs con tiempos por carácter; se agrupan en palabras para los subtítulos."""
+    body = json.dumps({"text": text, "model_id": ELEVEN_MODEL, "voice_settings": ELEVEN_SETTINGS}).encode()
+    req = urllib.request.Request(
+        f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps?output_format=mp3_44100_128",
+        data=body, headers={"xi-api-key": os.environ["ELEVENLABS_API_KEY"], "Content-Type": "application/json"})
+    d = json.load(urllib.request.urlopen(req, timeout=120))
+    mp3.write_bytes(base64.b64decode(d["audio_base64"]))
+    al = d["alignment"]
+    words, cur = [], None
+    for ch, st, en in zip(al["characters"], al["character_start_times_seconds"], al["character_end_times_seconds"]):
+        if ch.isspace():
+            if cur:
+                words.append(cur)
+            cur = None
+        elif cur is None:
+            cur = [ch, st, en]
+        else:
+            cur[0] += ch
+            cur[2] = en
+    if cur:
+        words.append(cur)
+    return words
+
+
 def tts(voice_key, text):
-    voice, rate = VOICES[voice_key]
+    voice, rate = (ELEVEN_VOICES[voice_key], "11") if ENGINE == "eleven" else VOICES[voice_key]
     say = spoken(text)
-    h = hashlib.sha1(f"{voice}|{rate}|{say}".encode()).hexdigest()[:16]
+    h = hashlib.sha1(f"{voice}|{rate}|{ELEVEN_MODEL if ENGINE == 'eleven' else ''}|{say}".encode()).hexdigest()[:16]
     TTS_CACHE.mkdir(parents=True, exist_ok=True)
     mp3, meta = TTS_CACHE / f"{h}.mp3", TTS_CACHE / f"{h}.json"
     if not meta.exists():
         for intento in range(4):
             try:
-                words = asyncio.run(asyncio.wait_for(_synth(say, voice, rate, mp3), 45))
+                if ENGINE == "eleven":
+                    words = _eleven(say, voice, mp3)
+                else:
+                    words = asyncio.run(asyncio.wait_for(_synth(say, voice, rate, mp3), 45))
                 break
             except Exception:
                 if intento == 3:
@@ -898,7 +934,7 @@ def write_outline(course_name, pdf):
 @page {{ size: A4; margin: 16mm 16mm 18mm; }}
 body {{ font-family: Mont; color: #2C2C2C; font-size: 9.5pt; }}
 .top {{ background: #141414; color: #EFECE5; padding: 12mm 12mm 10mm; border-radius: 4mm; position: relative; overflow: hidden; }}
-.top::after {{ content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 9mm; background: repeating-linear-gradient(180deg,#C95023 0 5mm,#141414 5mm 6mm,#D5682F 6mm 11mm,#141414 11mm 12mm,#E8A84C 12mm 17mm,#141414 17mm 18mm); }}
+.top::after {{ content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 9mm; background: #C95023; }}
 .k {{ font-weight: 700; letter-spacing: .2em; font-size: 8pt; color: #D5682F; text-transform: uppercase; }}
 h1 {{ font-family: Bebas; font-weight: 400; font-size: 40pt; line-height: .95; margin: 3mm 0 1mm; }}
 .sub {{ font-family: Marker; color: #E8A84C; font-size: 14pt; }}
