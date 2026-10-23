@@ -112,7 +112,7 @@ def tts(voice_key, text):
     if not meta.exists():
         for intento in range(4):
             try:
-                words = asyncio.run(_synth(say, voice, rate, mp3))
+                words = asyncio.run(asyncio.wait_for(_synth(say, voice, rate, mp3), 45))
                 break
             except Exception:
                 if intento == 3:
