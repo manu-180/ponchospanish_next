@@ -16,8 +16,10 @@ nuevo es un archivo en `scripts/cursos/courses/` que apunta a un libro de
   español dentro de una frase de la narradora: la lee con acento inglés.
 - `rows` va fila por fila con la tabla de gramática del libro (`None` = encabezado); si el
   libro cambia la tabla, cambiar `rows`.
-- Voces con edge-tts (gratis, sin clave; cache en `.cache/tts/`). La clave de OpenAI de la
-  bóveda está desactivada y no hay ElevenLabs.
+- Voces con ElevenLabs (`ELEVENLABS_API_KEY` en envkit, ids en `voices.json`); sin clave cae
+  a edge-tts. Cache en `.cache/tts/` por texto: cambiar una frase sólo regenera esa.
+- Los cambios que Anto pide sobre un curso se juntan hasta su "Listo" y los aplica la
+  rutina `poncho-pedidos` (`docs/pedidos/PROTOCOLO.md`); el render lo corre Manuel en su PC.
 - Subtítulos según la skill `subtitulos-premium` (Bricolage 800 a 64 px, resaltador por
   palabra, tinta por fondo: crema = `claro`, negro = `oscuro`, terracota = `terra`).
 - Música: loop CC0 de Freesound ("simple relaxing guitar loop", Kodack). SFX: pop, whoosh y

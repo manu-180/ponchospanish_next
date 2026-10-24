@@ -91,6 +91,32 @@ pnpm install --frozen-lockfile
 - `git push origin HEAD:main` es el deploy (Git integration de Vercel). Si el push
   rebota, `git pull --rebase origin main` y de nuevo. Nunca `--force`.
 
+### Cambios a un curso en video
+
+Anto revisa los cursos (`scripts/cursos/`) y manda cambios con lección y minuto
+("1.1, 0:52: HASTA CHAU por CHAU", "pronunciación de JIRAFA", "TE TOCA por TU TURNO en
+todo el curso"). La rutina **no renderiza**: el render necesita la caché de voces de la
+PC de Manuel (`scripts/cursos/.cache/tts/`, fuera de git), ElevenLabs y ~2 h de máquina,
+y el curso se le entrega a Manuel, nunca por el grupo.
+
+- Aplicá todos los cambios de la tanda en el guion (`scripts/cursos/courses/<curso>.py`),
+  en el libro base (`scripts/ebooks/books/`) si la palabra sale de ahí, o en
+  `build_course.py` si el error lo genera el armado (antes de tocar un texto, fijate de
+  dónde sale). Commit a `main` como cualquier cambio.
+- El minuto que da Anto ubica el pedido dentro de la lección: la lección `1.1` es el
+  capítulo 1, unidad 1, y el orden de las escenas es el del guion. Los videos que manda
+  (`.mp4`) no se pueden ver desde la sesión; alcanza con su texto.
+- Pronunciación: las voces son ElevenLabs `eleven_multilingual_v2`. Una palabra
+  española sola (`«jirafa»`) a veces sale con acento inglés porque el modelo no sabe el
+  idioma: dale contexto español en el guion (`«la jirafa»`, o la palabra dentro de una
+  frase corta). Nunca respellings que cambien lo que se ve en pantalla sin avisar.
+- Un cambio "en todo el curso" (un título que se repite, como `¡Te toca!`) se busca en el
+  guion, en `build_course.py` y en `template/`.
+- `adjuntos` vacío y `mensaje` sin prometer el video: "Ya dejé hechos todos los cambios
+  del curso; Manu te pasa la versión nueva apenas la termine". El `resumen` le dice a
+  Manuel qué lecciones cambiaron y que corra
+  `python scripts/cursos/build_course.py <curso> --jobs 16 --render <carpeta>`.
+
 ## 6. Cerrar
 
 En `../pedidos`, `$PEND/estado.json`:
