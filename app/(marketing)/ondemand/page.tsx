@@ -88,8 +88,8 @@ export default async function OnDemandPage() {
               <span className="gradient-text">Online Spanish Courses</span>
               {" "}&amp; Ebooks
             </h1>
-            <p className="mt-3 text-xl text-charcoal-500/70">
-              <strong>Made beautifully simple.</strong>
+            <p className="mt-3 max-w-xl text-lg font-semibold leading-snug tracking-wide text-charcoal-500 md:text-xl">
+              Made beautifully simple.
             </p>
             <p className="mt-3 text-lg text-charcoal-500/80 max-w-2xl">
               Watch the video, read the ebook, fill in the workbook, tick off
