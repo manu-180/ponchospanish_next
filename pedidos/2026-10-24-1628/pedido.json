@@ -1,0 +1,59 @@
+{
+  "id": "2026-10-24-1628",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-24-1609",
+  "desde": "2026-10-24 16:09",
+  "hasta": "2026-10-24 16:28",
+  "mensajes": [
+    {
+      "hora": "2026-10-24 16:10",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Recibido, Anto! Ya me pongo con esto. Te aviso por acá cuando esté todo hecho 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 16:17",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Buenísimo",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 16:27",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Voy a necesitar foto de portada: JPG, PNG Max 10mb\nIdeal: 1280 x 720 px (16:9)",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 16:27",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Envío ejemplo de foto de portada de: Spanish for Confident kids on Demand Course",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 16:28",
+      "autor": "Antonela Risaro",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/005-image.jpg"
+    },
+    {
+      "hora": "2026-10-24 16:28",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Muchas Gracias!!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 16:28",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
