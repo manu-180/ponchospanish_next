@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getSupabaseAdminClient } from "@/lib/supabase/server";
+import { storageObjectExists, STORAGE_BUCKETS } from "@/lib/supabase/storage";
 import { DigitalProductForm } from "@/components/admin/digital-product-form";
 
 export const dynamic = "force-dynamic";
@@ -21,6 +22,15 @@ export default async function EditDigitalProductPage({ params }: PageProps) {
 
   if (!product) notFound();
 
+  const [fileExists, previewExists] = await Promise.all([
+    product.file_path
+      ? storageObjectExists(STORAGE_BUCKETS.digitalProducts, product.file_path)
+      : true,
+    product.preview_path
+      ? storageObjectExists(STORAGE_BUCKETS.digitalProducts, product.preview_path)
+      : true,
+  ]);
+
   return (
     <div className="container-wide py-10 md:py-14 space-y-8 max-w-5xl">
       <div className="space-y-2">
@@ -38,7 +48,12 @@ export default async function EditDigitalProductPage({ params }: PageProps) {
         </h1>
       </div>
 
-      <DigitalProductForm mode="edit" initial={product} />
+      <DigitalProductForm
+        mode="edit"
+        initial={product}
+        missingFile={!fileExists}
+        missingPreview={!previewExists}
+      />
     </div>
   );
 }

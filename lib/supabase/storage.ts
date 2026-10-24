@@ -60,6 +60,34 @@ export async function resolveStorageUrl(
 }
 
 /**
+ * Whether `path` exists as an object in `bucket`. A DB row can point at an
+ * object that was never stored (an upload that didn't finish), so anything
+ * that links to a stored file checks first. Returns true on lookup errors so
+ * a flaky Storage call never hides a file that is actually there.
+ */
+export async function storageObjectExists(
+  bucket: StorageBucket | string,
+  path: string | null | undefined,
+): Promise<boolean> {
+  if (!path) return false;
+  if (/^https?:\/\//i.test(path) || path.startsWith("/")) return true;
+
+  const slash = path.lastIndexOf("/");
+  const dir = slash === -1 ? "" : path.slice(0, slash);
+  const name = path.slice(slash + 1);
+  try {
+    const supabase = getSupabaseAdminClient();
+    const { data, error } = await supabase.storage
+      .from(bucket)
+      .list(dir, { search: name, limit: 100 });
+    if (error || !data) return true;
+    return data.some((o) => o.name === name);
+  } catch {
+    return true;
+  }
+}
+
+/**
  * Build a deterministic VTT path for a given lesson + language.
  * Used by the Whisper pipeline + the player's text track loader.
  */
