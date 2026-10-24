@@ -1,1 +1,8 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Te dejo la portada de Spanish for Confident Teens con la frase nueva: \"A Self-Paced Spanish Programme for the Early Years of Secondary School\". Quedó igual que antes en todo lo demás, sólo un poquito más chica la letra dorada para que entre en una línea ✨",
+  "pregunta": null,
+  "resumen": "Anto pidió cambiar la bajada de la portada del curso Spanish for Confident Teens (la que mandamos en la tanda 16:28) por \"A self-paced Spanish programme for the early years of secondary school\". Re-renderizada con ese texto en title case, igual que la bajada de la portada de Kids que ella misma mandó como ejemplo; como es más larga, la tipografía manuscrita bajó de 38px a 33px para entrar en una línea (851 de 902px de pantalla). Mismo JPG 1280x720, 132 KB, en entregables/, con el HTML fuente y el README actualizado en entregables/fuente/. No toca la web: no hubo commit a main ni deploy.",
+  "commits": [],
+  "adjuntos": ["entregables/Spanish-for-Confident-Teens-portada.jpg"]
+}
