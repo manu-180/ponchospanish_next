@@ -80,7 +80,14 @@ def transcribir(audio: Path, modelo: str) -> str:
         from faster_whisper import WhisperModel
 
         _modelo = WhisperModel(modelo, device="cpu", compute_type="int8")
-    segmentos, _ = _modelo.transcribe(str(audio), language="es", vad_filter=True)
+    # El av instalado no acepta metadata_errors, que faster-whisper le pasa al decodificar un path.
+    import subprocess
+
+    import numpy as np
+
+    crudo = subprocess.run(["ffmpeg", "-v", "error", "-i", str(audio), "-f", "f32le", "-ac", "1", "-ar", "16000", "-"],
+                           capture_output=True, check=True).stdout
+    segmentos, _ = _modelo.transcribe(np.frombuffer(crudo, dtype=np.float32), language="es", vad_filter=True)
     texto = " ".join(s.text.strip() for s in segmentos).strip()
     cache.parent.mkdir(parents=True, exist_ok=True)
     cache.write_text(texto, encoding="utf-8")

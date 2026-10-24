@@ -241,7 +241,8 @@ class Lesson:
 def split_region(es):
     a, b = [x.strip() for x in es.split(" / ", 1)]
     wa, wb = a.split(), b.split()
-    if len(wb) < len(wa):
+    # «¡Hasta luego! / ¡Chau!» ya es frase entera; completarla daba «¡Hasta ¡Chau!» (lo marcó Anto en 1.1).
+    if len(wb) < len(wa) and not (b[0] in "¡¿" or b[0].isupper()):
         low = [w.lower() for w in wa]
         if wb[0].lower() in low:
             k = low.index(wb[0].lower())
