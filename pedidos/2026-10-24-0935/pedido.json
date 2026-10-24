@@ -1,0 +1,514 @@
+{
+  "id": "2026-10-24-0935",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-21-1920",
+  "desde": "2026-10-21 19:20",
+  "hasta": "2026-10-24 09:35",
+  "mensajes": [
+    {
+      "hora": "2026-10-21 19:20",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Recibido, Anto! Ya me pongo con esto. Te aviso por acá cuando esté todo hecho 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 19:21",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Perfecto!! Gracias",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 19:24",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Listo, Anto! Van los dos e-books en PDF: Spanish for Travel (94 páginas) y Spanish for International Residents (60 páginas). Y tal cual me dijiste, ninguno de los dos lleva códigos QR ni audios ✨",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 19:24",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Buenísimo!!!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 21:28",
+      "autor": "Manu Navarro",
+      "tipo": "document",
+      "texto": "Spanish-for-International-Residents-Poncho.pdf",
+      "media": "media/Spanish-for-International-Residents-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-21 21:28",
+      "autor": "Manu Navarro",
+      "tipo": "document",
+      "texto": "Spanish-for-Travel-Poncho.pdf",
+      "media": "media/Spanish-for-Travel-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-21 21:28",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Capooo!!!!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 21:28",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Gracias Manolettttt",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 21:33",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Solo queda cambiar la foto de portada de Football Dictionary Manuu",
+      "media": null
+    },
+    {
+      "hora": "2026-10-21 21:33",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Cambiarla por esta",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 15:49",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Está es la foto para la portada de Football Dictionary Manu",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 15:51",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Cuando quieras empezamos a crear un curso",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:06",
+      "autor": "Manu Navarro",
+      "tipo": "text",
+      "texto": "Dalee de unaa sisi decime bien todo lo del curso y hago una primer versión si te gusta buenísimo y si no. Lo intentamos de otra manera",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:06",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Dale!!!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:08",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "El primer curso podría ser:\nSpanish for Confident Teens",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:08",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Y basarnos en el E-Book",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:09",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Crear un curso (con videos si se puede) en base a esa info que ya tenemos",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:09",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Y adjuntar el E-Book",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:09",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Me parece que va a ser más fácil de crear",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:09",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Y va a quedar prolijo",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:09",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Con coherencia",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:10",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Que te parece?",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:16",
+      "autor": "Manu Navarro",
+      "tipo": "text",
+      "texto": "De unaa a intento con eso a ver qué sale ? Se lo paso a un programa que tengo para editar videos",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:17",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Daleeeeeeee",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:20",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Quiero que esté linda la academia para que sea tentadora para quien se sume a las clases",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:20",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Voy a ir subiendo los recursos",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:20",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Y la idea es ir sumando",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:21",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Gracias por el laburo increíble!!!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:21",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Toy felíz 😍",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 16:25",
+      "autor": "Manu Navarro",
+      "tipo": "text",
+      "texto": "Buenaaazoo ojalá te guste el curso voy a intentar que sea súper atrapante",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:04",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Manuuuu!!! \nEstoy por cargar ebooks a la plataforma (a la academia) y chequeando el ebook que ya está cargado (Spanish for Confident Kids) veo que no se puede acceder al pdf de muestra",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:04",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Aparece este mensaje:",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:05",
+      "autor": "Antonela Risaro",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/033-image.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:13",
+      "autor": "Manu Navarro",
+      "tipo": "text",
+      "texto": "Dale an ahi me fijo que onda",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:14",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Y para la portada me pide que no sea formato PDF",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:14",
+      "autor": "Antonela Risaro",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/036-image.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:14",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "El bot me podrá pasar las portadas en otro formato?",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:15",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/Portada.pdf"
+    },
+    {
+      "hora": "2026-10-23 22:15",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Estoy con esta ahora",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:15",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Hace falta que se las envíe una por una?",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:17",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Es solo la tapa de cada ebook y de cada recurso (en JPG o PNG)",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:22",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Hola Anto! Sí, acá van las tapas de todos los e-books en JPG, listas para subir como portada 📚\n\nNo hace falta que me las mandes una por una: cuando sumes un recurso nuevo, avisame y te paso su tapa.\n\nSon verticales, como la tapa del libro. Si la plataforma las recorta feo, decime y te las armo cuadradas.",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:22",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Animal-Lovers-Dictionary-portada.jpg",
+      "media": "media/Animal-Lovers-Dictionary-portada.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:22",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Foodie-Dictionary-portada.jpg",
+      "media": "media/Foodie-Dictionary-portada.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:22",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Music-Lovers-Dictionary-portada.jpg",
+      "media": "media/Music-Lovers-Dictionary-portada.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:22",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Real-Life-Conversation-Dictionary-portada.jpg",
+      "media": "media/Real-Life-Conversation-Dictionary-portada.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:22",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Spanish-for-Confident-Teens-portada.jpg",
+      "media": "media/Spanish-for-Confident-Teens-portada.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:22",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Spanish-for-International-Residents-portada.jpg",
+      "media": "media/Spanish-for-International-Residents-portada.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:23",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Spanish-for-Travel-portada.jpg",
+      "media": "media/Spanish-for-Travel-portada.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:23",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Travel-Dictionary-portada.jpg",
+      "media": "media/Travel-Dictionary-portada.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:25",
+      "autor": "Manu Navarro",
+      "tipo": "text",
+      "texto": "mmm fijate si te sirven esos si no te mando otro s",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:25",
+      "autor": "Manu Navarro",
+      "tipo": "text",
+      "texto": "si van joya",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:25",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Geniallll",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:25",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Daleee",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:25",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Solo me falta el de fútbol creo",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:32",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Pudeeeeeeee 💪",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:32",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "🤩",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:51",
+      "autor": "Manu Navarro",
+      "tipo": "text",
+      "texto": "Joyaaaa",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:57",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Anto! Acá va el Football Dictionary nuevo, con tu foto de la pelota en la portada ⚽ Tiene el mismo formato que los otros diccionarios. Abajo te dejo también la tapa en JPG para la academia.",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:57",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Football-Dictionary-Poncho.pdf",
+      "media": "media/Football-Dictionary-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-23 22:57",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Football-Dictionary-portada.jpg",
+      "media": "media/Football-Dictionary-portada.jpg"
+    },
+    {
+      "hora": "2026-10-23 22:57",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "Y lo de la muestra del Spanish for Confident Kids: cuando se subió, el archivo de muestra nunca terminó de guardarse, por eso no abría. Ya lo arreglamos para que nadie vea ese error, pero para que vuelva el botón de la muestra hay que subirla de nuevo desde el editor del ebook (esperá a que llegue al 100% antes de cerrar). El libro completo está bien guardado, eso no se perdió 💛",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:58",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Graciasssss 🙌🏻",
+      "media": null
+    },
+    {
+      "hora": "2026-10-23 22:59",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Ahhhhh ok perfecto",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 09:33",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Buen día lindos!\nMe gustaría hacer unos mini ajustes en la página web!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 09:34",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Cambiar la tipografía de: Made beautifully simple (En la academia) para que quede estéticamente como: Without the panic or the perfectionism. \n(Que siga diciendo: Made beautifully simple. Pero con la nueva estética)",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 09:34",
+      "autor": "Antonela Risaro",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/067-image.jpg"
+    },
+    {
+      "hora": "2026-10-24 09:34",
+      "autor": "Antonela Risaro",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/068-image.jpg"
+    },
+    {
+      "hora": "2026-10-24 09:34",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Y en lesson details (de las tres opciones: kids, GCSE and adults) agregar (entre: “when” y “payment”):\n+ Free access to the Poncho Academy, with on-demand courses, downloadable e-books and extra learning resources.\n(+ link: academy)",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 09:34",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Para que se entienda bien que la academia está incluida al tomar clases por zoom.",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 09:35",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Por favor solo modificar lo indicado!!\nEl resto de la página está increible y me encanta!! (Que quede igual!)",
+      "media": null
+    },
+    {
+      "hora": "2026-10-24 09:35",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
