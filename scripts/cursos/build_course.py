@@ -49,6 +49,10 @@ ELEVEN_MODEL = "eleven_multilingual_v2"
 ELEVEN_SETTINGS = {"stability": 0.45, "similarity_boost": 0.8, "style": 0.3, "use_speaker_boost": True}
 ELEVEN_VOICES = json.loads((HERE / "voices.json").read_text(encoding="utf-8")) if (HERE / "voices.json").exists() else {}
 
+# Pronunciación, cargados del curso en build_lesson(). La clave es (voz, texto tal como se ve).
+SAY_AS = {}      # lo que se dice en lugar de lo que se ve (abreviaturas y cifras que el TTS lee mal)
+SAY_CTX = {}     # contexto español para ElevenLabs: no se oye, pero evita el acento inglés
+
 BG = {"dark": "#141414", "cream": "#EFECE5", "terra": "#C95023"}
 TONE = {"dark": "oscuro", "cream": "claro", "terra": "terra"}
 CONNECTORS = {"y", "de", "la", "el", "en", "que", "a", "tu", "the", "of", "to", "and", "a", "an", "con", "por",
@@ -111,9 +115,16 @@ def decode(path):
     return np.frombuffer(raw, dtype=np.float32).copy()
 
 
-def _eleven(text, voice_id, mp3):
-    """ElevenLabs con tiempos por carácter; se agrupan en palabras para los subtítulos."""
-    body = json.dumps({"text": text, "model_id": ELEVEN_MODEL, "voice_settings": ELEVEN_SETTINGS}).encode()
+def _eleven(text, voice_id, mp3, ctx=""):
+    """ElevenLabs con tiempos por carácter; se agrupan en palabras para los subtítulos.
+
+    `ctx` viaja como `previous_text`: le dice al modelo en qué idioma viene la frase sin que
+    se oiga, para las palabras solas («y», «proteger») que si no salen con acento inglés.
+    """
+    payload = {"text": text, "model_id": ELEVEN_MODEL, "voice_settings": ELEVEN_SETTINGS}
+    if ctx:
+        payload["previous_text"] = ctx
+    body = json.dumps(payload).encode()
     req = urllib.request.Request(
         f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps?output_format=mp3_44100_128",
         data=body, headers={"xi-api-key": os.environ["ELEVENLABS_API_KEY"], "Content-Type": "application/json"})
@@ -138,15 +149,17 @@ def _eleven(text, voice_id, mp3):
 
 def tts(voice_key, text):
     voice, rate = (ELEVEN_VOICES[voice_key], "11") if ENGINE == "eleven" else VOICES[voice_key]
-    say = spoken(text)
-    h = hashlib.sha1(f"{voice}|{rate}|{ELEVEN_MODEL if ENGINE == 'eleven' else ''}|{say}".encode()).hexdigest()[:16]
+    say = spoken(SAY_AS.get((voice_key, text.strip()), text))
+    ctx = SAY_CTX.get((voice_key, text.strip()), "") if ENGINE == "eleven" else ""  # edge-tts ya elige idioma
+    key = f"{voice}|{rate}|{ELEVEN_MODEL if ENGINE == 'eleven' else ''}|{say}" + (f"|ctx:{ctx}" if ctx else "")
+    h = hashlib.sha1(key.encode()).hexdigest()[:16]
     TTS_CACHE.mkdir(parents=True, exist_ok=True)
     mp3, meta = TTS_CACHE / f"{h}.mp3", TTS_CACHE / f"{h}.json"
     if not meta.exists():
         for intento in range(4):
             try:
                 if ENGINE == "eleven":
-                    words = _eleven(say, voice, mp3)
+                    words = _eleven(say, voice, mp3, ctx)
                 else:
                     words = asyncio.run(asyncio.wait_for(_synth(say, voice, rate, mp3), 45))
                 break
@@ -250,6 +263,22 @@ def split_region(es):
         else:
             b = " ".join(wa[: len(wa) - len(wb)] + wb)
     return a.rstrip("."), b
+
+
+def one_variant(s):
+    """Una sola opción del par del libro, entera: «He / She is tall.» → «He is tall.»
+
+    Partir en la barra alcanza cuando las dos opciones son frases cerradas
+    («Hello! / Good morning!»), pero no cuando la barra separa dos palabras dentro de una
+    frase: ahí daba enunciados de una palabra, «He» (lo marcó Anto en 4.3).
+    """
+    if " / " not in s:
+        return s
+    head, rest = s.split(" / ", 1)
+    tail = rest.split(" / ")[0].split()
+    if len(head.split()) == 1 and head[-1] not in ".!?…" and len(tail) > 1:
+        return " ".join([head] + tail[1:])
+    return head
 
 
 def flagify(s):
@@ -487,7 +516,7 @@ def scene_project_intro(L, unit_title, text):
     pass
 
 
-def scene_quiz(L, unit_title, items, title="¡Te toca!", intro="Your turn! Say it in Spanish, before you hear it."):
+def scene_quiz(L, unit_title, items, title="¡Tu turno!", intro="Your turn! Say it in Spanish, before you hear it."):
     s0 = L.t
     L.wait(0.7)
     L.narrate([intro], gap=0.6)
@@ -757,6 +786,8 @@ def lesson_projects(course_name):
 
 def build_lesson(course_name, lid, only_meta=False):
     C, B, S, chapters, photos, cover, plans = lesson_projects(course_name)
+    global SAY_AS, SAY_CTX
+    SAY_AS, SAY_CTX = S.get("say_as", {}), S.get("say_ctx", {})
     idx = next(i for i, p in enumerate(plans) if p[0] == lid)
     _, title, key = plans[idx]
     nxt = plans[idx + 1] if idx + 1 < len(plans) else None
@@ -792,7 +823,7 @@ def build_lesson(course_name, lid, only_meta=False):
             <div class="vcard"{at(es_t - 0.15, 'pop')}>{ES_FLAG}<b>Spain</b><span class="es big2">¡Hola! ¿Qué tal?</span></div>
             <div class="vcard"{at(ar_t - 0.15, 'pop')}>{AR_FLAG}<b>Argentina</b><span class="es big2">¡Hola! ¿Cómo andás?</span></div>
           </div>""", s0, end)
-        scene_quiz(L, "", [("Hello! How are you?", "¡Hola! ¿Qué tal?", "es")], intro=w[6].replace("«¡Te toca!»", "Te toca"))
+        scene_quiz(L, "", [("Hello! How are you?", "¡Hola! ¿Qué tal?", "es")], intro=w[6].replace("«¡Tu turno!»", "Tu turno"))
         scene_close(L, ["¡Hola!", "¿Qué tal?", "¡Vamos!"], chapters[0]["units"][0]["en"], w[7:])
     else:
         ci, ui = key
@@ -822,7 +853,7 @@ def build_lesson(course_name, lid, only_meta=False):
             if nxt_en:
                 line.append(f"See you in the next module: {nxt_en.lower()}!")
             else:
-                line.append("You've completed the whole course. ¡Enhorabuena!")
+                line += ["You've completed the whole course.", "‹¡Felicitaciones!›"]
             scene_close(L, [ch["title"], "¡Muy bien!", "¡Vamos!"], nxt_en, line)
         else:
             u = ch["units"][ui]
@@ -842,8 +873,8 @@ def build_lesson(course_name, lid, only_meta=False):
                 scene_card(L, u["title"], "Tip", u["tip"][0], u["tip"][1], us["tip"])
             if u.get("fact") and us.get("fact"):
                 scene_card(L, u["title"], "Dato curioso", u["fact"][0], u["fact"][1], us["fact"])
-            pool = [(w[1].split(" / ")[0], w[0].split(" / ")[0], "es") for w in u.get("words", [])]
-            pool += [(en.split(" / ")[0] if "," not in en else en, es, "es") for es, en in u.get("grid", [])]
+            pool = [(one_variant(w[1]), one_variant(w[0]), "es") for w in u.get("words", [])]
+            pool += [(en if "," in en else one_variant(en), es, "es") for es, en in u.get("grid", [])]
             if not pool and u.get("grammar"):
                 pool = []
             if pool:
@@ -913,7 +944,7 @@ def write_outline(course_name, pdf):
             rows.append(f'<h2>{e(mod)}</h2>')
             cur = mod
         if key is None:
-            desc = "How the course works: six modules, voices from Spain and Argentina, and your first ¡Te toca!"
+            desc = "How the course works: six modules, voices from Spain and Argentina, and your first ¡Tu turno!"
             name = "Welcome to the course"
         elif key[1] is None:
             desc = "Module review: choose the right word, say it in Spanish against the clock, and a curious fact."

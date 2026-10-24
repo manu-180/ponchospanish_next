@@ -134,7 +134,7 @@ BOOK = {
             ],
             "practice": [
                 {"type": "match", "title": "Personality match", "pairs": [
-                    ("simpática", "nice, friendly"), ("tímido", "shy"), ("divertida", "funny"), ("listo", "clever"),
+                    ("simpático / simpática", "nice, friendly"), ("tímido", "shy"), ("divertida", "funny"), ("listo", "clever"),
                     ("hablador", "chatty"), ("valiente", "brave"), ("tranquila", "calm"), ("generoso", "generous")]},
                 {"type": "quiz", "title": "Agreement check", "items": [
                     ("Mi hermana es muy ___.", ["simpático", "simpática"], 1),
@@ -410,7 +410,7 @@ BOOK = {
                         ("Está en…", "It's in…", "Mi casa está en el campo.", "My house is in the countryside.", None),
                         ("la ciudad / el pueblo", "the city / the village", "Mi piso está en la ciudad.", "My flat is in the city.", None),
                         ("la costa / la montaña", "the coast / the mountains", "Mi casa está en la costa.", "My house is on the coast.", None),
-                        ("mi dormitorio / mi pieza", "my bedroom", "Comparto mi dormitorio con mi hermana.", "I share my bedroom with my sister.", "ES/AR"),
+                        ("mi dormitorio / mi cuarto / mi habitación / mi pieza", "my bedroom", "Comparto mi dormitorio con mi hermana.", "I share my bedroom with my sister.", "ES/AR"),
                         ("la cocina / el salón", "the kitchen / the living room", "Comemos en la cocina.", "We eat in the kitchen.", None),
                         ("el jardín", "the garden", "Mi perro juega en el jardín.", "My dog plays in the garden.", None),
                     ],

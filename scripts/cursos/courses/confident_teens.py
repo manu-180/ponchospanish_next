@@ -13,6 +13,24 @@ COURSE = {
     "level": "Ages 11–14 · KS3",
     "cover_photo": "confident-teens-cover.jpg",
     "photo_pos": {0: "38% 40%", 1: "50% 45%", 2: "62% 45%", 3: "35% 55%", 4: "50% 55%", 5: "50% 40%"},
+    # Pronunciación, sin tocar lo que se ve en pantalla. Clave: (voz, texto de la tarjeta).
+    # `say_as`: lo que se dice en lugar de lo que se lee, para abreviaturas y cifras.
+    "say_as": {
+        ("en", "1, 2, 3"): "one, two, three",
+        ("en", "16, 17"): "sixteen, seventeen",
+        ("en", "Apr, May, Jun"): "April, May, June",
+    },
+    # `say_ctx`: contexto en español para ElevenLabs (viaja como previous_text, no se oye).
+    # Son las palabras que Anto marcó como mal dichas: solas, el modelo no sabe el idioma.
+    "say_ctx": {
+        ("es", "trece, catorce, quince"): "Seguimos contando en español: diez, once, doce.",
+        ("es", "proteger"): "Esta palabra del español es un verbo.",
+        ("es", "ver series"): "Otra actividad del tiempo libre, en español.",
+        ("es", "Hay…"): "Esta expresión del español es de las más útiles.",
+        ("es", "Leo…"): "Esta es una forma del verbo leer, en español.",
+        ("es", "y"): "En español, los conectores unen dos ideas.",
+        ("ar", "¡Felicitaciones!"): "Terminaste todo el curso de español.",
+    },
     "welcome": [
         "¡Hola! Welcome to Spanish for Confident Teens.",
         "This course follows the big topics of Key Stage 3, so you can speak, read and write about your own life in Spanish.",
@@ -20,7 +38,7 @@ COURSE = {
         "Every lesson is short. You'll hear real Spanish voices, from Spain, «¡Hola! ¿Qué tal?»",
         "and from Argentina. ‹¡Hola! ¿Cómo andás?›",
         "Both are correct, and you'll learn to understand both.",
-        "When you see «¡Te toca!», it's your turn: say the answer out loud before you hear it.",
+        "When you see «¡Tu turno!», it's your turn: say the answer out loud before you hear it.",
         "Keep your e-book next to you. It has every word, extra activities and all the answers.",
         "Mistakes are how we learn. ¡Vamos!",
     ],
@@ -36,7 +54,7 @@ COURSE = {
                     "hook": ["Let's start with the very first thing you'll say to someone new: who you are and where you live."],
                     "tip": [
                         "Spanish sounds are regular, so once you know them, you can read any word.",
-                        "J sounds like a strong H.", "«jirafa»",
+                        "J sounds like a strong H.", "«la jirafa»",
                         "Double L sounds like Y in Spain,", "«me llamo»",
                         "and like SH in Argentina.", "‹me llamo›",
                         "This letter sounds like N Y.", "«España»",
