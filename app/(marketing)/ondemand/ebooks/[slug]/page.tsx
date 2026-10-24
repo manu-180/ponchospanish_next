@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatCurrency, formatBytes } from "@/lib/utils";
+import { storageObjectExists, STORAGE_BUCKETS } from "@/lib/supabase/storage";
 import { DigitalProductCheckoutPanel } from "@/components/learn/digital-product-checkout-panel";
 import { DownloadProductButton } from "@/components/learn/download-product-button";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -76,9 +77,13 @@ export default async function EbookDetailPage({ params }: PageProps) {
   }
 
   const isFree = product.price_gbp === 0;
-  const previewUrl = product.preview_path
-    ? `/api/digital-products/${product.id}/preview`
-    : null;
+  // Only offer the sample when the object is really in Storage — a broken
+  // link lands the visitor on a raw JSON error.
+  const previewUrl =
+    product.preview_path &&
+    (await storageObjectExists(STORAGE_BUCKETS.digitalProducts, product.preview_path))
+      ? `/api/digital-products/${product.id}/preview`
+      : null;
 
   const includes = [
     "Instant download after purchase",

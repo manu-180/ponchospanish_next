@@ -43,9 +43,14 @@ interface DraftState {
 export function DigitalProductForm({
   mode,
   initial,
+  missingFile = false,
+  missingPreview = false,
 }: {
   mode: "create" | "edit";
   initial?: DigitalProduct;
+  /** The saved file_path / preview_path isn't in Storage — ask for a re-upload. */
+  missingFile?: boolean;
+  missingPreview?: boolean;
 }) {
   const router = useRouter();
   const [data, setData] = useState<DraftState>({
@@ -244,6 +249,7 @@ export function DigitalProductForm({
             hint="PDF, video, ZIP u otro formato. Compresión automática para PDF e imágenes."
             accept="*/*"
             currentName={data.file_path?.split("/").pop()}
+            missing={missingFile}
             onUploaded={({ path, sizeBytes }) => {
               update("file_path", path);
               update("file_size_bytes", sizeBytes);
@@ -260,6 +266,7 @@ export function DigitalProductForm({
             hint="Páginas de muestra o clip corto para mostrar antes de comprar"
             accept="application/pdf,.pdf,video/*"
             currentName={data.preview_path?.split("/").pop()}
+            missing={missingPreview}
             onUploaded={({ path }) => update("preview_path", path)}
             onClear={() => update("preview_path", null)}
           />

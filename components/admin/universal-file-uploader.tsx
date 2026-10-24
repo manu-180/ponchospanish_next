@@ -154,6 +154,11 @@ export interface UniversalFileUploaderProps {
   /** Native input accept string, e.g. "application/pdf,video/*" or "*\/*" */
   accept?: string;
   currentName?: string | null;
+  /**
+   * The stored path points at an object that isn't in Storage (upload never
+   * finished, or it was deleted). Starts empty with a warning so it gets re-uploaded.
+   */
+  missing?: boolean;
   onUploaded: (info: {
     path: string;
     publicUrl: string;
@@ -171,16 +176,20 @@ export function UniversalFileUploader({
   hint,
   accept = "*/*",
   currentName,
+  missing = false,
   onUploaded,
   onClear,
 }: UniversalFileUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   // If there is already an uploaded file (edit mode), start in "done" so the
   // card renders immediately without waiting for a new upload.
-  const [step, setStep] = useState<Step>(() => (currentName ? "done" : "idle"));
+  const [step, setStep] = useState<Step>(() =>
+    currentName && !missing ? "done" : "idle",
+  );
   const [uploadPct, setUploadPct] = useState(0);
   const [stats, setStats] = useState<Stats | null>(null);
   const [doneName, setDoneName] = useState<string | null>(currentName ?? null);
+  const [showMissing, setShowMissing] = useState(missing && Boolean(currentName));
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [kind, setKind] = useState<FileKind>("other");
@@ -328,6 +337,7 @@ export function UniversalFileUploader({
 
       // ── 4. Done ───────────────────────────────────────────────────────────
       setDoneName(file.name);
+      setShowMissing(false);
       setStep("done");
       onUploaded({
         path: storedPath,
@@ -349,6 +359,7 @@ export function UniversalFileUploader({
     setStep("idle");
     setStats(null);
     setDoneName(null);
+    setShowMissing(false);
     setErrorMsg(null);
     setPartInfo(null);
     setTotalParts(0);
@@ -376,6 +387,16 @@ export function UniversalFileUploader({
           e.target.value = "";
         }}
       />
+
+      {showMissing && step === "idle" && (
+        <p className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+          <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+          <span>
+            El archivo <strong>{currentName}</strong> no está en el servidor (la
+            subida no se completó). Volvé a subirlo.
+          </span>
+        </p>
+      )}
 
       <AnimatePresence mode="wait">
         {/* ───────────────────── IDLE ─────────────────────────────────────── */}
