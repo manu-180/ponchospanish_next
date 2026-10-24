@@ -1,1 +1,8 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Te dejo acá la portada de Spanish for Confident Teens en 1280 x 720, con el mismo estilo que la de Kids: la notebook sobre el fondo oscuro, la foto de los chicos del libro y la frase en dorado abajo ✨ Si querés que le cambie la frase, la foto o algún detalle, decime y la hago de nuevo.",
+  "pregunta": null,
+  "resumen": "Portada del curso en video Spanish for Confident Teens, pedida por Anto con specs del formato (JPG/PNG, máx 10 MB, 1280x720 16:9) y la portada del curso de Kids como ejemplo. Armada con el mismo esquema que esa: fondo #191A12, mockup de notebook, SPANISH / for Confident TEENS en crema y bajada manuscrita en mostaza (\"A Self-Paced Beginner Programme Designed for Ages 11-14\"). La foto es la misma del e-book (scripts/ebooks/photos/confident-teens-cover.jpg), fundida contra el negro porque es vertical y no da para recorte apaisado sin cortar caras. Queda en entregables/ (132 KB) y va adjunta al grupo; el HTML que la genera, con las tipografías y el README para re-renderizarla o hacer la de otro curso, está en entregables/fuente/. No tocó nada de la web: no hubo commit a main ni deploy.",
+  "commits": [],
+  "adjuntos": ["entregables/Spanish-for-Confident-Teens-portada.jpg"]
+}
