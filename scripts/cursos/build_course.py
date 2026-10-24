@@ -987,10 +987,22 @@ def main():
         write_outline(a.course, a.outline)
     if a.render:
         root = Path(a.render)
+        fallidas = []
         for lid in ids:
             folder, name = out_name(plans, lid, chapters)
-            render(BUILD / a.course / lid, root / folder / name)
-            print("render", lid, root / folder / name, flush=True)
+            dst = root / folder / name
+            if dst.exists():
+                continue
+            for intento in range(2):
+                try:
+                    render(BUILD / a.course / lid, dst)
+                    print("render", lid, dst, flush=True)
+                    break
+                except subprocess.CalledProcessError:
+                    if intento:
+                        fallidas.append(lid)
+                        print("FALLO render", lid, flush=True)
+        print("fallidas:", fallidas, flush=True)
 
 
 if __name__ == "__main__":
