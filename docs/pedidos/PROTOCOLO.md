@@ -147,6 +147,8 @@ En `../pedidos`, `$PEND/estado.json`:
   `mensaje`: PDF, documentos y fotos, cada uno con su nombre. Si se tocó un PDF, va acá
   sí o sí: el `mensaje` nunca dice "te dejo el PDF" sin el archivo en `adjuntos`. Sólo
   lo que cambió en esta tanda; nada de fuera de `$PEND/`. Hasta 60 MB por archivo.
+  `entregables/` está en `.gitignore`: va con `git add -f`, o el bot dice "no está en la
+  rama" y Anto recibe el mensaje sin el archivo (2026-10-25).
 - `estado: "fallido"` sólo si no se pudo desplegar nada (build roto que no se puede
   arreglar, push imposible); el `resumen` dice por qué.
 
