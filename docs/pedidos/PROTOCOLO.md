@@ -97,7 +97,7 @@ Anto revisa los cursos (`scripts/cursos/`) y manda cambios con lección y minuto
 ("1.1, 0:52: HASTA CHAU por CHAU", "pronunciación de JIRAFA", "TE TOCA por TU TURNO en
 todo el curso"). La rutina **no renderiza**: el render necesita la caché de voces de la
 PC de Manuel (`scripts/cursos/.cache/tts/`, fuera de git), ElevenLabs y ~2 h de máquina,
-y el curso se le entrega a Manuel, nunca por el grupo.
+y el curso nuevo sale desde ahí (la rutina no lo puede mandar).
 
 - Aplicá todos los cambios de la tanda en el guion (`scripts/cursos/courses/<curso>.py`),
   en el libro base (`scripts/ebooks/books/`) si la palabra sale de ahí, o en

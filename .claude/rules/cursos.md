@@ -24,6 +24,6 @@ nuevo es un archivo en `scripts/cursos/courses/` que apunta a un libro de
   palabra, tinta por fondo: crema = `claro`, negro = `oscuro`, terracota = `terra`).
 - Música: loop CC0 de Freesound ("simple relaxing guitar loop", Kodack). SFX: pop, whoosh y
   sparkle de la librería de `media-use`.
-- Los videos se entregan a Manuel (carpeta de Descargas), nunca por el grupo de Anto:
-  él se los pasa cuando quiere.
+- Los videos van a Descargas y se le mandan a Anto apenas están (desde 2026-10-24; antes
+  se demoraban a propósito). El zip pasa los 60 MB del bot: va por link de Drive.
 - Render: ~1,4x tiempo real con 16 workers. Un curso de 38 lecciones son ~2 h de render.
