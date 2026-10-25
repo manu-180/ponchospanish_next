@@ -1,0 +1,13 @@
+{
+  "estado": "hecho",
+  "mensaje": "¡Anto! Ya está la versión nueva del curso Spanish for Confident Teens, con todos los ajustes que marcaste: «tu turno», «chau», «simpático», «mi cuarto / mi habitación», las frases completas en 4.3, el cierre con «¡Felicitaciones!» y las pronunciaciones corregidas 🎉\n\nComo pesa mucho para WhatsApp, te lo dejo para bajar acá (son los 39 videos ordenados por módulo):\nhttps://drive.google.com/file/d/17QegZ__ajQFKYK-bUaHVRg_Mwa-Ax45h/view\n\nTambién actualicé el e-book con «simpático» y «mi cuarto / mi habitación», y ya lo cambié en la academia, así que no tenés que subir nada. Abajo te paso el e-book y el temario del curso 💛",
+  "pregunta": null,
+  "resumen": "Entrega manual (sesión local de Manuel): render completo de los 39 videos con los ajustes de ee0bfd2, zip de 405 MB en Drive (manunv97, link público), e-book rearmado y reemplazado en Storage digital-products (mismo path), temario en PDF adjunto.",
+  "commits": [
+    "ee0bfd2"
+  ],
+  "adjuntos": [
+    "entregables/Spanish-for-Confident-Teens-Poncho.pdf",
+    "entregables/Spanish-for-Confident-Teens-Temario.pdf"
+  ]
+}
