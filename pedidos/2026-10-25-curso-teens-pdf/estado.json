@@ -1,0 +1,11 @@
+{
+  "estado": "hecho",
+  "mensaje": "Acá van el e-book actualizado y el temario del curso 📚",
+  "pregunta": null,
+  "resumen": "Reenvío de los adjuntos de 2026-10-25-curso-teens (entregables/ estaba ignorado y no había subido a la rama).",
+  "commits": [],
+  "adjuntos": [
+    "entregables/Spanish-for-Confident-Teens-Poncho.pdf",
+    "entregables/Spanish-for-Confident-Teens-Temario.pdf"
+  ]
+}
