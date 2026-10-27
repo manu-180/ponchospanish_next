@@ -1,0 +1,269 @@
+{
+  "id": "2026-10-27-1235",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-27-1200",
+  "desde": "2026-10-27 12:00",
+  "hasta": "2026-10-27 12:35",
+  "mensajes": [
+    {
+      "hora": "2026-10-27 12:01",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "En un ratito te envío info para crear los recursos",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:01",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Recibido, Anto! Ya me pongo con esto. Te aviso por acá cuando esté todo hecho 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:01",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Perfecto!!!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:26",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Para los recursos nos vamos a inspirar en los modelos de exámenes que voy a adjuntar. Vamos a crear dos exámenes de cada uno (ej: GCSE AQA (Foundation tier) - Paper 3 Reading “A” y “B”) tienen que basarse en info real oficial pero no tienen que ser exactamente iguales. Y el modelo “A” debe ser distinto al modelo “B”. Seguimos con el formato de Poncho también. Las fotos van a ser las mismas que las portadas de los ebooks (cada modelo debe examen con la foto que correspond según exam board) foundation y Higher utilizan la misma foto… en este caso los recursos con color Gris!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:26",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Ahí van:",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:27",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Recordá crear “A” y “B” para cada uno de los modelos que voy a enviar:",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:28",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "GCSE AQA (Foundation tier) - Paper 3 Reading",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:28",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/GCSE AQA Foundation.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:28",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/GCSE AQA Foundation ANSWERS.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:29",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "GCSE AQA (Higher tier) - Paper 3 Reading",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:29",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/GCSE AQA Higher.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:29",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/GCSE AQA Higher ANSWERS.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:30",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "GCSE EDEXCEL (Foundation tier) - PAPER 3: Reading and understanding in Spanish",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:30",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/GCSE EDEXCEL Foundation _ ANSWERS.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:31",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/GCSE EDEXCEL Higher _ ANSWERS.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Listo, Anto! Ya están los seis e-books, uno por examen: AQA Foundation y Higher, Edexcel Foundation y Higher, IGCSE Edexcel e IGCSE Cambridge 📚 Cada uno arranca explicando cómo funciona ese examen (cuántas pruebas hay, cuánto duran y qué piden en cada una), después vienen los temas de esa especificación con vocabulario, gramática, diálogos y ejercicios con respuestas, y al final la caja de herramientas de gramática y de vocabulario, con el mismo formato que el de Confident Teens ✨ Las tapas son las fotos que mandaste, con el negro de los e-books, y abajo te mando cada libro en PDF y su portada en JPG para subir a la academia. Una cosa: no pude abrir las muestras de Amazon, así que los datos de cada examen los saqué de las páginas oficiales de AQA, Pearson Edexcel y Cambridge, que es más seguro. Si querés que alguno sea más largo o que cambiemos algún tema, decime y lo ajusto 💛",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-Spanish-AQA-Foundation-Poncho.pdf",
+      "media": "media/GCSE-Spanish-AQA-Foundation-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/018-image.jpg"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "GCSE EDEXCEL (Higher tier) - PAPER 3: Reading and understanding in Spanish",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-Spanish-AQA-Higher-Poncho.pdf",
+      "media": "media/GCSE-Spanish-AQA-Higher-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/021-image.jpg"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-Spanish-Edexcel-Foundation-Poncho.pdf",
+      "media": "media/GCSE-Spanish-Edexcel-Foundation-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/023-image.jpg"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-Spanish-Edexcel-Higher-Poncho.pdf",
+      "media": "media/GCSE-Spanish-Edexcel-Higher-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/025-image.jpg"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "International-GCSE-Spanish-Edexcel-Poncho.pdf",
+      "media": "media/International-GCSE-Spanish-Edexcel-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/027-image.jpg"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "IGCSE-Spanish-Cambridge-Poncho.pdf",
+      "media": "media/IGCSE-Spanish-Cambridge-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:32",
+      "autor": "bot",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/029-image.jpg"
+    },
+    {
+      "hora": "2026-10-27 12:33",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Perfecto!!!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:34",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "IGCSE EDEXCEL - PAPER 2: Reading and Writing",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:34",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/IGCSE EDEXCEL.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:34",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/IGCSE EDEXCEL Answers.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:35",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "IGCSE CAMBRIDGE Paper 2 Reading",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:35",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/IGCSE CAMBRIDGE.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:35",
+      "autor": "Antonela Risaro",
+      "tipo": "document",
+      "texto": "",
+      "media": "media/IGCSE CAMBRIDGE ANSWERS.pdf"
+    },
+    {
+      "hora": "2026-10-27 12:35",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
