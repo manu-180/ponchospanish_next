@@ -1,1 +1,23 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Ya están los seis e-books, uno por examen: AQA Foundation y Higher, Edexcel Foundation y Higher, IGCSE Edexcel e IGCSE Cambridge 📚 Cada uno arranca explicando cómo funciona ese examen (cuántas pruebas hay, cuánto duran y qué piden en cada una), después vienen los temas de esa especificación con vocabulario, gramática, diálogos y ejercicios con respuestas, y al final la caja de herramientas de gramática y de vocabulario, con el mismo formato que el de Confident Teens ✨ Las tapas son las fotos que mandaste, con el negro de los e-books, y abajo te mando cada libro en PDF y su portada en JPG para subir a la academia. Una cosa: no pude abrir las muestras de Amazon, así que los datos de cada examen los saqué de las páginas oficiales de AQA, Pearson Edexcel y Cambridge, que es más seguro. Si querés que alguno sea más largo o que cambiemos algún tema, decime y lo ajusto 💛",
+  "pregunta": null,
+  "resumen": "Pedido 27/10 12:00: los seis e-books de examen. Commit fd6996e en main (sólo scripts/ebooks, la web no cambia). Libros nuevos en scripts/ebooks/books/: gcse_aqa_foundation, gcse_aqa_higher, gcse_edexcel_foundation, gcse_edexcel_higher, igcse_edexcel e igcse_cambridge, todos kind=\"ebook\" (55-60 páginas cada uno). Comparten books/_exam_core.py: 16 temas con vocabulario y ejemplos, una caja de gramática por tema y por nivel (F/H), caja de herramientas de gramática y de vocabulario y un banco de ejercicios; cada libro arma sus capítulos con los temas de su especificación y pone lo suyo (capítulo 1 con las pruebas de ese examen, las tareas de escritura con los recuentos de palabras reales de cada papel y los ejercicios de «¿conocés tu examen?»). Datos de examen verificados contra fuente oficial vía búsqueda (aqa.org.uk 8692, qualifications.pearson.com 1SP1 y 4SP1, cambridgeinternational.org 0530): desde la sesión cloud no se puede abrir ni el PDF de la especificación ni las muestras de Amazon que mandó Anto (el proxy bloquea esos dominios), así que los libros no copian esas muestras y cada uno lleva una nota de «comprobá tu especificación» por si la junta actualiza el documento. Las cuatro fotos que mandó Anto están en scripts/ebooks/photos/ (gcse-aqa-cover, gcse-edexcel-cover, igcse-edexcel-cover, igcse-cambridge-cover) y se reutilizan recortadas en las aperturas de capítulo porque Pexels sigue bloqueado; si querés fotos distintas adentro, cambiá los nombres por ids de Pexels y rebuildeá desde tu máquina. Entregables: los seis PDF y las seis portadas en JPG (200 dpi), 19 MB en total. Puertas: type-check verde y test:seo 8/8; pnpm build cae sólo al prerenderizar /sitemap.xml por no llegar a Supabase, el caso previsto en el protocolo. Nada se publicó en la Academy: eso queda para cuando los revises.",
+  "commits": [
+    "fd6996e"
+  ],
+  "adjuntos": [
+    "entregables/GCSE-Spanish-AQA-Foundation-Poncho.pdf",
+    "entregables/GCSE-Spanish-AQA-Foundation-portada.jpg",
+    "entregables/GCSE-Spanish-AQA-Higher-Poncho.pdf",
+    "entregables/GCSE-Spanish-AQA-Higher-portada.jpg",
+    "entregables/GCSE-Spanish-Edexcel-Foundation-Poncho.pdf",
+    "entregables/GCSE-Spanish-Edexcel-Foundation-portada.jpg",
+    "entregables/GCSE-Spanish-Edexcel-Higher-Poncho.pdf",
+    "entregables/GCSE-Spanish-Edexcel-Higher-portada.jpg",
+    "entregables/International-GCSE-Spanish-Edexcel-Poncho.pdf",
+    "entregables/International-GCSE-Spanish-Edexcel-portada.jpg",
+    "entregables/IGCSE-Spanish-Cambridge-Poncho.pdf",
+    "entregables/IGCSE-Spanish-Cambridge-portada.jpg"
+  ]
+}
