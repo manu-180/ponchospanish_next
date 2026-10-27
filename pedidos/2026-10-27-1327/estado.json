@@ -1,1 +1,21 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Acá abajo van las doce portadas de los exámenes de práctica, una por cada papel: el A y el B de cada modelo, en gris como los recursos y con la misma foto que la tapa del PDF 🖼️ Están en el mismo tamaño que las de los e-books, listas para subir a la academia. Cada una tiene arriba la letra del papel (A o B) y abajo el examen, el tiempo y el puntaje, así se distinguen de un vistazo 💛",
+  "pregunta": null,
+  "resumen": "Pedido 27/10 13:27: Anto pidió las portadas de los doce recursos de examen de la tanda anterior (los e-books sí se habían entregado con tapa en JPG y los exámenes no). Nada que cambiar en la web ni en scripts: las tapas salen de los propios PDF que el bot ya le mandó al grupo (pedidos/2026-10-27-1327/media/), página 1 con pdftoppm -jpeg -r 200, misma especificación que las portadas de los e-books (1653x2339, 200 dpi) y el mismo gris #55544F del interior, así que coinciden exactamente con la tapa que ella ya vio. Las doce van en entregables/<nombre>-portada.jpg (4,6 MB en total, agregadas con git add -f porque entregables/ está en .gitignore). Sin commit en main: no hubo cambio de código, así que no corrí type-check ni build. Nada se publicó en la Academy.",
+  "commits": [],
+  "adjuntos": [
+    "entregables/GCSE-AQA-Foundation-Reading-A-portada.jpg",
+    "entregables/GCSE-AQA-Foundation-Reading-B-portada.jpg",
+    "entregables/GCSE-AQA-Higher-Reading-A-portada.jpg",
+    "entregables/GCSE-AQA-Higher-Reading-B-portada.jpg",
+    "entregables/GCSE-Edexcel-Foundation-Reading-A-portada.jpg",
+    "entregables/GCSE-Edexcel-Foundation-Reading-B-portada.jpg",
+    "entregables/GCSE-Edexcel-Higher-Reading-A-portada.jpg",
+    "entregables/GCSE-Edexcel-Higher-Reading-B-portada.jpg",
+    "entregables/International-GCSE-Edexcel-Reading-Writing-A-portada.jpg",
+    "entregables/International-GCSE-Edexcel-Reading-Writing-B-portada.jpg",
+    "entregables/IGCSE-Cambridge-Reading-A-portada.jpg",
+    "entregables/IGCSE-Cambridge-Reading-B-portada.jpg"
+  ]
+}
