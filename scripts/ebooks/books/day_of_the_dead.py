@@ -6,8 +6,7 @@ BOOK = {
     "kicker": "The words and the story behind Mexico's most colourful<br>celebration, with Spain {ES} and Argentina {AR} vocabulary",
     "cover_photo": "day-of-the-dead-cover.jpg",
     "cover_pos": "50% 24%",
-    "toc_photo": "day-of-the-dead-cover.jpg",
-    "toc_pos": "50% 72%",
+    "toc_photo": 29298480,
     "welcome": {
         "title": "¡Hola!",
         "lead": "Every year, at the beginning of November, millions of families in Mexico fill their homes with flowers, candles and photographs to welcome back the people they love and miss.",
@@ -31,8 +30,7 @@ BOOK = {
             "key": "tradicion",
             "title": "La tradición",
             "en": "The tradition",
-            "photo": "day-of-the-dead-cover.jpg",
-            "photo_pos": "50% 10%",
+            "photo": 34900028,
             "intro": "What it is, when it happens and who it is for.",
             "words": [
                 ("el Día de Muertos", "the Day of the Dead", "Se celebra el 1 y el 2 de noviembre.", "It's celebrated on 1 and 2 November.", None),
@@ -56,8 +54,7 @@ BOOK = {
             "key": "ofrenda",
             "title": "La ofrenda",
             "en": "The altar at home",
-            "photo": "day-of-the-dead-cover.jpg",
-            "photo_pos": "50% 31%",
+            "photo": 18950641,
             "intro": "The table families set up at home, and everything that goes on it.",
             "words": [
                 ("la ofrenda", "the altar at home", "Ponemos la ofrenda en el salón.", "We put the altar up in the living room.", None),
@@ -81,8 +78,7 @@ BOOK = {
             "key": "flores",
             "title": "Las flores y los colores",
             "en": "Flowers and colours",
-            "photo": "day-of-the-dead-cover.jpg",
-            "photo_pos": "50% 82%",
+            "photo": 29302475,
             "intro": "Orange petals everywhere, and the path they make.",
             "words": [
                 ("la flor", "the flower", "La casa se llena de flores.", "The house fills up with flowers.", None),
@@ -106,8 +102,7 @@ BOOK = {
             "key": "calaveras",
             "title": "Calaveras y catrinas",
             "en": "Skulls and Catrinas",
-            "photo": "day-of-the-dead-cover.jpg",
-            "photo_pos": "50% 22%",
+            "photo": 36829757,
             "intro": "Smiling skulls, elegant hats and a lot of humour.",
             "words": [
                 ("la calavera", "the skull", "Las calaveras siempre sonríen.", "The skulls are always smiling.", None),
@@ -131,8 +126,7 @@ BOOK = {
             "key": "comida",
             "title": "La comida de la fiesta",
             "en": "The food",
-            "photo": "day-of-the-dead-cover.jpg",
-            "photo_pos": "50% 93%",
+            "photo": 34384679,
             "intro": "What goes on the altar, and what the family eats afterwards.",
             "words": [
                 ("el pan de muerto", "'bread of the dead'", "Sólo se hace en estas fechas.", "It's only made at this time of year.", None),
@@ -156,8 +150,7 @@ BOOK = {
             "key": "familia",
             "title": "La familia y el recuerdo",
             "en": "Remembering together",
-            "photo": "day-of-the-dead-cover.jpg",
-            "photo_pos": "50% 50%",
+            "photo": 14288076,
             "intro": "The best part of the night: being together and telling stories.",
             "words": [
                 ("la familia", "the family", "La familia se junta esa noche.", "The family gets together that night.", None),
@@ -181,8 +174,7 @@ BOOK = {
     "phrases": {
         "title": "Frases de la fiesta",
         "en": "Phrases for the celebration",
-        "photo": "day-of-the-dead-cover.jpg",
-        "photo_pos": "50% 64%",
+        "photo": 29162241,
         "intro": "Short sentences you could really say while you help to set up an altar. When there are two versions, the second is how you'd say it in Argentina.",
         "items": [
             ("¿Cómo se celebra el Día de Muertos?", "How is the Day of the Dead celebrated?"),
@@ -247,8 +239,7 @@ BOOK = {
         },
     },
     "end": {
-        "photo": "day-of-the-dead-cover.jpg",
-        "pos": "50% 56%",
+        "photo": 14359193,
         "title": "¡Feliz Día de Muertos!",
         "script": "see you soon",
         "text": "Now you know the words, the flowers and the stories. This November, light a candle for someone you miss and say their name out loud: that's the whole tradition, in one small gesture.",
