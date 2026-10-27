@@ -1,1 +1,13 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Del video de bienvenida ya saqué el «real» y el «¡Vamos!» del final, así que esos dos cambios del curso quedaron hechos; Manu te pasa la versión nueva apenas la termine 💛 Y acá abajo va el recurso del Día de Muertos, con el formato de siempre (vocabulario, datos curiosos, ejercicios y respuestas) y su tapa en JPG para subir a la academia ✨ Las fotos de adentro son la que mandaste, en distintos encuadres: si querés otras (una ofrenda, pan de muerto, cempasúchil), mandámelas y las cambio.",
+  "pregunta": null,
+  "resumen": "Pedido 27/10 10:12, dos cosas, commit 3a200f8 en main (sólo scripts, la web no cambia). (1) Curso Confident Teens, lección 0.0: sale «real» de «You'll hear real Spanish voices» y sale el «¡Vamos!» del cierre, de la voz en off y también del chip de la última pantalla (build_course.py:827). El e-book no se toca. Falta el render, que va desde tu PC: python scripts/cursos/build_course.py confident_teens --jobs 16 --render <carpeta>. (2) Recurso nuevo Day of the Dead (scripts/ebooks/books/day_of_the_dead.py), 22 páginas con el formato de los diccionarios: 6 secciones de vocabulario con variantes ES/AR, frases, 7 actividades y respuestas. PDF y tapa JPG en entregables/. Las fotos de interior son la portada que mandó Anto reencuadrada, porque desde la sesión cloud Pexels sigue bloqueado; build.py ahora acepta photo_pos por sección, toc_pos y end.pos (opcionales, los otros libros siguen igual) y crea .cache/ cuando el libro usa sólo fotos locales, que antes rompía el build. Si querés fotos reales adentro, cambiá esos photo_pos por ids de Pexels y rebuildeá desde tu máquina. Puertas: type-check verde, test:seo 8/8, build cae sólo al prerenderizar /sitemap.xml por no llegar a Supabase (el caso previsto en el protocolo). Dos cosas de la tanda que son para vos y no se implementan acá: Anto pregunta si cargar más cursos en la plataforma tiene un límite de horas o un costo extra (quiere llegar a unos 4 cursos y recursos a full), y avisa que viene un pedido de 6 e-books + 13 recursos; el del Día de Muertos es el extra que le aprobaste en el grupo.",
+  "commits": [
+    "3a200f8"
+  ],
+  "adjuntos": [
+    "entregables/Day-of-the-Dead-Poncho.pdf",
+    "entregables/Day-of-the-Dead-portada.jpg"
+  ]
+}
