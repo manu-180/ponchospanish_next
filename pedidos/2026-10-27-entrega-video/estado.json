@@ -1,0 +1,14 @@
+{
+  "estado": "hecho",
+  "mensaje": "¡Anto! Acá va el video de bienvenida (0.0) nuevo, ya sin el «real» y sin el «¡Vamos!» del final, listo para subir a la academia 🎬\n\nY te mando de nuevo el recurso del Día de Muertos: ahora cada sección tiene su propia foto (la ofrenda, el cempasúchil, las calaveritas, el pan de muerto, las velas en el cementerio y el papel picado). Usá este en lugar del de recién 💛",
+  "pregunta": null,
+  "resumen": "Entrega manual (sesión local de Manuel): render de la lección 0.0 de Confident Teens con los cambios de 3a200f8 y Day of the Dead rearmado con fotos de Pexels (11519a1).",
+  "commits": [
+    "3a200f8",
+    "11519a1"
+  ],
+  "adjuntos": [
+    "entregables/0.0-Welcome-to-the-course.mp4",
+    "entregables/Day-of-the-Dead-Poncho.pdf"
+  ]
+}
