@@ -91,9 +91,10 @@ def vocab_table(words, cols):
     return f'<table class="vocab"><thead><tr>{head}</tr></thead><tbody>{vocab_rows(words)}</tbody></table>'
 
 
-def banner(i, title, en, pid, cls=""):
+def banner(i, title, en, pid, cls="", pos=None):
+    place = f";background-position:{pos}" if pos else ""
     return f'''
-      <div class="banner {cls}" style="background-image:url('{photo(pid)}')">
+      <div class="banner {cls}" style="background-image:url('{photo(pid)}'){place}">
         <div class="banner-shade"></div>
         <div class="banner-text"><span class="num">{i:02d}</span><h2>{e(title)}</h2><p class="sub">{e(en)}</p></div>
       </div>'''
@@ -116,7 +117,7 @@ def dialogue_box(d):
 
 def section_pages(i, s, cols):
     words = s["words"]
-    head = banner(i, s["title"], s["en"], s["photo"], "tight" if len(words) <= 13 else "")
+    head = banner(i, s["title"], s["en"], s["photo"], "tight" if len(words) <= 13 else "", s.get("photo_pos"))
     head += f'<p class="intro">{e(s["intro"])}</p>'
     pages = []
     if len(words) <= 13 and not s.get("dialogue"):
@@ -280,8 +281,9 @@ def build(name):
         k += 1
         toc += f'<li><span class="n">{k:02d}</span><span class="t">{e(B["phrases"]["title"])}</span><span class="d">{e(B["phrases"]["en"])}</span></li>'
     toc += f'<li><span class="n">{k + 1:02d}</span><span class="t">{e(B["activities"].get("title", "¡A practicar!"))}</span><span class="d">Activities &amp; answers</span></li>'
+    toc_place = f';background-position:{B["toc_pos"]}' if B.get("toc_pos") else ""
     pages.append(page(f'<h2 class="title">Contenido</h2><ol class="toc">{toc}</ol>'
-                      f'<div class="toc-photo" style="background-image:url(\'{photo(B["toc_photo"])}\')"></div>', "text-page"))
+                      f'<div class="toc-photo" style="background-image:url(\'{photo(B["toc_photo"])}\'){toc_place}"></div>', "text-page"))
 
     for i, s in enumerate(B["sections"], 1):
         pages.extend(section_pages(i, s, cols))
@@ -289,14 +291,15 @@ def build(name):
     if B.get("phrases"):
         P = B["phrases"]
         rows = "".join(f'<li><span class="ph-es">{flags(e(a))}</span><span class="ph-en">{flags(e(b))}</span></li>' for a, b in P["items"])
-        pages.append(page(banner(k, P["title"], P["en"], P["photo"], "short")
+        pages.append(page(banner(k, P["title"], P["en"], P["photo"], "short", P.get("photo_pos"))
                           + f'<p class="intro">{e(P["intro"])}</p><ul class="phrases">{rows}</ul>' + fact_box(P.get("fact")), "vocab-page"))
 
     pages.extend(activities(B))
 
     End = B["end"]
+    end_place = f';background-position:{End["pos"]}' if End.get("pos") else ""
     pages.append(page(f'''
-      <div class="end-photo" style="background-image:url('{photo(End["photo"])}')"></div>
+      <div class="end-photo" style="background-image:url('{photo(End["photo"])}'){end_place}"></div>
       <div class="end-body">
         <h2>{e(End["title"])}</h2>
         <p class="script">{e(End["script"])}</p>
@@ -311,6 +314,7 @@ def build(name):
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Permanent+Marker&display=swap" rel="stylesheet">
 <style>{css}</style></head><body>{"".join(pages)}</body></html>'''
     OUT.mkdir(exist_ok=True)
+    CACHE.mkdir(exist_ok=True)  # con fotos locales photo() no lo crea
     out_html = CACHE / f"{name}.html"
     out_html.write_text(doc, encoding="utf-8")
     out_pdf = OUT / f'{B["file"]}.pdf'

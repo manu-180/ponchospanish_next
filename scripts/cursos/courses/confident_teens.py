@@ -35,12 +35,12 @@ COURSE = {
         "¡Hola! Welcome to Spanish for Confident Teens.",
         "This course follows the big topics of Key Stage 3, so you can speak, read and write about your own life in Spanish.",
         "There are six modules: all about me, my free time, my school, my family and friends, my town, and a grammar toolbox.",
-        "Every lesson is short. You'll hear real Spanish voices, from Spain, «¡Hola! ¿Qué tal?»",
+        "Every lesson is short. You'll hear Spanish voices, from Spain, «¡Hola! ¿Qué tal?»",
         "and from Argentina. ‹¡Hola! ¿Cómo andás?›",
         "Both are correct, and you'll learn to understand both.",
         "When you see «¡Tu turno!», it's your turn: say the answer out loud before you hear it.",
         "Keep your e-book next to you. It has every word, extra activities and all the answers.",
-        "Mistakes are how we learn. ¡Vamos!",
+        "Mistakes are how we learn.",
     ],
     "chapters": [
         {

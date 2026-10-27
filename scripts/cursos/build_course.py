@@ -824,7 +824,7 @@ def build_lesson(course_name, lid, only_meta=False):
             <div class="vcard"{at(ar_t - 0.15, 'pop')}>{AR_FLAG}<b>Argentina</b><span class="es big2">¡Hola! ¿Cómo andás?</span></div>
           </div>""", s0, end)
         scene_quiz(L, "", [("Hello! How are you?", "¡Hola! ¿Qué tal?", "es")], intro=w[6].replace("«¡Tu turno!»", "Tu turno"))
-        scene_close(L, ["¡Hola!", "¿Qué tal?", "¡Vamos!"], chapters[0]["units"][0]["en"], w[7:])
+        scene_close(L, ["¡Hola!", "¿Qué tal?"], chapters[0]["units"][0]["en"], w[7:])
     else:
         ci, ui = key
         ch = chapters[ci]
