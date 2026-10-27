@@ -246,10 +246,14 @@ def activities(B):
 
 
 def build(name):
-    B = importlib.import_module(f"books.{name}").BOOK
+    m = importlib.import_module(f"books.{name}")
+    B = getattr(m, "PAPER", None) or m.BOOK
     if B.get("kind") == "ebook":
         from ebook import build_ebook
         return build_ebook(name, B)
+    if B.get("kind") == "exam":
+        from exam import build_exam
+        return build_exam(name, B)
     cols = B.get("columns", ("Español", "English", "En una frase"))
     pages = []
 
