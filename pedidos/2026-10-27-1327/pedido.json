@@ -1,0 +1,157 @@
+{
+  "id": "2026-10-27-1327",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-27-1235",
+  "desde": "2026-10-27 12:35",
+  "hasta": "2026-10-27 13:27",
+  "mensajes": [
+    {
+      "hora": "2026-10-27 12:36",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "En un ratito chequeo los ebooks! Mil gracias",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:36",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Recibido, Anto! Ya me pongo con esto. Te aviso por acá cuando esté todo hecho 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 12:37",
+      "autor": "Antonela Risaro",
+      "tipo": "unknown",
+      "texto": "[unknown sin archivo]",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Listo, Anto! Ya están los doce exámenes de práctica: dos de cada modelo, el A y el B, y son distintos entre sí 📝 Cada uno tiene la misma forma que el examen real (las mismas partes, el mismo tiempo y el mismo puntaje), pero los textos y las preguntas son nuestros, inventados para Poncho. Van en gris, como me pediste, y cada tapa lleva la foto del e-book que le corresponde según la junta. Al final de cada papel están las respuestas, así el chico o la chica lo hace con un reloj y después se corrige solo. Abajo te mando los doce en PDF 💛",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-AQA-Foundation-Reading-A-Poncho.pdf",
+      "media": "media/GCSE-AQA-Foundation-Reading-A-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-AQA-Foundation-Reading-B-Poncho.pdf",
+      "media": "media/GCSE-AQA-Foundation-Reading-B-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-AQA-Higher-Reading-A-Poncho.pdf",
+      "media": "media/GCSE-AQA-Higher-Reading-A-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-AQA-Higher-Reading-B-Poncho.pdf",
+      "media": "media/GCSE-AQA-Higher-Reading-B-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-Edexcel-Foundation-Reading-A-Poncho.pdf",
+      "media": "media/GCSE-Edexcel-Foundation-Reading-A-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-Edexcel-Foundation-Reading-B-Poncho.pdf",
+      "media": "media/GCSE-Edexcel-Foundation-Reading-B-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-Edexcel-Higher-Reading-A-Poncho.pdf",
+      "media": "media/GCSE-Edexcel-Higher-Reading-A-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "GCSE-Edexcel-Higher-Reading-B-Poncho.pdf",
+      "media": "media/GCSE-Edexcel-Higher-Reading-B-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "International-GCSE-Edexcel-Reading-Writing-A-Poncho.pdf",
+      "media": "media/International-GCSE-Edexcel-Reading-Writing-A-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "International-GCSE-Edexcel-Reading-Writing-B-Poncho.pdf",
+      "media": "media/International-GCSE-Edexcel-Reading-Writing-B-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "IGCSE-Cambridge-Reading-A-Poncho.pdf",
+      "media": "media/IGCSE-Cambridge-Reading-A-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:16",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "IGCSE-Cambridge-Reading-B-Poncho.pdf",
+      "media": "media/IGCSE-Cambridge-Reading-B-Poncho.pdf"
+    },
+    {
+      "hora": "2026-10-27 13:22",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Excelente!!!!!!!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 13:22",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "🙌🏻",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 13:24",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Voy a necesitar las portadas por favor",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 13:27",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Con gris como los recursos",
+      "media": null
+    },
+    {
+      "hora": "2026-10-27 13:27",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
