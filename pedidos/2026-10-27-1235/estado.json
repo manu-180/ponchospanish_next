@@ -1,1 +1,23 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Ya están los doce exámenes de práctica: dos de cada modelo, el A y el B, y son distintos entre sí 📝 Cada uno tiene la misma forma que el examen real (las mismas partes, el mismo tiempo y el mismo puntaje), pero los textos y las preguntas son nuestros, inventados para Poncho. Van en gris, como me pediste, y cada tapa lleva la foto del e-book que le corresponde según la junta. Al final de cada papel están las respuestas, así el chico o la chica lo hace con un reloj y después se corrige solo. Abajo te mando los doce en PDF 💛",
+  "pregunta": null,
+  "resumen": "Pedido 27/10 12:35: los doce recursos de examen (A y B de cada uno de los seis modelos). Commit 6585b23 en main (sólo scripts/ebooks, la web no cambia). Nuevo generador scripts/ebooks/exam.py + exam.css con kind=\"exam\": veinte tipos de bloque (texto, foro, letreros, opción múltiple, rejilla de personas, tabla de apuntes, banco de palabras, traducción de frases y de párrafo, redacción con palabras obligatorias, elección de tareas, corrección gramatical), numeración automática al estilo de cada junta (AQA numera 01-43 corrido, Edexcel y Cambridge usan (a)(b)(i)(ii)) y solucionario armado solo a partir de las preguntas; build_exam() aborta si una sección no suma el total declarado, así que los puntajes están verificados por el propio build. books/_exam_paper.py tiene la tapa, la carátula, las instrucciones y el cierre comunes. Doce módulos books/exam_*.py: AQA 8692 Paper 3 F (45 min, 50) y H (1 h, 50), Edexcel 1SP1 Paper 3 F (45 min, 50) y H (1 h, 50), Edexcel 4SP1/02 Paper 2 Reading and Writing (1 h 45, 80, con las dos tareas de escritura y modelos de respuesta) y Cambridge 0530/02 Paper 2 Reading (1 h, 40). Duración, puntaje, código de papel y estructura de secciones salen de los sample assessment materials que mandó Anto; los textos y las preguntas son todos originales, no se copia nada de los exámenes reales y el modelo A es distinto del B en tema y en respuestas. Dos adaptaciones conscientes en Cambridge, anotadas en el propio PDF: los textos van dentro del papel en vez de en un Insert aparte, y la pregunta 1 (que en el examen real son dibujos) usa etiquetas escritas, porque desde la sesión cloud no hay forma de generar ilustraciones. El color de las páginas a sangre es gris #55544F en vez del negro de los e-books, como pidió Anto, y las tapas reutilizan gcse-aqa-cover, gcse-edexcel-cover, igcse-edexcel-cover e igcse-cambridge-cover (Foundation y Higher comparten foto). Entregables: los doce PDF, 11 MB en total, entre 14 y 17 páginas cada uno. Puertas: type-check verde y test:seo 8/8; pnpm build cae sólo al prerenderizar /sitemap.xml por no llegar a Supabase, el caso previsto en el protocolo. No se publicó nada en la Academy: eso queda para cuando los revises. Si querés las portadas en JPG para subirlas, salen con el mismo pdftoppm que usamos para los e-books.",
+  "commits": [
+    "6585b23"
+  ],
+  "adjuntos": [
+    "entregables/GCSE-AQA-Foundation-Reading-A-Poncho.pdf",
+    "entregables/GCSE-AQA-Foundation-Reading-B-Poncho.pdf",
+    "entregables/GCSE-AQA-Higher-Reading-A-Poncho.pdf",
+    "entregables/GCSE-AQA-Higher-Reading-B-Poncho.pdf",
+    "entregables/GCSE-Edexcel-Foundation-Reading-A-Poncho.pdf",
+    "entregables/GCSE-Edexcel-Foundation-Reading-B-Poncho.pdf",
+    "entregables/GCSE-Edexcel-Higher-Reading-A-Poncho.pdf",
+    "entregables/GCSE-Edexcel-Higher-Reading-B-Poncho.pdf",
+    "entregables/International-GCSE-Edexcel-Reading-Writing-A-Poncho.pdf",
+    "entregables/International-GCSE-Edexcel-Reading-Writing-B-Poncho.pdf",
+    "entregables/IGCSE-Cambridge-Reading-A-Poncho.pdf",
+    "entregables/IGCSE-Cambridge-Reading-B-Poncho.pdf"
+  ]
+}
