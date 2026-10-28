@@ -1,0 +1,87 @@
+{
+  "id": "2026-10-28-1106",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-28-1046",
+  "desde": "2026-10-28 10:46",
+  "hasta": "2026-10-28 11:06",
+  "mensajes": [
+    {
+      "hora": "2026-10-28 10:47",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Recibido, Anto! Ya me pongo con esto. Te aviso por acá cuando esté todo hecho 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 10:48",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Perfecto!! Gracias",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 10:58",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Buen día, Anto! Encontramos qué pasaba: el video estaba perfecto y subido, el que se quedó colgado fue el cartelito de \"procesando\" de la página. Ya lo arreglamos 🙌 Entrá de nuevo a la lección (refrescá la página) y en unos segundos se pone en LISTO sola. Si por algo sigue igual, ahora vas a ver ahí mismo un botón \"Revisar de nuevo\" y otro para subir el archivo otra vez, así nunca más te quedás trabada. ¡Besos! 💛",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 10:59",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Espectacular!!!!!! Gracias 🙌🏻",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:05",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Ya está cargado!! Genial",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:06",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Y publicado",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:06",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Al abrir el curso desde la academia aparece este error:",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:06",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "404 page not found",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:06",
+      "autor": "Antonela Risaro",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/009-image.jpg"
+    },
+    {
+      "hora": "2026-10-28 11:06",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Lo podremos solucionar?",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:06",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
