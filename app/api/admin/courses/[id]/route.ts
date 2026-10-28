@@ -11,6 +11,7 @@ import {
   getCurrentProfile,
   getSupabaseAdminClient,
 } from "@/lib/supabase/server";
+import { revalidateCoursePublicPages } from "@/lib/cache/revalidate";
 
 export const dynamic = "force-dynamic";
 
@@ -72,6 +73,15 @@ export async function PATCH(
   }
 
   const admin = getSupabaseAdminClient();
+
+  // The slug as it stands now: a rename leaves the old public URL behind and
+  // it has to be purged too, or it keeps serving the course from the cache.
+  const { data: before } = await admin
+    .from("courses")
+    .select("slug")
+    .eq("id", id)
+    .maybeSingle();
+
   const { data, error } = await admin
     .from("courses")
     .update({ ...parsed.data, updated_at: new Date().toISOString() })
@@ -91,6 +101,11 @@ export async function PATCH(
       { status: 500 },
     );
   }
+
+  // Publishing (or renaming, or any edit the public page shows) takes effect
+  // on the next request instead of waiting out the ISR window.
+  revalidateCoursePublicPages(before?.slug, data.slug);
+
   return NextResponse.json(data);
 }
 
@@ -105,6 +120,12 @@ export async function DELETE(
   const { id } = await params;
 
   const admin = getSupabaseAdminClient();
+  const { data: before } = await admin
+    .from("courses")
+    .select("slug")
+    .eq("id", id)
+    .maybeSingle();
+
   const { error } = await admin.from("courses").delete().eq("id", id);
   if (error) {
     return NextResponse.json(
@@ -112,5 +133,8 @@ export async function DELETE(
       { status: 500 },
     );
   }
+
+  revalidateCoursePublicPages(before?.slug);
+
   return NextResponse.json({ ok: true });
 }

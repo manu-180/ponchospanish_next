@@ -37,7 +37,10 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export const revalidate = 300;
+// ISR. Admin writes purge this page on the spot (lib/cache/revalidate.ts), so
+// this window only covers edits made outside the admin — a minute, same as the
+// Academy listing, rather than five.
+export const revalidate = 60;
 
 export function generateStaticParams() {
   return [];

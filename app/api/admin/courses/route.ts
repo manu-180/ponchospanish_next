@@ -10,6 +10,7 @@ import {
   getCurrentProfile,
   getSupabaseAdminClient,
 } from "@/lib/supabase/server";
+import { revalidateCoursePublicPages } from "@/lib/cache/revalidate";
 
 export const dynamic = "force-dynamic";
 
@@ -80,6 +81,10 @@ export async function POST(req: Request) {
       { status: 500 },
     );
   }
+
+  // A slug that was visited before the course existed has a 404 cached under
+  // it; clear it now so the course is never born behind a stale miss.
+  revalidateCoursePublicPages(data.slug);
 
   return NextResponse.json(data);
 }
