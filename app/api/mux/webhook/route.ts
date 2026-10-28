@@ -30,6 +30,8 @@ interface MuxAssetPayload {
   playback_ids?: Array<{ id: string; policy: string }>;
   passthrough?: string;
   upload_id?: string;
+  /** Present on `video.upload.*` events, where `data` is the Upload object. */
+  asset_id?: string;
   static_renditions?: {
     status: string;
     files?: Array<{ ext: string; name: string }>;
@@ -87,23 +89,43 @@ export async function POST(req: Request) {
   try {
     switch (event.type) {
       case "video.upload.asset_created": {
-        // Mux just finished receiving the upload — link the upload to the
-        // asset early so we have the asset id even before processing finishes.
-        const uploadId = event.data.upload_id ?? event.data.id;
-        const assetId = event.data.id;
-        if (uploadId) {
+        // `data` is the Upload object here: its `id` is the upload id and the
+        // new asset is in `asset_id` (NOT `data.id` — storing the upload id in
+        // `mux_asset_id` is what the reconcile path still has to undo).
+        const uploadId = event.data.id;
+        const assetId = event.data.asset_id ?? null;
+        if (uploadId && assetId) {
+          // A short video can finish encoding before this event is delivered,
+          // and Mux does not guarantee delivery order: without the status
+          // guard a late `asset_created` flips an already-`ready` lesson back
+          // to `processing`, where it stays forever (no further webhook is
+          // coming). Only move a lesson that is still on its way up.
           await admin
             .from("lessons")
             .update({ mux_asset_id: assetId, mux_status: "processing" })
-            .eq("mux_upload_id", uploadId);
+            .eq("mux_upload_id", uploadId)
+            .in("mux_status", ["idle", "uploading", "processing"]);
         }
         break;
       }
 
       case "video.asset.ready": {
         const playbackId = event.data.playback_ids?.[0]?.id ?? null;
-        const lessonId = event.data.passthrough ?? null;
         const duration = event.data.duration ?? null;
+        let lessonId = event.data.passthrough ?? null;
+
+        // `passthrough` is set on every upload we create, but an asset made
+        // some other way (or one whose settings were edited in the Mux
+        // dashboard) arrives without it. The upload id still points at the
+        // lesson, so fall back to that before giving up.
+        if (!lessonId && event.data.upload_id) {
+          const { data: byUpload } = await admin
+            .from("lessons")
+            .select("id")
+            .eq("mux_upload_id", event.data.upload_id)
+            .maybeSingle();
+          lessonId = byUpload?.id ?? null;
+        }
 
         if (!lessonId || !playbackId) {
           // eslint-disable-next-line no-console

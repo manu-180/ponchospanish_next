@@ -12,6 +12,12 @@
  * The component polls /api/admin/lessons-status/[id] every 4s while the
  * lesson is `processing` so the UI catches up without a page reload.
  *
+ * That poll only reads our DB, so it never finishes if the webhook was missed
+ * or arrived out of order. Once a lesson has been `processing` longer than Mux
+ * normally takes, the poll switches to POST, which re-checks the asset against
+ * the Mux API and heals the row. There's a button for it too, plus a way to
+ * upload another file without having to delete the lesson first.
+ *
  * Why UpChunk (not tus-js-client): Mux's TUS endpoint CORS preflight does
  * not allow the `Tus-Resumable` header, so browser HEAD/PATCH from a
  * different origin gets blocked. UpChunk uses plain PUT with Content-Range,
@@ -35,6 +41,19 @@ import { Button } from "@/components/ui/button";
 
 export type MuxStatus = "idle" | "uploading" | "processing" | "ready" | "errored";
 
+/** How long we trust the webhook before asking Mux ourselves. */
+const ASK_MUX_AFTER_MS = 25_000;
+/** How often to re-ask Mux once we've started. */
+const ASK_MUX_EVERY_MS = 20_000;
+/** When to tell the admin that this is no longer a normal wait. */
+const SLOW_AFTER_MS = 3 * 60_000;
+
+interface LessonStatusResponse {
+  status: MuxStatus;
+  thumbnailUrl?: string | null;
+  durationSeconds?: number | null;
+}
+
 interface MuxUploaderProps {
   lessonId: string;
   initialStatus: MuxStatus;
@@ -55,37 +74,96 @@ export function MuxUploader({
   const [error, setError] = useState<string | null>(null);
   const [thumb, setThumb] = useState<string | null>(thumbnailUrl ?? null);
   const [duration, setDuration] = useState<number | null>(durationSeconds ?? null);
+  const [checking, setChecking] = useState(false);
+  const [slow, setSlow] = useState(false);
   const uploadRef = useRef<UpChunk.UpChunk | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  // Kept in refs so a parent re-render (which recreates the poll effect)
+  // doesn't restart the clock and postpone the Mux check forever.
+  // A lesson that is *already* processing when the panel opens has had its
+  // grace period: back-date it so the first tick asks Mux straight away.
+  const processingSinceRef = useRef<number | null>(
+    initialStatus === "processing" ? Date.now() - ASK_MUX_AFTER_MS - 1 : null,
+  );
+  const lastAskedMuxRef = useRef(0);
+
+  /** Apply a status payload from either the poll or an explicit re-check. */
+  const applyStatus = (data: LessonStatusResponse, manual = false) => {
+    if (data.status === status) {
+      if (manual && data.status === "processing") {
+        toast("Mux todavía está procesando el video. Probá de nuevo en un rato.");
+      }
+      return;
+    }
+    setStatus(data.status);
+    if (data.status === "ready") {
+      setThumb(data.thumbnailUrl ?? null);
+      setDuration(data.durationSeconds ?? null);
+      setSlow(false);
+      toast.success("Video listo");
+      onChange?.();
+    }
+    if (data.status === "errored") {
+      setError("Mux no pudo procesar el video. Intentá subir otro archivo.");
+    }
+  };
+  // The poll effect reads through a ref so its closure is never stale.
+  const applyStatusRef = useRef(applyStatus);
+  applyStatusRef.current = applyStatus;
+
+  /** Ask Mux directly what happened to this asset and sync the lesson. */
+  const recheckWithMux = async () => {
+    setChecking(true);
+    lastAskedMuxRef.current = Date.now();
+    try {
+      const res = await fetch(`/api/admin/lessons-status/${lessonId}`, {
+        method: "POST",
+        cache: "no-store",
+      });
+      if (!res.ok) {
+        toast.error("No pudimos consultar a Mux. Probá de nuevo en un minuto.");
+        return;
+      }
+      applyStatusRef.current(
+        (await res.json()) as LessonStatusResponse,
+        true,
+      );
+    } catch {
+      toast.error("No pudimos consultar a Mux. Probá de nuevo en un minuto.");
+    } finally {
+      setChecking(false);
+    }
+  };
 
   // Poll while processing
   useEffect(() => {
-    if (status !== "processing") return;
+    if (status !== "processing") {
+      processingSinceRef.current = null;
+      setSlow(false);
+      return;
+    }
+    if (processingSinceRef.current === null) {
+      processingSinceRef.current = Date.now();
+    }
     let cancelled = false;
     const tick = async () => {
+      const waitedMs = Date.now() - (processingSinceRef.current ?? Date.now());
+      if (waitedMs > SLOW_AFTER_MS) setSlow(true);
+      // Past the normal encode window the webhook is the suspect, not Mux:
+      // POST re-checks the asset itself instead of re-reading our own row.
+      const askMux =
+        waitedMs > ASK_MUX_AFTER_MS &&
+        Date.now() - lastAskedMuxRef.current > ASK_MUX_EVERY_MS;
+      if (askMux) lastAskedMuxRef.current = Date.now();
       try {
         const res = await fetch(`/api/admin/lessons-status/${lessonId}`, {
+          method: askMux ? "POST" : "GET",
           cache: "no-store",
         });
         if (!res.ok) return;
-        const data = (await res.json()) as {
-          status: MuxStatus;
-          thumbnailUrl?: string | null;
-          durationSeconds?: number | null;
-        };
+        const data = (await res.json()) as LessonStatusResponse;
         if (cancelled) return;
-        if (data.status !== status) {
-          setStatus(data.status);
-          if (data.status === "ready") {
-            setThumb(data.thumbnailUrl ?? null);
-            setDuration(data.durationSeconds ?? null);
-            toast.success("Video listo");
-            onChange?.();
-          }
-          if (data.status === "errored") {
-            setError("Mux no pudo procesar el video. Intentá subir otro archivo.");
-          }
-        }
+        applyStatusRef.current(data);
       } catch {
         /* swallow — next tick will retry */
       }
@@ -218,9 +296,9 @@ export function MuxUploader({
       )}
 
       {status === "processing" && (
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <Loader2 className="h-5 w-5 animate-spin text-mustard-600" />
-          <div className="flex-1">
+          <div className="min-w-[14rem] flex-1">
             <p className="text-sm font-semibold text-charcoal-600">
               Mux está procesando el video…
             </p>
@@ -228,6 +306,30 @@ export function MuxUploader({
               Esto puede tardar entre 1 y 5 minutos según la duración. Podés
               seguir editando.
             </p>
+            {slow && (
+              <p className="mt-1 text-xs text-charcoal-500">
+                Está tardando más de lo normal. Ya lo estamos revisando contra
+                Mux; si sigue igual, subí el archivo de nuevo.
+              </p>
+            )}
+          </div>
+          <div className="flex shrink-0 items-center gap-1">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={recheckWithMux}
+              disabled={checking}
+            >
+              {checking ? (
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+              ) : (
+                <RotateCcw className="h-3.5 w-3.5" />
+              )}
+              <span>Revisar de nuevo</span>
+            </Button>
+            <Button variant="ghost" size="sm" onClick={pickFile}>
+              <UploadIcon className="h-3.5 w-3.5" /><span>Subir otro</span>
+            </Button>
           </div>
         </div>
       )}

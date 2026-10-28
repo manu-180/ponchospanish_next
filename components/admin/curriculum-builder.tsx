@@ -597,7 +597,12 @@ function LessonRow({
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: lesson.id });
   const { courseId, whisperEnabled } = useContext(CurriculumContext);
-  const [expanded, setExpanded] = useState(lesson.mux_status === "idle");
+  // Open the lessons that still need something done to them: one without a
+  // video, and one left mid-process — the uploader panel is what re-checks a
+  // stuck video against Mux, so it has to be mounted to do its job.
+  const [expanded, setExpanded] = useState(
+    lesson.mux_status === "idle" || lesson.mux_status === "processing",
+  );
   const [editingTitle, setEditingTitle] = useState(false);
   const [titleDraft, setTitleDraft] = useState(lesson.title);
   const [descDraft, setDescDraft] = useState(lesson.description ?? "");
