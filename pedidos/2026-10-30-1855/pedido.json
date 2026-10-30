@@ -1,0 +1,66 @@
+{
+  "id": "2026-10-30-1855",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-28-1106",
+  "desde": "2026-10-28 11:06",
+  "hasta": "2026-10-30 18:55",
+  "mensajes": [
+    {
+      "hora": "2026-10-28 11:07",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Recibido, Anto! Ya me pongo con esto. Te aviso por acá cuando esté todo hecho 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:09",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Genial",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:11",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Ahora siiii!!! Solucionado!! \nGracias",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:11",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "🙌🏻",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:18",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Encontrado, Anto! El curso estaba bien publicado: lo que fallaba era la página, que se había quedado con una copia vieja de cuando el curso todavía era borrador y por eso te mostraba el 404. Ya lo arreglamos y de paso dejamos que, cada vez que toques el interruptor de publicar, la página se actualice al toque 🙌 Dale un par de minutos (está subiendo la versión nueva) y entrá de nuevo a la academia: el curso te va a abrir normal. ¡Besos! 💛",
+      "media": null
+    },
+    {
+      "hora": "2026-10-28 11:28",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Excelente!!!! Graaaaaacias",
+      "media": null
+    },
+    {
+      "hora": "2026-10-30 18:54",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Hola chicos!! Una pregunta.. \ngeneré un código de acceso libre para compartir con mis alumnos (para que puedan acceder a todo lo que esté cargado en la plataforma). Los pasos a seguir serían?: elegí el curso o ebook que quieras, crea una cuenta y utiliza tu código de acceso gratuito para descargarlo?",
+      "media": null
+    },
+    {
+      "hora": "2026-10-30 18:55",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
