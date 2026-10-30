@@ -62,22 +62,22 @@ export async function POST(request: Request) {
   }
 
   // 3. Resolve target course
-  let courseId = accessCode.course_id ?? parsed.data.courseId ?? null;
-  if (!courseId) {
-    // global codes — pick the most recently published course as default
-    const { data: course } = await admin
-      .from("courses")
-      .select("id")
-      .eq("is_published", true)
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
-    courseId = course?.id ?? null;
-  }
+  // Global and ebook codes say nothing about which course to open: redeemed from
+  // the dashboard they used to unlock the newest course only, and students
+  // thought the code was broken (2026-10-30). They get sent to the catalogue.
+  const courseId = accessCode.digital_product_id
+    ? null
+    : (accessCode.course_id ?? parsed.data.courseId ?? null);
   if (!courseId) {
     return NextResponse.json(
-      { ok: false, message: "No course available for this code." },
-      { status: 404 },
+      {
+        ok: false,
+        chooseItem: true,
+        message: accessCode.digital_product_id
+          ? "This code is for an e-book. Open the e-book and enter the code there."
+          : "This code works for every course and e-book. Open the one you'd like and enter the code there.",
+      },
+      { status: 422 },
     );
   }
 

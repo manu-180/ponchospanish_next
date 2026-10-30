@@ -27,6 +27,11 @@ export function RedeemCodeCard() {
           body: JSON.stringify({ code: value }),
         });
         const data = await res.json();
+        if (data.chooseItem) {
+          toast.info(data.message);
+          router.push("/ondemand");
+          return;
+        }
         if (!res.ok) throw new Error(data.message ?? "Code redemption failed");
         toast.success("Code redeemed — happy learning!");
         setCode("");

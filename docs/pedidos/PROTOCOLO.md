@@ -1,11 +1,19 @@
 # Pedidos de Anto — protocolo de la rutina
 
 Anto pide cambios por el grupo de WhatsApp "Poncho" y cierra cada tanda con **"Listo"**.
-Quien le habla a Anto es **Kairo**, el compañero de trabajo de Manu (identidad en
-`manu-180/kairo`, `IDENTIDAD.md`): todo lo que el bot le dice en el grupo, incluidos el
-`mensaje` y la `pregunta` que escribís acá, es Kairo hablando. Paciente, cálido, en
+**Poncho es de Kairo** desde el 2026-10-30 (identidad en `manu-180/kairo`,
+`IDENTIDAD.md`): Manuel se lo pasó entero. Kairo decide y ejecuta sin consultarle; a
+Manuel sólo le llega lo que se rompe. Todo lo que el bot le dice a Anto en el grupo,
+incluidos el `mensaje` y la `pregunta` que escribís acá, es Kairo hablando. Paciente, cálido, en
 criollo y sin tecnicismos: le contás lo que va a ver, no cómo lo hiciste. Al recibir el
-"Listo", Kairo ya le confirmó con sus palabras qué entendió (lo escribe el bot con Claude).
+"Listo", el bot (Claude + `docs/pedidos/KAIRO.md`) decide: lo que se resuelve con un
+mensaje (una pregunta, un texto, una traducción) lo contesta ahí mismo y deja el
+`estado.json` hecho en el mismo commit, así que la rutina no lo ve; lo demás lo deriva
+acá con un acuse que dice qué entendió.
+
+`docs/pedidos/KAIRO.md` es lo que sabe el bot para contestar solo. Si en una tanda
+aprendés o cambiás algo que Anto podría preguntar (un flujo de la academia, un curso
+nuevo, una regla suya), actualizalo en el mismo commit a `main`.
 
 El bot (`bot_fede`, Railway) commitea esa tanda a la rama **`pedidos`** de este repo
 como `pedidos/<id>/pedido.json` + `pedidos/<id>/media/`. Ese push dispara la rutina
@@ -96,7 +104,7 @@ pnpm install --frozen-lockfile
   británico en la web, nunca datos de exámenes sin fuente oficial).
 - Material que no es la web (un e-book, un PDF, un recurso): se arma en
   `pedidos/<id>/entregables/` de la rama `pedidos`, no en main, y se nombra en el
-  `resumen`. No se publica en la Academy sin que Manuel lo apruebe.
+  `resumen`. Se publica en la Academy sólo si Anto lo pidió.
 - Antes de pushear: `pnpm type-check` y `pnpm build` en verde. El build necesita
   `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY` (vienen en el entorno
   de la rutina). Si el build cae **sólo** al prerenderizar `/sitemap.xml` porque no
@@ -130,8 +138,8 @@ y el curso nuevo sale desde ahí (la rutina no lo puede mandar).
 - Un cambio "en todo el curso" (un título que se repite, como `¡Te toca!`) se busca en el
   guion, en `build_course.py` y en `template/`.
 - `adjuntos` vacío y `mensaje` sin prometer el video: "Ya dejé hechos todos los cambios
-  del curso; Manu te pasa la versión nueva apenas la termine". El `resumen` le dice a
-  Manuel qué lecciones cambiaron y que corra
+  del curso; te paso la versión nueva apenas termine de armarla". El `resumen` dice
+  qué lecciones cambiaron y que hay que correr
   `python scripts/cursos/build_course.py <curso> --jobs 16 --render <carpeta>`.
 
 ## 6. Cerrar
@@ -143,7 +151,7 @@ En `../pedidos`, `$PEND/estado.json`:
   "estado": "hecho",
   "mensaje": "¡Listo, Anto! Ya cambié el título de la home y subí las fotos nuevas ✨",
   "pregunta": null,
-  "resumen": "Qué se cambió, en dos o tres líneas, para Manuel.",
+  "resumen": "Qué se cambió, en dos o tres líneas, para el registro.",
   "commits": ["<sha en main>"],
   "adjuntos": ["entregables/Spanish-for-Travel-Poncho.pdf"]
 }
@@ -170,5 +178,5 @@ En `../pedidos`, `$PEND/estado.json`:
   arreglar, push imposible); el `resumen` dice por qué.
 
 Commit (mismo autor) y `git push origin pedidos`. El bot manda `mensaje`, `pregunta` y `adjuntos` al
-grupo y el resumen por privado a Manuel. Con `fallido` (o si pasan 6 h sin cierre) le
-dice a Anto que Manu lo revisa.
+grupo. Con `fallido` (o si pasan 6 h sin cierre) le dice a Anto que se complicó y le
+avisa a Manuel por privado.

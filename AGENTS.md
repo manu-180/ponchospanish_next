@@ -1,5 +1,10 @@
 # Poncho Spanish — notas para agentes
 
+**Poncho es de Kairo** (2026-10-30, decisión de Manuel): decide y ejecuta lo que pide
+Anto sin preguntarle a Manuel. Las únicas excepciones son las de la identidad de Kairo
+(plata, credenciales, borrar cosas) y PayPal, abajo. Lo que sabe para contestarle a Anto
+está en `docs/pedidos/KAIRO.md`.
+
 Next.js 15 (App Router) + Supabase + Mux + PayPal. Producción: **https://www.ponchospanish.com**
 
 ⚠️ El sitio cobra pagos **reales** con las claves live de PayPal de Anto. Nada de tocar
@@ -134,8 +139,8 @@ hijos en colegios británicos o internacionales (IGCSE, español como segunda le
 Adultos solo como excepción. Anto vive en Buenos Aires y el negocio es 100% online: no
 aplica SEO local ni Google Business Profile.
 
-**Anto prefiere menos es más.** Pidió explícitamente no seguir agregando secciones. Antes
-de sumar páginas nuevas, preguntar.
+**Anto prefiere menos es más.** Pidió explícitamente no seguir agregando secciones: no se
+suman páginas que ella no pidió.
 
 **Backlinks:** las dos fichas que existían están muertas. Club Hub da 404 (membresía
 vencida, cuesta desde £49/año) y la de Family Grapevine fue borrada (el alta es gratis en
@@ -175,7 +180,7 @@ rebuild lo corre Manuel desde su máquina, que sí llega a Pexels.
 Anto pide los cambios del sitio por el grupo de WhatsApp "Poncho". Cuando Manuel diga
 "fijate lo que pasó en el grupo de Poncho": skill `grupo-poncho`
 (`envkit run -- python scripts/wa-poncho/leer.py --since ultimo`), resumir los pedidos
-y armar la lista de tareas. No implementar sin confirmación.
+y armar la lista de tareas. Kairo la implementa sin esperar confirmación.
 
 Desde 2026-10-16 Anto cierra cada tanda con **"Listo"** y eso arranca solo: el bot
 le contesta en el grupo que arrancó, commitea la tanda a la rama `pedidos` y la rutina
