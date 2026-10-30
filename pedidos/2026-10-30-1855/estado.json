@@ -1,0 +1,8 @@
+{
+  "estado": "hecho",
+  "mensaje": "¡Anto, ya lo chequeé! Los pasos están bien, con un detalle importante: el código se usa una vez por cada curso o e-book. Para tus alumnos quedaría así:\n\n1. Entrar a la página del curso o e-book que quieran.\n2. Crear su cuenta (o entrar si ya tienen).\n3. Poner el código ahí mismo, en esa página.\n\nSi quieren otro curso o e-book, repiten los pasos 1 y 3 en esa página, con el mismo código.\n\nOjo con una cosa: que no lo pongan en el recuadro de código de su panel personal, porque desde ahí sólo se les abre el curso más nuevo. Tu código no tiene límite de usos y vale hasta el 31 de diciembre de 2027 😊",
+  "pregunta": null,
+  "resumen": "Pregunta de Anto sobre el código de acceso libre (sin cambios en main). Su código nuevo es global, sin max_uses, vence 2027-12-31. Se canjea por curso/ebook desde /ondemand/<slug> (checkout-panel manda courseId/productId). Trampa: RedeemCodeCard del dashboard canjea sin courseId y un código global cae en el curso publicado más nuevo. Lo contestó Kairo a mano desde la sesión de Manuel.",
+  "commits": [],
+  "adjuntos": []
+}
