@@ -1,0 +1,52 @@
+{
+  "id": "2026-10-30-1919",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-10-30-1855",
+  "desde": "2026-10-30 18:55",
+  "hasta": "2026-10-30 19:19",
+  "mensajes": [
+    {
+      "hora": "2026-10-30 18:56",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Recibido, Anto! Ya me pongo con esto. Te aviso por acá cuando esté todo hecho 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-10-30 19:16",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Hola Anto! Soy Kairo 👋 Desde hoy soy yo el que te va a ir respondiendo por acá. Manu me hizo unas buenas mejoras para darte una atención más personalizada: ahora leo con atención cada cosa que me mandás, te cuento qué entendí y, si me preguntás algo, te lo respondo. Vos seguí como siempre: mandame todo lo que necesites y cerrá con \"Listo\" 😊",
+      "media": null
+    },
+    {
+      "hora": "2026-10-30 19:16",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Perfecto!!",
+      "media": null
+    },
+    {
+      "hora": "2026-10-30 19:18",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Anto, ya lo chequeé! Los pasos están bien, con un detalle importante: el código se usa una vez por cada curso o e-book. Para tus alumnos quedaría así:\n\n1. Entrar a la página del curso o e-book que quieran.\n2. Crear su cuenta (o entrar si ya tienen).\n3. Poner el código ahí mismo, en esa página.\n\nSi quieren otro curso o e-book, repiten los pasos 1 y 3 en esa página, con el mismo código.\n\nOjo con una cosa: que no lo pongan en el recuadro de código de su panel personal, porque desde ahí sólo se les abre el curso más nuevo. Tu código no tiene límite de usos y vale hasta el 31 de diciembre de 2027 😊",
+      "media": null
+    },
+    {
+      "hora": "2026-10-30 19:19",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Podrías hacer un texto corto explicando los pasos a seguir de manera simple para que se los comparta en un email? (En British English please)",
+      "media": null
+    },
+    {
+      "hora": "2026-10-30 19:19",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
