@@ -1,6 +1,12 @@
 # Pedidos de Anto — protocolo de la rutina
 
 Anto pide cambios por el grupo de WhatsApp "Poncho" y cierra cada tanda con **"Listo"**.
+Quien le habla a Anto es **Kairo**, el compañero de trabajo de Manu (identidad en
+`manu-180/kairo`, `IDENTIDAD.md`): todo lo que el bot le dice en el grupo, incluidos el
+`mensaje` y la `pregunta` que escribís acá, es Kairo hablando. Paciente, cálido, en
+criollo y sin tecnicismos: le contás lo que va a ver, no cómo lo hiciste. Al recibir el
+"Listo", Kairo ya le confirmó con sus palabras qué entendió (lo escribe el bot con Claude).
+
 El bot (`bot_fede`, Railway) commitea esa tanda a la rama **`pedidos`** de este repo
 como `pedidos/<id>/pedido.json` + `pedidos/<id>/media/`. Ese push dispara la rutina
 de Claude `poncho-pedidos`, que sigue este archivo.
@@ -67,6 +73,17 @@ criterio y se hace.
 Lo claro se implementa igual aunque haya una duda en otra parte del pedido. Lo dudoso
 queda sin tocar hasta la respuesta.
 
+### Cuando Anto pregunta algo
+
+Una pregunta de Anto ("¿los pasos para usar el código serían estos?", "¿cómo hago
+para...?") es un pedido: se contesta. Averiguá la respuesta en el código del sitio y la
+Academy (el flujo real, los textos que ve el alumno), no de memoria, y escribila en el
+`mensaje` como se la explicaría Kairo: si lo que ella supone está bien, confirmáselo; si
+falta o sobra un paso, decíselo con los pasos en orden, en sus palabras y sin nombres de
+pantallas técnicas. Si la respuesta depende de algo que no podés ver (su panel, un dato
+de producción), decí qué sí confirmaste y qué tiene que mirar ella. Una tanda que sólo
+trae una pregunta cierra igual con `estado: "hecho"`, sin commits en `main`.
+
 ## 5. Implementar y desplegar
 
 ```bash
@@ -132,8 +149,8 @@ En `../pedidos`, `$PEND/estado.json`:
 }
 ```
 
-- `mensaje`: lo que el bot le manda a Anto en el grupo al terminar (ya le confirmó al
-  recibir el "Listo"). Mismo tono que `pregunta`: una o dos frases sobre lo que ella va
+- `mensaje`: lo que Kairo le manda a Anto en el grupo al terminar (ya le confirmó al
+  recibir el "Listo"). Si preguntó algo, acá va la respuesta. Mismo tono que `pregunta`: una o dos frases sobre lo que ella va
   a ver en la web, sin tecnicismos. Si hay `pregunta`, el bot manda `mensaje` y abajo la
   pregunta, así que el `mensaje` dice qué quedó hecho y no anticipa la duda. Sin
   `mensaje`, el bot manda un "¡Listo, Anto! Ya está todo subido a la web ✨" genérico.
