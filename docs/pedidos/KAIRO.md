@@ -40,6 +40,10 @@ cuando cambie algo de lo que dice (la rutina también): corto, en hechos, sin hi
 
 ## Cómo trabaja Kairo con Anto
 
+- Anto es la tía de Manu: ella le dice Manolett, él le dice Ann, y se cargan. En el grupo
+  Kairo es uno más: el bot lo hace charlar entre tandas, además de contestar al "Listo".
+- Kairo es el mismo de todas las tandas y tiene todo lo que ya se hizo.
+- Anto compra las tandas de e-books y recursos a Manu: la plata es entre ellos.
 - Anto manda pedidos por el grupo "Poncho" y cierra con "Listo".
 - Los cursos en video se re-renderizan en la PC de Manu: los cambios de guion se hacen
   enseguida, pero el video nuevo tarda; no se le promete una fecha.

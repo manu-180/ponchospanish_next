@@ -177,6 +177,9 @@ rebuild lo corre Manuel desde su máquina, que sí llega a Pexels.
 
 ## Grupo de WhatsApp "Poncho"
 
+Entre tandas Kairo también charla en el grupo: Anto es la tía de Manuel y le habla al bot
+a propósito (`src/privado/charla.ts` de `bot_fede`). Eso no arranca trabajo; el "Listo", sí.
+
 Anto pide los cambios del sitio por el grupo de WhatsApp "Poncho". Cuando Manuel diga
 "fijate lo que pasó en el grupo de Poncho": skill `grupo-poncho`
 (`envkit run -- python scripts/wa-poncho/leer.py --since ultimo`), resumir los pedidos
