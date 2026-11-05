@@ -56,6 +56,8 @@ git push origin pedidos || { echo "Otra corrida lo tomó."; exit 0; }
   `media`). Los audios ya vienen transcriptos en `texto` (Whisper: puede tener errores
   de oído, interpretá con criterio). Abrí con Read **toda** imagen y PDF de `media/`:
   casi siempre son capturas de la web marcando qué cambiar o el material para pegar.
+- Un mensaje con `partes` trae un archivo pesado partido en `media/<nombre>.parte-001`,
+  `-002`, etc. Unilo antes de abrirlo: `cat media/<nombre>.parte-* > media/<nombre>`.
 - Si `anterior` no es null, leé `pedidos/<anterior>/estado.json`: si ahí hay una
   `pregunta`, esta tanda probablemente trae la respuesta de Anto.
 - Un mensaje posterior que corrige uno anterior manda. Charla personal, stickers y
@@ -141,6 +143,13 @@ y el curso nuevo sale desde ahí (la rutina no lo puede mandar).
   del curso; te paso la versión nueva apenas termine de armarla". El `resumen` dice
   qué lecciones cambiaron y que hay que correr
   `python scripts/cursos/build_course.py <curso> --jobs 16 --render <carpeta>`.
+
+## Avances
+
+En una tanda con varios entregables, escribí en `$PEND/estado.json` un `avance` para
+que Anto sepa cómo vas: `{"estado":"trabajando","avance":"Ya terminé los 5 recursos,
+sigo con los e-books 💪"}`. El bot se lo manda al grupo una vez, y si ella pregunta cómo
+va, Kairo le cuenta el último. Máximo dos por tanda: cada push vuelve a disparar la rutina.
 
 ## 6. Cerrar
 
