@@ -4,7 +4,7 @@
   "repo": "manu-180/ponchospanish_next",
   "anterior": "2026-10-30-1919",
   "desde": "2026-10-30 19:19",
-  "hasta": "2026-11-05 11:43",
+  "hasta": "2026-11-05 12:06",
   "mensajes": [
     {
       "hora": "2026-10-30 19:20",
@@ -280,6 +280,13 @@
       "autor": "Antonela Risaro",
       "tipo": "text",
       "texto": "Listo",
+      "media": null
+    },
+    {
+      "hora": "2026-11-05 12:06",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Los 5 recursos pueden ser para niños también (multi nivel quizás….. como los mini diccionarios… no están específicamente dedicados a un sector determinado)",
       "media": null
     }
   ]
