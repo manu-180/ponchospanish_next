@@ -1,1 +1,19 @@
-{"estado":"trabajando","avance":"Ya terminé los 5 recursos (Spanish Speaking Countries, Christmas, Birthdays, Frida Kahlo y Leo Messi), con el fondo gris y la estructura de siempre. Ahora me pongo con los 3 e-books 💪"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Te dejo los 8 archivos acá abajo ✨ Los 5 recursos (Spanish Speaking Countries, Christmas, Birthdays, Frida Kahlo y Leo Messi) van con el fondo gris y la estructura de siempre: 6 bloques de vocabulario con ejemplos, frases, actividades y respuestas, y pensados para que los puedan usar tanto los chicos como los más grandes. Los 3 e-books son la continuación de Spanish for Confident Teens: el 2, y el 3 en Foundation y en Higher, con la misma tapa que el primero, los ejercicios al final de cada capítulo, el toolbox de gramática y todas las respuestas al final. Las portadas las elegí yo de nuestro banco de fotos: si alguna no te convence, mandámela y te la cambio en un rato 😊",
+  "pregunta": null,
+  "resumen": "5 recursos nuevos (Spanish Speaking Countries, Christmas, Birthdays, Frida Kahlo, Leo Messi): 22 páginas cada uno, 6 secciones de vocabulario con variantes ES/AR, frases, 7 actividades y respuestas; multinivel, según la aclaración de Anto de las 12:06. 3 e-books de la serie Confident Teens (2, 3 Foundation y 3 Higher): 55-56 páginas cada uno, 5 capítulos de tema + caja de herramientas, ejercicios por capítulo y respuestas al final; los tres con la portada de Spanish for Confident Teens. Contenido propio: los PDF de Viva se usaron sólo como referencia de la progresión de KS3 (Libro 2 = pretérito/comparativo/futuro próximo; Libro 3 Verde = tener que, verbos con cambio de vocal, doler, se debe; Libro 3 Rojo = suma pronombres de objeto directo, imperfecto y futuro simple). Las fotos salieron de reconstruir la caché de Pexels recortando los JPEG embebidos en los PDF que el bot ya había mandado al grupo (~85 fotos con su id), porque desde la sesión cloud la red bloquea todos los bancos de imágenes; queda documentado en AGENTS.md. pnpm type-check y pnpm test:seo en verde; pnpm build cae en esta sesión al resolver next/font/google (Montserrat), que es la red del entorno cloud y no el cambio: no se tocó ningún archivo que compile Next. Vercel reconstruye y no promueve si falla.",
+  "commits": [
+    "2d23d54ffeb2deb8b5dc0feca5a741942bc037b2"
+  ],
+  "adjuntos": [
+    "entregables/Spanish-Speaking-Countries-Poncho.pdf",
+    "entregables/Christmas-Poncho.pdf",
+    "entregables/Birthdays-Poncho.pdf",
+    "entregables/Frida-Kahlo-Poncho.pdf",
+    "entregables/Leo-Messi-Poncho.pdf",
+    "entregables/Spanish-for-Confident-Teens-2-Poncho.pdf",
+    "entregables/Spanish-for-Confident-Teens-3-Foundation-Poncho.pdf",
+    "entregables/Spanish-for-Confident-Teens-3-Higher-Poncho.pdf"
+  ]
+}
