@@ -24,6 +24,19 @@ cuando cambie algo de lo que dice (la rutina también): corto, en hechos, sin hi
   diccionarios (Football, Animal Lovers, Music Lovers, Foodie, Travel, Real-Life
   Conversations, Day of the Dead) y material de examen GCSE e IGCSE (AQA y Edexcel,
   Foundation y Higher, con sus Paper de lectura).
+- Recursos (fondo gris, formato mini diccionario: 22 páginas, 6 secciones de
+  vocabulario, frases, actividades y respuestas). Además de los mini diccionarios:
+  Day of the Dead, Spanish Speaking Countries, Christmas, Birthdays, Frida Kahlo y
+  Leo Messi (2026-11-05). Son multinivel: sirven para chicos y para adolescentes.
+- E-books (fondo negro, más largos: capítulos con aperturas a sangre, unidades,
+  ejercicios por capítulo, caja de herramientas de gramática y respuestas al final).
+  La serie Spanish for Confident Teens tiene cuatro libros: el primero (KS3, año 1),
+  Spanish for Confident Teens 2 (año 2: pretérito, comparativo, futuro próximo),
+  Spanish for Confident Teens 3 Foundation y Spanish for Confident Teens 3 Higher
+  (año 3; el Higher suma imperfecto, futuro simple y pronombres de objeto directo).
+  Los cuatro comparten la misma foto de tapa (2026-11-05).
+- Los recursos y e-books de una tanda se le mandan a Anto por el grupo como PDF. Se
+  publican en la Academy sólo si ella lo pide.
 
 ## Códigos de acceso
 

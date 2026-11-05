@@ -165,8 +165,14 @@ documento, que es el mismo orden en que el módulo del libro los nombra
 del PDF y guardándolos como `.cache/p<id>.jpg` el rebuild sale idéntico al original.
 `pdfimages` no sirve: se pierde todo lo que Chrome emite como patrón (portada, TOC, aperturas).
 
-Eso alcanza para **rebuildear** un libro, no para **cambiar** una foto: desde la sesión
-cloud la política de red bloquea con 403 todo banco de imágenes (se probaron
+Recortando todos los PDF de la rama a la vez se arma un **pool de ~85 fotos de Pexels con
+su id** (la lista de ids de cada libro, en orden de documento, sale de `BOOK`), y con ese
+pool se pueden escribir libros nuevos sin salir a la red: es como se hicieron los cinco
+recursos y los tres e-books del 2026-11-05.
+
+Eso alcanza para **rebuildear** un libro y para **reutilizar** una foto que ya existe, no
+para **conseguir una nueva**: desde la sesión cloud la política de red bloquea con 403 todo
+banco de imágenes (se probaron
 `pexels`, `unsplash`, `wikimedia`, `pixabay` y `flickr`), así que una foto que no esté ya
 en `photos/` o embebida en alguno de los PDF del grupo no se puede conseguir. Cuando Anto
 pide cambiar una foto de interior, la foto se la pedimos a ella por el grupo (va a
