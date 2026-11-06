@@ -65,31 +65,49 @@ export default async function LessonPage({ params, searchParams }: PageProps) {
       : Promise.resolve(false),
   ]);
   const accessibleLesson = hasAccess || lesson.isFree;
+  const nextAccessible = next ? hasAccess || next.isFree : false;
+
+  const admin = getSupabaseAdminClient();
+
+  // The catalog tree only carries public columns: playback ids are read here,
+  // with the admin client, and only for lessons this user may watch.
+  const playableIds = [
+    ...(accessibleLesson ? [lesson.id] : []),
+    ...(next && nextAccessible ? [next.id] : []),
+  ];
+  const { data: playbackRows } = playableIds.length
+    ? await admin
+        .from("lessons")
+        .select("id, mux_playback_id")
+        .in("id", playableIds)
+    : { data: [] as Array<{ id: string; mux_playback_id: string | null }> };
+  const playbackIdOf = (id: string) =>
+    playbackRows?.find((row) => row.id === id)?.mux_playback_id ?? null;
+  const lessonPlaybackId = playbackIdOf(lesson.id);
+  const nextPlaybackId = next ? playbackIdOf(next.id) : null;
 
   // Mint signed Mux playback + thumbnail tokens server-side. Tokens have a
   // 15 min TTL — fine for a single lesson view.
   const muxReady =
-    accessibleLesson &&
-    lesson.mux_status === "ready" &&
-    !!lesson.mux_playback_id;
+    accessibleLesson && lesson.mux_status === "ready" && !!lessonPlaybackId;
 
   const playbackToken = muxReady
     ? signMuxPlaybackToken({
-        playbackId: lesson.mux_playback_id!,
+        playbackId: lessonPlaybackId!,
         audience: "video",
         subject: user.id,
       })
     : null;
   const thumbnailToken = muxReady
     ? signMuxPlaybackToken({
-        playbackId: lesson.mux_playback_id!,
+        playbackId: lessonPlaybackId!,
         audience: "thumbnail",
         subject: user.id,
       })
     : null;
   const storyboardToken = muxReady
     ? signMuxPlaybackToken({
-        playbackId: lesson.mux_playback_id!,
+        playbackId: lessonPlaybackId!,
         audience: "storyboard",
         subject: user.id,
       })
@@ -98,9 +116,8 @@ export default async function LessonPage({ params, searchParams }: PageProps) {
   // "Up next" end card data. The next lesson is accessible when the user owns
   // the course or the lesson is a free preview. Mint a signed thumbnail for a
   // premium card; fall back to the course cover in the component.
-  const nextAccessible = next ? hasAccess || next.isFree : false;
   const nextMuxReady =
-    !!next && next.mux_status === "ready" && !!next.mux_playback_id;
+    !!next && next.mux_status === "ready" && !!nextPlaybackId;
   const nextUp = next
     ? {
         title: next.title,
@@ -108,15 +125,13 @@ export default async function LessonPage({ params, searchParams }: PageProps) {
         href: nextAccessible ? `/learn/${course.slug}/${next.slug}` : null,
         thumbnailUrl:
           nextAccessible && nextMuxReady
-            ? buildSignedThumbnailUrl(next.mux_playback_id!, 5)
+            ? buildSignedThumbnailUrl(nextPlaybackId!, 5)
             : null,
         durationSeconds:
           next.mux_duration_seconds ?? next.video_duration_seconds ?? null,
         locked: !nextAccessible,
       }
     : null;
-
-  const admin = getSupabaseAdminClient();
 
   // Typed empty fallbacks for the not-accessible / no-video branches.
   const emptyWorkbooks = {
@@ -265,7 +280,7 @@ export default async function LessonPage({ params, searchParams }: PageProps) {
           </div>
 
           <MuxLessonPlayer
-            playbackId={lesson.mux_playback_id}
+            playbackId={lessonPlaybackId}
             playbackToken={playbackToken}
             thumbnailToken={thumbnailToken}
             storyboardToken={storyboardToken}

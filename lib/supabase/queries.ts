@@ -25,9 +25,34 @@ export type CourseWithCounts = Course & {
   lessons_count: number;
 };
 
+// El mismo listado que el GRANT a anon de la migración
+// 20261106_lessons_anon_public_columns: una columna que no esté en los dos rompe
+// el catálogo con 401. Lo privado (mux_playback_id y compañía) se lee con el
+// cliente admin y recién después de chequear el acceso.
+const LESSON_PUBLIC_COLUMNS =
+  "id, module_id, title, slug, position, description, is_free_preview, is_trailer, mux_status, mux_duration_seconds, video_duration_seconds, release_at, created_at, updated_at";
+
+export type PublicLesson = Pick<
+  Lesson,
+  | "id"
+  | "module_id"
+  | "title"
+  | "slug"
+  | "position"
+  | "description"
+  | "is_free_preview"
+  | "is_trailer"
+  | "mux_status"
+  | "mux_duration_seconds"
+  | "video_duration_seconds"
+  | "release_at"
+  | "created_at"
+  | "updated_at"
+>;
+
 export type CourseTree = Course & {
   modules: (Module & {
-    lessons: Lesson[];
+    lessons: PublicLesson[];
   })[];
 };
 
@@ -74,12 +99,12 @@ export async function getCourseBySlug(
 
   const { data: modulesRaw, error: modulesError } = await supabase
     .from("modules")
-    .select("*, lessons(*)")
+    .select(`*, lessons(${LESSON_PUBLIC_COLUMNS})`)
     .eq("course_id", course.id)
     .order("position", { ascending: true });
   if (modulesError) throw modulesError;
 
-  type ModuleWithLessons = Module & { lessons?: Lesson[] };
+  type ModuleWithLessons = Module & { lessons?: PublicLesson[] };
   const modules = (modulesRaw ?? []) as unknown as ModuleWithLessons[];
 
   const sortedModules = modules.map((m) => ({
