@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { CheckCircle2, ChevronDown, ChevronRight, Lock, PlayCircle } from "lucide-react";
 import { cn, formatDuration } from "@/lib/utils";
-import type { Lesson, Module } from "@/types/database";
+import type { Module } from "@/types/database";
+import type { PublicLesson } from "@/lib/supabase/queries";
 
 interface ModuleWithLessons extends Module {
-  lessons: Lesson[];
+  lessons: PublicLesson[];
 }
 
 interface CourseOutlineProps {
