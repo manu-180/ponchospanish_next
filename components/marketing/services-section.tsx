@@ -57,7 +57,7 @@ export function ServicesSection() {
       <div className="container-wide">
         <AnimatedSection className="mx-auto max-w-3xl text-center mb-14 md:mb-20">
           <h2 className="font-serif text-display-lg uppercase text-balance gradient-text">
-            Online Spanish lessons
+            Live online Spanish lessons
           </h2>
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-charcoal-400 mt-4">
             Start with a trial. See how it feels.

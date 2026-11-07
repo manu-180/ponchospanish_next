@@ -17,6 +17,9 @@ cuando cambie algo de lo que dice (la rutina también): corto, en hechos, sin hi
 
 ## La academia (ponchospanish.com/ondemand)
 
+- En la home, la tarjeta que lleva a la academia se llama **Poncho Academy** (antes
+  "On demand courses"), y la sección de clases en vivo se titula "Live online Spanish
+  lessons" (2026-11-07).
 - Cursos en video: Spanish for Confident Kids y Spanish for Confident Teens.
 - E-books y mini diccionarios en ponchospanish.com/ondemand (cada uno con su página en
   `/ondemand/ebooks/<nombre>`): Spanish for Travel, Spanish for International

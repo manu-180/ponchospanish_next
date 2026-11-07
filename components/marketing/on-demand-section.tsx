@@ -58,10 +58,10 @@ export function OnDemandSection() {
               <div className="p-7 space-y-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terracotta-500">
-                    Independent learners
+                    On demand courses
                   </p>
                   <h3 className="mt-1 font-serif text-2xl leading-tight uppercase">
-                    On demand courses
+                    Poncho Academy
                   </h3>
                 </div>
                 <div className="h-[2px] w-10 bg-mustard" />
