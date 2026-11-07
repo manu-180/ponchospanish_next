@@ -4,15 +4,15 @@ BOOK = {
     "cover_sub": "La Navidad",
     "sticker": "Vocabulary · Culture · Activities",
     "kicker": "Christmas in Spain {ES} and Argentina {AR}: the words, the food,<br>the songs and the night the Three Kings arrive",
-    "cover_photo": 5638815,
-    "cover_pos": "50% 45%",
+    "cover_photo": "christmas-cover.jpg",
+    "cover_pos": "50% 40%",
     "toc_photo": 6314566,
     "welcome": {
         "title": "¡Feliz Navidad!",
         "lead": "In December half the Spanish-speaking world wraps up warm and the other half goes to the beach, and both halves eat far too much, sing the same songs and stay up far too late.",
         "body": [
             "This resource collects more than 80 Christmas words and expressions, each one in a real sentence: the decorations, the big dinner on Christmas Eve, the sweets, the carols, the Three Kings and the twelve grapes at midnight on New Year's Eve.",
-            "Spanish Christmas is not a copy of the British one. The main meal is on the night of the 24th, lots of children get their presents on 6 January, and in Argentina and Chile it is the middle of summer. At the end you'll find activities and all the answers.",
+            "Spanish Christmas is not a copy of the British one. The main meal is on the night of the 24th and lots of children get their presents on 6 January. And in Latin America December is summer: there is a whole section on what Christmas looks like in thirty degrees of heat. At the end you'll find activities and all the answers.",
         ],
         "how": [
             ("Read the word, then the sentence.", "Words stick better when you see them in action."),
@@ -22,7 +22,7 @@ BOOK = {
         ],
         "notes": [
             ("Three nights, three names", "<p>Spanish has a different word for each big night. <b>La Nochebuena</b> is Christmas Eve, 24 December. <b>La Navidad</b> is Christmas Day, 25 December. <b>La Nochevieja</b> is New Year's Eve, 31 December.</p><p class=\"pair\"><b>la Nochebuena</b> &nbsp;=&nbsp; <b>24 de diciembre</b></p>"),
-            ("Two countries, two words", "<p>When you see two options, the first is common in Spain {ES} and the second in Argentina {AR}. And remember: in Argentina, Chile and Uruguay, Christmas is in the middle of summer.</p><p class=\"pair\"><b>el belén</b> {ES} &nbsp;=&nbsp; <b>el pesebre</b> {AR}</p>"),
+            ("Two countries, two words", "<p>When you see two options, the first is common in Spain {ES} and the second in Argentina {AR}. And remember: south of the equator Christmas is in the middle of summer, so the words change too.</p><p class=\"pair\"><b>el belén</b> {ES} &nbsp;=&nbsp; <b>el pesebre</b> {AR}</p>"),
         ],
     },
     "sections": [
@@ -147,6 +147,31 @@ BOOK = {
             "fact": ("¿Sabías que...?", "Midnight mass is called la misa del gallo, 'the rooster's mass'. The story says that a cockerel crowed at midnight on the night Jesus was born, and it is the only time of year a rooster is said to crow in the dark."),
         },
         {
+            "key": "latam",
+            "title": "La Navidad en Latinoamérica",
+            "en": "Christmas in the summer",
+            "photo": 6920587,
+            "photo_pos": "50% 55%",
+            "intro": "South of the equator, Father Christmas arrives in thirty degrees of heat.",
+            "words": [
+                ("el calor", "the heat", "En Navidad hace muchísimo calor.", "At Christmas it is boiling hot.", None),
+                ("el verano", "the summer", "Para nosotros la Navidad es en verano.", "For us Christmas is in summer.", None),
+                ("el ventilador", "the fan", "Cenamos con el ventilador encendido.", "We have dinner with the fan on.", None),
+                ("la piscina / la pileta", "the swimming pool", "Los chicos se meten en la pileta el 25.", "The children get in the pool on the 25th.", "ES/AR"),
+                ("el patio", "the yard, the patio", "Ponemos la mesa en el patio.", "We lay the table out in the yard.", None),
+                ("la vereda", "the pavement", "Los vecinos sacan sillas a la vereda.", "The neighbours take chairs out onto the pavement.", None),
+                ("el pan dulce / el panetón", "the Christmas sweet bread", "El pan dulce no puede faltar.", "There is always pan dulce.", None),
+                ("la sidra", "the cider", "Brindamos con sidra bien fría.", "We toast with ice-cold cider.", None),
+                ("el vitel toné", "cold veal in tuna sauce", "Mi tía trae el vitel toné.", "My aunt brings the vitel toné.", None),
+                ("la ensalada rusa", "the potato salad", "La ensalada rusa se come fría.", "Potato salad is eaten cold.", None),
+                ("el Niño Dios", "the baby Jesus", "A medianoche ponemos al Niño Dios en el pesebre.", "At midnight we put the baby Jesus in the nativity scene.", None),
+                ("la pirotecnia", "the fireworks", "A las doce empieza la pirotecnia.", "The fireworks start at twelve.", None),
+                ("el nacimiento", "the nativity scene", "En Colombia el nacimiento se arma el 7 de diciembre.", "In Colombia the nativity scene goes up on 7 December.", None),
+                ("las posadas", "the posadas", "En México las posadas duran nueve noches.", "In Mexico the posadas last nine nights.", None),
+            ],
+            "fact": ("¿Sabías que...?", "In Argentina, Chile, Uruguay and Paraguay, Christmas falls in the middle of summer: dinner is served late in the garden or on the pavement, the salads are cold, the cider comes out of the fridge and at midnight the sky fills with fireworks. In Mexico the nine nights before Christmas are las posadas, with candles, singing from house to house and a piñata; in Venezuela and Colombia, families gather for the nine nights of la novena; and in Peru, Nochebuena finishes with hot chocolate and panetón, even in a warm December."),
+        },
+        {
             "key": "finde",
             "title": "Fin de año",
             "en": "New Year",
@@ -207,6 +232,7 @@ BOOK = {
             ("El turrón es una sopa caliente.", False),
             ("Se comen doce uvas en Nochevieja.", True),
             ("El roscón de Reyes se come en agosto.", False),
+            ("En México las posadas duran nueve noches.", True),
         ],
         "gap": {
             "title": "La carta de Clara",
@@ -220,10 +246,10 @@ BOOK = {
         },
         "country": [
             ("el belén", "el pesebre"), ("la tarta", "la torta"), ("las chucherías", "las golosinas"),
-            ("el calcetín", "la media"), ("la gamba", "el camarón"), ("el zumo", "el jugo"),
+            ("el calcetín", "la media"), ("la gamba", "el camarón"), ("el zumo", "el jugo"), ("la piscina", "la pileta"),
             ("el móvil", "el celular"), ("bonito", "lindo"),
         ],
-        "ws": ["NAVIDAD", "NOCHEBUENA", "REGALO", "BELEN", "TURRON", "ESTRELLA", "VELA", "CAMELLO", "UVAS", "ARBOL", "CENA", "CANTAR"],
+        "ws": ["NAVIDAD", "NOCHEBUENA", "REGALO", "BELEN", "TURRON", "ESTRELLA", "VELA", "CAMELLO", "UVAS", "ARBOL", "CENA", "VERANO"],
         "order": [
             "¡Feliz Navidad!",
             "Vamos a cantar un villancico.",

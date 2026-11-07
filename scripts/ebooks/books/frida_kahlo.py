@@ -4,9 +4,9 @@ BOOK = {
     "cover_sub": "La pintora de la Casa Azul",
     "sticker": "Vocabulary · Culture · Activities",
     "kicker": "The life, the colours and the animals of Mexico's most famous<br>painter, with Spain {ES} and Argentina {AR} vocabulary",
-    "cover_photo": 36829757,
-    "cover_pos": "50% 45%",
-    "toc_photo": 34134368,
+    "cover_photo": "frida-cover.jpg",
+    "cover_pos": "50% 22%",
+    "toc_photo": "frida-contenido.jpg",
     "welcome": {
         "title": "¡Hola!",
         "lead": "Frida Kahlo painted herself more than anybody else has ever painted themselves. She put her face, her flowers, her monkeys, her pain and her country on small canvases, and a hundred years later the whole world recognises them.",
@@ -30,7 +30,8 @@ BOOK = {
             "key": "quien",
             "title": "¿Quién fue Frida?",
             "en": "Who she was",
-            "photo": 14737215,
+            "photo": "frida-quien.jpg",
+            "photo_pos": "50% 56%",
             "intro": "A life in one page: Coyoacán, an accident, a brush and a mirror.",
             "words": [
                 ("la pintora", "the painter (woman)", "Frida Kahlo fue una pintora mexicana.", "Frida Kahlo was a Mexican painter.", None),
@@ -54,7 +55,8 @@ BOOK = {
             "key": "casa",
             "title": "La Casa Azul",
             "en": "The Blue House",
-            "photo": 29162241,
+            "photo": "frida-casa-azul.jpg",
+            "photo_pos": "50% 55%",
             "intro": "The house where she was born, where she painted and where she died.",
             "words": [
                 ("la casa", "the house", "La casa es de un azul muy fuerte.", "The house is a very strong blue.", None),
@@ -78,8 +80,8 @@ BOOK = {
             "key": "retratos",
             "title": "Los autorretratos",
             "en": "The self-portraits",
-            "photo": 7861557,
-            "photo_pos": "50% 28%",
+            "photo": "frida-autorretratos.jpg",
+            "photo_pos": "50% 30%",
             "intro": "More than fifty paintings of the same face, and never the same picture twice.",
             "words": [
                 ("el cuadro", "the painting", "Pintó más de cien cuadros.", "She painted more than a hundred pictures.", None),
@@ -151,7 +153,8 @@ BOOK = {
             "key": "legado",
             "title": "Su legado",
             "en": "What she left behind",
-            "photo": 34900028,
+            "photo": "frida-legado.jpg",
+            "photo_pos": "50% 30%",
             "intro": "From a small blue house to the whole world.",
             "words": [
                 ("el legado", "the legacy", "Su legado crece cada año.", "Her legacy grows every year.", None),

@@ -62,6 +62,9 @@ h3 { font-size: 11.5pt; font-weight: 700; margin: 6mm 0 2mm; }
 .toc .t { font-family: 'Bebas Neue'; font-size: 24pt; }
 .toc .d { font-size: 9pt; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); }
 .toc-photo { position: absolute; left: 17mm; right: 17mm; bottom: 20mm; height: 62mm; border-radius: 5mm; background-size: cover; background-position: center 40%; }
+.toc.tight li { padding: 2.9mm 0; }
+.toc.tight .t { font-size: 22pt; }
+.toc-photo.tight { height: 50mm; }
 
 /* vocab */
 .banner { position: relative; height: 84mm; margin: -18mm -17mm 0; background-size: cover; background-position: center 40%; }

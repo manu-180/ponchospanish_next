@@ -170,6 +170,16 @@ su id** (la lista de ids de cada libro, en orden de documento, sale de `BOOK`), 
 pool se pueden escribir libros nuevos sin salir a la red: es como se hicieron los cinco
 recursos y los tres e-books del 2026-11-05.
 
+El orden de documento depende del `kind`: en los recursos y diccionarios es
+`cover_photo`, `toc_photo`, las fotos de `sections`, la de `phrases` y la de `end`; en los
+e-books (`kind="ebook"`) es `cover_photo`, la foto de cada capítulo y la de `end`. Hay que
+recorrer los dos grupos para llenar la caché entera: con sólo los recursos faltan las
+fotos de capítulo de los Confident Teens y el rebuild de esos libros sale a Pexels y
+falla (2026-11-06).
+
+Python: `build.py` tiene f-strings con backslash, así que necesita 3.12+. En la sesión
+cloud `python3` es 3.11 y hay que llamarlo con **`python3.13`**.
+
 Eso alcanza para **rebuildear** un libro y para **reutilizar** una foto que ya existe, no
 para **conseguir una nueva**: desde la sesión cloud la política de red bloquea con 403 todo
 banco de imágenes (se probaron

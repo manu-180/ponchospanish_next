@@ -144,6 +144,7 @@ def build_ebook(name, B):
       <div class="cover-body">
         <div class="sticker">{e(B["sticker"])}</div>
         <h1 style="font-size:{B.get('title_pt', 100)}pt">{"<br>".join(e(x) for x in B["title_lines"])}</h1>
+        {f'<p class="tier tier-{B["tier"].lower()}">{e(B["tier"])}</p>' if B.get("tier") else ""}
         <p class="cover-sub">{e(B["cover_sub"])}</p>
         <p class="cover-kicker">{flags(B["kicker"])}</p>
         <p class="brand">PONCHO<span>Spanish</span></p>

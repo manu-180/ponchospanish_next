@@ -125,7 +125,7 @@ def section_pages(i, s, cols):
         if len(words) > 11 and s.get("fact"):
             pass
         return pages
-    first, rest = words[:11], words[11:]
+    first, rest = words[:10], words[10:]
     pages.append(page(head + vocab_table(first, cols), "vocab-page"))
     cont = f'<p class="running">{i:02d} · {e(s["title"])} <span>{e(s["en"])}</span></p>'
     if rest:
@@ -286,8 +286,9 @@ def build(name):
         toc += f'<li><span class="n">{k:02d}</span><span class="t">{e(B["phrases"]["title"])}</span><span class="d">{e(B["phrases"]["en"])}</span></li>'
     toc += f'<li><span class="n">{k + 1:02d}</span><span class="t">{e(B["activities"].get("title", "¡A practicar!"))}</span><span class="d">Activities &amp; answers</span></li>'
     toc_place = f';background-position:{B["toc_pos"]}' if B.get("toc_pos") else ""
-    pages.append(page(f'<h2 class="title">Contenido</h2><ol class="toc">{toc}</ol>'
-                      f'<div class="toc-photo" style="background-image:url(\'{photo(B["toc_photo"])}\'){toc_place}"></div>', "text-page"))
+    tight = " tight" if k + 1 >= 9 else ""
+    pages.append(page(f'<h2 class="title">Contenido</h2><ol class="toc{tight}">{toc}</ol>'
+                      f'<div class="toc-photo{tight}" style="background-image:url(\'{photo(B["toc_photo"])}\'){toc_place}"></div>', "text-page"))
 
     for i, s in enumerate(B["sections"], 1):
         pages.extend(section_pages(i, s, cols))

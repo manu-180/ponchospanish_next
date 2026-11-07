@@ -4,8 +4,8 @@ BOOK = {
     "cover_sub": "Los cumpleaños",
     "sticker": "Vocabulary · Culture · Activities",
     "kicker": "Everything you need to throw a birthday party in Spanish,<br>with Spain {ES} and Argentina {AR} vocabulary",
-    "cover_photo": 7219154,
-    "cover_pos": "50% 40%",
+    "cover_photo": "birthdays-cover.jpg",
+    "cover_pos": "50% 42%",
     "toc_photo": 39231285,
     "welcome": {
         "title": "¡Feliz cumpleaños!",
