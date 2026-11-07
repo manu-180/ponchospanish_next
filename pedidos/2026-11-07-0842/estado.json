@@ -1,1 +1,8 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! En la home, la tarjeta de los cursos ahora dice PONCHO ACADEMY bien grande, con ON DEMAND COURSES arriba en chiquito, y el título de las clases quedó LIVE ONLINE SPANISH LESSONS. En un par de minutos lo ves en la web ✨",
+  "pregunta": null,
+  "resumen": "Home: en components/marketing/on-demand-section.tsx la tarjeta pasa a eyebrow 'On demand courses' + título 'Poncho Academy' (antes 'Independent learners' / 'On demand courses'); en components/marketing/services-section.tsx el h2 pasa a 'Live online Spanish lessons'. Nota agregada en docs/pedidos/KAIRO.md. type-check y test:seo en verde; pnpm build compila bien pero cae al prerenderizar /ondemand porque la sesión cloud no resuelve Supabase (ENOTFOUND) — Vercel reconstruye con red y no promueve si falla.",
+  "commits": ["492739607be989e03a1ce9b914fcdafc6509cf86"],
+  "adjuntos": []
+}
