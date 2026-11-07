@@ -1,1 +1,26 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Ya están las portadas nuevas de Christmas, Birthdays y Frida, y las cinco fotos que mandaste quedaron adentro del de Frida, cada una en su sección ✨ A Christmas le sumé una sección entera de la Navidad en Latinoamérica: el calor de diciembre, la pileta, el pan dulce, la sidra, las posadas de México y la novena. Los libros 3 ahora llevan FOUNDATION en amarillo y HIGHER en terracota bien grandes en la tapa, imposible confundirlos. Y en lugar de Leo Messi te armé Typical Dishes, las comidas típicas del mundo hispano: España, México, Argentina y Uruguay, Perú y los Andes, el Caribe y Centroamérica, y los dulces y las bebidas. Abajo te dejo los PDF y las 8 portadas en JPG, listas para subir a la plataforma. Una cosita nomás: las dos fotos de cuadros de Frida (el del mono y Las dos Fridas) son obras que todavía tienen derechos, así que si te hace ruido para vender el recurso, decime y te las cambio por otras 😊",
+  "pregunta": null,
+  "resumen": "Christmas, Birthdays y Frida Kahlo pasan a las fotos de portada que mandó Anto (van a scripts/ebooks/photos/); Frida suma además las cinco de interior con sus títulos: Contenido, Quién fue Frida, La Casa Azul, Autorretratos y Su legado. Christmas pasa de 22 a 24 páginas con una sección nueva, 'La Navidad en Latinoamérica' (14 palabras: el calor, el verano, la pileta, la vereda, el pan dulce, la sidra, el vitel toné, la ensalada rusa, el Niño Dios, la pirotecnia, el nacimiento, las posadas...), más una frase en la bienvenida, un verdadero/falso sobre las posadas, VERANO en la sopa de letras y piscina/pileta en el ejercicio de países. Los e-books aceptan un campo 'tier' y los dos Confident Teens 3 llevan un cartel grande bajo el título: FOUNDATION en amarillo, HIGHER en terracota; el cover_sub ya no repite el nivel. Typical Dishes (22 páginas, misma estructura gris) reemplaza a Leo Messi, que se borró del repo: España, México, Argentina y Uruguay, Perú y los Andes, el Caribe y Centroamérica, dulces y bebidas, frases en la mesa y actividades. Dos arreglos del generador que se veían en todos los recursos: el índice se aprieta a partir de nueve entradas (con la sección nueva, Christmas perdía la línea de ¡A practicar! detrás de la foto) y la primera página de vocabulario lleva diez filas en vez de once, porque la once se montaba sobre el copyright; por eso también va Spanish Speaking Countries rehecho, aunque su contenido no cambió. Las 8 portadas son la página 1 de cada PDF en JPG 1240x1754, para el campo de imagen del producto en la Academy. pnpm type-check y pnpm test:seo en verde; pnpm build cae al prerenderizar /ondemand porque la sesión cloud no resuelve wdpgkhghigaowtdtjztz.supabase.co, no por el cambio (no se tocó ningún archivo que compile Next). Vercel reconstruye y no promueve si falla.",
+  "commits": [
+    "5477d49"
+  ],
+  "adjuntos": [
+    "entregables/Christmas-Poncho.pdf",
+    "entregables/Birthdays-Poncho.pdf",
+    "entregables/Frida-Kahlo-Poncho.pdf",
+    "entregables/Typical-Dishes-Poncho.pdf",
+    "entregables/Spanish-Speaking-Countries-Poncho.pdf",
+    "entregables/Spanish-for-Confident-Teens-3-Foundation-Poncho.pdf",
+    "entregables/Spanish-for-Confident-Teens-3-Higher-Poncho.pdf",
+    "entregables/Christmas-Portada.jpg",
+    "entregables/Birthdays-Portada.jpg",
+    "entregables/Frida-Kahlo-Portada.jpg",
+    "entregables/Typical-Dishes-Portada.jpg",
+    "entregables/Spanish-Speaking-Countries-Portada.jpg",
+    "entregables/Spanish-for-Confident-Teens-2-Portada.jpg",
+    "entregables/Spanish-for-Confident-Teens-3-Foundation-Portada.jpg",
+    "entregables/Spanish-for-Confident-Teens-3-Higher-Portada.jpg"
+  ]
+}
