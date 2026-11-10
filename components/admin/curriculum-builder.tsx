@@ -54,6 +54,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn, formatDuration } from "@/lib/utils";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -317,6 +318,7 @@ function ModuleCard({
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: module.id });
   const [editingTitle, setEditingTitle] = useState(false);
+  const [ask, confirmDialog] = useConfirm();
   const [titleDraft, setTitleDraft] = useState(module.title);
   const [creatingLesson, startCreating] = useTransition();
 
@@ -348,12 +350,12 @@ function ModuleCard({
   };
 
   const deleteModule = async () => {
-    if (
-      !confirm(
-        `¿Borrar el módulo "${module.title}"? Se borran también sus ${module.lessons.length} lecciones.`,
-      )
-    )
-      return;
+    const ok = await ask({
+      title: `¿Borrar el módulo "${module.title}"?`,
+      description: `Se borran también sus ${module.lessons.length} lecciones. No se puede deshacer.`,
+      confirmLabel: "Borrar módulo",
+    });
+    if (!ok) return;
     onRemove();
     try {
       await fetch(`/api/admin/modules/${module.id}`, { method: "DELETE" });
@@ -514,6 +516,7 @@ function ModuleCard({
           </Button>
         </div>
       )}
+      {confirmDialog}
     </div>
   );
 }
@@ -603,6 +606,7 @@ function LessonRow({
   const [expanded, setExpanded] = useState(
     lesson.mux_status === "idle" || lesson.mux_status === "processing",
   );
+  const [ask, confirmDialog] = useConfirm();
   const [editingTitle, setEditingTitle] = useState(false);
   const [titleDraft, setTitleDraft] = useState(lesson.title);
   const [descDraft, setDescDraft] = useState(lesson.description ?? "");
@@ -657,7 +661,12 @@ function LessonRow({
   };
 
   const remove = async () => {
-    if (!confirm(`¿Borrar la lección "${lesson.title}"?`)) return;
+    const ok = await ask({
+      title: `¿Borrar la lección "${lesson.title}"?`,
+      description: "No se puede deshacer.",
+      confirmLabel: "Borrar lección",
+    });
+    if (!ok) return;
     onRemove();
     try {
       await fetch(`/api/admin/lessons/${lesson.id}`, { method: "DELETE" });
@@ -841,6 +850,7 @@ function LessonRow({
           <LessonResourcesPanel lessonId={lesson.id} />
         </div>
       )}
+      {confirmDialog}
     </div>
   );
 }

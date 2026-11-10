@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 
 interface FileUploaderProps {
@@ -61,6 +62,7 @@ export function FileUploader({
   onClear,
 }: FileUploaderProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [ask, confirmDialog] = useConfirm();
   const [progress, setProgress] = useState(0);
   const [busy, setBusy] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(currentUrl ?? null);
@@ -154,6 +156,15 @@ export function FileUploader({
 
   const hasContent = Boolean(previewUrl);
 
+  const confirmClear = async () => {
+    const ok = await ask({
+      title: "¿Quitar este archivo?",
+      description: "Si lo necesitás de nuevo, lo vas a tener que volver a subir.",
+      confirmLabel: "Quitar",
+    });
+    if (ok) clear();
+  };
+
   return (
     <div className="space-y-2">
       {label && (
@@ -190,7 +201,7 @@ export function FileUploader({
               </button>
               <button
                 type="button"
-                onClick={clear}
+                onClick={confirmClear}
                 className="inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold text-destructive shadow-sm hover:bg-white"
               >
                 <X className="h-3 w-3" /><span>Quitar</span>
@@ -226,7 +237,7 @@ export function FileUploader({
               Cambiar
             </Button>
             <button
-              onClick={clear}
+              onClick={confirmClear}
               className="text-[11px] text-charcoal-400 hover:text-destructive"
             >
               <X className="h-3 w-3 inline" /><span>Quitar</span>
@@ -284,6 +295,7 @@ export function FileUploader({
           </span>
         </button>
       )}
+      {confirmDialog}
     </div>
   );
 }

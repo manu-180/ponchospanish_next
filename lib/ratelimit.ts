@@ -100,4 +100,6 @@ export const RateLimitProfiles = {
   progressSave: { max: 30, windowMs: 60_000 },
   /** /api/mux/playback-token — refresh ~every 14 min. */
   playbackToken: { max: 30, windowMs: 60_000 },
+  /** /api/contact — public form, a person sends one or two. */
+  contact: { max: 5, windowMs: 10 * 60_000 },
 } as const;

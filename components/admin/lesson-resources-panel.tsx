@@ -43,6 +43,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { UniversalFileUploader } from "./universal-file-uploader";
@@ -150,6 +151,7 @@ const KIND_META: Record<
 
 export function LessonResourcesPanel({ lessonId }: { lessonId: string }) {
   const [resources, setResources] = useState<Resource[]>([]);
+  const [ask, confirmDialog] = useConfirm();
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<"idle" | "upload" | "link">("idle");
@@ -234,7 +236,12 @@ export function LessonResourcesPanel({ lessonId }: { lessonId: string }) {
   };
 
   const deleteResource = async (id: string) => {
-    if (!confirm("¿Eliminar este recurso?")) return;
+    const ok = await ask({
+      title: "¿Eliminar este recurso?",
+      description: "Los alumnos dejan de verlo en la lección. No se puede deshacer.",
+      confirmLabel: "Eliminar",
+    });
+    if (!ok) return;
     setResources((prev) => prev.filter((r) => r.id !== id));
     try {
       await fetch(`/api/admin/resources/${id}`, { method: "DELETE" });
@@ -436,6 +443,7 @@ export function LessonResourcesPanel({ lessonId }: { lessonId: string }) {
           )}
         </div>
       )}
+      {confirmDialog}
     </div>
   );
 }
