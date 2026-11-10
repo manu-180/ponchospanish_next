@@ -8,6 +8,7 @@
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Loader2, Plus, X, Check, ImageIcon, Upload } from "lucide-react";
 import { toast } from "sonner";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -89,11 +90,26 @@ export function CourseMetaForm({ course }: { course: Course }) {
     update("learning_outcomes", [...data.learning_outcomes, t]);
     setOutcomeDraft("");
   };
-  const removeOutcome = (i: number) =>
+  const removeOutcome = (i: number) => {
+    const removed = data.learning_outcomes[i];
     update(
       "learning_outcomes",
       data.learning_outcomes.filter((_, idx) => idx !== i),
     );
+    toast("Quitaste un punto de lo que aprenden", {
+      action: {
+        label: "Deshacer",
+        onClick: () => {
+          setData((d) => {
+            const list = [...d.learning_outcomes];
+            list.splice(Math.min(i, list.length), 0, removed);
+            return { ...d, learning_outcomes: list };
+          });
+          markDirty("learning_outcomes");
+        },
+      },
+    });
+  };
 
   return (
     <div className="space-y-6">
@@ -298,6 +314,7 @@ function CoverImagePicker({
   onClear: () => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [ask, confirmDialog] = useConfirm();
   const [previewUrl, setPreviewUrl] = useState<string | null>(
     currentUrl ?? null,
   );
@@ -372,6 +389,15 @@ function CoverImagePicker({
     onClear();
   };
 
+  const confirmClear = async () => {
+    const ok = await ask({
+      title: "¿Quitar la imagen de portada?",
+      description: "El curso queda sin portada hasta que subas otra.",
+      confirmLabel: "Quitar",
+    });
+    if (ok) handleClear();
+  };
+
   return (
     <div className="space-y-2">
       <p className="text-sm font-semibold text-charcoal-600">
@@ -426,7 +452,7 @@ function CoverImagePicker({
               </button>
               <button
                 type="button"
-                onClick={handleClear}
+                onClick={confirmClear}
                 className="inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold text-destructive shadow-sm hover:bg-white"
               >
                 <X className="h-3 w-3" />
@@ -463,6 +489,7 @@ function CoverImagePicker({
       <p className="text-[11px] text-charcoal-400">
         Ideal 1280 × 720 px (16:9).
       </p>
+      {confirmDialog}
     </div>
   );
 }

@@ -351,6 +351,9 @@ export function SubtitleEditor({
         );
         if (!res.ok) throw new Error();
         savedText.current.delete(id);
+        toast("Línea borrada", {
+          action: { label: "Deshacer", onClick: () => undoRef.current() },
+        });
       } catch {
         setCues(prev);
         toast.error("No se pudo borrar la línea");
@@ -460,6 +463,17 @@ export function SubtitleEditor({
     [cues, lessonId, language, patchCue],
   );
 
+  const undo = useCallback(() => {
+    const prev = history.undo(cues);
+    if (prev) {
+      setCues(sortCues(prev));
+      void syncSnapshot(prev).catch(() => toast.error("Error al deshacer"));
+    }
+  }, [cues, history, syncSnapshot]);
+  // The toast's "Deshacer" fires later, when `cues` in its closure is stale.
+  const undoRef = useRef(undo);
+  undoRef.current = undo;
+
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       const isUndo = (e.ctrlKey || e.metaKey) && e.key === "z" && !e.shiftKey;
@@ -475,11 +489,7 @@ export function SubtitleEditor({
       e.preventDefault();
 
       if (isUndo) {
-        const prev = history.undo(cues);
-        if (prev) {
-          setCues(sortCues(prev));
-          void syncSnapshot(prev).catch(() => toast.error("Error al deshacer"));
-        }
+        undo();
       } else {
         const next = history.redo(cues);
         if (next) {
@@ -491,7 +501,7 @@ export function SubtitleEditor({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [cues, history, syncSnapshot]);
+  }, [cues, history, syncSnapshot, undo]);
 
   const canPlay = Boolean(playbackId && playbackToken);
 

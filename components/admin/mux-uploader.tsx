@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 
 export type MuxStatus = "idle" | "uploading" | "processing" | "ready" | "errored";
@@ -70,6 +71,7 @@ export function MuxUploader({
   onChange,
 }: MuxUploaderProps) {
   const [status, setStatus] = useState<MuxStatus>(initialStatus);
+  const [ask, confirmDialog] = useConfirm();
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [thumb, setThumb] = useState<string | null>(thumbnailUrl ?? null);
@@ -258,6 +260,16 @@ export function MuxUploader({
     e.target.value = "";
   };
 
+  const confirmCancel = async () => {
+    const ok = await ask({
+      title: "¿Cancelar la subida del video?",
+      description: "Lo que ya se subió se pierde y hay que empezar de nuevo.",
+      confirmLabel: "Cancelar subida",
+      cancelLabel: "Seguir subiendo",
+    });
+    if (ok) cancel();
+  };
+
   return (
     <div className="rounded-2xl border border-charcoal-100/60 bg-cream-50 p-4">
       <input
@@ -342,7 +354,7 @@ export function MuxUploader({
               Subiendo… {progress.toFixed(0)}%
             </p>
             <button
-              onClick={cancel}
+              onClick={confirmCancel}
               className="text-xs text-charcoal-400 hover:text-destructive"
             >
               <X className="h-3.5 w-3.5 inline" /><span>Cancelar</span>
@@ -403,6 +415,7 @@ export function MuxUploader({
       {error && status === "idle" && (
         <p className="mt-3 text-xs text-destructive">{error}</p>
       )}
+      {confirmDialog}
     </div>
   );
 }

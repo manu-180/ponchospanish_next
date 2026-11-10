@@ -37,9 +37,10 @@ const ContactSchema = z.object({
       const n = Number(v);
       return n > 0 && n < 120;
     }, "Please enter a valid age"),
-  level: z.enum(levels, { required_error: "Please select a level" }),
-  interest: z.enum(interests, { required_error: "Please select an option" }),
+  level: z.enum(levels, { error: "Please select a level" }),
+  interest: z.enum(interests, { error: "Please select an option" }),
   message: z.string().optional(),
+  website: z.string().optional(),
 });
 
 type ContactInput = z.infer<typeof ContactSchema>;
@@ -101,6 +102,14 @@ export function ContactForm({ defaultInterest }: { defaultInterest?: string }) {
       noValidate
       className="space-y-6"
     >
+      <input
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 opacity-0"
+        {...register("website")}
+      />
       <div className="grid sm:grid-cols-2 gap-5">
         <div className="space-y-2">
           <Label htmlFor="name">Your name *</Label>

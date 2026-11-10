@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 
 // ── chunking constants (mirror of lib/supabase/chunked.ts — kept in sync) ──────
@@ -181,6 +182,7 @@ export function UniversalFileUploader({
   onClear,
 }: UniversalFileUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [ask, confirmDialog] = useConfirm();
   // If there is already an uploaded file (edit mode), start in "done" so the
   // card renders immediately without waiting for a new upload.
   const [step, setStep] = useState<Step>(() =>
@@ -370,6 +372,15 @@ export function UniversalFileUploader({
     errorMsg?.toLowerCase().includes("maximum") ||
     errorMsg?.toLowerCase().includes("size") ||
     errorMsg?.toLowerCase().includes("too large");
+
+  const confirmClear = async () => {
+    const ok = await ask({
+      title: "¿Quitar este archivo?",
+      description: "Si lo necesitás de nuevo, lo vas a tener que volver a subir.",
+      confirmLabel: "Quitar",
+    });
+    if (ok) clear();
+  };
 
   return (
     <div className="space-y-2">
@@ -574,7 +585,7 @@ export function UniversalFileUploader({
                 </p>
               </div>
               <button
-                onClick={clear}
+                onClick={confirmClear}
                 className="rounded-lg p-1.5 text-charcoal-300 transition-colors hover:bg-charcoal-100 hover:text-destructive"
                 aria-label="Quitar archivo"
               >
@@ -706,6 +717,7 @@ export function UniversalFileUploader({
           </motion.div>
         )}
       </AnimatePresence>
+      {confirmDialog}
     </div>
   );
 }
