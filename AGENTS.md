@@ -7,6 +7,10 @@ está en `docs/pedidos/KAIRO.md`.
 
 Next.js 15 (App Router) + Supabase + Mux + PayPal. Producción: **https://www.ponchospanish.com**
 
+La base (`wdpgkhghigaowtdtjztz`) es de otra cuenta de Supabase: el único token que entra
+es `SUPABASE_ACCESS_TOKEN_PONCHO` (envkit `_global`). SQL y migraciones van por la
+Management API con ese token; los demás `SUPABASE_ACCESS_TOKEN*` dan 403.
+
 ⚠️ El sitio cobra pagos **reales** con las claves live de PayPal de Anto. Nada de tocar
 `PAYPAL_ENVIRONMENT` ni las credenciales sin que Manuel lo pida explícitamente.
 
