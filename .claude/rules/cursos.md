@@ -27,6 +27,8 @@ nuevo es un archivo en `scripts/cursos/courses/` que apunta a un libro de
 - Los videos van a Descargas y se le mandan a Anto apenas están (desde 2026-10-24; antes
   se demoraban a propósito). El zip pasa los 60 MB del bot: va por link de Drive.
 - Render: ~1,4x tiempo real con 16 workers. Un curso de 38 lecciones son ~2 h de render.
+  Necesita más de 20 GB libres en E: (con 14 GB una lección falló por ENOSPC); las `fallidas`
+  se reintentan con `--only X --skip-build --render <carpeta>`.
 - Un libro con el capítulo al revés (`title` en inglés, `en` en español, como Spanish for
   Travel) lleva `"swap_chapter_names": True` en el curso. Con más de seis módulos la pantalla
   de módulos arma la grilla sola (4 columnas); `modules_line`/`modules_sub` dicen cuántos son.
