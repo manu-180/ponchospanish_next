@@ -381,11 +381,20 @@ def scene_grid(L, ch_label, unit_title, grid, per=4):
         s0 = L.t
         L.wait(0.4)
         cards = []
-        for k, (es, en) in enumerate(page):
-            st, _ = L.say("es", es, gap=0.85)
+        for k, (es, en, *reg) in enumerate(page):
+            if reg and reg[0] == "ES/AR":
+                a, b = split_region(es)
+                st, _ = L.say("es", a, gap=0.3)
+                sb, _ = L.say("ar", b, gap=0.85)
+                size = "g2" if max(len(a), len(b)) <= 18 else "g3"
+                head = (f'<div class="g-es g-var {size}">{ES_FLAG}{e(a)}</div>'
+                        f'<div class="g-es g-var {size}"{at(sb - 0.1, "rise")}>{AR_FLAG}{e(b)}</div>')
+            else:
+                st, _ = L.say("es", es, gap=0.85)
+                size = "g1" if len(es) <= 18 else ("g2" if len(es) <= 26 else "g3")
+                head = f'<div class="g-es {size}">{e(es)}</div>'
             L.sfx.append((st - 0.05, "pop", 0.18))
-            size = "g1" if len(es) <= 18 else ("g2" if len(es) <= 26 else "g3")
-            cards.append(f'<div class="gcard c{k}"{at(st - 0.1, "pop")}><div class="g-es {size}">{e(es)}</div>'
+            cards.append(f'<div class="gcard c{k}"{at(st - 0.1, "pop")}>{head}'
                          f'<div class="g-en">{e(en)}</div></div>')
         L.wait(0.4)
         end = L.t
@@ -468,7 +477,7 @@ def scene_dialogue(L, unit_title, d):
                        f'<div class="b-es">{e(es)}</div><div class="b-en">{e(en)}</div></div></div>')
         if i >= visible:
             shifts.append([round(st - 0.35, 3), -(i - visible + 1) * step])
-    L.wait(0.5)
+    L.wait(1.2)
     end = L.t
     body = f"""
       {chrome('Diálogo', unit_title, 'light')}
@@ -606,20 +615,28 @@ def scene_close(L, chips, next_en, line):
       <div class="brand"{at(s0 + 1.0, 'rise')}>{LOGO_SVG}<span>PONCHO <i>Spanish</i></span></div>""", s0, end)
 
 
-def scene_modules(L, chapters, photos, lines_before, lines_after):
+def scene_modules(L, chapters, photos, lines_before, lines_after, course_title, sub):
     s0 = L.t
     L.wait(0.5)
     L.narrate(lines_before, gap=0.4)
     cards = []
+    n = len(chapters)
+    # Hasta seis, la grilla fija de lesson.css; con más (Spanish for Travel tiene 14) se calcula acá.
+    cols = 3 if n <= 6 else 4
+    rows = -(-n // cols)
+    gap = 24
+    cw, chh = (1620 - gap * (cols - 1)) / cols, (680 - gap * (rows - 1)) / rows
     for k, ch in enumerate(chapters):
         st, _ = L.say("en", ch["en"] + ".", gap=0.25)
         L.sfx.append((st - 0.05, "pop", 0.16))
-        cards.append(f'<div class="mod m{k}"{at(st - 0.1, "pop")}><img src="{photos[k][0]}" style="object-position:{photos[k][1]}">'
+        pos = "" if n <= 6 else (f' style="left:{(k % cols) * (cw + gap):.0f}px;top:{(k // cols) * (chh + gap):.0f}px;'
+                                 f'width:{cw:.0f}px;height:{chh:.0f}px"')
+        cards.append(f'<div class="mod m{k}{" sm" if n > 6 else ""}"{pos}{at(st - 0.1, "pop")}><img src="{photos[k][0]}" style="object-position:{photos[k][1]}">'
                      f'<div class="mod-t"><b>{e(ch["title"])}</b><span>{e(ch["en"])}</span></div></div>')
     L.wait(0.4)
     L.narrate(lines_after, gap=0.7)
     end = L.t
-    L.scene("modules", "dark", f"""{chrome('Spanish for Confident Teens', 'Six modules', 'dark')}
+    L.scene("modules", "dark", f"""{chrome(course_title, sub, 'dark')}
       <div class="mods">{''.join(cards)}</div>""", s0, end)
 
 
@@ -773,6 +790,9 @@ def lesson_projects(course_name):
 
     plans = []
     chapters = B["chapters"]
+    # El resto del generador espera title = español y en = inglés; Spanish for Travel los tiene al revés.
+    if S.get("swap_chapter_names"):
+        chapters = [{**ch, "title": ch["en"], "en": ch["title"]} for ch in chapters]
     photos = [(photo_file(ch["photo"]), S["photo_pos"].get(ci, "50% 50%")) for ci, ch in enumerate(chapters)]
     cover = (EBOOKS / "photos" / S["cover_photo"], "50% 22%")
 
@@ -809,7 +829,8 @@ def build_lesson(course_name, lid, only_meta=False):
         ph = [(put_photo(p), p[1]) for p in photos]
         w = S["welcome"]
         scene_open(L, None, "", "", S["title"], S["level"], w[:2], cov, cover[1], kicker="PONCHO Spanish · Online course")
-        scene_modules(L, chapters, ph, ["There are six modules."], [])
+        scene_modules(L, chapters, ph, [S.get("modules_line", "There are six modules.")], [], S["title"],
+                      S.get("modules_sub", "Six modules"))
         s0 = L.t
         L.wait(0.6)
         m = L.narrate(w[3:6])
@@ -874,14 +895,14 @@ def build_lesson(course_name, lid, only_meta=False):
             if u.get("fact") and us.get("fact"):
                 scene_card(L, u["title"], "Dato curioso", u["fact"][0], u["fact"][1], us["fact"])
             pool = [(one_variant(w[1]), one_variant(w[0]), "es") for w in u.get("words", [])]
-            pool += [(en if "," in en else one_variant(en), es, "es") for es, en in u.get("grid", [])]
+            pool += [(g[1] if "," in g[1] else one_variant(g[1]), one_variant(g[0]), "es") for g in u.get("grid", [])]
             if not pool and u.get("grammar"):
                 pool = []
             if pool:
                 step = max(1, len(pool) // 3)
                 picks = [pool[i] for i in range(0, len(pool), step)][:3]
                 scene_quiz(L, u["title"], picks)
-            chips = [w[0].split(" / ")[0] for w in u.get("words", [])][:3] or [g[0] for g in u.get("grid", [])][:3]
+            chips = [w[0].split(" / ")[0] for w in u.get("words", [])][:3] or [g[0].split(" / ")[0] for g in u.get("grid", [])][:3]
             if not chips and u.get("grammar"):
                 chips = [u["grammar"][0]]
             nxt_en = nxt[1] if nxt and nxt[2] and nxt[2][1] is not None else ("Practice time" if nxt else None)
@@ -944,7 +965,7 @@ def write_outline(course_name, pdf):
             rows.append(f'<h2>{e(mod)}</h2>')
             cur = mod
         if key is None:
-            desc = "How the course works: six modules, voices from Spain and Argentina, and your first ¡Tu turno!"
+            desc = S.get("outline_welcome", "How the course works: six modules, voices from Spain and Argentina, and your first ¡Tu turno!")
             name = "Welcome to the course"
         elif key[1] is None:
             desc = "Module review: choose the right word, say it in Spanish against the clock, and a curious fact."

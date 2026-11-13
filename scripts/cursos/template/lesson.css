@@ -83,6 +83,9 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
 .gcard.c0 { left: 0; top: 0; } .gcard.c1 { left: 840px; top: 0; } .gcard.c2 { left: 0; top: 320px; } .gcard.c3 { left: 840px; top: 320px; }
 .g-es { font-family: "Bebas Neue"; color: var(--black); line-height: 1; }
 .g-es.g1 { font-size: 96px; } .g-es.g2 { font-size: 78px; } .g-es.g3 { font-size: 62px; }
+.g-var { display: flex; align-items: center; gap: 18px; }
+.g-var .flag { width: 54px; height: 36px; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,.18); flex: none; }
+.g-var + .g-var { margin-top: 6px; }
 .g-en { font: 600 32px/1.25 Montserrat; color: var(--ink-2); margin-top: 10px; }
 
 /* gramática */
@@ -167,6 +170,10 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
 .mod-t span { font: 400 30px/1.1 "Permanent Marker"; color: var(--mustard); }
 .mod.m0 { left: 0; top: 0; } .mod.m1 { left: 550px; top: 0; } .mod.m2 { left: 1100px; top: 0; }
 .mod.m3 { left: 0; top: 350px; } .mod.m4 { left: 550px; top: 350px; } .mod.m5 { left: 1100px; top: 350px; }
+.mod.sm { border-radius: 16px; }
+.mod.sm .mod-t { left: 18px; bottom: 14px; gap: 2px; }
+.mod.sm .mod-t b { font-size: 44px; }
+.mod.sm .mod-t span { font-size: 28px; }
 .voices { position: absolute; left: 150px; top: 230px; width: 1620px; display: flex; gap: 60px; z-index: 2; }
 .vcard { flex: 1; background: #FBFAF7; border-radius: 26px; padding: 50px 54px; box-shadow: 0 12px 32px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.08);
   display: flex; flex-direction: column; gap: 18px; }

@@ -27,3 +27,9 @@ nuevo es un archivo en `scripts/cursos/courses/` que apunta a un libro de
 - Los videos van a Descargas y se le mandan a Anto apenas están (desde 2026-10-24; antes
   se demoraban a propósito). El zip pasa los 60 MB del bot: va por link de Drive.
 - Render: ~1,4x tiempo real con 16 workers. Un curso de 38 lecciones son ~2 h de render.
+- Un libro con el capítulo al revés (`title` en inglés, `en` en español, como Spanish for
+  Travel) lleva `"swap_chapter_names": True` en el curso. Con más de seis módulos la pantalla
+  de módulos arma la grilla sola (4 columnas); `modules_line`/`modules_sub` dicen cuántos son.
+- Una fila de `grid` con `"ES/AR"` sale con las dos voces y las dos banderas en la tarjeta.
+- Antes de sintetizar, medir los caracteres de ElevenLabs con el `tts` falso (plan starter:
+  84k por mes; Spanish for Travel pidió ~43k para 87 lecciones).
