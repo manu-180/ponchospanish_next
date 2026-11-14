@@ -12,6 +12,8 @@ COURSE = {
     "slug": "Spanish-for-Travel",
     "level": "For travellers of every age",
     "cover_photo": "spanish-for-travel-cover.jpg",
+    # Bajada de la portada (la de la laptop); sin esto se usa "level".
+    "cover_tagline": "A Self-Paced Spanish Programme for Travellers of Every Age",
     "swap_chapter_names": True,
     "modules_line": "There are fourteen modules, one for every part of the trip.",
     "modules_sub": "Fourteen modules",

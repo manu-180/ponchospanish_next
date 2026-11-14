@@ -12,6 +12,7 @@ COURSE = {
     "slug": "Spanish-for-Confident-Teens",
     "level": "Ages 11–14 · KS3",
     "cover_photo": "confident-teens-cover.jpg",
+    "cover_tagline": "A Self-Paced Spanish Programme for the Early Years of Secondary School",
     "photo_pos": {0: "38% 40%", 1: "50% 45%", 2: "62% 45%", 3: "35% 55%", 4: "50% 55%", 5: "50% 40%"},
     # Pronunciación, sin tocar lo que se ve en pantalla. Clave: (voz, texto de la tarjeta).
     # `say_as`: lo que se dice en lugar de lo que se lee, para abreviaturas y cifras.

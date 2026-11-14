@@ -948,13 +948,113 @@ def _build(args):
     proj, meta = build_lesson(course, lid)
     return lid, str(proj), meta
 
+def cover_title_lines(title):
+    """Parte el titulo como en las portadas de Anto: "SPANISH" arriba y "for TRAVEL" abajo.
 
-def write_cover(course_name, jpg):
-    """Portada del curso en JPG 1920x1080: la pantalla de apertura, quieta y sin subtitulos.
+    La primera palabra va sola en mayusculas y el resto en la segunda linea, con la ultima
+    palabra en mayusculas ("for Confident TEENS", "for TRAVEL").
+    """
+    w = title.split()
+    if len(w) == 1:
+        return w[0].upper(), ""
+    rest = w[1:-1] + [w[-1].upper()]
+    return w[0].upper(), " ".join(rest)
 
-    Es la imagen del producto en la Academy (la tarjeta de /ondemand es 16:9). Usa el mismo
-    CSS que las lecciones, asi que la portada y el video arrancan iguales. Sin red: Chrome
-    headless y las fuentes del repo.
+
+def _cover_open_doc(css, S, photo_name, photo_pos):
+    """Portada = la pantalla de apertura del curso, quieta y sin subtitulos."""
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><style>{css}
+/* La apertura deja los 260 px de abajo para los subtitulos; la portada no los lleva. */
+.open-text {{ height: 1080px; }}
+</style></head>
+<body><div id="root">
+  <div id="paper"></div>
+  <section class="scene clip bg-dark k-open">
+    <div class="open-photo"><img src="assets/{photo_name}" style="object-position:{photo_pos}"></div>
+    <div class="band"></div>
+    <div class="open-text">
+      <div class="kicker">PONCHO Spanish &middot; Online course</div>
+      <h1 class="open-title">{words_html(S["title"])}</h1>
+      <div class="open-en">{e(S["level"])}</div>
+    </div>
+  </section>
+</div></body></html>"""
+
+
+def _cover_laptop_doc(S, photo_name):
+    """Portada con la laptop: el formato de las portadas de Confident Kids y Confident Teens.
+
+    Anto las armo asi y pidio que los cursos nuevos sigan el mismo diseno (2026-11-14): fondo
+    oscuro, la pantalla de una laptop con la foto arriba, el titulo partido en dos lineas y la
+    bajada escrita a mano. La laptop es CSS (no hay mockup en el repo ni red para bajarlo).
+    """
+    t1, t2 = cover_title_lines(S["title"])
+    tagline = S.get("cover_tagline") or S["level"]
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><style>
+@font-face {{ font-family: "Anton"; src: url("assets/fonts/anton-latin-400-normal.woff2") format("woff2"); font-weight: 400; }}
+@font-face {{ font-family: "Permanent Marker"; src: url("assets/fonts/permanent-marker-latin-400-normal.woff2") format("woff2"); font-weight: 400; }}
+* {{ margin: 0; padding: 0; box-sizing: border-box; }}
+html, body {{ width: 1920px; height: 1080px; overflow: hidden; }}
+body {{ background: #100f0d; font-family: Helvetica, Arial, sans-serif; }}
+.bg {{ position: absolute; inset: 0; background: radial-gradient(118% 108% at 50% 36%, #1e1c18 0%, #131211 54%, #0a0a09 100%); }}
+
+.laptop {{ position: absolute; left: 50%; top: 111px; transform: translateX(-50%); }}
+.lid {{ position: relative; width: 1400px; height: 832px; border-radius: 24px; padding: 16px 16px 47px;
+  background: linear-gradient(168deg, #5a5c61 0%, #3f4145 36%, #2d2f33 100%);
+  box-shadow: 0 38px 78px rgba(0,0,0,.68), 0 2px 0 rgba(255,255,255,.12) inset, 0 -2px 0 rgba(0,0,0,.45) inset; }}
+.lid::after {{ content: "MacBook Pro"; position: absolute; left: 0; right: 0; bottom: 15px; text-align: center;
+  font-size: 17px; line-height: 1; letter-spacing: .03em; color: #9a9da2; }}
+.cam {{ position: absolute; left: 50%; top: 7px; width: 7px; height: 7px; border-radius: 50%; background: #1b1d20; transform: translateX(-50%); }}
+.screen {{ position: relative; width: 1368px; height: 769px; border-radius: 8px; overflow: hidden; background: #060605; }}
+.screen::after {{ content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(118deg, rgba(255,255,255,.05) 0 20%, rgba(255,255,255,0) 44%); }}
+
+.photo {{ position: absolute; left: 50%; top: 34px; width: 712px; height: 430px; transform: translateX(-50%); }}
+.photo img {{ width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; filter: saturate(1.06) brightness(1.06);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%),
+                      linear-gradient(to bottom, transparent 0, #000 4%, #000 64%, transparent 99%);
+  -webkit-mask-composite: source-in; mask-composite: intersect; }}
+
+.txt {{ position: absolute; left: 0; right: 0; top: 362px; text-align: center; }}
+.t1 {{ font: 400 178px/.86 Anton, sans-serif; color: #EFECE5; letter-spacing: .012em; text-shadow: 0 8px 30px rgba(0,0,0,.9); }}
+.t2 {{ font: 400 134px/.95 Anton, sans-serif; color: #EFECE5; letter-spacing: .012em; text-shadow: 0 6px 22px rgba(0,0,0,.85); margin-top: 2px; }}
+.sub {{ font: 400 43px/1.15 "Permanent Marker", cursive; color: #E8A84C; margin-top: 26px; }}
+
+.base {{ position: absolute; left: 50%; top: 832px; transform: translateX(-50%); width: 1470px; height: 26px;
+  background: linear-gradient(180deg, #55575c 0%, #3d3f43 40%, #232528 100%);
+  border-radius: 3px 3px 12px 12px; box-shadow: 0 30px 54px rgba(0,0,0,.6); }}
+.base::before {{ content: ""; position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 170px; height: 10px;
+  background: #2b2d30; border-radius: 0 0 9px 9px; }}
+.glow {{ position: absolute; left: 50%; top: 858px; transform: translateX(-50%); width: 1300px; height: 110px;
+  background: radial-gradient(58% 100% at 50% 0%, rgba(255,255,255,.05), transparent 72%); filter: blur(8px); }}
+</style></head>
+<body>
+<div class="bg"></div>
+<div class="laptop">
+  <div class="lid"><div class="cam"></div>
+    <div class="screen">
+      <div class="photo"><img src="assets/{photo_name}"></div>
+      <div class="txt">
+        <div class="t1">{e(t1)}</div>
+        <div class="t2">{e(t2)}</div>
+        <div class="sub">{e(tagline)}</div>
+      </div>
+    </div>
+  </div>
+  <div class="base"></div>
+  <div class="glow"></div>
+</div>
+</body></html>"""
+
+
+def write_cover(course_name, jpg, style="laptop"):
+    """Portada del curso en JPG 1920x1080, la imagen del producto en la Academy (tarjeta 16:9).
+
+    `laptop` (la que pidio Anto el 2026-11-14) repite el diseno de las portadas de Confident
+    Kids y Confident Teens; `open` es la pantalla de apertura del curso con el mismo CSS que
+    las lecciones. Sin red: Chrome headless, la foto de tapa y las fuentes del repo.
     """
     C = load_module(HERE / "courses" / f"{course_name}.py", course_name)
     S = C.COURSE
@@ -968,24 +1068,11 @@ def write_cover(course_name, jpg):
     (proj / "assets").mkdir(parents=True)
     shutil.copytree(HERE / "assets" / "fonts", proj / "assets" / "fonts")
     shutil.copy(cover[0], proj / "assets" / cover[0].name)
-    css = (HERE / "template" / "lesson.css").read_text(encoding="utf-8")
-    doc = f"""<!doctype html>
-<html lang="en"><head><meta charset="UTF-8" /><style>{css}
-/* La apertura deja los 260 px de abajo para los subtitulos; la portada no los lleva. */
-.open-text {{ height: 1080px; }}
-</style></head>
-<body><div id="root">
-  <div id="paper"></div>
-  <section class="scene clip bg-dark k-open">
-    <div class="open-photo"><img src="assets/{cover[0].name}" style="object-position:{cover[1]}"></div>
-    <div class="band"></div>
-    <div class="open-text">
-      <div class="kicker">PONCHO Spanish &middot; Online course</div>
-      <h1 class="open-title">{words_html(S["title"])}</h1>
-      <div class="open-en">{e(S["level"])}</div>
-    </div>
-  </section>
-</div></body></html>"""
+    if style == "open":
+        css = (HERE / "template" / "lesson.css").read_text(encoding="utf-8")
+        doc = _cover_open_doc(css, S, cover[0].name, cover[1])
+    else:
+        doc = _cover_laptop_doc(S, cover[0].name)
     html_path = proj / "cover.html"
     html_path.write_text(doc, encoding="utf-8")
     png = proj / "cover.png"
@@ -1072,11 +1159,13 @@ def main():
     ap.add_argument("--skip-build", action="store_true")
     ap.add_argument("--outline", help="ruta del PDF con el temario")
     ap.add_argument("--cover", help="ruta del JPG con la portada del curso (1920x1080)")
+    ap.add_argument("--cover-style", choices=["laptop", "open"], default="laptop",
+                    help="laptop: el diseno de las portadas de Anto; open: la pantalla de apertura")
     a = ap.parse_args()
     if a.cover:
         # La portada sale de la foto de tapa y el CSS: no necesita los proyectos de las lecciones
         # (que bajan las fotos de los capítulos de Pexels). Sola, es la única tarea de la corrida.
-        write_cover(a.course, a.cover)
+        write_cover(a.course, a.cover, a.cover_style)
         if not (a.render or a.outline or a.only or a.list):
             return
     C, B, S, chapters, photos, cover, plans = lesson_projects(a.course)
