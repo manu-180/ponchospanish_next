@@ -1,1 +1,12 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Acá va la portada nueva de Spanish for Travel, con el mismo diseño de la laptop que las de Confident Kids y Confident Teens: la foto de Caminito en la pantalla, SPANISH for TRAVEL y abajo \"A Self-Paced Spanish Programme for Travellers of Every Age\". Está en 1920x1080, así que la subís tal cual ✨",
+  "pregunta": null,
+  "resumen": "Anto pidió rehacer la portada de Spanish for Travel con el diseño de las portadas anteriores (laptop) y mandó las de Confident Kids y Confident Teens como referencia. Se agregó --cover-style a scripts/cursos/build_course.py: `laptop` (nuevo default) arma fondo oscuro + laptop dibujada en CSS con la foto de tapa fundida en el negro de la pantalla, el título partido en dos líneas (primera palabra arriba, el resto abajo con la última en mayúsculas: SPANISH / for TRAVEL) y la bajada en Permanent Marker; `open` sigue dando la pantalla de apertura del curso, que era la portada anterior. El título usa Anton (SIL OFL, bajada de Google Fonts a scripts/cursos/assets/fonts/), que es la condensada de las portadas de Anto. Los cursos suman `cover_tagline` (sin eso se usa `level`); el de Confident Teens quedó cargado con el texto de su portada. KAIRO.md: la portada de un curso en video ahora es la de la laptop. pnpm type-check y pnpm test:seo en verde; pnpm build cae al prerenderizar /sitemap.xml y /ondemand porque la sesión cloud no resuelve wdpgkhghigaowtdtjztz.supabase.co, no por el cambio (sólo se tocaron un script de Python, dos cursos, una fuente y un .md). Vercel reconstruye y no promueve si falla.",
+  "commits": [
+    "3051aea"
+  ],
+  "adjuntos": [
+    "entregables/Spanish-for-Travel-Curso-Portada.jpg"
+  ]
+}
