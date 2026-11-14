@@ -1,0 +1,13 @@
+{
+  "estado": "hecho",
+  "mensaje": "¡Listo, Anto! Ya saqué la foto de la carnicería de Christmas: en La Nochebuena ahora hay una familia brindando en la cena 🥂 Y me quedo con lo que me pediste para todo lo que hagamos: nada de imágenes de animales muertos. Ya revisé lo que estaba hecho y cambié también el asado de Typical Dishes (ahora es un mate), y en el Foodie Dictionary y en Spanish for Confident Teens 2 cambié las fotos de carne y pescado. Esos dos ya los reemplacé directamente en la Academy, no tenés que subir nada. Abajo te dejo Christmas y Typical Dishes para que los subas vos; las portadas no cambiaron.",
+  "pregunta": null,
+  "resumen": "Sin fotos de animales muertos (pedido de Anto): Christmas/La Nochebuena 33991144(carniceria en la cache cloud)->6185385, Typical Dishes/Argentina 37179553 (asado)->13246779 (mate), Foodie Carnes 33991144->9866772 (quesos) y Platos tipicos 37179553->36905236, Teens 2 A comer 33991144->5881726. Foodie completo, muestra y Teens 2 reemplazados en storage de la Academy. Regla en docs/pedidos/KAIRO.md. Trabajado a mano por Kairo (sesion local): la rutina no cerro el pedido en 6 h.",
+  "commits": [
+    "5165d35"
+  ],
+  "adjuntos": [
+    "entregables/Christmas-Poncho.pdf",
+    "entregables/Typical-Dishes-Poncho.pdf"
+  ]
+}
