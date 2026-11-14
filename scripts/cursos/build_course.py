@@ -3,6 +3,7 @@
     python scripts/cursos/build_course.py confident_teens            # arma todos los proyectos
     python scripts/cursos/build_course.py confident_teens --only 1-1 # una lección (módulo-lección)
     python scripts/cursos/build_course.py confident_teens --render   # y los renderiza a MP4
+    python scripts/cursos/build_course.py confident_teens --cover portada.jpg  # sólo la portada
 
 Cada lección es un proyecto HyperFrames en .build/<curso>/<id>/ (index.html + assets/mix.wav).
 Voces: edge-tts (gratis, sin clave). Música: loop CC0 de Freesound en assets/music/.
@@ -948,6 +949,57 @@ def _build(args):
     return lid, str(proj), meta
 
 
+def write_cover(course_name, jpg):
+    """Portada del curso en JPG 1920x1080: la pantalla de apertura, quieta y sin subtitulos.
+
+    Es la imagen del producto en la Academy (la tarjeta de /ondemand es 16:9). Usa el mismo
+    CSS que las lecciones, asi que la portada y el video arrancan iguales. Sin red: Chrome
+    headless y las fuentes del repo.
+    """
+    C = load_module(HERE / "courses" / f"{course_name}.py", course_name)
+    S = C.COURSE
+    cover = (EBOOKS / "photos" / S["cover_photo"], "50% 22%")
+    sys.path.insert(0, str(EBOOKS))
+    import build as ebook_build
+
+    proj = BUILD / course_name / "_cover"
+    if proj.exists():
+        shutil.rmtree(proj)
+    (proj / "assets").mkdir(parents=True)
+    shutil.copytree(HERE / "assets" / "fonts", proj / "assets" / "fonts")
+    shutil.copy(cover[0], proj / "assets" / cover[0].name)
+    css = (HERE / "template" / "lesson.css").read_text(encoding="utf-8")
+    doc = f"""<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><style>{css}
+/* La apertura deja los 260 px de abajo para los subtitulos; la portada no los lleva. */
+.open-text {{ height: 1080px; }}
+</style></head>
+<body><div id="root">
+  <div id="paper"></div>
+  <section class="scene clip bg-dark k-open">
+    <div class="open-photo"><img src="assets/{cover[0].name}" style="object-position:{cover[1]}"></div>
+    <div class="band"></div>
+    <div class="open-text">
+      <div class="kicker">PONCHO Spanish &middot; Online course</div>
+      <h1 class="open-title">{words_html(S["title"])}</h1>
+      <div class="open-en">{e(S["level"])}</div>
+    </div>
+  </section>
+</div></body></html>"""
+    html_path = proj / "cover.html"
+    html_path.write_text(doc, encoding="utf-8")
+    png = proj / "cover.png"
+    subprocess.run([ebook_build.CHROME, *[f for f in ebook_build.CHROME_FLAGS if f != "--no-pdf-header-footer"],
+                    "--hide-scrollbars", "--window-size=1920,1080", "--virtual-time-budget=8000",
+                    f"--screenshot={png}", html_path.as_uri()], check=True, capture_output=True)
+    from PIL import Image
+    im = Image.open(png).convert("RGB")
+    if im.size != (1920, 1080):
+        im = im.resize((1920, 1080), Image.LANCZOS)
+    Path(jpg).parent.mkdir(parents=True, exist_ok=True)
+    im.save(jpg, "JPEG", quality=92, optimize=True, progressive=True)
+
+
 def write_outline(course_name, pdf):
     """Temario del curso en PDF A4 (Chrome headless), para cargar las lecciones en la academia."""
     C, B, S, chapters, photos, cover, plans = lesson_projects(course_name)
@@ -1019,7 +1071,14 @@ def main():
     ap.add_argument("--render", help="carpeta de salida de los MP4")
     ap.add_argument("--skip-build", action="store_true")
     ap.add_argument("--outline", help="ruta del PDF con el temario")
+    ap.add_argument("--cover", help="ruta del JPG con la portada del curso (1920x1080)")
     a = ap.parse_args()
+    if a.cover:
+        # La portada sale de la foto de tapa y el CSS: no necesita los proyectos de las lecciones
+        # (que bajan las fotos de los capítulos de Pexels). Sola, es la única tarea de la corrida.
+        write_cover(a.course, a.cover)
+        if not (a.render or a.outline or a.only or a.list):
+            return
     C, B, S, chapters, photos, cover, plans = lesson_projects(a.course)
     if a.list:
         for p in plans:

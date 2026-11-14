@@ -20,7 +20,12 @@ cuando cambie algo de lo que dice (la rutina también): corto, en hechos, sin hi
 - En la home, la tarjeta que lleva a la academia se llama **Poncho Academy** (antes
   "On demand courses"), y la sección de clases en vivo se titula "Live online Spanish
   lessons" (2026-11-07).
-- Cursos en video: Spanish for Confident Kids y Spanish for Confident Teens.
+- Cursos en video: Spanish for Confident Kids, Spanish for Confident Teens y Spanish
+  for Travel (87 lecciones, 2 h, entregado el 2026-11-13 por link de Drive).
+- La portada de un curso en video es su pantalla de apertura (la foto de tapa, el
+  título y el nivel), en JPG 1920x1080: la tarjeta del curso en la Academy es 16:9,
+  a diferencia de los e-books y recursos, que llevan la página 1 del PDF en
+  1240x1754 (2026-11-14).
 - E-books y mini diccionarios en ponchospanish.com/ondemand (cada uno con su página en
   `/ondemand/ebooks/<nombre>`): Spanish for Travel, Spanish for International
   Residents, Spanish for Confident Teens E-Book, Confident Kids Workbook, mini
