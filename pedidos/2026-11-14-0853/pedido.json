@@ -1,0 +1,87 @@
+{
+  "id": "2026-11-14-0853",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-11-14-0841",
+  "desde": "2026-11-14 08:41",
+  "hasta": "2026-11-14 08:53",
+  "mensajes": [
+    {
+      "hora": "2026-11-14 08:41",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "Recibido, Anto. Lo leo y te digo qué entendí 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-11-14 08:42",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Hola Anto! Entendí: querés la portada del curso Spanish for Travel. Te la mando por acá apenas esté 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-11-14 08:42",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Si! Perfecto. Gracias",
+      "media": null
+    },
+    {
+      "hora": "2026-11-14 08:42",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡De nada, Anto! La portada del curso sigue en curso, todavía sin novedades 🙌",
+      "media": null
+    },
+    {
+      "hora": "2026-11-14 08:50",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Hola Anto! Acá va la portada de Spanish for Travel 👇 Es la misma pantalla con la que arranca el curso: la foto de Caminito, el título y \"For travellers of every age\". Está en 1920x1080, que es la medida que te pide la Academy para la imagen del curso, así que la subís tal cual ✨",
+      "media": null
+    },
+    {
+      "hora": "2026-11-14 08:50",
+      "autor": "bot",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/006-image.jpg"
+    },
+    {
+      "hora": "2026-11-14 08:51",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Podrías crear una como las portadas anteriores? Siguiendo el mismo diseño: laptop (te envío las portadas anteriores para crear una similar para Spanish For Travel)",
+      "media": null
+    },
+    {
+      "hora": "2026-11-14 08:51",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "Dale, Anto, mandalas nomás. Anotado: una portada de Spanish for Travel con el mismo diseño de la laptop que las anteriores 💻",
+      "media": null
+    },
+    {
+      "hora": "2026-11-14 08:52",
+      "autor": "Antonela Risaro",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/009-image.jpg"
+    },
+    {
+      "hora": "2026-11-14 08:53",
+      "autor": "Antonela Risaro",
+      "tipo": "image",
+      "texto": "",
+      "media": "media/010-image.jpg"
+    },
+    {
+      "hora": "2026-11-14 08:53",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
