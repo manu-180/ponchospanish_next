@@ -187,5 +187,9 @@ En `../pedidos`, `$PEND/estado.json`:
   arreglar, push imposible); el `resumen` dice por qué.
 
 Commit (mismo autor) y `git push origin pedidos`. El bot manda `mensaje`, `pregunta` y `adjuntos` al
-grupo. Con `fallido` (o si pasan 6 h sin cierre) le dice a Anto que se complicó y le
-avisa a Manuel por privado.
+grupo. Con `fallido` (o si pasan 6 h sin cierre) abre una escalada de Kairo (desde
+2026-11-13): le dice a Anto que lo está investigando, el ejecutor de Kairo busca la causa en
+documentación real y hace hasta 3 intentos (`PROTOCOLO.md` §1b "Una escalada" del repo
+`manu-180/kairo`), y la fila queda `investigando`. El ejecutor cierra escribiendo este mismo
+`estado.json`: `hecho` (el bot se lo manda a Anto como siempre) o `escalado` con un `mensaje`
+corto para Anto (no salió en 3 intentos; a Manuel ya le llegó el WhatsApp desde el panel).
