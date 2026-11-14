@@ -54,7 +54,7 @@ BOOK = {
             "key": "nochebuena",
             "title": "La Nochebuena",
             "en": "Christmas Eve dinner",
-            "photo": 33991144,
+            "photo": 6185385,
             "intro": "The biggest meal of the year, and it starts late.",
             "words": [
                 ("la Nochebuena", "Christmas Eve", "La Nochebuena es el 24 de diciembre.", "Christmas Eve is 24 December.", None),

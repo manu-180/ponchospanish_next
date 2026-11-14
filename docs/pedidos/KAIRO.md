@@ -49,6 +49,18 @@ cuando cambie algo de lo que dice (la rutina también): corto, en hechos, sin hi
   le manda la portada en JPG (la página 1 del PDF, 1240×1754) para el campo de imagen
   del producto.
 
+## Fotos (2026-11-13, Anto)
+
+- Nunca imágenes de animales muertos en cursos, e-books ni recursos: nada de
+  carnicerías, carne cruda, asados a la vista, pescados enteros ni platos donde se
+  reconozca el animal. Para la comida van platos sin carne a la vista, mesas, gente
+  comiendo o brindando, mercados de verdura o quesos, mate, dulces.
+- Cada foto nueva se mira antes de entregar: el id de Pexels no alcanza (ver AGENTS.md,
+  la caché armada desde los PDF puede tener fotos con el id cruzado).
+- Se cambiaron el 2026-11-13: la carnicería de La Nochebuena (Christmas), el asado de
+  Argentina y Uruguay (Typical Dishes), el pescado y el asado del Foodie Dictionary y la
+  foto de ¡A comer! de Spanish for Confident Teens 2.
+
 ## Códigos de acceso
 
 - Anto los crea desde su panel de administración. Pueden ser para un curso, para un

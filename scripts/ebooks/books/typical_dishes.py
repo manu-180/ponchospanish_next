@@ -80,7 +80,7 @@ BOOK = {
             "key": "argentina",
             "title": "Argentina y Uruguay",
             "en": "Fire, pastry and caramel",
-            "photo": 37179553,
+            "photo": 13246779,
             "photo_pos": "50% 50%",
             "intro": "A grill on a Sunday, a thermos under one arm and dulce de leche in everything.",
             "words": [

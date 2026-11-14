@@ -55,7 +55,7 @@ BOOK = {
             "key": "carne",
             "title": "Carnes, pescados y más",
             "en": "Meat, fish and dairy",
-            "photo": 33991144,
+            "photo": 9866772,
             "intro": "If you eat meat or fish, these words will help you order exactly what you like. If you don't, the first two lines are for you: everyone is welcome at the Spanish table.",
             "words": [
                 ("Soy vegetariano / vegetariana.", "I'm vegetarian.", "Soy vegetariana, ¿qué platos no llevan carne?", "I'm vegetarian, which dishes have no meat?", None),
@@ -152,7 +152,7 @@ BOOK = {
             "key": "platos",
             "title": "Platos típicos",
             "en": "Classic dishes",
-            "photo": 37179553,
+            "photo": 36905236,
             "intro": "The dishes everyone should try at least once.",
             "words": [
                 ("la paella", "paella", "La paella valenciana lleva pollo y conejo.", "Valencian paella has chicken and rabbit.", "ES"),

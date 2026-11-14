@@ -181,6 +181,12 @@ recorrer los dos grupos para llenar la caché entera: con sólo los recursos fal
 fotos de capítulo de los Confident Teens y el rebuild de esos libros sale a Pexels y
 falla (2026-11-06).
 
+**Ojo con el id cruzado (2026-11-13):** en el pool armado desde los PDF del grupo, el
+JPEG guardado como `p33991144` era una carnicería, y en Pexels ese id es un pescado a la
+parrilla: un orden de documento mal contado deja fotos con el id de otra. Toda foto que
+se entrega se mira (abrir la página del PDF), nunca se confía en el id. Regla de Anto:
+nada de animales muertos (`docs/pedidos/KAIRO.md` § Fotos).
+
 Python: `build.py` tiene f-strings con backslash, así que necesita 3.12+. En la sesión
 cloud `python3` es 3.11 y hay que llamarlo con **`python3.13`**.
 
