@@ -1,1 +1,12 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Hola Anto! Acá va la portada de Spanish for Travel 👇 Es la misma pantalla con la que arranca el curso: la foto de Caminito, el título y \"For travellers of every age\". Está en 1920x1080, que es la medida que te pide la Academy para la imagen del curso, así que la subís tal cual ✨",
+  "pregunta": null,
+  "resumen": "Anto pidió la portada del curso en video Spanish for Travel. Se entrega la pantalla de apertura del curso (scene_open: foto de tapa spanish-for-travel-cover.jpg, kicker PONCHO Spanish · Online course, título y nivel) en JPG 1920x1080, que es el 16:9 de la tarjeta de curso en /ondemand (cover_image_path). Para generarla se agregó --cover a scripts/cursos/build_course.py: arma el HTML con el mismo lesson.css que las lecciones (bloque de texto centrado a 1080 px porque la portada no lleva subtítulos), lo captura con Chrome headless y lo guarda en JPG; no sale a la red ni necesita los proyectos de las lecciones (que bajarían las fotos de capítulo de Pexels). KAIRO.md suma Spanish for Travel a los cursos en video y la medida de portada de un curso (1920x1080) frente a la de e-books y recursos (página 1 del PDF, 1240x1754). pnpm type-check y pnpm test:seo en verde; pnpm build cae al prerenderizar /ondemand porque la sesión cloud no resuelve wdpgkhghigaowtdtjztz.supabase.co, no por el cambio (sólo se tocaron un script de Python y un .md). Vercel reconstruye y no promueve si falla.",
+  "commits": [
+    "6101027"
+  ],
+  "adjuntos": [
+    "entregables/Spanish-for-Travel-Curso-Portada.jpg"
+  ]
+}
