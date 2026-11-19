@@ -22,6 +22,13 @@ cuando cambie algo de lo que dice (la rutina también): corto, en hechos, sin hi
   lessons" (2026-11-07).
 - Cursos en video: Spanish for Confident Kids, Spanish for Confident Teens y Spanish
   for Travel (87 lecciones, 2 h, entregado el 2026-11-13 por link de Drive).
+- Anto revisó Spanish for Travel lección por lección y el 2026-11-19 mandó unas cuarenta
+  correcciones (pronunciaciones, ejemplos y datos): quedaron hechas en el guion y en el
+  libro, esperando el render en la PC de Manu. Sus reglas para los cursos, que valen para
+  todos: los ejercicios muestran las dos formas, masculina y femenina, y también la opción
+  de Argentina cuando el curso ya explicó la diferencia; la voz española lee sólo frases en
+  español (las consignas en inglés las lee la narradora); y donde dice "Now say it in
+  Spanish" va una pausa y después "You've got three seconds".
 - La portada de un curso en video es la de la laptop, como las de Confident Kids y
   Confident Teens que armó Anto: fondo oscuro, la foto del curso en la pantalla de una
   laptop, el título en dos líneas (SPANISH / for TRAVEL) y abajo la bajada escrita a

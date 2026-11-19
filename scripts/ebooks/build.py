@@ -74,6 +74,9 @@ def spanish_cell(es, region):
     if region == "ES/AR" and " / " in es:
         a, b = es.split(" / ", 1)
         return f'<span class="term">{e(a)}</span> {ES_FLAG}<span class="alt">{e(b)} {AR_FLAG}</span>'
+    if region == "ES/AR":
+        # La misma palabra en los dos países, con distinto acento: «el wifi».
+        return f'<span class="term">{e(es)}</span> {ES_FLAG}{AR_FLAG}'
     mark = {"ES": f" {ES_FLAG}", "AR": f" {AR_FLAG}"}.get(region or "", "")
     return f'<span class="term">{e(es)}</span>{mark}'
 

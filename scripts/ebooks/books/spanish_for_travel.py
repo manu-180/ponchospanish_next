@@ -63,7 +63,7 @@ BOOK = {
                         ("Con permiso", "Excuse me (to get past)", "Con permiso, me bajo aquí.", "Excuse me, I'm getting off here.", None),
                         ("¡Qué amable!", "How kind!", "¡Gracias, qué amable!", "Thanks, how kind of you!", None),
                     ],
-                    "tip": ("Buen provecho", "When you walk past people eating, or sit down to eat with others, it's polite to say <b>¡Buen provecho!</b> or <b>¡Que aproveche!</b> {ES}, which means enjoy your meal."),
+                    "tip": ("Buen provecho", "When you walk past people eating, or sit down to eat with others, it's polite to say <b>¡Buen provecho!</b> {AR} or <b>¡Que aproveche!</b> {ES}, which means enjoy your meal."),
                 },
                 {
                     "title": "Lo imprescindible",
@@ -90,18 +90,18 @@ BOOK = {
                         ("Encantado / Encantada", "Nice to meet you", "Encantada, soy la madre de Tom.", "Nice to meet you, I'm Tom's mum.", None),
                         ("Estoy de vacaciones.", "I'm on holiday.", "Estoy de vacaciones con mi familia.", "I'm on holiday with my family.", None),
                         ("Es mi primera vez aquí / acá.", "It's my first time here.", "Es mi primera vez en Buenos Aires.", "It's my first time in Buenos Aires.", "ES/AR"),
-                        ("¡Qué bonito / lindo es esto!", "It's so beautiful here!", "¡Qué bonito es el pueblo!", "The village is so pretty!", "ES/AR"),
+                        ("¡Qué bonito! / ¡Qué lindo!", "How lovely! It's so beautiful!", "¡Qué bonito es el pueblo!", "The village is so pretty!", "ES/AR"),
                         ("¿Qué me recomiendas visitar?", "What do you recommend I visit?", "¿Qué me recomiendas visitar mañana?", "What do you recommend I visit tomorrow?", None),
                     ],
                     "dialogue": {
                         "title": "En la plaza",
                         "lines": [
                             ("Local", "¡Hola! ¿De dónde eres?", "Hi! Where are you from?"),
-                            ("Viajera", "Soy de Inglaterra, de Bristol.", "I'm from England, from Bristol."),
+                            ("Viajero", "Soy de Inglaterra, de Bristol.", "I'm from England, from Bristol."),
                             ("Local", "¡Qué bien! ¿Es tu primera vez aquí?", "How lovely! Is it your first time here?"),
-                            ("Viajera", "Sí, estoy de vacaciones con mi familia.", "Yes, I'm on holiday with my family."),
-                            ("Local", "¡Bienvenida! Hablas muy bien español.", "Welcome! You speak Spanish really well."),
-                            ("Viajera", "¡Gracias! Hablo un poco, nada más.", "Thanks! I only speak a little."),
+                            ("Viajero", "Sí, estoy de vacaciones con mi familia.", "Yes, I'm on holiday with my family."),
+                            ("Local", "¡Bienvenido! Hablas muy bien español.", "Welcome! You speak Spanish really well."),
+                            ("Viajero", "¡Gracias! Hablo un poco de español.", "Thanks! I speak a little Spanish."),
                         ],
                     },
                 },
@@ -122,7 +122,7 @@ BOOK = {
                     "title": "Verbos útiles",
                     "en": "Useful verbs",
                     "grid": [
-                        ("ser", "to be (who / what)"), ("estar", "to be (where / how)"), ("tener", "to have"),
+                        ("ser", "to be (who or what you are)"), ("estar", "to be (where or how you are)"), ("tener", "to have"),
                         ("ir", "to go"), ("querer", "to want"), ("poder", "can, to be able to"),
                         ("necesitar", "to need"), ("buscar", "to look for"), ("comer", "to eat"),
                         ("beber / tomar", "to drink", "ES/AR"), ("hablar", "to speak"), ("entender", "to understand"),
@@ -180,6 +180,7 @@ BOOK = {
                         ("la carta", "the menu", "¿Nos trae la carta, por favor?", "Could you bring us the menu, please?", None),
                         ("el menú del día", "the set menu of the day", "El menú del día cuesta quince euros.", "The set menu costs fifteen euros.", None),
                         ("el camarero / el mozo", "the waiter", "Perdone, ¿nos atiende?", "Excuse me, could you serve us?", "ES/AR"),
+                        ("la camarera / la moza", "the waitress", "La camarera trae la carta.", "The waitress is bringing the menu.", "ES/AR"),
                         ("Para mí…", "For me…", "Para mí, la sopa y luego la ensalada.", "For me, the soup and then the salad.", None),
                         ("¿Qué me recomienda?", "What do you recommend?", "No sé qué pedir. ¿Qué me recomienda?", "I don't know what to order. What do you recommend?", None),
                         ("Soy alérgico / alérgica a…", "I'm allergic to…", "Soy alérgica a los frutos secos.", "I'm allergic to nuts.", None),
@@ -310,7 +311,7 @@ BOOK = {
                     ("Hervir means…", ["to fry", "to mix", "to boil"], 2),
                 ]},
                 {"type": "gap", "title": "A family dinner", "text": "Esta noche cenamos en un restaurante. Pedimos una ___ para cuatro. Mi hermano es vegano y pregunta: '¿Tienen platos ___?'. Yo pido una ___ de tomate y mi madre, verduras al ___. Para beber, agua sin ___. De postre, un ___ de chocolate. ¡Qué rico!", "answers": ["mesa", "veganos", "ensalada", "horno", "gas", "helado"]},
-                {"type": "match", "title": "Spain or Argentina?", "inst": "Match each word from Spain with the word used in Argentina.", "pairs": [
+                {"type": "match", "kind": "region", "title": "Spain or Argentina?", "inst": "Match each word from Spain with the word used in Argentina.", "pairs": [
                     ("la patata", "la papa"), ("el zumo", "el jugo"), ("el melocotón", "el durazno"), ("el aguacate", "la palta"),
                     ("las setas", "los hongos"), ("la piña", "el ananá"), ("el camarero", "el mozo")]},
             ],
@@ -320,7 +321,7 @@ BOOK = {
             "en": "Alojamiento",
             "photo": 6876590,
             "intro": "Hotels, hostels, a friend's flat or a tent under the stars: the words to settle in, ask for what you need and feel at home anywhere.",
-            "fact": ("¿Sabías que...?", "In Spain la planta baja is the ground floor and la primera planta is the first floor up, just like in the UK. In Argentina people say el piso: el primer piso, el segundo piso."),
+            "fact": ("¿Sabías que...?", "The ground floor is la planta baja in Argentina and in Spain, where you'll also hear el bajo, and it's marked PB on lifts and in flat numbers like PB A. All three places count the same way: street level is the base, and the level above it is the first floor, el primer piso, la primera planta or the first floor in the UK."),
             "units": [
                 {
                     "title": "En el hotel",
@@ -339,9 +340,9 @@ BOOK = {
                         "title": "En la recepción",
                         "lines": [
                             ("Recepcionista", "Buenas tardes, ¿en qué le puedo ayudar?", "Good afternoon, how can I help you?"),
-                            ("Viajera", "Tengo una reserva a nombre de Jones.", "I have a booking under Jones."),
+                            ("Viajero", "Tengo una reserva a nombre de Jones.", "I have a booking under Jones."),
                             ("Recepcionista", "Sí, una habitación doble, tres noches.", "Yes, a double room, three nights."),
-                            ("Viajera", "Perfecto. ¿El desayuno está incluido?", "Perfect. Is breakfast included?"),
+                            ("Viajero", "Perfecto. ¿El desayuno está incluido?", "Perfect. Is breakfast included?"),
                             ("Recepcionista", "Sí, de ocho a diez y media. Aquí tiene la llave.", "Yes, from eight to half past ten. Here's your key."),
                         ],
                     },
@@ -459,9 +460,9 @@ BOOK = {
                         "title": "¿Por dónde se va?",
                         "lines": [
                             ("Turista", "Perdone, ¿dónde está la estación de tren?", "Excuse me, where's the railway station?"),
-                            ("Señora", "Siga todo recto y gire a la izquierda.", "Go straight on and turn left."),
+                            ("Señor", "Siga todo recto y gire a la izquierda.", "Go straight on and turn left."),
                             ("Turista", "¿Está lejos?", "Is it far?"),
-                            ("Señora", "No, está a tres manzanas, unos cinco minutos.", "No, it's three blocks away, about five minutes."),
+                            ("Señor", "No, está a tres manzanas, unos cinco minutos.", "No, it's three blocks away, about five minutes."),
                             ("Turista", "¡Muchas gracias!", "Thank you very much!"),
                         ],
                     },
@@ -589,7 +590,7 @@ BOOK = {
                     "grid": [
                         ("rojo / roja", "red"), ("azul", "blue"), ("amarillo / amarilla", "yellow"),
                         ("verde", "green"), ("naranja", "orange"), ("morado / violeta", "purple"),
-                        ("rosa / rosado", "pink", "ES/AR"), ("blanco / blanca", "white"), ("negro / negra", "black"),
+                        ("rosa", "pink"), ("blanco / blanca", "white"), ("negro / negra", "black"),
                         ("gris", "grey"), ("marrón", "brown"), ("celeste", "light blue"),
                     ],
                     "tip": ("Claro y oscuro", "Add <b>claro</b> (light) or <b>oscuro</b> (dark) after the colour: <b>verde claro</b>, <b>azul oscuro</b>. And notice that <b>celeste</b> is a colour of its own, the light blue of the Argentinian flag."),
@@ -704,7 +705,7 @@ BOOK = {
             "en": "Turismo",
             "photo": 6920587,
             "intro": "Mountains, rivers, beaches and the animals who live there. Travelling well means enjoying nature and leaving it just as we found it.",
-            "fact": ("¿Sabías que...?", "Spanish is the official language of 20 countries and is also spoken by millions of people in the United States. With more than 480 million native speakers, it's the second most spoken first language in the world."),
+            "fact": ("¿Sabías que...?", "Spanish is the official language of more than 20 countries and is also spoken by millions of people in the United States. With more than 480 million native speakers, it's the second most spoken first language in the world."),
             "units": [
                 {
                     "title": "La naturaleza",
@@ -827,7 +828,7 @@ BOOK = {
                     "words": [
                         ("Estoy contento / contenta.", "I'm happy.", "Estoy muy contenta de estar aquí.", "I'm really happy to be here.", None),
                         ("Estoy cansado / cansada.", "I'm tired.", "Estoy cansado del viaje.", "I'm tired from the journey.", None),
-                        ("Estoy nervioso / nerviosa.", "I'm nervous.", "Estoy nerviosa, ¡hablo en español!", "I'm nervous, I'm speaking Spanish!", None),
+                        ("Estoy nervioso / nerviosa.", "I'm nervous.", "Estoy nerviosa: mañana viajo sola.", "I'm nervous: tomorrow I'm travelling on my own.", None),
                         ("Echo de menos… / Extraño…", "I miss…", "Echo de menos a mi perro.", "I miss my dog.", "ES/AR"),
                         ("Creo que…", "I think that…", "Creo que es una idea genial.", "I think it's a great idea.", None),
                         ("Me encanta.", "I love it.", "Me encanta esta ciudad.", "I love this city.", None),
@@ -890,14 +891,14 @@ BOOK = {
                 {
                     "title": "Errores frecuentes",
                     "en": "Common mistakes and difficulties",
-                    "intro": "Every learner trips over these. Now you know them, you can avoid them.",
+                    "intro": "Every learner trips over these. Now you know them, you can avoid them. One word to watch: constipado means having a cold in Spain, but in Argentina, as in English, it means constipated.",
                     "words": [
-                        ("embarazada ≠ embarrassed", "pregnant ≠ avergonzado", "Estoy avergonzada (no embarazada).", "I'm embarrassed (not pregnant).", None),
-                        ("constipado ≠ constipated", "having a cold", "Estoy constipado, tengo mocos.", "I've got a cold, I've got a runny nose.", None),
-                        ("la librería ≠ the library", "the bookshop", "Compré un libro en la librería.", "I bought a book at the bookshop.", None),
-                        ("actualmente ≠ actually", "currently, nowadays", "Actualmente vivo en Valencia.", "I currently live in Valencia.", None),
-                        ("tengo calor (no 'soy caliente')", "I'm hot (temperature)", "Tengo mucho calor, abre la ventana.", "I'm really hot, open the window.", None),
-                        ("tengo 12 años (no 'soy 12')", "I'm 12 years old", "Mi hermano tiene doce años.", "My brother is twelve.", None),
+                        ("embarazada", "pregnant (never embarrassed)", "Estoy avergonzada, no embarazada.", "I'm embarrassed, not pregnant.", None),
+                        ("constipado", "having a cold, in Spain", "Estoy constipado, tengo mocos.", "I've got a cold, I've got a runny nose.", None),
+                        ("la librería", "the bookshop (never the library)", "Compré un libro en la librería.", "I bought a book at the bookshop.", None),
+                        ("actualmente", "currently, nowadays (never actually)", "Actualmente vivo en Valencia.", "I currently live in Valencia.", None),
+                        ("tengo calor", "I'm hot (never 'soy caliente')", "Tengo mucho calor, abre la ventana.", "I'm really hot, open the window.", None),
+                        ("tengo 38 años", "I'm 38 years old (never 'soy 38')", "Mi madre tiene treinta y ocho años.", "My mum is thirty-eight.", None),
                     ],
                     "tip": ("Falsos amigos", "Words that look like English but mean something else are called <b>falsos amigos</b>, false friends. When a word looks too easy, double-check it!"),
                 },
@@ -933,7 +934,7 @@ BOOK = {
                     ("'Embarazada' significa embarrassed.", False),
                     ("En una librería compras libros.", True),
                     ("'Estoy constipado' significa que tengo un resfriado.", True),
-                    ("Para decir I'm 12 se dice 'soy doce'.", False),
+                    ("Para decir I'm 38 se dice 'soy treinta y ocho'.", False),
                 ]},
                 {"type": "match", "title": "Agree or disagree?", "pairs": [
                     ("Estoy de acuerdo.", "I agree."), ("Tienes razón.", "You're right."), ("Depende.", "It depends."),
@@ -945,7 +946,7 @@ BOOK = {
             "en": "El amor",
             "photo": 3875827,
             "intro": "Love comes in many shapes. Here's how to talk about your heart, your partner or your crush, simply and kindly.",
-            "fact": ("¿Sabías que...?", "In Spain and Argentina people often call the person they love mi media naranja, my other half of the orange. In Argentina you'll also hear mi amor said to partners, children and even friends."),
+            "fact": ("¿Sabías que...?", "In Spain people often call the person they love mi media naranja, my other half of the orange. In Argentina it sounds a bit old-fashioned: there you'll hear mi amor, said to partners, children and even friends."),
             "units": [
                 {
                     "title": "Hablar de tu vida amorosa",
@@ -962,7 +963,7 @@ BOOK = {
                         ("Te quiero. / Te amo.", "I love you.", "Te quiero mucho, mamá.", "I love you so much, Mum.", None),
                         ("el corazón", "the heart", "Te lo digo de corazón.", "I mean it from the heart.", None),
                     ],
-                    "tip": ("Te quiero y te amo", "<b>Te quiero</b> is used for family, friends and partners. <b>Te amo</b> is deeper and more romantic. With friends, the friendly version is <b>Te quiero mucho</b>."),
+                    "tip": ("Te quiero y te amo", "<b>Te quiero</b> is used for family, friends and partners. <b>Te amo</b> is deeper and more romantic in Spain {ES}, but in Argentina {AR} it's also common with close friends and family, with no romance involved."),
                 },
             ],
             "practice": [
@@ -1038,7 +1039,7 @@ BOOK = {
                         ("cortarse el pelo", "to have a haircut", "Quiero cortarme el pelo.", "I'd like a haircut.", None),
                         ("solo las puntas", "just a trim", "Solo las puntas, por favor.", "Just a trim, please.", None),
                         ("más corto", "shorter", "Un poco más corto por los lados.", "A bit shorter at the sides.", None),
-                        ("el flequillo / el cerquillo", "the fringe", "¿Me corta el flequillo?", "Could you cut my fringe?", "ES/AR"),
+                        ("el flequillo", "the fringe", "¿Me corta el flequillo?", "Could you cut my fringe?", None),
                         ("el tinte", "the hair dye", "Quiero un tinte azul.", "I'd like blue hair dye.", None),
                     ],
                 },
@@ -1060,8 +1061,8 @@ BOOK = {
                     "grid": [
                         ("el profesor / la profesora", "teacher"), ("el médico / la médica", "doctor"), ("el enfermero / la enfermera", "nurse"),
                         ("el cocinero / la cocinera", "cook, chef"), ("el ingeniero / la ingeniera", "engineer"), ("el / la artista", "artist"),
-                        ("el / la veterinario/a", "vet"), ("el / la policía", "police officer"), ("el bombero / la bombera", "firefighter"),
-                        ("el / la estudiante", "student"), ("el / la periodista", "journalist"), ("el / la agricultor/a", "farmer"),
+                        ("el veterinario / la veterinaria", "vet"), ("el / la policía", "police officer"), ("el bombero / la bombera", "firefighter"),
+                        ("el / la estudiante", "student"), ("el / la periodista", "journalist"), ("el agricultor / la agricultora", "farmer"),
                     ],
                     "grammar": ("Soy profesora", "<p>To say what you do, use <b>ser</b> without <i>un</i> or <i>una</i>: <b>Soy enfermero</b> (I'm a nurse), <b>Mi madre es ingeniera</b> (My mum is an engineer).</p>"),
                 },
@@ -1166,9 +1167,9 @@ BOOK = {
                     "en": "Weather",
                     "words": [
                         ("¿Qué tiempo hace?", "What's the weather like?", "¿Qué tiempo hace hoy en Madrid?", "What's the weather like in Madrid today?", None),
-                        ("Hace sol.", "It's sunny.", "Hace sol, ¡vamos a la playa!", "It's sunny, let's go to the beach!", None),
+                        ("Hace sol. / Hay sol.", "It's sunny.", "Hace sol, ¡vamos a la playa!", "It's sunny, let's go to the beach!", "ES/AR"),
                         ("Hace calor / frío.", "It's hot / cold.", "En enero hace mucho frío.", "It's very cold in January.", None),
-                        ("Hace viento.", "It's windy.", "En Patagonia hace mucho viento.", "It's very windy in Patagonia.", None),
+                        ("Hace viento. / Hay viento.", "It's windy.", "En Patagonia hay mucho viento.", "It's very windy in Patagonia.", "ES/AR"),
                         ("Llueve. / Está lloviendo.", "It rains. / It's raining.", "Está lloviendo, coge el paraguas.", "It's raining, take the umbrella.", None),
                         ("Nieva.", "It snows.", "En la montaña nieva en invierno.", "It snows in the mountains in winter.", None),
                         ("Está nublado.", "It's cloudy.", "Está nublado pero no llueve.", "It's cloudy but not raining.", None),
@@ -1222,7 +1223,7 @@ BOOK = {
                     "title": "Internet",
                     "en": "Internet",
                     "words": [
-                        ("el wifi", "wifi", "¿Hay wifi gratis aquí?", "Is there free wifi here?", None),
+                        ("el wifi", "wifi", "¿Hay wifi gratis aquí?", "Is there free wifi here?", "ES/AR"),
                         ("la contraseña", "the password", "¿Cuál es la contraseña?", "What's the password?", None),
                         ("conectarse", "to connect", "No me puedo conectar.", "I can't connect.", None),
                         ("descargar / bajar", "to download", "Descarga el mapa antes de salir.", "Download the map before you go out.", "ES/AR"),
@@ -1295,9 +1296,9 @@ BOOK = {
                         "title": "En la farmacia",
                         "lines": [
                             ("Farmacéutica", "Hola, ¿qué necesita?", "Hello, what do you need?"),
-                            ("Viajera", "Mi hijo tiene fiebre y le duele la garganta.", "My son has a temperature and a sore throat."),
+                            ("Viajero", "Mi hijo tiene fiebre y le duele la garganta.", "My son has a temperature and a sore throat."),
                             ("Farmacéutica", "¿Cuántos años tiene?", "How old is he?"),
-                            ("Viajera", "Ocho. ¿Necesitamos un médico?", "Eight. Do we need a doctor?"),
+                            ("Viajero", "Ocho. ¿Necesitamos un médico?", "Eight. Do we need a doctor?"),
                             ("Farmacéutica", "Este jarabe le va a ayudar. Si sigue con fiebre mañana, vaya al médico.", "This syrup will help. If he still has a temperature tomorrow, see a doctor."),
                         ],
                     },

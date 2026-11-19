@@ -53,6 +53,8 @@ ELEVEN_VOICES = json.loads((HERE / "voices.json").read_text(encoding="utf-8")) i
 # Pronunciación, cargados del curso en build_lesson(). La clave es (voz, texto tal como se ve).
 SAY_AS = {}      # lo que se dice en lugar de lo que se ve (abreviaturas y cifras que el TTS lee mal)
 SAY_CTX = {}     # contexto español para ElevenLabs: no se oye, pero evita el acento inglés
+AR_WORDS = set()  # variantes de Argentina del libro: eligen la voz de las opciones de los ejercicios
+ES_WORDS = set()  # todo el vocabulario en español del libro: distingue las opciones en inglés
 
 BG = {"dark": "#141414", "cream": "#EFECE5", "terra": "#C95023"}
 TONE = {"dark": "oscuro", "cream": "claro", "terra": "terra"}
@@ -252,7 +254,14 @@ class Lesson:
         self.scenes.append({"kind": kind, "bg": bg, "html": html_body, "start": start, "end": end, "trans": trans})
 
 
+DETS = {"el", "la", "los", "las", "un", "una", "unos", "unas", "mi", "tu"}
+
+
 def split_region(es):
+    """Las dos opciones de una fila ES/AR. Sin barra es la misma palabra en los dos países
+    con distinto acento, como «el wifi», y sale con las dos voces (lo pidió Anto en 13.2)."""
+    if " / " not in es:
+        return es, es
     a, b = [x.strip() for x in es.split(" / ", 1)]
     wa, wb = a.split(), b.split()
     # «¡Hasta luego! / ¡Chau!» ya es frase entera; completarla daba «¡Hasta ¡Chau!» (lo marcó Anto en 1.1).
@@ -261,25 +270,59 @@ def split_region(es):
         if wb[0].lower() in low:
             k = low.index(wb[0].lower())
             b = " ".join(wa[:k] + wb)
-        else:
+        elif wb[0].lower() not in DETS:
+            # «la tarjeta SIM / el chip» ya trae su artículo: completarla daba «la el chip» (13.3).
             b = " ".join(wa[: len(wa) - len(wb)] + wb)
-    return a.rstrip("."), b
+    return a.rstrip("."), b.rstrip(".")
 
 
-def one_variant(s):
-    """Una sola opción del par del libro, entera: «He / She is tall.» → «He is tall.»
+def quiz_item(en, es, region=None):
+    """Un enunciado de ejercicio: la consigna en inglés y la respuesta en español, entera.
 
-    Partir en la barra alcanza cuando las dos opciones son frases cerradas
-    («Hello! / Good morning!»), pero no cuando la barra separa dos palabras dentro de una
-    frase: ahí daba enunciados de una palabra, «He» (lo marcó Anto en 4.3).
+    Las filas ES/AR salen con las dos opciones y las dos voces: Anto pidió que los ejercicios
+    muestren también la de Argentina, y las dos formas (masculina y femenina), cuando el
+    curso ya explicó la diferencia (2.1 y 2.10). Antes se partía el par en la barra y
+    quedaban enunciados de una sola palabra, «He» (4.3).
     """
-    if " / " not in s:
-        return s
-    head, rest = s.split(" / ", 1)
-    tail = rest.split(" / ")[0].split()
-    if len(head.split()) == 1 and head[-1] not in ".!?…" and len(tail) > 1:
-        return " ".join([head] + tail[1:])
-    return head
+    if region != "ES/AR" and " / " in es:
+        tail = es.split(" / ", 1)[1]
+        if any(len(ar_key(w)) > 3 and ar_key(w) in AR_WORDS for w in tail.split()):
+            region = "ES/AR"   # «aparcar / estacionar»: el libro ya explicó la diferencia
+    return (en, es, "ES/AR" if region == "ES/AR" else "es")
+
+
+def ar_key(s):
+    s = re.sub(r"^(el|la|los|las|un|una|unos|unas)\s+", "", s.strip().lower())
+    return re.sub(r"[^\w ]", "", s).strip()
+
+
+def voice_for(text):
+    """La voz de una opción de ejercicio: la de Argentina si la palabra es de allá (2.10)."""
+    return "ar" if ar_key(text) in AR_WORDS else "es"
+
+
+ES_HINT = {"el", "la", "los", "las", "un", "una", "de", "del", "en", "al", "con", "por", "para", "que", "qué",
+           "no", "sí", "es", "está", "soy", "estoy", "tengo", "hay", "me", "te", "se", "lo", "mi", "tu", "y",
+           "o", "pero", "más", "muy", "está", "son", "cómo", "dónde", "cuánto"}
+EN_HINT = {"the", "a", "an", "of", "to", "is", "are", "you", "i", "it", "my", "your", "and", "or", "for", "in",
+           "on", "at", "do", "does", "not", "im", "its", "dont", "with", "this", "that", "what", "where", "how",
+           "was", "be", "have", "has"}
+
+
+def is_spanish(text):
+    """Si una opción de ejercicio está en español. El libro mezcla los dos idiomas en las
+    opciones y la voz en español leía las de inglés (lo marcó Anto en 2.10 y 4.6)."""
+    if re.search(r"[¿¡ñáéíóúü]", text, flags=re.I):
+        return True
+    w = [norm(x) for x in text.split()]
+    es, en = sum(x in ES_HINT for x in w), sum(x in EN_HINT for x in w)
+    if es != en:
+        return es > en
+    return ar_key(text) in ES_WORDS or ar_key(text) in AR_WORDS
+
+
+def ans_class(text):
+    return "" if len(text) <= 18 else (" a2" if len(text) <= 30 else " a3")
 
 
 def flagify(s):
@@ -526,10 +569,12 @@ def scene_project_intro(L, unit_title, text):
     pass
 
 
-def scene_quiz(L, unit_title, items, title="¡Tu turno!", intro="Your turn! Say it in Spanish, before you hear it."):
+def scene_quiz(L, unit_title, items, title="¡Tu turno!", intro="Your turn! Say it in Spanish. You've got three seconds."):
     s0 = L.t
     L.wait(0.7)
-    L.narrate([intro], gap=0.6)
+    # Cada oración de la consigna va suelta: Anto pidió el punto y la pausa en inglés antes
+    # de «You've got three seconds» en todos los ejercicios del curso (2026-11-19).
+    L.narrate([x for x in re.split(r"(?<=[.!?…])\s+", intro) if x.strip()], gap=0.6)
     end = L.t
     L.scene("quiz-intro", "terra", f"""
       <div class="qi">
@@ -543,7 +588,18 @@ def scene_quiz(L, unit_title, items, title="¡Tu turno!", intro="Your turn! Say 
         sp, ep = L.say("en", prompt, gap=0.25)
         c0 = L.t
         L.wait(3.4)
-        sa, _ = L.say(voice, answer, gap=0.9)
+        if voice == "ES/AR":
+            a, b = split_region(answer)
+            sa, _ = L.say("es", a, gap=0.3)
+            sb, _ = L.say("ar", b, gap=0.9)
+            cls = " v2" if max(len(a), len(b)) > 16 else ""
+            ans = (f'<div class="q-vars">'
+                   f'<div class="q-var{cls}"{at(sa - 0.12, "pop")}>{ES_FLAG}{e(a)}</div>'
+                   f'<div class="q-var{cls}"{at(sb - 0.12, "pop")}>{AR_FLAG}{e(b)}</div></div>')
+            L.sfx.append((sb - 0.1, "pop", 0.2))
+        else:
+            sa, _ = L.say(voice, answer, gap=0.9)
+            ans = f'<div class="q-ans{ans_class(answer)}"{at(sa - 0.12, "pop")}>{e(answer)}</div>'
         L.sfx.append((sa - 0.1, "pop", 0.25))
         end = L.t
         dots = "".join(f'<i class="{"on" if k == i else ("done" if k < i else "")}"></i>' for k in range(len(items)))
@@ -555,7 +611,7 @@ def scene_quiz(L, unit_title, items, title="¡Tu turno!", intro="Your turn! Say 
               <circle class="arc" cx="100" cy="100" r="86" data-ring="{c0:.3f}" data-ring-dur="3.2"/></svg>
             {countdown(c0, 3.2, sa - 0.15)}
             <div class="q-hint"{at(c0 + 0.1, 'fade', sa - 0.15)}>Say it in Spanish</div>
-            <div class="q-ans"{at(sa - 0.12, 'pop')}>{e(answer)}</div>
+            {ans}
           </div>""", s0, end, trans="swap")
 
 
@@ -578,10 +634,16 @@ def scene_choice(L, items):
     for i, (sent, opts, ok) in enumerate(items):
         s0 = L.t
         L.wait(0.5)
+        hueco = "___" in sent
+        # Sin hueco la consigna es una pregunta en inglés: la lee la narradora y la voz en
+        # español dice sólo la opción, con el acento que le toque (lo marcó Anto en 2.10).
+        if not hueco:
+            L.say("en", sent, gap=0.3)
         c0 = L.t
         L.wait(3.6)
-        full = sent.replace("___", opts[ok])
-        sa, _ = L.say("es", full, gap=0.9)
+        full = sent.replace("___", opts[ok]) if hueco else opts[ok]
+        v = "es" if hueco else (voice_for(full) if is_spanish(full) else "en")
+        sa, _ = L.say(v, full, gap=0.9)
         L.sfx.append((sa - 0.1, "pop", 0.25))
         end = L.t
         sent_html = e(sent).replace("___", '<span class="gap">&nbsp;</span>')
@@ -805,10 +867,36 @@ def lesson_projects(course_name):
     return C, B, S, chapters, photos, cover, plans
 
 
+def unit_vocab(u):
+    """Las filas de vocabulario de una unidad como (inglés, español, región)."""
+    out = [(w[1], w[0], w[4]) for w in u.get("words", [])]
+    return out + [(g[1], g[0], g[2] if len(g) > 2 else None) for g in u.get("grid", [])]
+
+
+def vocab_index(chapters):
+    """Tres índices del vocabulario del libro: las palabras de Argentina y todo el español
+    (para elegir la voz de cada opción) y el inglés de cada par ES/AR (para las consignas
+    de «¿España o Argentina?»)."""
+    ar, es_all, en_de = set(), set(), {}
+    for ch in chapters:
+        for u in ch["units"]:
+            for en, es, region in unit_vocab(u):
+                es_all.update(ar_key(x) for x in es.split(" / "))
+                if region != "ES/AR":
+                    continue
+                a, b = split_region(es)
+                if a != b:
+                    ar.add(ar_key(b))
+                en_de[(a, b)] = en
+                en_de.setdefault(a, en)
+    return ar, es_all, en_de
+
+
 def build_lesson(course_name, lid, only_meta=False):
     C, B, S, chapters, photos, cover, plans = lesson_projects(course_name)
-    global SAY_AS, SAY_CTX
+    global SAY_AS, SAY_CTX, AR_WORDS, ES_WORDS
     SAY_AS, SAY_CTX = S.get("say_as", {}), S.get("say_ctx", {})
+    AR_WORDS, ES_WORDS, REGION_EN = vocab_index(chapters)
     idx = next(i for i, p in enumerate(plans) if p[0] == lid)
     _, title, key = plans[idx]
     nxt = plans[idx + 1] if idx + 1 < len(plans) else None
@@ -859,11 +947,26 @@ def build_lesson(course_name, lid, only_meta=False):
             for p in ch["practice"]:
                 if p["type"] == "quiz":
                     choice += [tuple(x) for x in p["items"]]
+                elif p["type"] == "match" and p.get("kind") == "region":
+                    # «¿España o Argentina?» empareja dos palabras en español: la consigna va
+                    # en inglés («potato») y la respuesta con las dos («la patata / la papa»),
+                    # cada una con su voz. Antes preguntaba en español (lo marcó Anto en 2.10).
+                    for a, b in p["pairs"]:
+                        en = REGION_EN.get((a, b)) or REGION_EN.get(a)
+                        if en:
+                            trans.append(quiz_item(en, f"{a} / {b}", "ES/AR"))
                 elif p["type"] in ("translate", "match"):
                     items = p["items"] if p["type"] == "translate" else p["pairs"]
                     for a, b in items:
                         en, es = (a, b) if p["type"] == "translate" else (b, a)
-                        trans.append((en, es, "es"))
+                        trans.append(quiz_item(en, es))
+            if not choice and not trans:
+                # El libro puede cerrar el módulo con sopa de letras y redacción, que no se
+                # pueden hacer en video: ahí la práctica sale del vocabulario del módulo, para
+                # que «¡A practicar!» no quede en un solo dato curioso (lo marcó Anto en 11.8).
+                vocab = [v for u in ch["units"] for v in unit_vocab(u)]
+                step = max(1, len(vocab) // 4)
+                trans = [quiz_item(*vocab[i]) for i in range(0, len(vocab), step)][:4]
             if choice:
                 scene_choice(L, choice[:4])
             if trans:
@@ -895,8 +998,7 @@ def build_lesson(course_name, lid, only_meta=False):
                 scene_card(L, u["title"], "Tip", u["tip"][0], u["tip"][1], us["tip"])
             if u.get("fact") and us.get("fact"):
                 scene_card(L, u["title"], "Dato curioso", u["fact"][0], u["fact"][1], us["fact"])
-            pool = [(one_variant(w[1]), one_variant(w[0]), "es") for w in u.get("words", [])]
-            pool += [(g[1] if "," in g[1] else one_variant(g[1]), one_variant(g[0]), "es") for g in u.get("grid", [])]
+            pool = [quiz_item(*v) for v in unit_vocab(u)]
             if not pool and u.get("grammar"):
                 pool = []
             if pool:

@@ -19,10 +19,68 @@ COURSE = {
     "modules_sub": "Fourteen modules",
     "outline_welcome": "How the course works: fourteen modules, voices from Spain and Argentina, and your first ¡Tu turno!",
     "photo_pos": {},
+    # Lo que se dice en lugar de lo que se ve: cifras y horas que el TTS lee mal en inglés
+    # (las marcó Anto en 5.8, 5.9 y 12.9) y el «wifi» de Argentina, que suena como en inglés (13.2).
     "say_as": {
+        ("en", "1, 2, 3"): "one, two, three",
+        ("en", "4, 5, 6"): "four, five, six",
+        ("en", "7, 8, 9"): "seven, eight, nine",
+        ("en", "10, 11, 12"): "ten, eleven, twelve",
+        ("en", "13, 14, 15"): "thirteen, fourteen, fifteen",
+        ("en", "16 … 19"): "sixteen to nineteen",
+        ("en", "20, 21"): "twenty, twenty-one",
+        ("en", "30, 40"): "thirty, forty",
+        ("en", "50, 60"): "fifty, sixty",
+        ("en", "70, 80"): "seventy, eighty",
+        ("en", "90, 100"): "ninety, one hundred",
+        ("en", "1,000"): "one thousand",
+        ("en", "15"): "fifteen",
+        ("en", "23"): "twenty-three",
+        ("en", "47"): "forty-seven",
+        ("en", "60"): "sixty",
+        ("en", "99"): "ninety-nine",
+        ("en", "100"): "one hundred",
+        ("en", "1:00"): "one o'clock",
+        ("en", "3:15"): "three fifteen",
+        ("en", "6:30"): "six thirty",
+        ("en", "8:45"): "eight forty-five",
+        ("en", "10:10"): "ten ten",
+        ("ar", "el wifi"): "el uaifái",
+        ("en", "112"): "one, one, two",
     },
+    # Contexto para ElevenLabs: no se oye, pero le dice en qué idioma viene la frase. Sin esto
+    # una palabra sola sale con acento inglés; todas estas las marcó Anto una por una.
     "say_ctx": {
+        ("ar", "Chau"): "Bueno, me tengo que ir.",
+        ("ar", "la frutilla"): "En Buenos Aires comemos frutillas con crema.",
+        ("ar", "el durazno"): "En verano compramos duraznos en la verdulería.",
+        ("es", "individual / doble"): "Una habitación individual o doble.",
+        ("ar", "el talle"): "¿Tenés este pantalón en otro talle?",
+        ("es", "celeste"): "El celeste es un azul bien clarito.",
+        ("ar", "celeste"): "El celeste de la bandera argentina.",
+        ("es", "naranja"): "La naranja es una fruta y también un color.",
+        ("es", "uno, dos, tres"): "Contamos en español del uno al veinte.",
+        ("es", "trece, catorce, quince"): "Contamos en español del uno al veinte.",
+        ("es", "cincuenta, sesenta"): "Contamos en español de diez en diez.",
+        ("es", "quince"): "El número quince en español.",
+        ("es", "veintitrés"): "El número veintitrés en español.",
+        ("es", "cuarenta y siete"): "El número cuarenta y siete en español.",
+        ("es", "sesenta"): "El número sesenta en español.",
+        ("es", "la ballena"): "Desde la costa se ven ballenas.",
+        ("es", "Cuba"): "Cuba es una isla del Caribe.",
+        ("es", "Brasil"): "Brasil está al lado de Argentina.",
+        ("en", "arm"): "Point to each part of the body in English.",
+        ("ar", "la malla"): "En Argentina, la malla es para ir a la playa.",
+        ("es", "enero"): "Los meses del año en español: enero, febrero, marzo.",
+        ("ar", "el chip"): "En Argentina, el teléfono lleva un chip nuevo.",
+        ("es", "y / o / pero"): "Los conectores unen dos ideas en español.",
         ("es", "y"): "En español, los conectores unen dos ideas.",
+        ("es", "Ser"): "Hay dos verbos para decir to be en español.",
+        ("es", "Estar"): "Hay dos verbos para decir to be en español.",
+        ("es", "embarazada"): "Los falsos amigos del español: embarazada no es embarrassed.",
+        ("es", "constipado"): "Los falsos amigos del español: constipado no es constipated.",
+        ("es", "actualmente"): "Los falsos amigos del español: actualmente no es actually.",
+        ("es", "la librería"): "Los falsos amigos del español: la librería no es the library.",
         ("ar", "¡Felicitaciones!"): "Terminaste todo el curso de español.",
     },
     "welcome": [
@@ -32,7 +90,7 @@ COURSE = {
         "Every lesson is short. You'll hear Spanish voices, from Spain, «¡Hola! ¿Qué tal?»",
         "and from Argentina. ‹¡Hola! ¿Cómo andás?›",
         "Both are correct, and you'll learn to understand both.",
-        "When you see «¡Tu turno!», it's your turn: say the answer out loud before you hear it.",
+        "When you see «¡Tu turno!», it's your turn: say the answer out loud before you hear it. You've got three seconds.",
         "Keep your e-book next to you. It has every word, extra activities and all the answers.",
         "You don't need to be perfect to be understood. Speak up and smile.",
     ],
@@ -47,7 +105,7 @@ COURSE = {
                 {
                     "hook": ["Please, thank you and sorry: the small words that open every door."],
                     "tip": [
-                        "When you walk past people eating, it's polite to say", "«¡Buen provecho!»",
+                        "When you walk past people eating, it's polite to say", "‹¡Buen provecho!›",
                         "or, in Spain,", "«¡Que aproveche!»", "Enjoy your meal.",
                     ],
                 },
@@ -112,8 +170,9 @@ COURSE = {
         },
         {  # 3 Accommodation
             "fact": [
-                "Did you know? In Spain, the ground floor is", "«la planta baja»,",
-                "just like in the UK. In Argentina, people say", "‹el primer piso›", "for the first floor up.",
+                "Did you know? In Argentina and in Spain, the ground floor is", "«la planta baja»,",
+                "and in Spain you'll also hear", "«el bajo».",
+                "The level right above it is", "«el primer piso»,", "the first floor, just like in the UK.",
             ],
             "units": [
                 {"hook": ["You've arrived! Let's check in at the hotel."]},
@@ -209,7 +268,7 @@ COURSE = {
         },
         {  # 7 Tourism
             "fact": [
-                "Did you know? Spanish is the official language of twenty countries,",
+                "Did you know? Spanish is the official language of more than twenty countries,",
                 "and it's the second most spoken first language in the world.",
             ],
             "units": [
@@ -244,9 +303,9 @@ COURSE = {
                     "hook": ["Happy, tired, excited? Let's talk about feelings and opinions."],
                     "grammar": {
                         "explain": [
-                            "Both «ser» and «estar» mean to be.",
-                            "Use «ser» for who someone is.", "«Soy simpático.»",
-                            "Use «estar» for how someone feels right now.", "«Estoy cansado.»",
+                            "Spanish has two verbs for to be, and the difference is easier than it looks.",
+                            "«Ser» is for who someone is.", "«Soy simpático.»",
+                            "«Estar» is for how someone feels right now.", "«Estoy cansado.»",
                         ],
                     },
                 },
@@ -275,15 +334,17 @@ COURSE = {
         },
         {  # 10 Romance
             "fact": [
-                "Did you know? People often call the person they love", "«mi media naranja»,",
+                "Did you know? In Spain, people often call the person they love", "«mi media naranja»,",
                 "my other half of the orange.",
+                "In Argentina that sounds a bit old-fashioned: there you'll hear", "‹mi amor›.",
             ],
             "units": [
                 {
                     "hook": ["Friends, crushes and partners. Let's talk about love, with respect."],
                     "tip": [
                         "«Te quiero»", "is for family, friends and partners.",
-                        "«Te amo»", "is deeper and more romantic.",
+                        "«Te amo»", "is deeper and more romantic in Spain.",
+                        "In Argentina you'll also hear", "‹te amo›", "with close friends and family, with no romance involved.",
                     ],
                 },
             ],
