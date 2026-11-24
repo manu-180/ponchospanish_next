@@ -47,3 +47,9 @@ nuevo es un archivo en `scripts/cursos/courses/` que apunta a un libro de
 - Una fila de `grid` con `"ES/AR"` sale con las dos voces y las dos banderas en la tarjeta.
 - Antes de sintetizar, medir los caracteres de ElevenLabs con el `tts` falso (plan starter:
   84k por mes; Spanish for Travel pidió ~43k para 87 lecciones).
+- La tarea programada corre `%LOCALAPPDATA%\poncho-cursos\tarea.ps1` (vive en la PC, no en el repo). Dos
+  trampas del 24/11: llama a `envkit.cmd` y no a `envkit` (el shim .ps1 de PowerShell 5.1 se come el `--` y
+  envkit rechaza `--auto`), y fija `PYTHONPATH` en la carpeta de la app de Claude
+  (`%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Python\Python313\site-packages`): un `pip install --user`
+  desde una sesión instala ahí y la tarea no lo ve. Un render a mano no escribe el candado: `entregar.py` sólo
+  respeta un candado con el PID de un proceso vivo.
