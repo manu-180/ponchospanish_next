@@ -258,6 +258,21 @@ def entregar(curso, ids, carpeta=None):
     print(f"[{curso}] entregado: {eid} {link}", flush=True)
 
 
+def candado_vivo(contenido: str) -> bool:
+    """El candado vale sólo si es el PID de un proceso vivo.
+
+    24/11: una sesión dejó "manual" en el candado para su render a mano, la sesión se borró y la
+    tarea de cada hora quedó frenada 6 h con "otra entrega en curso" sin que nada corriera.
+    En Windows no se usa os.kill(pid, 0): la señal 0 es CTRL_C_EVENT.
+    """
+    pid = contenido.strip()
+    if not pid.isdigit():
+        return False
+    r = subprocess.run(["tasklist", "/FI", f"PID eq {pid}", "/NH"], capture_output=True, text=True,
+                       errors="replace")
+    return re.search(rf"\b{pid}\b", r.stdout) is not None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--auto", action="store_true", help="entregar todo lo pendiente")
@@ -268,7 +283,8 @@ def main():
     a = ap.parse_args()
     LOCAL.mkdir(parents=True, exist_ok=True)
     lock = LOCAL / "entregar.lock"
-    if lock.exists() and (dt.datetime.now().timestamp() - lock.stat().st_mtime) < 6 * 3600:
+    if lock.exists() and (dt.datetime.now().timestamp() - lock.stat().st_mtime) < 6 * 3600 \
+            and candado_vivo(lock.read_text(encoding="utf-8", errors="replace")):
         print("otra entrega en curso", flush=True)
         return
     trabajo = {a.curso: a.pedidos} if a.curso else pendientes()
