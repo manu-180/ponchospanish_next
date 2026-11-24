@@ -19,7 +19,19 @@ nuevo es un archivo en `scripts/cursos/courses/` que apunta a un libro de
 - Voces con ElevenLabs (`ELEVENLABS_API_KEY` en envkit, ids en `voices.json`); sin clave cae
   a edge-tts. Cache en `.cache/tts/` por texto: cambiar una frase sólo regenera esa.
 - Los cambios que Anto pide sobre un curso se juntan hasta su "Listo" y los aplica la
-  rutina `poncho-pedidos` (`docs/pedidos/PROTOCOLO.md`); el render lo corre Manuel en su PC.
+  rutina `poncho-pedidos` (`docs/pedidos/PROTOCOLO.md`), que deja `"render": "<curso>"` en el
+  estado.json. El render y la entrega los hace sola `scripts/cursos/entregar.py` en la PC de
+  escritorio (tarea programada "Poncho - renders pendientes", cada hora; log en
+  `%LOCALAPPDATA%\poncho-cursos\entregar.log`): render, zip, Drive con link público, e-book si
+  cambió el libro y el pedido de entrega que el bot le manda a Anto. Si falla, alerta
+  `poncho:cursos:render-<curso>` en el tablero de Kairo.
+- La caché de voces fija vive en `%LOCALAPPDATA%\poncho-cursos\tts` (`PONCHO_TTS_CACHE`); la
+  de `.cache/tts/` de cada checkout es la de las corridas a mano.
+- ElevenLabs va siempre por `elevenlabs-con-saldo.mjs`. Las voces del curso (Tere, Carlos,
+  Carolina, Agustín, Valeria) son de la biblioteca y están en las dos cuentas con el mismo ID
+  desde el 24/11: una voz nueva hay que sumarla también a la de respaldo
+  (`POST /v1/voices/add/<public_owner_id>/<voice_id>`) o la corrida se queda sin cuenta. Con
+  `--jobs 16` el plan starter devuelve 429: `tts()` reintenta con espera.
 - Subtítulos según la skill `subtitulos-premium` (Bricolage 800 a 64 px, resaltador por
   palabra, tinta por fondo: crema = `claro`, negro = `oscuro`, terracota = `terra`).
 - Música: loop CC0 de Freesound ("simple relaxing guitar loop", Kodack). SFX: pop, whoosh y

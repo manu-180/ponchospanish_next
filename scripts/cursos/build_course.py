@@ -17,10 +17,12 @@ import html
 import importlib.util
 import json
 import os
+import random
 import re
 import shutil
 import subprocess
 import sys
+import time
 import unicodedata
 import urllib.request
 from pathlib import Path
@@ -32,7 +34,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 EBOOKS = REPO / "scripts" / "ebooks"
 BUILD = HERE / ".build"
-TTS_CACHE = HERE / ".cache" / "tts"
+TTS_CACHE = Path(os.environ["PONCHO_TTS_CACHE"]) if os.environ.get("PONCHO_TTS_CACHE") else HERE / ".cache" / "tts"
 SR = 48000
 
 VOICES = {
@@ -159,16 +161,20 @@ def tts(voice_key, text):
     TTS_CACHE.mkdir(parents=True, exist_ok=True)
     mp3, meta = TTS_CACHE / f"{h}.mp3", TTS_CACHE / f"{h}.json"
     if not meta.exists():
-        for intento in range(4):
+        # Starter de ElevenLabs acepta pocas frases a la vez: con --jobs 16 llega un 429 y sin
+        # esperar los 4 intentos se gastan en un segundo. El HTTPError tampoco cruza el
+        # ProcessPoolExecutor (no se puede picklear), por eso se relanza como RuntimeError.
+        for intento in range(8):
             try:
                 if ENGINE == "eleven":
                     words = _eleven(say, voice, mp3, ctx)
                 else:
                     words = asyncio.run(asyncio.wait_for(_synth(say, voice, rate, mp3), 45))
                 break
-            except Exception:
-                if intento == 3:
-                    raise
+            except Exception as e:
+                if intento == 7:
+                    raise RuntimeError(f"TTS {voice_key} {say!r}: {e}") from None
+                time.sleep(min(60, 2 ** intento) + random.random() * 2)
         meta.write_text(json.dumps(words, ensure_ascii=False), encoding="utf-8")
     words = json.loads(meta.read_text(encoding="utf-8"))
     a = decode(mp3)

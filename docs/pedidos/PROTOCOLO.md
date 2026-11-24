@@ -139,10 +139,15 @@ y el curso nuevo sale desde ahí (la rutina no lo puede mandar).
   frase corta). Nunca respellings que cambien lo que se ve en pantalla sin avisar.
 - Un cambio "en todo el curso" (un título que se repite, como `¡Te toca!`) se busca en el
   guion, en `build_course.py` y en `template/`.
-- `adjuntos` vacío y `mensaje` sin prometer el video: "Ya dejé hechos todos los cambios
-  del curso; te paso la versión nueva apenas termine de armarla". El `resumen` dice
-  qué lecciones cambiaron y que hay que correr
-  `python scripts/cursos/build_course.py <curso> --jobs 16 --render <carpeta>`.
+- `adjuntos` vacío, `"render": "<curso>"` en el `estado.json` (el nombre del archivo de
+  `scripts/cursos/courses/`, sin `.py`) y `mensaje` sin prometer fecha: "Ya dejé hechos
+  todos los cambios del curso; te paso la versión nueva apenas termine de armarla". El
+  `resumen` dice qué lecciones cambiaron.
+- Con ese `render`, la PC de escritorio de Manuel lo toma sola en menos de una hora
+  (`scripts/cursos/entregar.py`, tarea programada): renderiza, sube el zip a Drive, rearma
+  el e-book si el libro cambió y deja un pedido `<fecha>-entrega-<curso>` que el bot le
+  manda a Anto con el link. Sin `render` nadie lo corre: el 19/11 quedó sólo en el
+  `resumen` y Anto esperó cinco días.
 
 ## Avances
 
