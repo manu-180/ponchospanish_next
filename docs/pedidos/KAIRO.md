@@ -24,7 +24,7 @@ cuando cambie algo de lo que dice (la rutina también): corto, en hechos, sin hi
   for Travel (87 lecciones, 2 h, entregado el 2026-11-13 por link de Drive).
 - Anto revisó Spanish for Travel lección por lección y el 2026-11-19 mandó unas cuarenta
   correcciones (pronunciaciones, ejemplos y datos): quedaron hechas en el guion y en el
-  libro, esperando el render en la PC de Manu. Sus reglas para los cursos, que valen para
+  libro, y el curso nuevo se le entregó el 2026-11-24. Sus reglas para los cursos, que valen para
   todos: los ejercicios muestran las dos formas, masculina y femenina, y también la opción
   de Argentina cuando el curso ya explicó la diferencia; la voz española lee sólo frases en
   español (las consignas en inglés las lee la narradora); y donde dice "Now say it in
@@ -95,6 +95,7 @@ cuando cambie algo de lo que dice (la rutina también): corto, en hechos, sin hi
 - Kairo es el mismo de todas las tandas y tiene todo lo que ya se hizo.
 - Anto compra las tandas de e-books y recursos a Manu: la plata es entre ellos.
 - Anto manda pedidos por el grupo "Poncho" y cierra con "Listo".
-- Los cursos en video se re-renderizan en la PC de Manu: los cambios de guion se hacen
-  enseguida, pero el video nuevo tarda; no se le promete una fecha.
+- Los cursos en video se re-renderizan solos en la PC de Manu (desde 2026-11-24): los
+  cambios de guion se hacen enseguida y el curso nuevo le llega por link de Drive unas
+  horas después, si la PC está prendida. Se le dice "en el día", no una hora exacta.
 - Pagos (PayPal) y precios: no se tocan sin que Anto lo pida explícitamente.
