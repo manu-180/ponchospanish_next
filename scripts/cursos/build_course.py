@@ -34,6 +34,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 EBOOKS = REPO / "scripts" / "ebooks"
 BUILD = HERE / ".build"
+RENDER_TIMEOUT = 20 * 60
 TTS_CACHE = Path(os.environ["PONCHO_TTS_CACHE"]) if os.environ.get("PONCHO_TTS_CACHE") else HERE / ".cache" / "tts"
 SR = 48000
 
@@ -1046,8 +1047,21 @@ def out_name(plans, lid, chapters):
 def render(proj, dst):
     dst.parent.mkdir(parents=True, exist_ok=True)
     tmp = proj / "render.mp4"
-    subprocess.run(["npx", "hyperframes", "render", "-q", "standard", "-o", str(tmp), "--quiet"],
-                   cwd=proj, check=True, shell=(sys.platform == "win32"))
+    # 24/11: un npx quedó colgado 5 h sin CPU en la 7.4 y frenó las 40 lecciones que seguían.
+    # Una lección tarda 1-3 min; con shell=True hay que matar el árbol, no sólo el cmd.exe.
+    p = subprocess.Popen(["npx", "hyperframes", "render", "-q", "standard", "-o", str(tmp), "--quiet"],
+                         cwd=proj, shell=(sys.platform == "win32"))
+    try:
+        rc = p.wait(timeout=RENDER_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        if sys.platform == "win32":
+            subprocess.run(["taskkill", "/T", "/F", "/PID", str(p.pid)], capture_output=True)
+        else:
+            p.kill()
+        p.wait()
+        raise subprocess.CalledProcessError(-1, "hyperframes render (timeout)")
+    if rc:
+        raise subprocess.CalledProcessError(rc, "hyperframes render")
     shutil.move(str(tmp), dst)
 
 

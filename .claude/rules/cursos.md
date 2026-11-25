@@ -53,3 +53,6 @@ nuevo es un archivo en `scripts/cursos/courses/` que apunta a un libro de
   (`%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Python\Python313\site-packages`): un `pip install --user`
   desde una sesión instala ahí y la tarea no lo ve. Un render a mano no escribe el candado: `entregar.py` sólo
   respeta un candado con el PID de un proceso vivo.
+- Cada `hyperframes render` tiene 20 min de tope (`RENDER_TIMEOUT`): el 24/11 un `npx` se colgó 5 h sin CPU en
+  la 7.4 y, como la tarea programada no arranca otra instancia mientras la anterior sigue viva, el render quedó
+  parado toda la noche sin alerta. Lección colgada = fallida, y entra al reintento de `entregar.py`.
