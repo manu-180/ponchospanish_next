@@ -35,6 +35,9 @@ REPO = HERE.parents[1]
 EBOOKS = REPO / "scripts" / "ebooks"
 BUILD = HERE / ".build"
 RENDER_TIMEOUT = 20 * 60
+# Versión fija: sin ella npx consulta el registro en cada lección y, los días que hyperframes publica
+# varias versiones por hora (25/11: 0.9.93 y 0.9.94 en minutos), se queda reinstalando y cuelga el render.
+HYPERFRAMES = "hyperframes@0.8.180"
 TTS_CACHE = Path(os.environ["PONCHO_TTS_CACHE"]) if os.environ.get("PONCHO_TTS_CACHE") else HERE / ".cache" / "tts"
 SR = 48000
 
@@ -1049,7 +1052,7 @@ def render(proj, dst):
     tmp = proj / "render.mp4"
     # 24/11: un npx quedó colgado 5 h sin CPU en la 7.4 y frenó las 40 lecciones que seguían.
     # Una lección tarda 1-3 min; con shell=True hay que matar el árbol, no sólo el cmd.exe.
-    p = subprocess.Popen(["npx", "hyperframes", "render", "-q", "standard", "-o", str(tmp), "--quiet"],
+    p = subprocess.Popen(["npx", "-y", HYPERFRAMES, "render", "-q", "standard", "-o", str(tmp), "--quiet"],
                          cwd=proj, shell=(sys.platform == "win32"))
     try:
         rc = p.wait(timeout=RENDER_TIMEOUT)

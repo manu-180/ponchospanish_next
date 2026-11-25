@@ -56,3 +56,6 @@ nuevo es un archivo en `scripts/cursos/courses/` que apunta a un libro de
 - Cada `hyperframes render` tiene 20 min de tope (`RENDER_TIMEOUT`): el 24/11 un `npx` se colgó 5 h sin CPU en
   la 7.4 y, como la tarea programada no arranca otra instancia mientras la anterior sigue viva, el render quedó
   parado toda la noche sin alerta. Lección colgada = fallida, y entra al reintento de `entregar.py`.
+- `hyperframes` va con versión fija (`HYPERFRAMES` en `build_course.py`). Sin versión, npx consulta el registro en cada
+  lección, y el 25/11 (dos versiones publicadas en minutos) se quedó reinstalando y colgó todas las lecciones. Subirla
+  sólo después de renderizar una lección a mano con la nueva y mirarla.
