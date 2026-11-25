@@ -29,6 +29,10 @@ cuando cambie algo de lo que dice (la rutina también): corto, en hechos, sin hi
   de Argentina cuando el curso ya explicó la diferencia; la voz española lee sólo frases en
   español (las consignas en inglés las lee la narradora); y donde dice "Now say it in
   Spanish" va una pausa y después "You've got three seconds".
+- El 2026-11-25 le llegó la versión nueva de Spanish for Travel con esas correcciones
+  (link de Drive + e-book). Le quedó todo bien salvo la 1.2: en la tarjeta del tip las
+  banderitas salían gigantes y tapaban «¡Buen provecho!» y «¡Que aproveche!». Arreglado
+  el mismo día; se ve en el render siguiente.
 - La portada de un curso en video es la de la laptop, como las de Confident Kids y
   Confident Teens que armó Anto: fondo oscuro, la foto del curso en la pantalla de una
   laptop, el título en dos líneas (SPANISH / for TRAVEL) y abajo la bajada escrita a

@@ -58,6 +58,11 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
 .open-title .w { display: inline-block; }
 .open-en { font: 400 46px/1.25 "Permanent Marker"; color: var(--mustard); margin-top: 28px; }
 
+/* Tamaño por defecto de las banderas. Un <svg> sin width/height se estira a todo el ancho
+   del contenedor: en la tarjeta de tip de 1.2 tapaba «¡Buen provecho!» (Anto, 2026-11-25).
+   Las reglas con contexto (.var, .g-var, .gt, .q-var, .vcard, .c-body) pisan esta por especificidad. */
+.flag { width: 36px; height: 24px; vertical-align: -2px; border-radius: 3px; flex: none; }
+
 /* palabras */
 .word-stage { position: absolute; left: 150px; top: 140px; width: 1500px; height: 690px; z-index: 2; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
 .es { font-family: "Bebas Neue"; color: var(--black); line-height: .95; }
@@ -127,6 +132,8 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
 .c-body { font: 500 44px/1.45 Montserrat; color: var(--cream); max-width: 1560px; }
 .c-body b { color: var(--orange); font-weight: 700; position: relative; border-radius: 10px; padding: 0 4px; margin: 0 -4px; }
 .c-body i { font-style: italic; color: #fff; }
+.c-body .flag { width: 50px; height: 34px; vertical-align: -8px; border-radius: 5px; margin: 0 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.18); }
 
 /* tu turno */
 .qi { position: absolute; inset: 0 0 260px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
