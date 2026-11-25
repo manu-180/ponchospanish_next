@@ -1,1 +1,9 @@
-{"estado":"trabajando"}
+{
+  "estado": "hecho",
+  "mensaje": "¡Gracias por el ojo, Anto! Tenías razón: en la 1.2 las banderitas salían gigantes y tapaban las frases. Ya quedó arreglado, así que se leen «¡Buen provecho!» con la bandera argentina y «¡Que aproveche!» con la española. Te paso la versión nueva del curso apenas termine de armarla ✨",
+  "pregunta": null,
+  "resumen": "Spanish for Travel 1.2 (Frases de cortesía): la tarjeta de tip no mostraba «¡Buen provecho!» {AR} ni «¡Que aproveche!» {ES}. Mirando el video que mandó Anto (frames con ffmpeg) se vio la causa: el SVG de bandera no tenía regla de tamaño dentro de .c-body, Chrome lo estiraba a todo el ancho de la tarjeta y empujaba el texto fuera de pantalla. Se agregó un .flag base en scripts/cursos/template/lesson.css (igual al que ya tenía el CSS de los e-books) y uno propio para .c-body; verificado renderizando la tarjeta en Chromium. Arregla también el tip «Te quiero y te amo» del capítulo 13. Nota nueva en KAIRO.md. pnpm type-check y pnpm test:seo en verde; pnpm build cae al prerenderizar /ondemand porque la sesión cloud no llega a Supabase (ENOTFOUND), no por este cambio, que no toca la app web.",
+  "commits": ["eca9b83912de96e2a42e827207018db6a57825e7"],
+  "adjuntos": [],
+  "render": "spanish_for_travel"
+}
