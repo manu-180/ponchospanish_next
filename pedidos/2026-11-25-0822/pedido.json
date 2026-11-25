@@ -1,0 +1,87 @@
+{
+  "id": "2026-11-25-0822",
+  "etiqueta": "poncho",
+  "repo": "manu-180/ponchospanish_next",
+  "anterior": "2026-11-25-entrega-spanish-for-travel",
+  "desde": "2026-11-25 04:20",
+  "hasta": "2026-11-25 08:22",
+  "mensajes": [
+    {
+      "hora": "2026-11-25 04:22",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡Anto! Ya está la versión nueva de Spanish for Travel con todas tus correcciones 🎬\n\nAcá la podés bajar entera, con los 87 videos y el temario: https://drive.google.com/file/d/1KiMpAe8AEqIboR3BWVqKx1PhWFRb3PVb/view?usp=sharing\n\nY abajo te dejo el e-book actualizado con los mismos cambios 📘",
+      "media": null
+    },
+    {
+      "hora": "2026-11-25 04:22",
+      "autor": "bot",
+      "tipo": "document",
+      "texto": "Spanish-for-Travel-Poncho.pdf",
+      "media": "media/Spanish-for-Travel-Poncho.pdf"
+    },
+    {
+      "hora": "2026-11-25 06:35",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Graaaaaaciasssss!!!\nEn cuanto pueda lo miro bien!!\nBuen día 🤩",
+      "media": null
+    },
+    {
+      "hora": "2026-11-25 06:36",
+      "autor": "bot",
+      "tipo": "text",
+      "texto": "¡De nada, Anto! Mirala con calma, que ahí está todo. Buen día 😄",
+      "media": null
+    },
+    {
+      "hora": "2026-11-25 08:21",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Gracias chicos!!!!!!\nEstá todo perfecto salvo:\n1.2- La frase: Buen Provecho. NO SE VE (Bandera Argentina) Podrías agregarla?\nAdemás de: Que aproveche (Bandera Española)",
+      "media": null
+    },
+    {
+      "hora": "2026-11-25 08:21",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Adjunto el video",
+      "media": null
+    },
+    {
+      "hora": "2026-11-25 08:22",
+      "autor": "Antonela Risaro",
+      "tipo": "video",
+      "texto": "",
+      "media": "media/007-video.mp4"
+    },
+    {
+      "hora": "2026-11-25 08:22",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "El resto quedó genial!!!!!!",
+      "media": null
+    },
+    {
+      "hora": "2026-11-25 08:22",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Mil Graciasssssss!!!!!!!",
+      "media": null
+    },
+    {
+      "hora": "2026-11-25 08:22",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Toy felíz… Capos 🙌🏻",
+      "media": null
+    },
+    {
+      "hora": "2026-11-25 08:22",
+      "autor": "Antonela Risaro",
+      "tipo": "text",
+      "texto": "Listo",
+      "media": null
+    }
+  ]
+}
