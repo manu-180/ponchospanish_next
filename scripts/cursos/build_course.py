@@ -1269,6 +1269,10 @@ h2 {{ font-family: Bebas; font-weight: 400; font-size: 19pt; margin: 8mm 0 2mm; 
     html_path.write_text(doc, encoding="utf-8")
     subprocess.run([ebook_build.CHROME, *ebook_build.CHROME_FLAGS, f"--print-to-pdf={pdf}", html_path.as_uri()],
                    check=True, capture_output=True)
+    # 24/11: Chrome salió con 0 sin escribir el PDF. Sólo avisa: cortar acá frenaría el render, y
+    # entregar.py lo vuelve a pedir si falta.
+    if not Path(pdf).exists():
+        print(f"AVISO: Chrome no escribió el temario en {pdf}", file=sys.stderr, flush=True)
 
 
 def main():

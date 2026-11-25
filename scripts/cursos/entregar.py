@@ -110,6 +110,8 @@ def renderizar(curso, dst):
     fall = re.findall(r"'([^']+)'", m[-1]) if m else []
     if fall:
         sh(*base, "--only", *fall, "--skip-build", "--render", vids.as_posix(), env=env)
+    if not outline.exists():
+        sh(sys.executable, str(HERE / "build_course.py"), curso, "--skip-build", "--outline", outline.as_posix(), env=env)
     hechos = len(list(vids.rglob("*.mp4")))
     if hechos < total:
         raise RuntimeError(f"render incompleto: {hechos} de {total} lecciones")
