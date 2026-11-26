@@ -253,7 +253,8 @@ def entregar(curso, ids, carpeta=None):
                f"Acá la podés bajar entera, con los {n} videos y el temario: {link}")
     if adjuntos:
         mensaje += "\n\nY abajo te dejo el e-book actualizado con los mismos cambios 📘"
-    eid = f"{hoy}-entrega-{curso.replace('_', '-')}"
+    # Con hora: el 25/11 hubo dos entregas del mismo curso en el día y la segunda chocaba con la carpeta de la primera.
+    eid = f"{dt.datetime.now():%Y-%m-%d-%H%M}-entrega-{curso.replace('_', '-')}"
     publicar(eid, ids, mensaje, f"Render de {curso} ({n} lecciones) por scripts/cursos/entregar.py, "
              f"de las tandas {', '.join(ids)}. Drive: {link}", adjuntos)
     tablero("cerrar", "--clave", clave, "--detalle", f"Entregado a Anto: {link}")
