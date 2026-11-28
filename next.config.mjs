@@ -69,6 +69,8 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: "/privacy", destination: "/legal/privacy", permanent: true },
+      { source: "/privacidad", destination: "/legal/privacy", permanent: true },
       // Legacy /courses → /ondemand (permanent, preserves SEO)
       {
         source: "/courses",

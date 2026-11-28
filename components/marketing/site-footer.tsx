@@ -71,6 +71,14 @@ export function SiteFooter() {
                 Terms &amp; conditions
               </Link>
             </li>
+            <li>
+              <Link
+                href="/legal/privacy"
+                className="hover:text-mustard-200 transition-colors"
+              >
+                Privacy policy
+              </Link>
+            </li>
           </ul>
         </div>
 
