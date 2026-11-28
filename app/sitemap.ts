@@ -28,6 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/guides",
     "/contact",
     "/legal/terms",
+    "/legal/privacy",
   ];
   return [
     ...paths.map((path) => ({ url: absolute(path) })),
